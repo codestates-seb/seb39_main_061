@@ -1,12 +1,12 @@
-# Team 61📋
-### Project : 예약/대기 서비스(feat.QR 태그)
+# Team 61
+## 💡Project : 예약/대기 서비스(feat.QR 태그)
 #### 우리 매장의 예약/대기를 QR 코드로 관리하고 기간별 예약 현황를 한눈에!
 #### 덤으로 재고 관리까지👌🏻
 > Project Period: 2022.09.07 ~ 2022.10.12
 
 <br/>
 
-## Members👥
+## 👥Members
 | 진현덕(FE/팀장) | 박세환(FE/팀원) | 유인태(FE/팀원) | 임주영(FE/팀원) | 이유림(BE/팀원) | 박윤택(BE/팀원) |
 | -- | -- | -- | -- | -- | -- |
 |<img width="100" height="100" src="https://avatars.githubusercontent.com/u/102455275?v=4"/>|<img width="100" height="100" src="https://avatars.githubusercontent.com/u/104332812?v=4"/>|<img width="100" height="100" src="https://avatars.githubusercontent.com/u/82711000?v=4"/>|<img width="100" height="100" src="https://avatars.githubusercontent.com/u/100186616?v=4"/>|<img width="100" height="100" src="https://avatars.githubusercontent.com/u/104312654?v=4"/>|<img width="100" height="100" src="https://avatars.githubusercontent.com/u/26485439?v=4"/>
@@ -14,7 +14,7 @@
 
 <br/>
 
-## Git Commit Convention Rules❕
+## ✍🏻Git Commit Convention Rules
 ```
 type(옵션): [#issueNumber - ]Subject  // -> 제목
 (한 줄을 띄워 분리합니다.)
