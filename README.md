@@ -6,9 +6,9 @@
 <br/>
 
 ## Team 61 members👥
-| 진현덕 | 박세환 | 유인태 | 임주영 | 이유림 | 박윤택 |
+| 진현덕(FE) | 박세환(FE) | 유인태(FE) | 임주영(FE) | 이유림(BE) | 박윤택(BE) |
 | -- | -- | -- | -- | -- | -- |
-|팀장|팀원|팀원|팀원|팀원|팀원|
+| 팀장 | 팀원 | 팀원 | 팀원 | 팀원 | 팀원 |
 |<img width="100" height="100" src="https://avatars.githubusercontent.com/u/102455275?v=4"/>|<img width="100" height="100" src="https://avatars.githubusercontent.com/u/104332812?v=4"/>|<img width="100" height="100" src="https://avatars.githubusercontent.com/u/82711000?v=4"/>|<img width="100" height="100" src="https://avatars.githubusercontent.com/u/100186616?v=4"/>|<img width="100" height="100" src="https://avatars.githubusercontent.com/u/104312654?v=4"/>|<img width="100" height="100" src="https://avatars.githubusercontent.com/u/26485439?v=4"/>
 
 
