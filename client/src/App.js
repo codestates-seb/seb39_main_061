@@ -18,13 +18,13 @@ function App() {
           <Route path="/" element={<MainPage />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
           <Route path="/login" element={<Login />}></Route>
-          <Route path="/findpassword" element={<FindPassword />}></Route>
+          <Route path="/find-password" element={<FindPassword />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
-          <Route path="/createCode" element={<CreateCode />}></Route>
+          <Route path="/create-code" element={<CreateCode />}></Route>
           <Route path="/management" element={<Management />}></Route>
           <Route
-            path="/managementDetail"
+            path="/management-Detail"
             element={<ManagementDetail />}
           ></Route>
           <Route path="/userPage" element={<UserPage />}></Route>

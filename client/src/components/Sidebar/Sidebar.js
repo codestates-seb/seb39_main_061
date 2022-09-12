@@ -6,7 +6,7 @@ const Sidebar = () => {
       <Link to="/profile">
         <button>Profile</button>
       </Link>
-      <Link to="/createCode">
+      <Link to="/create-Code">
         <button>CreateCode</button>
       </Link>
       <Link to="/management">
