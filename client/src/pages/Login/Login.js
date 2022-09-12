@@ -13,7 +13,7 @@ const Login = () => {
         <Link to="/signup">
           <button>SignUp</button>
         </Link>
-        <Link to="/findpassword">
+        <Link to="/find-password">
           <button>Find Password</button>
         </Link>
       </form>

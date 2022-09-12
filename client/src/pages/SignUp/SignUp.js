@@ -8,7 +8,7 @@ const SignUp = () => {
         <input placeholder="Email" />
         <input placeholder="Password" />
         <Link to="/login">
-          <button>회원가입</button>
+          <button>SignUp</button>
         </Link>
       </form>
     </div>
