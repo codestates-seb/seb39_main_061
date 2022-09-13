@@ -28,12 +28,14 @@ const ProfileImgUpload = () => {
 
   }
 
+  /*
   const deleteImage = () => {
     setImage({
       image_file: "",
       preview_URL: "img/default_image.png",
     });
   }
+  */
 
   const sendImageToServer = async () => {
     if (image.image_file) {
@@ -70,9 +72,10 @@ const ProfileImgUpload = () => {
         <button type="primary" variant="contained" onClick={() => inputRef.click()}>
           Preview
         </button>
+        {/*}
         <button color="error" variant="contained" onClick={deleteImage}>
           Delete
-        </button>
+  </button>*/}
         <button color="success" variant="contained" onClick={sendImageToServer}>
           Upload
         </button>
