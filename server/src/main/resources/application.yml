@@ -26,7 +26,7 @@ spring:
             clientId: 359027063032-4fbsa76omb88nk8lka6j1qi4gleg2nds.apps.googleusercontent.com
             clientSecret: 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
             redirectUri: "{baseUrl}/login/oauth2/callback/{registrationId}"
-            scope: # ? ????? scope ? ???? ?? ???? api ??? ?? ??
+            scope:
               - email
               - profile
           kakao:
