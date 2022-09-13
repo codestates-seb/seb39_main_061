@@ -1,4 +1,4 @@
-package com.project.QR.security.dto;
+package com.project.QR.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
