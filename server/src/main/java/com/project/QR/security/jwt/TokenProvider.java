@@ -1,6 +1,7 @@
 package com.project.QR.security.jwt;
 
 import com.project.QR.security.MemberDetails;
+import com.project.QR.dto.TokenDto;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -38,6 +39,50 @@ public class TokenProvider {
   @PostConstruct
   protected void init() {
     this.SECRET_KEY = Base64.getEncoder().encodeToString(SECRET_KEY.getBytes());
+  }
+
+  public TokenDto.TokenInfoDto createToken(Authentication authentication, HttpServletResponse response) {
+    Date now = new Date();
+    Date validity = new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_LENGTH);
+
+    MemberDetails member = (MemberDetails) authentication.getPrincipal();
+
+    String email = member.getUsername();
+    String role = authentication.getAuthorities().stream()
+      .map(GrantedAuthority::getAuthority)
+      .collect(Collectors.joining(","));
+
+    String accessToken = Jwts.builder()
+      .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+      .setSubject(email)
+      .claim(AUTHORITIES_KEY, role)
+      .setIssuedAt(now)
+      .setExpiration(validity)
+      .compact();
+
+    String refreshToken = Jwts.builder()
+      .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+      .setIssuedAt(now)
+      .setExpiration(validity)
+      .compact();
+
+    saveRefreshToken(authentication, refreshToken);
+
+    ResponseCookie cookie = ResponseCookie.from(COOKIE_REFRESH_TOKEN_KEY, refreshToken)
+      .httpOnly(true)
+      .secure(true)
+      .sameSite("Lax")
+      .maxAge(REFRESH_TOKEN_EXPIRE_LENGTH/1000)
+      .path("/")
+      .build();
+
+    response.addHeader("Set-Cookie", cookie.toString());
+
+    return TokenDto.TokenInfoDto.builder()
+      .accessToken(accessToken)
+      .accessTokenExpiredAt(ACCESS_TOKEN_EXPIRE_LENGTH)
+      .grantType("Bearer")
+      .build();
   }
 
   public String createAccessToken(Authentication authentication) {
