@@ -1,10 +1,15 @@
 import Sidebar from "../../components/Sidebar/Sidebar";
+import ProfileImgUpload from "../../components/profileImgUpload/ProfileImgUpload";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 
 const ProfileEdit = () => {
-  const [profileImg, setProfileImg] = useState("");
+  // const [profileImg, setProfileImg] = useState("");
+  const [imgFile, setImgFile] = useState({
+    image_file: "",
+    preview_URL: "img/default_image.png"
+  })
   const [companyName, setCompanyName] = useState("");
   const [sectorName, setSectorName] = useState("");
   const [phoneNum, setPhoneNum] = useState();
@@ -58,30 +63,31 @@ const ProfileEdit = () => {
       <Sidebar />
       <h1>프로필 수정</h1>
       <form onSubmit={(e) => e.preventDefault()}>
-        <img src="https://avatars.githubusercontent.com/u/82711000?v=4.jpg" />
+        {/* <img src="https://avatars.githubusercontent.com/u/82711000?v=4.jpg" /> */}
+        <ProfileImgUpload />
         <div>
           <label>상호명</label>
-          <input type="text" onChange={(e)=>setCompanyName(e.target.value)} />
+          <input type="text" onChange={(e) => setCompanyName(e.target.value)} />
         </div>
         <div>
           <label>업종</label>
-          <input type="text" onChange={(e)=>setSectorName(e.target.value)} />
+          <input type="text" onChange={(e) => setSectorName(e.target.value)} />
         </div>
         <div>
           <label>전화번호</label>
-          <input type="text" onChange={(e)=>setPhoneNum(e.target.value)} />
+          <input type="text" onChange={(e) => setPhoneNum(e.target.value)} />
         </div>
         <div>
           <label>관리자 명</label>
-          <input type="text" onChange={(e)=>setUserName(e.target.value)} />
+          <input type="text" onChange={(e) => setUserName(e.target.value)} />
         </div>
         <div>
           <label>Email</label>
-          <input type="text" onChange={(e)=>setEmail(e.target.value)} />
+          <input type="text" onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div>
           <label>비밀번호</label>
-          <input type={"password"} onChange={(e)=>setPassword(e.target.value)} />
+          <input type={"password"} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <div>
           <div>이용중인 서비스 목록</div>

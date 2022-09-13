@@ -20,9 +20,9 @@ const Profile = () => {
   // const [userName, setUserName] = useState("");
   // const [email, setEmail] = useState("");
 
-  
-    useEffect(() => {
-      axios.get("/api/v1/members/profile",
+
+  useEffect(() => {
+    axios.get("/api/v1/members/profile",
       {
         headers: { Authorization: "Bearer " + JSON.parse(window.localStorage.getItem("access_token")).access_token }
       }
@@ -30,8 +30,8 @@ const Profile = () => {
       .then(userData => {
         setUserInfo(userData.data);
       })
-    }, [])
-  
+  }, [])
+
 
   return (
     <div>
