@@ -1,6 +1,6 @@
 package com.project.QR.member.entity;
 
 public enum Authority {
-  ROLE_KEEP, ROLE_RESERVE
+  ROLE_GUEST, ROLE_KEEP, ROLE_RESERVE
 }
 

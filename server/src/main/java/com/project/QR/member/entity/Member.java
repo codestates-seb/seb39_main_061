@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Getter
 @Entity
@@ -20,7 +21,7 @@ public class Member {
   @Column(unique = true)
   private String email;
 
-  private String nickName;
+  private String name;
 
   @JsonIgnore
   private String password;
@@ -29,25 +30,29 @@ public class Member {
   private Authority authority;
 
   @Column(nullable = false)
+  private String phone;
+
+  @Column(nullable = false)
   private AuthProvider provider;
 
   @Column(nullable = false)
   private Boolean emailVerified = false;
 
+  @Enumerated(EnumType.STRING)
+  private Sector sector;
+
   private String profileImg;
 
-  private String providerId;
-
   @Builder
-  public Member(String email, String nickName, String password, Authority authority,
-                AuthProvider provider, String profileImg, String providerId) {
+  public Member(String email, String name, String password, String phone, Authority authority,
+                AuthProvider provider, String profileImg) {
     this.email = email;
-    this.nickName = nickName;
+    this.name = name;
+    this.phone = phone;
     this.password = password;
     this.authority = authority;
     this.provider = provider;
     this.profileImg = profileImg;
-    this.providerId = providerId;
   }
 }
 
