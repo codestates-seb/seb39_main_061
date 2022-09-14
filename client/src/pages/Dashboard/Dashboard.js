@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ChartBar from "../../components/ChartBar/ChartBar";
-import DashboardCalendar from "../../components/calendar/Calendar";
+import DashboardCalendar from "../../components/Calendar/Calendar";
 
 const Dashboard = () => {
 
