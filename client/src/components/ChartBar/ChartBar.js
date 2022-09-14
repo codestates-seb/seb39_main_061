@@ -1,13 +1,20 @@
 import * as React from 'react';
 import { ResponsiveBar } from '@nivo/bar';
 
+const dummyData = [
+    { 기간: '9월 1일', 아침: 20, 점심: 21, 저녁: 34 },
+    { 기간: '9월 2일', 아침: 30, 점심: 36, 저녁: 40 },
+    { 기간: '9월 3일', 아침: 15, 점심: 37, 저녁: 34 },
+    { 기간: '9월 4일', 아침: 13, 점심: 23, 저녁: 22 },
+];
+
 const Barchart = () => {
     const handle = {
-        barClick: (data: any) => {
+        barClick: (data) => {
             console.log(data);
         },
 
-        legendClick: (data: any) => {
+        legendClick: (data) => {
             console.log(data);
         },
     };
@@ -19,12 +26,7 @@ const Barchart = () => {
                 /**
                  * chart에 사용될 데이터
                  */
-                data={[
-                    { 기간: '9월 1일', 아침: 20, 점심: 21, 저녁: 34 },
-                    { 기간: '9월 2일', 아침: 30, 점심: 36, 저녁: 40 },
-                    { 기간: '9월 3일', 아침: 15, 점심: 37, 저녁: 34 },
-                    { 기간: '9월 4일', 아침: 13, 점심: 23, 저녁: 22 },
-                ]}
+                data={dummyData}
                 /**
                  * chart에 보여질 데이터 key (측정되는 값)
                  */
