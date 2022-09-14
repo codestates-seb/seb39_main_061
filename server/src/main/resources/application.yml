@@ -4,6 +4,7 @@ server:
 spring:
   profiles:
     include: app, security, mail
+
   redis:
     host: localhost
     port: 6379
