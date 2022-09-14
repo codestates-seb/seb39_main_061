@@ -9,7 +9,7 @@ const Profile = () => {
     profileImg: "",
     companyName: "",
     sectorName: "",
-    phoneNum: 0,
+    phoneNum: "",
     userName: "",
     email: "",
     password: null,
@@ -23,23 +23,23 @@ const Profile = () => {
   // const [userName, setUserName] = useState("");
   // const [email, setEmail] = useState("");
 
-  const showModal =() => {
+  const showModal = () => {
     console.log(isModal)
     setIsModal(true);
   }
 
-/*
-  useEffect(() => {
-    axios.get("/api/v1/members/profile",
-      {
-        headers: { Authorization: "Bearer " + JSON.parse(window.localStorage.getItem("access_token")).access_token }
-      }
-    )
-      .then(userData => {
-        setUserInfo(userData.data);
-      })
-  }, [])
-  */
+  /*
+    useEffect(() => {
+      axios.get("/api/v1/members/profile",
+        {
+          headers: { Authorization: "Bearer " + JSON.parse(window.localStorage.getItem("access_token")).access_token }
+        }
+      )
+        .then(userData => {
+          setUserInfo(userData.data);
+        })
+    }, [])
+    */
 
 
   return (
@@ -49,11 +49,11 @@ const Profile = () => {
       <h1>프로필</h1>
       <div>
         <img src="https://avatars.githubusercontent.com/u/82711000?v=4.jpg" />
-          <button onClick={showModal}>Edit</button>
+        <button onClick={showModal}>Edit</button>
         <div>
           <div>상호명: 돈까스집{userInfo.companyName}</div>
-          <div>업종: 비어있음{userInfo.sectorName}</div>
-          <div>전화번호: 비어있음{userInfo.phoneNum}</div>
+          <div>업종: {userInfo.sectorName}</div>
+          <div>전화번호: {userInfo.phoneNum}</div>
           <div>관리자 명: 유인태{userInfo.userName}</div>
           <div>Email: asdf@naver.com{userInfo.email}</div>
         </div>
