@@ -166,14 +166,14 @@ public class SecurityConfig {
         .and()
       .authorizeRequests()
       .antMatchers("/",
-        "/h2-console/**",
+        "/h2/**",
         "/error",
         "/favicon.ico")
       .permitAll()
       .antMatchers("/auth/**", "/oauth2/**")
       .permitAll()
       .antMatchers("/api/v1/**")
-      .access("hasRole('ROLE_KEEP') or hasRole('ROLE_RESERVE')")
+      .access("hasRole('ROLE_KEEP') or hasRole('ROLE_RESERVATION')")
       .anyRequest()
       .authenticated()
         .and()
