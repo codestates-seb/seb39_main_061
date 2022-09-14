@@ -46,7 +46,6 @@ public class TokenProvider {
     String email = member.getEmail();
     String role = member.getRole();
 
-    System.out.println(role);
     String accessToken = Jwts.builder()
       .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
       .setSubject(email)
@@ -108,6 +107,7 @@ public class TokenProvider {
   private void saveRefreshToken(String email, String refreshToken) {
     redisTemplate.opsForValue()
       .set(email, refreshToken, REFRESH_TOKEN_EXPIRE_LENGTH, TimeUnit.MILLISECONDS);
+    redisTemplate.expire(email, REFRESH_TOKEN_EXPIRE_LENGTH, TimeUnit.MILLISECONDS);
   }
 
   public Authentication getAuthentication(String accessToken) {

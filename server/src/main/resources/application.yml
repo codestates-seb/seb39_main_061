@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    include: app, security, mail
+    include: app, security, mail, file
 
   redis:
     host: redis
