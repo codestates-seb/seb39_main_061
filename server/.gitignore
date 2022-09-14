@@ -41,3 +41,4 @@ out/
 application-app.yml
 application-security.yml
 application-mail.yml
+application-file.yml

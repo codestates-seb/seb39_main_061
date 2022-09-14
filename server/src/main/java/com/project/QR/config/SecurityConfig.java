@@ -165,17 +165,12 @@ public class SecurityConfig {
       .authenticationEntryPoint(new RestAuthenticationEntryPoint())
         .and()
       .authorizeRequests()
-      .antMatchers("/",
-        "/h2/**",
-        "/error",
-        "/favicon.ico")
-      .permitAll()
       .antMatchers("/auth/**", "/oauth2/**")
       .permitAll()
       .antMatchers("/api/v1/**")
       .access("hasRole('ROLE_KEEP') or hasRole('ROLE_RESERVATION')")
       .anyRequest()
-      .authenticated()
+      .permitAll()
         .and()
       .authenticationManager(authenticationManager)
       .oauth2Login()

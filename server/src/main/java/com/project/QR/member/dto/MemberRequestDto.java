@@ -5,9 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
+import javax.validation.constraints.*;
 import java.util.List;
 
 public class MemberRequestDto {
@@ -63,7 +61,8 @@ public class MemberRequestDto {
     private String email;
     @NotBlank
     private String service;
-    @NotNull
+    @Min(1)
+    @Max(15)
     private long sectorId;
     @NotBlank
     private String businessName;
@@ -80,8 +79,11 @@ public class MemberRequestDto {
   public static class UpdateMemberDto {
     private String email;
     private String password;
+    @NotEmpty
     private List<String> service;
     private String profileImg;
+    @Min(1)
+    @Max(15)
     private long sectorId;
     private String businessName;
     private String phone;
