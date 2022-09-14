@@ -24,9 +24,10 @@ const EmailValidation = () => {
         if (err.response) {
           const errMsg = err.response.data;
           console.log(errMsg);
-          setTimeout(() => {
-            navigate("/signup");
-          }, 5000);
+
+          //   setTimeout(() => {
+          //     navigate("/signup");
+          //   }, 5000);
         }
       });
   }, []);
@@ -40,6 +41,7 @@ const EmailValidation = () => {
       )}
       {validation && <p>잠시후 로그인 페이지로 이동합니다</p>}
       {!validation && <p>잠시후 회원가입 페이지로 이동합니다</p>}
+      {!validation && <button>이메일 다시 보내기</button>}
     </section>
   );
 };
