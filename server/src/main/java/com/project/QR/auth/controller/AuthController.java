@@ -80,7 +80,7 @@ public class AuthController {
   public ResponseEntity validation(@NotBlank @PathParam("email") String email,
                                    @NotBlank @PathParam("code") String code) {
     authService.validation(email, code);
-    return new ResponseEntity(HttpStatus.OK);
+    return new ResponseEntity(new SingleResponseDto<>("SUCCESS"), HttpStatus.OK);
   }
 
   /**
@@ -91,6 +91,15 @@ public class AuthController {
                                      @Valid @RequestBody MemberRequestDto.OAuthUpdateDto oAuthUpdateDto) {
     oAuthUpdateDto.setEmail(memberDetails.getUsername());
     Member member = authService.updateMember(mapper.oAuthUpdateDtoToMember(oAuthUpdateDto));
+    return new ResponseEntity(new SingleResponseDto<>("SUCCESS"), HttpStatus.OK);
+  }
+
+  /**
+   * password 재발급 api
+   */
+  @PostMapping("/password")
+  public ResponseEntity reIssuePassword(@Valid @RequestBody MemberRequestDto.EmailDto emailDto) {
+    authService.reIssuePassword(emailDto.getEmail());
     return new ResponseEntity(new SingleResponseDto<>("SUCCESS"), HttpStatus.OK);
   }
 }

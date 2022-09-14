@@ -3,6 +3,7 @@ package com.project.QR.auth.service;
 import com.project.QR.dto.TokenDto;
 import com.project.QR.exception.BusinessLogicException;
 import com.project.QR.exception.ExceptionCode;
+import com.project.QR.helper.event.MemberPasswordApplicationEvent;
 import com.project.QR.helper.event.MemberRegistrationApplicationEvent;
 import com.project.QR.member.entity.Member;
 import com.project.QR.member.repository.MemberRepository;
@@ -34,19 +35,21 @@ public class AuthService {
   private final RedisTemplate<String, Object> redisTemplate;
   private final ApplicationEventPublisher publisher;
   private final CustomBeanUtils<Member> beanUtils;
+
+  /**
+   * 회원가입
+   */
   public Member createMember(Member member) {
     verifyExistsEmail(member.getEmail());
     member.setPassword(passwordEncoder.encode(member.getPassword()));
     member.setVerifiedCode(UUID.randomUUID().toString());
     Member savedMember = memberRepository.save(member);
-
-    // TO-DO : 이메일 인증 로직 처리
     publisher.publishEvent(new MemberRegistrationApplicationEvent(this, savedMember));
     return savedMember;
   }
 
   /**
-   * 로그인 api
+   * 로그인
    */
   public TokenDto.TokenInfoDto loginMember(Member member, HttpServletResponse response) {
     Member findMember = findVerifiedMember(member.getEmail());
@@ -106,24 +109,44 @@ public class AuthService {
     }
   }
 
-
+  /**
+   * 회원 탈퇴
+   */
   public void deleteMember(long memberId) {
     memberRepository.deleteById(memberId);
   }
 
+  /**
+   * 이메일 인증
+   */
   public void validation(String email, String code) {
     Member findMember = findVerifiedMember(email);
     if(!findMember.getVerifiedCode().equals(code)) {
       throw new BusinessLogicException(ExceptionCode.VALIDATION_CODE_INCORRECT);
     }
+    findMember.setRole(findMember.getJoinRole());
     findMember.setEmailVerified(true);
     memberRepository.save(findMember);
   }
 
+  /**
+   * oauth2 로그인 이후 추가 정보 기입
+   */
   public Member updateMember(Member member) {
     Member findMember = findVerifiedMember(member.getEmail());
     Member updatingMember = beanUtils.copyNonNullProperties(member, findMember);
     updatingMember.setEmailVerified(true);
     return memberRepository.save(updatingMember);
+  }
+
+  /**
+   * 비밀번호 재발급
+   */
+  public void reIssuePassword(String email) {
+    Member member = findVerifiedMember(email);
+    String password = UUID.randomUUID().toString().substring(0,10);
+    member.setPassword(passwordEncoder.encode(password));
+    memberRepository.save(member);
+    publisher.publishEvent(new MemberPasswordApplicationEvent(this, email, member.getName(), password));
   }
 }
