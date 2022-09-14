@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class MemberRequestDto {
@@ -35,9 +36,21 @@ public class MemberRequestDto {
     private String phone;
     @NotBlank
     private String businessName;
+    @NotNull
+    private long sectorId;
     @NotBlank
-    private String sectorName;
+    private String role;
   }
 
-
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  public static class LoginDto {
+    @NotBlank
+    @Pattern(regexp = "^[a-zA-Z\\d_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z\\d.-]+$")
+    private String email;
+    @NotBlank
+    private String password;
+  }
 }
