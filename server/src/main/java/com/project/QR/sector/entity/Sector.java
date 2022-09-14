@@ -15,12 +15,12 @@ import javax.persistence.Id;
 @Setter
 @NoArgsConstructor
 public class Sector {
-    @Id
-    @GeneratedValue
-    private long sectorId;
+  @Id
+  @GeneratedValue
+  private long sectorId;
 
-    @Column(length = 500)
-    private String name;
+  @Column(length = 500)
+  private String name;
 }
 
 
