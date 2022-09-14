@@ -1,1 +1,0 @@
-create table SECTOR(SECTOR_ID bigint not null, NAME varchar(500), primary key (SECTOR_ID));

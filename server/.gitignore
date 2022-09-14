@@ -40,3 +40,4 @@ out/
 .DB_Store
 application-app.yml
 application-security.yml
+application-mail.yml
