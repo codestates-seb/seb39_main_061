@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.List;
 
 public class MemberRequestDto {
   @Data
@@ -52,5 +53,38 @@ public class MemberRequestDto {
     private String email;
     @NotBlank
     private String password;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  public static class OAuthUpdateDto {
+    private String email;
+    @NotBlank
+    private String service;
+    @NotNull
+    private long sectorId;
+    @NotBlank
+    private String businessName;
+    @NotBlank
+    private String phone;
+    @NotBlank
+    private String name;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  public static class UpdateMemberDto {
+    private String email;
+    private String password;
+    private List<String> service;
+    private String profileImg;
+    private long sectorId;
+    private String businessName;
+    private String phone;
+    private String name;
   }
 }
