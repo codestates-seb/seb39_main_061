@@ -36,7 +36,7 @@ public class MemberRegistrationEventListener {
       String[] to = new String[]{event.getMember().getEmail()};
       String message = "<h1>" + event.getMember().getName() + "님, 회원 가입이 성공적으로 완료되었습니다</h1>.\n" +
         "<div>아래 링크를 통해 이메일 인증을 완료해주세요</div>" +
-        "<div>"+ redirectUrl + "/auth/validation?email=" + event.getMember().getEmail() + "&code=" + event.getMember().getVerifiedCode() +"</div>";
+        "<div>"+ redirectUrl + "/email-validation?email=" + event.getMember().getEmail() + "&code=" + event.getMember().getVerifiedCode() +"</div>";
       emailSender.sendEmail(to, subject, message);
     } catch (MailSendException e) {
       e.printStackTrace();

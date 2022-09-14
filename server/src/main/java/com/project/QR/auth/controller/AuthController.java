@@ -86,9 +86,11 @@ public class AuthController {
   /**
    * OAuth2 추가 정보 입력
    */
-//  @PatchMapping("/members")
-//  public ResponseEntity updateMember(@AuthenticationPrincipal MemberDetails memberDetails,
-//                                     @Valid @RequestBody MemberRequestDto.) {
-//    return new ResponseEntity(HttpStatus.OK);
-//  }
+  @PatchMapping("/members")
+  public ResponseEntity updateMember(@AuthenticationPrincipal MemberDetails memberDetails,
+                                     @Valid @RequestBody MemberRequestDto.OAuthUpdateDto oAuthUpdateDto) {
+    oAuthUpdateDto.setEmail(memberDetails.getUsername());
+    Member member = authService.updateMember(mapper.oAuthUpdateDtoToMember(oAuthUpdateDto));
+    return new ResponseEntity(new SingleResponseDto<>("SUCCESS"), HttpStatus.OK);
+  }
 }

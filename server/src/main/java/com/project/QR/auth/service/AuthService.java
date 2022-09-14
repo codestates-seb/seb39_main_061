@@ -8,6 +8,7 @@ import com.project.QR.member.entity.Member;
 import com.project.QR.member.repository.MemberRepository;
 import com.project.QR.security.MemberDetails;
 import com.project.QR.security.jwt.TokenProvider;
+import com.project.QR.util.CustomBeanUtils;
 import io.jsonwebtoken.Claims;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
@@ -32,7 +33,7 @@ public class AuthService {
   private final TokenProvider tokenProvider;
   private final RedisTemplate<String, Object> redisTemplate;
   private final ApplicationEventPublisher publisher;
-
+  private final CustomBeanUtils<Member> beanUtils;
   public Member createMember(Member member) {
     verifyExistsEmail(member.getEmail());
     member.setPassword(passwordEncoder.encode(member.getPassword()));
@@ -117,5 +118,10 @@ public class AuthService {
     }
     findMember.setEmailVerified(true);
     memberRepository.save(findMember);
+  }
+
+  public Member updateMember(Member member) {
+
+    return null;
   }
 }
