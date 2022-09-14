@@ -18,6 +18,7 @@ const Dashboard = () => {
           <DashboardCalendar />
         </div>
         <div>
+          {/* QR 코드 리스트는 QR코드 리스트 컴포넌트 연결(주영님 작업중) */}
           <div>QR Code List</div>
         </div>
         <div>파이 그래프</div>
