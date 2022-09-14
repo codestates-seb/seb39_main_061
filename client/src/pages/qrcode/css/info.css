@@ -1,0 +1,83 @@
+* {
+    font-size: medium;
+}
+.main{
+    display: flex;
+    flex-direction: column;
+    background-color: #2B4865;
+}
+.container{
+    display: flex;
+}
+
+.item-1{
+    border-radius: 2px;
+    border: solid gray;
+    font-weight: 500;
+    font-size: 20px;
+    text-align: center;
+}
+.setting-1{
+    display: flex;
+    flex-direction: column;
+    background-color: #256D85;
+    border-radius: 20px;
+    width: 60%;
+    margin: 20px 20px;
+}
+#set-items{
+    text-align: end;
+
+}
+
+.title-1   {
+    margin: 10px;
+    border-radius: 40px;
+    border: solid #256D85;
+    width: 200px; 
+    text-align: center;
+    align-items: center;
+    background-color: #8FE3CF;
+    color: #002B5B;
+}
+.title-1 a{
+    font-size: 20px;
+}
+.timeEdit{
+    border-radius: 20px;
+    width: 50px;
+}
+.check{
+    display: grid;
+    grid-template-columns : 100px 100px 100px 300px 100px;
+    grid-template-rows: 50px ;
+    text-align: center;
+    border-radius: 20px;
+    margin: auto;
+    align-items: center;
+    background: #8FE3CF;
+    margin: 10px;
+    width: auto;
+}
+#laguage{
+    border-style: hidden;
+}
+.footer-setting{
+    display: flex;
+    flex-direction: flex-end;
+    margin: 10px;
+    padding: 60px;
+}
+.cate button{
+    border-radius: 20px;
+    margin: 10px;
+    align-items: center;
+
+    
+}
+.MuiTableCell-body{
+    color: #8FE3CF;
+}
+.MuiTableCell-footer{
+    color: #8FE3CF;
+}
