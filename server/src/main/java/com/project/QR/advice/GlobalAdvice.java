@@ -1,7 +1,8 @@
-package com.clone.stackoverflow.advice;
+package com.project.QR.advice;
 
-import com.clone.stackoverflow.exception.BusinessLogicException;
-import com.clone.stackoverflow.response.ErrorResponse;
+
+import com.project.QR.exception.BusinessLogicException;
+import com.project.QR.response.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
