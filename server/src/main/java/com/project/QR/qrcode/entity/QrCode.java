@@ -4,6 +4,7 @@ import com.project.QR.audit.Auditable;
 import com.project.QR.keep.entity.Keep;
 import com.project.QR.member.entity.Member;
 import com.project.QR.reservation.entity.Reservation;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,10 +36,10 @@ public class QrCode extends Auditable{
     @JoinColumn(name = "MEMBER_ID") //FK
     private Member member;
 
-    @OneToOne(mappedBy = "qrCode", cascade = {CascadeType.ALL})
+    @OneToOne(mappedBy = "qrCode", cascade = CascadeType.ALL)
     private Keep keep;
 
-    @OneToOne(mappedBy = "reservation", cascade = {CascadeType.ALL})
+    @OneToOne(mappedBy = "reservation", cascade = CascadeType.ALL)
     private Reservation reservation;
 
     public enum QrType {
@@ -46,10 +47,13 @@ public class QrCode extends Auditable{
         RESERVATION;
     }
 
-    public QrCode(long qrCodeId, String qrCodeImg, String target, QrType qrType) {
-        this.qrCodeId = qrCodeId;
+    @Builder
+    public QrCode(String qrCodeImg, String target, QrType qrType, Member member, Keep keep, Reservation reservation) {
         this.qrCodeImg = qrCodeImg;
         this.target = target;
         this.qrType = qrType;
+        this.member = member;
+        this.keep = keep;
+        this.reservation = reservation;
     }
 }

@@ -1,31 +1,27 @@
 package com.project.QR.sector.entity;
 
-import com.project.QR.audit.Auditable;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-@NoArgsConstructor
+
+@Entity
 @Getter
 @Setter
-@Entity
-public class Sector extends Auditable {
+@NoArgsConstructor
+public class Sector {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long sectorId;
+    @GeneratedValue
+    private long sectorId;
 
-    @Column(length = 200, nullable = false)
+    @Column(length = 500)
     private String name;
-
-    @OneToMany(mappedBy = "sector")
-    private List<Sector> sectors = new ArrayList<>();
-
-    public Sector(Long sectorId, String name) {
-        this.sectorId = sectorId;
-        this.name = name;
-    }
 }
+
+
+

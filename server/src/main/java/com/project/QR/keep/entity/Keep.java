@@ -2,11 +2,12 @@ package com.project.QR.keep.entity;
 
 import com.project.QR.audit.Auditable;
 import com.project.QR.qrcode.entity.QrCode;
+import lombok.Builder;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
-public class Keep extends Auditable {
+public class Keep {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long keepId;
@@ -19,12 +20,14 @@ public class Keep extends Auditable {
     private int count;
 
     @OneToOne
-    @JoinColumn(nullable = false, name = "QR_CODE_ID") //FK one-to-one
+    @JoinColumn(name = "QR_CODE_ID") //FK one-to-one
     private QrCode qrcode;
 
-    public Keep(long keepId, String info, int count) {
-        this.keepId = keepId;
+    @Builder
+    public Keep(String info, int count, QrCode qrcode) {
         this.info = info;
         this.count = count;
+        this.qrcode = qrcode;
     }
 }
+

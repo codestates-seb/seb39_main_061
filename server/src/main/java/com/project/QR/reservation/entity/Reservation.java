@@ -13,7 +13,7 @@ import javax.persistence.*;
     @Getter
     @Setter
     @Entity
-    public class Reservation extends Auditable {
+    public class Reservation {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private long reservationId;
@@ -22,20 +22,20 @@ import javax.persistence.*;
         private String name;
 
         @Column(nullable = false, length = 200)
-        private int phone;
+        private String phone;
 
         @Column(nullable = false)
-        private Boolean complete;
+        private boolean complete;
 
         @Column(nullable = false)
         @ColumnDefault("1")
         private int count;
 
-        @OneToOne(mappedBy = "reservation", cascade = CascadeType.REMOVE)
+        @OneToOne(mappedBy = "reservation")
         @JoinColumn(nullable = false, name = "QR_CODE_ID") //FK one-to-one
         private QrCode qrcode;
 
-        public Reservation(long reservationId, String name, int phone, Boolean complete, int count) {
+        public Reservation(long reservationId, String name, String phone, boolean complete, int count) {
             this.reservationId = reservationId;
             this.name = name;
             this.phone = phone;
