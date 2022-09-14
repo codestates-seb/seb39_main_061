@@ -59,7 +59,8 @@ const ProfileEdit = ({ setIsModal }) => {
         })
       console.log(profileRes)
     }
-    navigate('/dashboard')
+    //post 요청 성공하면 /Profile 페이지 이동
+    navigate('/profile')
   }
 
   return (
