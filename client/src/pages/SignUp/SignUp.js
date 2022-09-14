@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./SignUp.module.css";
 import axios from "axios";
 import baseURL from "../../library/axios";
+import { getDefaultMiddleware } from "@reduxjs/toolkit";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -34,7 +35,7 @@ const SignUp = () => {
     }
     setIsLoading(true);
     axios
-      .post("http://211.104.147.150:8080/auth/signup", {
+      .post("http://localhost:8080/auth/signup", {
         email: email,
         password: password,
         name: name,
@@ -66,8 +67,8 @@ const SignUp = () => {
     e.preventDefault();
     console.log("중복검사");
     axios
-      .post("http://211.104.147.150:8080/auth/validation", {
-        email: emailRef.current.value,
+      .post("http://localhost:8080/auth/validation", {
+        email: "jhd7292@gmail.com",
       })
       .then((res) => {
         console.log("이메일 체크");

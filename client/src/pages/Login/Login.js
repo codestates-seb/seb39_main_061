@@ -17,7 +17,7 @@ const Login = () => {
     e.preventDefault();
     axios
       .post(
-        "http://211.104.147.150:8080/auth/login",
+        "http://localhost:8080/auth/login",
         {
           email: emailRef.current.value,
           password: PWRef.current.value,
@@ -43,6 +43,21 @@ const Login = () => {
   };
   return (
     <section className={styles.login}>
+      <p>
+        <a href="http://localhost:8080/login/oauth2/authorize/naver?redirect_uri=http://localhost:3000/oauth2/redirect">
+          네이버
+        </a>
+      </p>
+      <p>
+        <a href="http://localhost:8080/login/oauth2/authorize/kakao?redirect_uri=http://localhost:3000/oauth2/redirect">
+          카카오
+        </a>
+      </p>
+      <p>
+        <a href="http://localhost:8080/login/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect">
+          구글
+        </a>
+      </p>
       <div>
         <h1>Login</h1>
       </div>

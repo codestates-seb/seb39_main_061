@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { authActions } from "./store/auth.js";
 import { getLoginCookie } from "./library/cookie.js";
+import EmailValidation from "./pages/EmailValidation/EmailValidation.js";
 
 function App() {
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
@@ -49,7 +50,8 @@ function App() {
             ></Route>
           )}
           {isLogin && <Route path="/userPage" element={<UserPage />}></Route>}
-          <Route path="*" element={<MainPage />}></Route>
+          {/* <Route path="*" element={<MainPage />}></Route> */}
+          <Route path="/email-validation" element={<EmailValidation />}></Route>
         </Routes>
       </div>
     </BrowserRouter>
