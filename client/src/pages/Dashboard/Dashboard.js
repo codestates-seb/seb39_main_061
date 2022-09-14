@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ChartBar from "../../components/ChartBar/ChartBar";
+import DashboardCalendar from "../../components/calendar/Calendar";
 
 const Dashboard = () => {
 
@@ -13,7 +14,9 @@ const Dashboard = () => {
           <ChartBar />
           <button>Download</button>
         </div>
-        <div>Calendar</div>
+        <div>
+          <DashboardCalendar />
+        </div>
         <div>
           <div>QR Code List</div>
         </div>
