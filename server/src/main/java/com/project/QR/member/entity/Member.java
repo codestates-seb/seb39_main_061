@@ -20,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Member {
   @Id
-  @GeneratedValue
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long memberId;
 
   @Column(unique = true)
@@ -49,6 +49,8 @@ public class Member {
 
   private String verifiedCode;
 
+  private String joinRole;
+
   @ManyToOne
   @JoinColumn(name = "SECTOR_ID")
   private Sector sector;
@@ -61,7 +63,7 @@ public class Member {
   }
   @Builder
   public Member(String email, String name, String password, String role, String businessName,
-                AuthProvider provider, String profileImg, Sector sector, String phone) {
+                AuthProvider provider, String profileImg, Sector sector, String phone, String joinRole) {
     this.email = email;
     this.name = name;
     this.password = password;
@@ -71,6 +73,7 @@ public class Member {
     this.sector = sector;
     this.phone = phone;
     this.businessName = businessName;
+    this.joinRole = joinRole;
   }
 }
 

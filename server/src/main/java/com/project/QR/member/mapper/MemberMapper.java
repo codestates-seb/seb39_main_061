@@ -1,10 +1,13 @@
 package com.project.QR.member.mapper;
 
 import com.project.QR.member.dto.MemberRequestDto;
+import com.project.QR.member.dto.MemberResponseDto;
 import com.project.QR.member.entity.AuthProvider;
 import com.project.QR.member.entity.Member;
 import com.project.QR.sector.entity.Sector;
 import org.mapstruct.Mapper;
+
+import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
 public interface MemberMapper {
@@ -18,7 +21,9 @@ public interface MemberMapper {
       .email(createMemberDto.getEmail())
       .password(createMemberDto.getPassword())
       .provider(AuthProvider.local)
-      .role("ROLE_"+createMemberDto.getRole().toUpperCase())
+      .role("ROLE_GUEST")
+      .joinRole("ROLE_"+createMemberDto.getRole().toUpperCase())
+      .businessName(createMemberDto.getBusinessName())
       .sector(sector)
       .build();
   }
@@ -35,9 +40,10 @@ public interface MemberMapper {
       .sector(sector)
       .password(updateMemberDto.getPassword())
       .phone(updateMemberDto.getPhone())
-      .role(updateMemberDto.getService().stream().reduce((sec1, sec2) -> {
-        return "ROLE_"+sec1.toUpperCase() + "," + "ROLE_"+sec2.toUpperCase();
-      }).toString())
+      .role(updateMemberDto.getService().stream()
+        .map(role -> "ROLE_"+role)
+        .collect(Collectors.joining(","))
+      )
       .build();
   }
 
@@ -51,6 +57,21 @@ public interface MemberMapper {
       .sector(sector)
       .phone(oAuthUpdateDto.getPhone())
       .role("ROLE_"+oAuthUpdateDto.getService().toUpperCase())
+      .build();
+  }
+
+  default MemberResponseDto.MemberInfoDto memberToMemberInfoDto(Member member) {
+    return MemberResponseDto.MemberInfoDto.builder()
+      .businessName(member.getBusinessName())
+      .email(member.getEmail())
+      .profileImg(member.getProfileImg())
+      .name(member.getName())
+      .phone(member.getPhone())
+      .service(member.getRoleList().stream()
+        .map(role -> role.substring(5))
+        .collect(Collectors.toList())
+      )
+      .sector(member.getSector())
       .build();
   }
 }
