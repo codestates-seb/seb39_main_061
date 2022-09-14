@@ -21,6 +21,7 @@ import org.springframework.util.StringUtils;
 import javax.servlet.http.HttpServletResponse;
 import java.net.http.HttpResponse;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -35,7 +36,9 @@ public class AuthService {
   public Member createMember(Member member) {
     verifyExistsEmail(member.getEmail());
     member.setPassword(passwordEncoder.encode(member.getPassword()));
+    member.setVerifiedCode(UUID.randomUUID().toString());
     Member savedMember = memberRepository.save(member);
+
     // TO-DO : 이메일 인증 로직 처리
     publisher.publishEvent(new MemberRegistrationApplicationEvent(this, savedMember));
     return savedMember;
@@ -48,6 +51,9 @@ public class AuthService {
     Member findMember = findVerifiedMember(member.getEmail());
     if(!passwordEncoder.matches(member.getPassword(), findMember.getPassword())) {
       throw new BusinessLogicException(ExceptionCode.MEMBER_INFO_INCORRECT);
+    }
+    if(!findMember.getEmailVerified()) {
+      throw new BusinessLogicException(ExceptionCode.EMAIL_VALIDATION_NEED);
     }
     return tokenProvider.createToken(findMember, response);
   }
@@ -101,5 +107,15 @@ public class AuthService {
 
 
   public void deleteMember(long memberId) {
+    memberRepository.deleteById(memberId);
+  }
+
+  public void validation(String email, String code) {
+    Member findMember = findVerifiedMember(email);
+    if(!findMember.getVerifiedCode().equals(code)) {
+      throw new BusinessLogicException(ExceptionCode.VALIDATION_CODE_INCORRECT);
+    }
+    findMember.setEmailVerified(true);
+    memberRepository.save(findMember);
   }
 }

@@ -8,14 +8,18 @@ import com.project.QR.dto.TokenDto;
 import com.project.QR.member.dto.MemberRequestDto;
 import com.project.QR.member.entity.Member;
 import com.project.QR.member.mapper.MemberMapper;
+import com.project.QR.security.MemberDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.validation.constraints.NotBlank;
+import javax.websocket.server.PathParam;
 import java.net.http.HttpResponse;
 
 @RestController
@@ -28,8 +32,8 @@ public class AuthController {
   /**
    * 이메일 중복검사 api
    */
-  @PostMapping("/validation")
-  public ResponseEntity validation(@Valid @RequestBody MemberRequestDto.EmailDto emailDto) {
+  @PostMapping("/email-validation")
+  public ResponseEntity emailValidation(@Valid @RequestBody MemberRequestDto.EmailDto emailDto) {
     boolean exist = authService.findExistsEmail(emailDto.getEmail());
     return new ResponseEntity(new SingleResponseWithMessageDto<>(new ExistDto(exist),
       "SUCCESS"),
@@ -68,4 +72,23 @@ public class AuthController {
       "SUCCESS"),
       HttpStatus.OK);
   }
+
+  /**
+   * 이메일 인증 api
+   */
+  @GetMapping("/validation")
+  public ResponseEntity validation(@NotBlank @PathParam("email") String email,
+                                   @NotBlank @PathParam("code") String code) {
+    authService.validation(email, code);
+    return new ResponseEntity(HttpStatus.OK);
+  }
+
+  /**
+   * OAuth2 추가 정보 입력
+   */
+//  @PatchMapping("/members")
+//  public ResponseEntity updateMember(@AuthenticationPrincipal MemberDetails memberDetails,
+//                                     @Valid @RequestBody MemberRequestDto.) {
+//    return new ResponseEntity(HttpStatus.OK);
+//  }
 }
