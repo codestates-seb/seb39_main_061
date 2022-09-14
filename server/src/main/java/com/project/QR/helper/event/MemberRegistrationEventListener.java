@@ -19,6 +19,8 @@ import org.springframework.stereotype.Component;
 public class MemberRegistrationEventListener {
   @Value("${mail.subject.member.registration}")
   private String subject;
+  @Value("${mail.redirect-url}")
+  private String redirectUrl;
   private final EmailSender emailSender;
   private final AuthService authService;
 
@@ -32,7 +34,9 @@ public class MemberRegistrationEventListener {
   public void listen(MemberRegistrationApplicationEvent event) throws Exception {
     try {
       String[] to = new String[]{event.getMember().getEmail()};
-      String message = event.getMember().getEmail() + "님, 회원 가입이 성공적으로 완료되었습니다.";
+      String message = "<h1>" + event.getMember().getName() + "님, 회원 가입이 성공적으로 완료되었습니다</h1>.\n" +
+        "<div>아래 링크를 통해 이메일 인증을 완료해주세요</div>" +
+        "<div>"+ redirectUrl + "/auth/validation?email=" + event.getMember().getEmail() + "&code=" + event.getMember().getVerifiedCode() +"</div>";
       emailSender.sendEmail(to, subject, message);
     } catch (MailSendException e) {
       e.printStackTrace();
