@@ -8,9 +8,11 @@ import com.project.QR.dto.TokenDto;
 import com.project.QR.member.dto.MemberRequestDto;
 import com.project.QR.member.entity.Member;
 import com.project.QR.member.mapper.MemberMapper;
+import com.project.QR.security.MemberDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
@@ -80,4 +82,13 @@ public class AuthController {
     authService.validation(email, code);
     return new ResponseEntity(HttpStatus.OK);
   }
+
+  /**
+   * OAuth2 추가 정보 입력
+   */
+//  @PatchMapping("/members")
+//  public ResponseEntity updateMember(@AuthenticationPrincipal MemberDetails memberDetails,
+//                                     @Valid @RequestBody MemberRequestDto.) {
+//    return new ResponseEntity(HttpStatus.OK);
+//  }
 }
