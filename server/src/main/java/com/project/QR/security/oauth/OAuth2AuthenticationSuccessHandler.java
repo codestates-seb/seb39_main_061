@@ -1,7 +1,9 @@
 package com.project.QR.security.oauth;
 
 import com.project.QR.config.AppProperties;
+import com.project.QR.dto.TokenDto;
 import com.project.QR.exception.BadRequestException;
+import com.project.QR.security.MemberDetails;
 import com.project.QR.security.jwt.TokenProvider;
 import com.project.QR.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
@@ -52,16 +54,13 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     }
 
     String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
+    MemberDetails memberDetails = (MemberDetails) authentication.getPrincipal();
+    TokenDto.TokenInfoDto tokenInfoDto = tokenProvider.createToken(memberDetails.getMember(), response);
 
-
-//    String token = tokenProvider.createToken(authentication);
-    String token = "1234";
-    String a = UriComponentsBuilder.fromUriString(targetUrl)
-      .queryParam("token", token)
+    return UriComponentsBuilder.fromUriString(targetUrl)
+      .queryParam("accessToken", tokenInfoDto.getAccessToken())
+      .queryParam("accessTokenExpiredAt", tokenInfoDto.getAccessTokenExpiredAt())
       .build().toUriString();
-    System.out.println(a);
-
-    return a;
   }
 
   protected void clearAuthenticationAttributes(HttpServletRequest request, HttpServletResponse response) {
