@@ -60,6 +60,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     return UriComponentsBuilder.fromUriString(targetUrl)
       .queryParam("accessToken", tokenInfoDto.getAccessToken())
       .queryParam("accessTokenExpiredAt", tokenInfoDto.getAccessTokenExpiredAt())
+      .queryParam("emailVerified", memberDetails.getMember().getEmailVerified())
       .build().toUriString();
   }
 
