@@ -1,37 +1,30 @@
 package com.project.QR.security;
 
-import com.project.QR.member.entity.Authority;
+
 import com.project.QR.member.entity.Member;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 public class MemberDetails implements UserDetails, OAuth2User {
-  private Long id;
-  private String email;
-  private Collection<? extends GrantedAuthority> authorities;
+  private Member member;
   private Map<String, Object> attributes;
 
-  public MemberDetails(Long id, String email, Collection<? extends GrantedAuthority> authorities) {
-    this.id = id;
-    this.email = email;
-    this.authorities = authorities;
+  public MemberDetails(String email, String role) {
+    this.member = Member.builder()
+      .email(email)
+      .role(role)
+      .build();
   }
 
   public static MemberDetails create(Member member) {
-    List<GrantedAuthority> authorities = Collections.
-      singletonList(new SimpleGrantedAuthority(Authority.ROLE_RESERVE.name()));
-
     return new MemberDetails(
-      member.getMemberId(),
       member.getEmail(),
-      authorities
+      member.getRole()
     );
   }
 
@@ -43,12 +36,20 @@ public class MemberDetails implements UserDetails, OAuth2User {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
+    Collection<GrantedAuthority> authorities = new ArrayList<>();
+    this.member.getRoleList().forEach(n -> {
+      authorities.add(() -> n);
+    });
     return authorities;
+  }
+
+  public Member getMember() {
+    return this.member;
   }
 
   @Override
   public String getUsername() {
-    return email;
+    return this.member.getEmail();
   }
 
   @Override
@@ -79,7 +80,7 @@ public class MemberDetails implements UserDetails, OAuth2User {
   // OAuth2User Override
   @Override
   public String getName() {
-    return String.valueOf(id);
+    return member.getName();
   }
 
   @Override
