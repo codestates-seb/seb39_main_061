@@ -47,6 +47,8 @@ public class Member {
 
   private String businessName;
 
+  private String verifiedCode;
+
   @ManyToOne
   @JoinColumn(name = "SECTOR_ID")
   private Sector sector;
