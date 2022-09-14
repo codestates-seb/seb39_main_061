@@ -1,10 +1,10 @@
-import Sidebar from "../../components/Sidebar/Sidebar";
-import ProfileImgUpload from "../../components/profileImgUpload/ProfileImgUpload";
+import Sidebar from "../Sidebar/Sidebar";
+import ProfileImgUpload from "../profileImgUpload/ProfileImgUpload";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
 
-const ProfileEdit = () => {
+const ProfileEdit = ({ setIsModal }) => {
   // const [profileImg, setProfileImg] = useState("");
   const [imgFile, setImgFile] = useState({
     image_file: "",
@@ -26,6 +26,10 @@ const ProfileEdit = () => {
   });
   */
   const navigate = useNavigate()
+
+  const modalClose = () => {
+    setIsModal(false);
+  };
 
   const profileSubmitHandler = async () => {
     if (
@@ -60,7 +64,7 @@ const ProfileEdit = () => {
 
   return (
     <div>
-      <Sidebar />
+      {/* <Sidebar /> */}
       <h1>프로필 수정</h1>
       <form onSubmit={(e) => e.preventDefault()}>
         {/* <img src="https://avatars.githubusercontent.com/u/82711000?v=4.jpg" /> */}
@@ -102,6 +106,7 @@ const ProfileEdit = () => {
           ''
         )}
         <button type='submit' onClick={profileSubmitHandler}>Edit</button>
+        <button type='submit' onClick={modalClose}>Close</button>
       </form>
     </div>
   );

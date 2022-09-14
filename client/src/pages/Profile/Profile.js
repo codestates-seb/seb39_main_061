@@ -1,4 +1,5 @@
 import Sidebar from "../../components/Sidebar/Sidebar";
+import ProfileEditModal from "../../components/profileEditModal/ProfileEditModal";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
@@ -13,6 +14,8 @@ const Profile = () => {
     email: "",
     password: null,
   })
+  const [isModal, setIsModal] = useState(false);
+
   // const [profileImg, setProfileImg] = useState("");
   // const [companyName, setCompanyName] = useState("");
   // const [sectorName, setSectorName] = useState("");
@@ -20,7 +23,12 @@ const Profile = () => {
   // const [userName, setUserName] = useState("");
   // const [email, setEmail] = useState("");
 
+  const showModal =() => {
+    console.log(isModal)
+    setIsModal(true);
+  }
 
+/*
   useEffect(() => {
     axios.get("/api/v1/members/profile",
       {
@@ -31,17 +39,17 @@ const Profile = () => {
         setUserInfo(userData.data);
       })
   }, [])
+  */
 
 
   return (
     <div>
       <Sidebar />
+      {isModal && <ProfileEditModal setIsModal={setIsModal} />}
       <h1>프로필</h1>
       <div>
         <img src="https://avatars.githubusercontent.com/u/82711000?v=4.jpg" />
-        <Link to="/profile-edit">
-          <button>Edit</button>
-        </Link>
+          <button onClick={showModal}>Edit</button>
         <div>
           <div>상호명: 돈까스집{userInfo.companyName}</div>
           <div>업종: 비어있음{userInfo.sectorName}</div>

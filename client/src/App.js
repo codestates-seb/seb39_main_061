@@ -3,7 +3,7 @@ import Login from "./pages/Login/Login.js";
 import SignUp from "./pages/SignUp/SignUp";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Profile from "./pages/Profile/Profile";
-import ProfileEdit from "./pages/Profile/ProfileEdit";
+// import ProfileEdit from "./pages/Profile/ProfileEdit";
 import Management from "./pages/Management/Management";
 import ManagementDetail from "./pages/ManagementDetail/ManagementDetail";
 import UserPage from "./pages/UserPage/UserPage";
@@ -22,7 +22,7 @@ function App() {
           <Route path="/find-password" element={<FindPassword />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/profile-edit" element={<ProfileEdit />} />
+          {/* <Route path="/profile-edit" element={<ProfileEdit />} /> */}
           <Route path="/create-code" element={<CreateCode />} />
           <Route path="/management" element={<Management />} />
           <Route
