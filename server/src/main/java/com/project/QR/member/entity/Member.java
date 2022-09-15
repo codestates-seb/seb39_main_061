@@ -3,6 +3,7 @@ package com.project.QR.member.entity;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.project.QR.audit.Auditable;
 import com.project.QR.sector.entity.Sector;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,7 +19,7 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Member {
+public class Member extends Auditable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long memberId;
