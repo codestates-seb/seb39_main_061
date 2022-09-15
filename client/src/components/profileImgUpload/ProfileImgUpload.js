@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import axios from 'axios';
+// import { useDispatch, useSelector } from 'react-redux';
 
-const ProfileImgUpload = () => {
-
+const ProfileImgUpload = (submitImg) => {
+  // const dispatch = useDispatch();
+  // const imagefile = useSelector(state => state.ProfileImg)
   const [image, setImage] = useState({
     image_file: "",
     preview_URL: "img/default_image.png",
@@ -13,7 +15,6 @@ const ProfileImgUpload = () => {
   const saveImage = (e) => {
     e.preventDefault();
     const fileReader = new FileReader();
-
     if (e.target.files[0]) {
       fileReader.readAsDataURL(e.target.files[0])
     }
@@ -25,25 +26,27 @@ const ProfileImgUpload = () => {
         }
       )
     }
-
   }
-
-  /*
-  const deleteImage = () => {
-    setImage({
-      image_file: "",
-      preview_URL: "img/default_image.png",
-    });
-  }
-  */
 
   const sendImageToServer = async () => {
+    console.log(image)
     if (image.image_file) {
       const formData = new FormData()
-      formData.append('file', image.image_file);
-      // 이미지 업로드 경로 어디로?
-      await axios.post('/api/image/upload', formData);
-      alert("서버에 등록이 완료되었습니다!");
+      // formData.append('file', image.image_file);
+      formData.append("file", new Blob([JSON.stringify(image.image_file)], {
+        type: "application/json"
+      }));
+      console.log(formData)
+      const profileData = await axios.patch(
+        '/',
+        formData,
+        {
+          "Content-Type": "multipart/form-data",
+          "Accept": "application/json, multipart/form-data",
+          headers: { Authorization: "Bearer " + JSON.parse(window.localStorage.getItem("access_token")).access_token }
+        });
+      console.log(profileData);
+      alert("서버에 이미지 등록이 완료되었습니다!");
       setImage({
         image_file: "",
         preview_URL: "img/default_image.png",

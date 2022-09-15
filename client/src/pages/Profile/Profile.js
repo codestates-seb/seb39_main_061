@@ -7,12 +7,11 @@ import React, { useEffect, useState } from 'react';
 const Profile = () => {
   const [userInfo, setUserInfo] = useState({
     profileImg: "",
-    companyName: "",
-    sectorName: "",
-    phoneNum: "",
-    userName: "",
-    email: "",
-    password: null,
+    businessName: "",
+    sectorId: 0,
+    phone: "",
+    name: "",
+    password: "",
   })
   const [isModal, setIsModal] = useState(false);
 
@@ -28,7 +27,7 @@ const Profile = () => {
     setIsModal(true);
   }
 
-  /*
+  
     useEffect(() => {
       axios.get("/api/v1/members/profile",
         {
@@ -39,7 +38,7 @@ const Profile = () => {
           setUserInfo(userData.data);
         })
     }, [])
-    */
+    
 
 
   return (
@@ -53,14 +52,13 @@ const Profile = () => {
         <div>
           <div>상호명: 돈까스집{userInfo.companyName}</div>
           <div>업종: {userInfo.sectorName}</div>
-          <div>전화번호: {userInfo.phoneNum}</div>
           <div>관리자 명: 유인태{userInfo.userName}</div>
-          <div>Email: asdf@naver.com{userInfo.email}</div>
+          <div>전화번호: {userInfo.phoneNum}</div>
         </div>
         <div>
           <div>이용중인 서비스 목록</div>
-          <div>예약/대기 서비스</div>
-          <div>관리 서비스</div>
+          <div>- 예약/대기 서비스</div>
+          <di>- 관리 서비스</di>
         </div>
       </div>
     </div>
