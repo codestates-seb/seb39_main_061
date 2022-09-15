@@ -5,6 +5,7 @@ import com.project.QR.exception.BusinessLogicException;
 import com.project.QR.exception.ExceptionCode;
 import com.project.QR.helper.event.MemberPasswordApplicationEvent;
 import com.project.QR.helper.event.MemberRegistrationApplicationEvent;
+import com.project.QR.member.entity.EmailVerified;
 import com.project.QR.member.entity.Member;
 import com.project.QR.member.repository.MemberRepository;
 import com.project.QR.security.MemberDetails;
@@ -56,7 +57,7 @@ public class AuthService {
     if(!passwordEncoder.matches(member.getPassword(), findMember.getPassword())) {
       throw new BusinessLogicException(ExceptionCode.MEMBER_INFO_INCORRECT);
     }
-    if(!findMember.getEmailVerified()) {
+    if(findMember.getEmailVerified().equals(EmailVerified.N)) {
       throw new BusinessLogicException(ExceptionCode.EMAIL_VALIDATION_NEED);
     }
     return tokenProvider.createToken(findMember, response);
@@ -125,7 +126,7 @@ public class AuthService {
       throw new BusinessLogicException(ExceptionCode.VALIDATION_CODE_INCORRECT);
     }
     findMember.setRole(findMember.getJoinRole());
-    findMember.setEmailVerified(true);
+    findMember.setEmailVerified(EmailVerified.Y);
     memberRepository.save(findMember);
   }
 
@@ -135,7 +136,7 @@ public class AuthService {
   public Member updateMember(Member member) {
     Member findMember = findVerifiedMember(member.getEmail());
     Member updatingMember = beanUtils.copyNonNullProperties(member, findMember);
-    updatingMember.setEmailVerified(true);
+    updatingMember.setEmailVerified(EmailVerified.Y);
     updatingMember.setMemberId(findMember.getMemberId());
     return memberRepository.save(updatingMember);
   }
