@@ -5,59 +5,54 @@ import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import { userAction } from "../../store/user";
 import styles from "./Login.module.css";
-import { getLoginCookie, setLoginCookie } from "../../library/cookie";
-import { cookies } from "react-cookie";
-import { getProfile } from "../../library/axios";
+import axiosInstance from "../../library/axios";
 
 const Login = () => {
-  const isLogin = useSelector((state) => state.auth.isAuthenticated);
-  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const emailRef = useRef();
   const PWRef = useRef();
+
+  const getProfile = async () => {
+    try {
+      let responose = await axiosInstance.get("/api/v1/members/profile");
+      if (responose.status === 200) {
+        dispatch(userAction.setUser(responose.data.data));
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const loginReq = async () => {
+    try {
+      let res = await axios.post("http://localhost:8080/auth/login", {
+        email: emailRef.current.value,
+        password: PWRef.current.value,
+      });
+      if (res.status === 200) {
+        localStorage.setItem("token", res.data.data.accessToken);
+        dispatch(authActions.login());
+        console.log("로그인");
+        navigate("/dashboard");
+      }
+    } catch (err) {
+      if (err.response) {
+        const errorMessage = err.response.data.message;
+        alert(errorMessage);
+      }
+    }
+  };
+
   const loginSubmitHandler = async (e) => {
     e.preventDefault();
-    await axios
-      .post(
-        "http://localhost:8080/auth/login",
-        {
-          email: emailRef.current.value,
-          password: PWRef.current.value,
-        },
-        { withCredentials: true }
-      )
-      .then((res) => {
-        console.log("로그인 성공!", res.data);
-
-        setLoginCookie(res.data.data.accessToken);
-        dispatch(authActions.login());
-
-        navigate("/dashboard");
-      })
-      .catch((err) => {
-        if (err.response) {
-          console.log(err.response.data);
-          const errorMessage = err.response.data.message;
-          alert(errorMessage);
-        }
-      });
-
-    // 유저정보 가져오기
-    await axios
-      .get("http://localhost:8080/api/v1/members/profile", {
-        headers: {
-          Authorization: `Bearer ${getLoginCookie("token")}`,
-        },
-      })
-      .then((res) => {
-        dispatch(userAction.setUser(res.data.data));
-        navigate("/dashboard");
-        console.log("유저정보", res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    await loginReq();
+    await getProfile();
+    setTimeout(() => {
+      localStorage.setItem(
+        "token",
+        "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqaGQ3MjkyQGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX1JFU0VSVkFUSU9OIiwiaWF0IjoxNjYzMjQ2MTk4LCJleHAiOjE2NjMyNDk3OTh9.9IMub88llbKuUO70SSK6EQERqWEfU0QK7CPMORzasQGRSWEpJSSGa4KMUxZAKlE93VvStXrF6G08RX07_DJIVQ"
+      );
+    }, 3000);
   };
 
   return (

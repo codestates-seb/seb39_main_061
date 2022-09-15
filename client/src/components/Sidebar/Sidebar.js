@@ -11,8 +11,9 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutHanlder = () => {
+    // deleteCookie("token");
+    localStorage.removeItem("token");
     dispatch(authActions.logout());
-    deleteCookie("token");
     console.log("로그아웃");
     navigate("/");
   };

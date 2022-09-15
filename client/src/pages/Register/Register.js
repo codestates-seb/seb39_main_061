@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { getLoginCookie } from "../../library/cookie";
 import { authActions } from "../../store/auth";
 import { userAction } from "../../store/user";
+import styles from "./Register.module.css";
 
 const Register = () => {
   const BusinessCategoryRef = useRef();
@@ -28,13 +29,25 @@ const Register = () => {
 
   const handlerSubmit = (e) => {
     e.preventDefalut();
-    axios.patch("http://localhost:8080/auth/members", {
-      service: "reservation",
-      sectorId: BusinessCategoryRef.current.value,
-      businessName: businessNameRef.current.value,
-      phone: phoneNumRef.current.value,
-      name: nameRef.current.value,
-    });
+    axios
+      .patch(
+        "http://localhost:8080/auth/members",
+        {
+          service: "reservation",
+          sectorId: BusinessCategoryRef.current.value,
+          businessName: businessNameRef.current.value,
+          phone: phoneNumRef.current.value,
+          name: nameRef.current.value,
+        },
+        { Authorization: `Bearer ${token}` }
+      )
+      .then((res) => {
+        console.log(res.data);
+        navigate("/dashboard");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   // 인증이 됐으면 로그인하기
@@ -58,11 +71,11 @@ const Register = () => {
   }
 
   return (
-    <div>
+    <div className={styles.register}>
       <h1>추가정보 등록 페이지</h1>
       <p>{location.search}</p>
 
-      <form onSubmit={handlerSubmit}>
+      <form className={styles.register__form} onSubmit={handlerSubmit}>
         <select ref={BusinessCategoryRef}>
           <option value={0}>업종을 선택하세요</option>
           <option value={1}>농업, 임업 및 어업</option>

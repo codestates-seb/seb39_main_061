@@ -11,29 +11,32 @@ import CreateCode from "./pages/CreateCode/CreateCode.js";
 import FindPassword from "./pages/FindPassword/FindPassword.js";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./store/auth.js";
-import { getLoginCookie } from "./library/cookie.js";
 import EmailValidation from "./pages/EmailValidation/EmailValidation.js";
 import Register from "./pages/Register/Register.js";
-import axios from "axios";
+import axiosInstance from "./library/axios.js";
+import { useEffect } from "react";
 
 function App() {
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
   const userData = useSelector((state) => state.user.userProfile);
   const dispatch = useDispatch();
-  console.log("로그인상태", isLogin);
-  console.log("유저 데이터", userData);
 
   // 유저 정보로 새로고침해도 로그인 유지
-  axios
-    .get("http://localhost:8080/api/v1/members/profile", {
-      headers: {
-        Authorization: `Bearer ${getLoginCookie("token")}`,
-      },
-    })
-    .then((res) => {
-      dispatch(authActions.login());
-    })
-    .catch((err) => {});
+  const getProfile = async () => {
+    try {
+      let responose = await axiosInstance.get("/api/v1/members/profile");
+      if (responose.status === 200) {
+        dispatch(authActions.login());
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      getProfile();
+    }
+  }, []);
 
   return (
     <div className="App">

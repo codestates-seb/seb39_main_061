@@ -15,6 +15,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
+  blacklist: ["auth"],
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 
@@ -25,7 +26,7 @@ const store = configureStore({
       serializableCheck: {
         ignoredActions: [PERSIST, PURGE],
       },
-    }).concat(logger),
+    }),
 });
 
 export default store;
