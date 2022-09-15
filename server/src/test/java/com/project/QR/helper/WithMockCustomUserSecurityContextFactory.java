@@ -1,8 +1,9 @@
-package com.clone.stackoverflow.helper;
+package com.project.QR.helper;
 
 
-import com.clone.stackoverflow.auth.PrincipalDetails;
-import com.clone.stackoverflow.member.entity.Member;
+import com.project.QR.member.entity.AuthProvider;
+import com.project.QR.member.entity.Member;
+import com.project.QR.security.MemberDetails;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -15,7 +16,7 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
   public SecurityContext createSecurityContext(WithMockCustomUser customUser) {
     SecurityContext context = SecurityContextHolder.createEmptyContext();
     Member member = getMember(customUser);
-    PrincipalDetails principal = new PrincipalDetails(member);
+    MemberDetails principal = new MemberDetails(member.getEmail(), member.getRole());
     Authentication auth =
       new UsernamePasswordAuthenticationToken(principal, customUser.password(), principal.getAuthorities());
     context.setAuthentication(auth);
@@ -27,8 +28,8 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
     member.setMemberId(customUser.memberId());
     member.setEmail(customUser.email());
     member.setPassword(customUser.password());
-    member.setDisplayName(customUser.displayName());
-    member.setProvider(customUser.provider());
+    member.setName(customUser.name());
+    member.setProvider(AuthProvider.valueOf(customUser.provider()));
     member.setRole(customUser.role());
     return member;
   }
