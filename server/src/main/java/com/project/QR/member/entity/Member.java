@@ -5,10 +5,8 @@ import javax.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.QR.audit.Auditable;
 import com.project.QR.sector.entity.Sector;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -19,10 +17,11 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
+@ToString
 public class Member extends Auditable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long memberId;
+  private Long memberId;
 
   @Column(unique = true)
   private String email;
@@ -39,8 +38,9 @@ public class Member extends Auditable {
   @Column(nullable = false)
   private AuthProvider provider;
 
+  @Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private Boolean emailVerified = false;
+  private EmailVerified emailVerified;
 
   private String profileImg;
 
@@ -63,8 +63,9 @@ public class Member extends Auditable {
     return new ArrayList<>();
   }
   @Builder
-  public Member(String email, String name, String password, String role, String businessName,
-                AuthProvider provider, String profileImg, Sector sector, String phone, String joinRole) {
+  public Member(Long memberId, String email, String name, String password, String role, String businessName,
+                AuthProvider provider, String profileImg, Sector sector, String phone, String joinRole, EmailVerified emailVerified) {
+    this.memberId = memberId;
     this.email = email;
     this.name = name;
     this.password = password;
@@ -75,6 +76,7 @@ public class Member extends Auditable {
     this.phone = phone;
     this.businessName = businessName;
     this.joinRole = joinRole;
+    this.emailVerified = emailVerified;
   }
 }
 
