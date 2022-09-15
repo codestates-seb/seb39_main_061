@@ -134,6 +134,7 @@ public class AuthService {
    */
   public Member updateMember(Member member) {
     Member findMember = findVerifiedMember(member.getEmail());
+    member.setMemberId(findMember.getMemberId());
     Member updatingMember = beanUtils.copyNonNullProperties(member, findMember);
     updatingMember.setEmailVerified(true);
     return memberRepository.save(updatingMember);
