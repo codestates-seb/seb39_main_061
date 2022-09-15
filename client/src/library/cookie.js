@@ -7,7 +7,7 @@ const cookies = new Cookies();
 export const setLoginCookie = (token) => {
   let expireTime = new Date();
   expireTime.setMinutes(new Date().getMinutes() + 10);
-  return cookies.set("token", token, { path: "/", expires: expireTime });
+  return cookies.set("token", token, { path: "/" });
 };
 
 // // 토큰 계속 남아있음

@@ -24,6 +24,7 @@ const Register = () => {
   if (validationIsFalse === false) {
     //이메일 인증이 true면
     // 1. 로그인 상태 true로
+    // 2. 토큰으로 로그인
     // 2. 유저정보 받아서 리덕스 상태 바꾸기
     axios
       .get("http://localhost:8080/api/v1/members/profile", {
