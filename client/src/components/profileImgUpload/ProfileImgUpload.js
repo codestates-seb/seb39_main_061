@@ -9,9 +9,6 @@ const ProfileImgUpload = (submitImg) => {
     image_file: "",
     preview_URL: "img/default_image.png",
   });
-  const [selectedFile, setSelectedFile] = useState();
-  const [errorMsg, setErrorMsg] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
 
   let inputRef;
 
@@ -30,29 +27,30 @@ const ProfileImgUpload = (submitImg) => {
         }
       )
     }
-    console.log(e.target.files[0])
   }
 
   // 이미지 upload 함수
   const sendImageToServer = async () => {
-    console.log(image.image_file)
     if (image.image_file) {
       const formData = new FormData()
+      formData.enctype = "multipart/form-data"
       const profileFormData = {
         "password": "test",
         "sectorId": 1,
         "service": ["RESERVATION"]
       }
-      formData.append('file', image.image_file, { type: "application/json" })
-      formData.append("data", new Blob([JSON.stringify(profileFormData)], { type: "multipart/form-data" }));
+      formData.append('file', image.image_file)
+      formData.append("data", 
+      new Blob([JSON.stringify(profileFormData)], { type: "application/json" }));
       console.log(formData.get('file'));
       const profileData = await axios.post(
-        '/',
+        'http://localhost:8080/api/v1/members/profile',
         formData,
         {
-          "Content-Type": "multipart/form-data",
-          "Accept": "application/json, multipart/form-data",
-          headers: { Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5aXRza3lAbmF2ZXIuY29tIiwicm9sZSI6IlJPTEVfUkVTRVJWQVRJT04iLCJpYXQiOjE2NjMyMjE1MjMsImV4cCI6MTY2MzIyNTEyM30.QmL6f5YrfJlHxtZ02ZSVFCf85v1EyF1y3nTVKZ85J1YCc4I2SrOSXfZuC_QypTTkmYXm9VNt0zWrn7ea7Aqr5g" }
+          headers: {
+            Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5aXRza3lAbmF2ZXIuY29tIiwicm9sZSI6IlJPTEVfUkVTRVJWQVRJT04iLCJpYXQiOjE2NjMyNDcyNTEsImV4cCI6MTY2MzI1MDg1MX0.j_er63uI_lgy_MQW--p5UYQ8r0wjEyLP8m7Jl453agAWpsss62jm1HuIRak2y1O67977mXLmFciaKus2qYY-rA",
+            "Content-Type": "multipart/form-data"
+          }
         });
       console.log(profileData);
       alert("서버에 이미지 등록이 완료되었습니다!");

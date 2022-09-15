@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 
 const Profile = () => {
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({})
   const [sector, setSector] = useState("");
   const [service, setService] = useState("");
   const [isModal, setIsModal] = useState(false);
@@ -16,15 +16,24 @@ const Profile = () => {
   }
 
   useEffect(() => {
+    // const getPosts = async () => {
+    //   const posts = await axios.get(
+    //     "http://localhost:8080/api/v1/members/profile", {
+    //     headers: { Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5aXRza3lAbmF2ZXIuY29tIiwicm9sZSI6IlJPTEVfUkVTRVJWQVRJT04iLCJpYXQiOjE2NjMyMjUzNDMsImV4cCI6MTY2MzIyODk0M30.49EGzfQvuRj3SaTET1Md5g_s0vdpuWgMv0OJvU8yFfX-l0pNJxO_67G_ggjrtdZkQkfGCDrjq5eBBippPC-Ufg" }
+    //   }
+    //   );
+    //   setUserInfo(posts.data);
+    // };
+    // getPosts();
+    // console.log(userInfo)
     axios.get("http://localhost:8080/api/v1/members/profile",
       {
-        headers: { Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5aXRza3lAbmF2ZXIuY29tIiwicm9sZSI6IlJPTEVfUkVTRVJWQVRJT04iLCJpYXQiOjE2NjMyMjE1MjMsImV4cCI6MTY2MzIyNTEyM30.QmL6f5YrfJlHxtZ02ZSVFCf85v1EyF1y3nTVKZ85J1YCc4I2SrOSXfZuC_QypTTkmYXm9VNt0zWrn7ea7Aqr5g" }
+        headers: { Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5aXRza3lAbmF2ZXIuY29tIiwicm9sZSI6IlJPTEVfUkVTRVJWQVRJT04iLCJpYXQiOjE2NjMyNDcyNTEsImV4cCI6MTY2MzI1MDg1MX0.j_er63uI_lgy_MQW--p5UYQ8r0wjEyLP8m7Jl453agAWpsss62jm1HuIRak2y1O67977mXLmFciaKus2qYY-rA" }
       }
     )
       .then(userData => {
-        // console.log(userData.data.data)
+        console.log(userData.data.data)
         setUserInfo(userData.data.data);
-        setUserInfo(userInfo);
         setSector(userData.data.data.sector.name)
         setService(userData.data.data.service[0])
       })
@@ -36,7 +45,7 @@ const Profile = () => {
       {isModal && <ProfileEditModal setIsModal={setIsModal} />}
       <h1>프로필</h1>
       <div>
-        <img src="https://avatars.githubusercontent.com/u/82711000?v=4.jpg" />
+        <img src={"http://localhost:8080" + userInfo.profileImg} />
         <button onClick={showModal}>Edit</button>
         <div>
           <div>상호명: {userInfo.businessName}</div>
