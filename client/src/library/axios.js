@@ -1,7 +1,4 @@
 import axios from "axios";
+import { getLoginCookie } from "./cookie";
 
-const baseURL = axios.create({ baseURL: "http://localhost:8080" });
-
-baseURL.defaults.headers.common["Authorization"] = "FIREBASE AUTH TOKEN";
-
-export default baseURL;
+const DOMAIN = "http://localhost:8080";

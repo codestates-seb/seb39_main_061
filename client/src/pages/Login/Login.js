@@ -3,8 +3,11 @@ import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth";
+import { userAction } from "../../store/user";
 import styles from "./Login.module.css";
 import { getLoginCookie, setLoginCookie } from "../../library/cookie";
+import { cookies } from "react-cookie";
+import { getProfile } from "../../library/axios";
 
 const Login = () => {
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
@@ -13,9 +16,9 @@ const Login = () => {
   const navigate = useNavigate();
   const emailRef = useRef();
   const PWRef = useRef();
-  const loginSubmitHandler = (e) => {
+  const loginSubmitHandler = async (e) => {
     e.preventDefault();
-    axios
+    await axios
       .post(
         "http://localhost:8080/auth/login",
         {
@@ -25,12 +28,11 @@ const Login = () => {
         { withCredentials: true }
       )
       .then((res) => {
-        //...
-        console.log(res.data);
-        console.log(res);
+        console.log("로그인 성공!", res.data);
+
         setLoginCookie(res.data.data.accessToken);
         dispatch(authActions.login());
-        console.log("로그인 성공");
+
         navigate("/dashboard");
       })
       .catch((err) => {
@@ -41,21 +43,23 @@ const Login = () => {
         }
       });
 
-    axios
+    // 유저정보 가져오기
+    await axios
       .get("http://localhost:8080/api/v1/members/profile", {
         headers: {
-          Authorization: `Bearer ${getLoginCookie()}`,
+          Authorization: `Bearer ${getLoginCookie("token")}`,
         },
       })
       .then((res) => {
-        dispatch(authActions.login());
-        console.log("유저정보 확인");
+        dispatch(userAction.setUser(res.data.data));
+        navigate("/dashboard");
         console.log("유저정보", res.data);
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
   return (
     <section className={styles.login}>
       <p>
