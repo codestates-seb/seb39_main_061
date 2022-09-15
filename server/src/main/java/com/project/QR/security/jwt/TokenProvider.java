@@ -74,7 +74,6 @@ public class TokenProvider {
 
     return TokenDto.TokenInfoDto.builder()
       .accessToken(accessToken)
-      .accessTokenExpiredAt(ACCESS_TOKEN_EXPIRE_LENGTH)
       .grantType("Bearer")
       .build();
   }
@@ -99,7 +98,6 @@ public class TokenProvider {
       .compact();
     return TokenDto.TokenInfoDto.builder()
       .accessToken(accessToken)
-      .accessTokenExpiredAt(ACCESS_TOKEN_EXPIRE_LENGTH)
       .grantType("Bearer")
       .build();
   }
