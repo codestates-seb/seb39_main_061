@@ -2,7 +2,7 @@ FROM openjdk:11-jdk
 
 ENV LC_ALL=C.UTF-8
 
-WORKDIR /usr/src/app
+WORKDIR /
 
 COPY . .
 
