@@ -1,21 +1,15 @@
-import Sidebar from "../Sidebar/Sidebar";
-import ProfileImgUpload from "../profileImgUpload/ProfileImgUpload";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
 
 const ProfileEdit = ({ setIsModal }) => {
-
-  const [companyName, setCompanyName] = useState("");
   const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
-  // const [sectorName, setSectorName] = useState("");
-  // const [phoneNum, setPhoneNum] = useState();
-  // const [userName, setUserName] = useState("");
-  // const [email, setEmail] = useState("");
-  const profileImg = useSelector(state=> state.value)
+  const [image, setImage] = useState({
+    image_file: "",
+    preview_URL: "img/default_image.png",
+  });
 
   const navigate = useNavigate()
 
@@ -23,58 +17,94 @@ const ProfileEdit = ({ setIsModal }) => {
     setIsModal(false);
   };
 
-  const profileSubmitHandler = async () => {
-    if (
-      // !profileImg || 
-      !companyName || !password
-    ) {
+  let inputRef;
+
+  // 이미지 preview 함수
+  const saveImage = (e) => {
+    e.preventDefault();
+    const fileReader = new FileReader();
+    if (e.target.files[0]) {
+      fileReader.readAsDataURL(e.target.files[0])
+    }
+    fileReader.onload = () => {
+      setImage(
+        {
+          image_file: e.target.files[0],
+          preview_URL: fileReader.result
+        }
+      )
+    }
+  }
+
+  // 이미지 data,file(formData) 전송
+  const profileEditSubmiy = async () => {
+    if (!password) {
       setErrorMessage('빈칸을 채워주세요');
       return;
-    } else {
-      const ProfileUpdateInfo = {
-        // "profileImg": profileImg,
-        "companyName": companyName,
-        "password": password,
-        // "sectorName": sectorName,
-        // "phoneNum": phoneNum,
-        // "userName": userName,
-        // "email": email,
-      }
-      console.log(ProfileUpdateInfo)
-      const profileRes = await axios.patch('/api/v1/questions', ProfileUpdateInfo,
-        {
-          "Content-Type": "application/json",
-          "Accept": "application/json",
-          headers: { Authorization: "Bearer " + JSON.parse(window.localStorage.getItem("access_token")).access_token }
-        })
-      console.log(profileRes)
+    } else if (!image.image_file) {
+      alert("사진을 등록하세요!")
     }
-    //post 요청 성공하면 /Profile 페이지 이동
-    navigate('/profile')
+    else {
+      const formData = new FormData()
+      formData.enctype = "multipart/form-data"
+      const profileFormData = {
+        "password": newPassword,
+        "sectorId": 1,
+        "service": ["RESERVATION"]
+      }
+      formData.append('file', image.image_file)
+      formData.append("data",
+        new Blob([JSON.stringify(profileFormData)], { type: "application/json" }));
+      console.log(formData.get('file'));
+      const profileData = await axios.post(
+        'http://localhost:8080/api/v1/members/profile',
+        formData,
+        {
+          headers: {
+            Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5aXRza3lAbmF2ZXIuY29tIiwicm9sZSI6IlJPTEVfUkVTRVJWQVRJT04iLCJpYXQiOjE2NjMyNDcyNTEsImV4cCI6MTY2MzI1MDg1MX0.j_er63uI_lgy_MQW--p5UYQ8r0wjEyLP8m7Jl453agAWpsss62jm1HuIRak2y1O67977mXLmFciaKus2qYY-rA",
+            "Content-Type": "multipart/form-data"
+          }
+        });
+      console.log(profileData);
+      alert("프로필 수정 완료!");
+      setImage({
+        image_file: "",
+        preview_URL: "img/default_image.png",
+      });
+      navigate('/profile')
+      window.location.reload();
+    }
   }
 
   return (
     <div>
-      {/* <Sidebar /> */}
       <h1>프로필 수정</h1>
       <form onSubmit={(e) => e.preventDefault()}>
-        {/* <img src="https://avatars.githubusercontent.com/u/82711000?v=4.jpg" /> */}
-        <ProfileImgUpload />
+        <input
+          type="file"
+          accept="image/*"
+          onChange={saveImage}
+          // 클릭할 때 마다 file input의 value를 초기화 하지 않으면 버그가 발생
+          // 사진 등록을 두개 띄우고 첫번째에 사진을 올리고 지우고 두번째에 같은 사진을 올리면 그 값이 남아있음!
+          onClick={(e) => e.target.value = null}
+          ref={refParam => inputRef = refParam}
+          style={{ display: "none" }}
+        />
         <div>
-          <label>상호명</label>
-          <input type="text" onChange={(e) => setCompanyName(e.target.value)} />
+          <img src={image.preview_URL} />
+        </div>
+        <div>
+          <button onClick={() => inputRef.click()}>
+            +
+          </button>
         </div>
         <div>
           <div>
-            <label>기존 비밀번호</label>
-            <input type={"password"} onChange={(e) => setPassword(e.target.value)} />
+            <span>새 비밀번호</span>
+            <input type={"password"} onChange={(e) => setNewPassword(e.target.value)} />
           </div>
           <div>
-            <label>기존 비밀번호 재확인</label>
-            <input type={"password"} onChange={(e) => setPassword(e.target.value)} />
-          </div>
-          <div>
-            <label>새 비밀번호</label>
+            <span>새 비밀번호 확인</span>
             <input type={"password"} onChange={(e) => setPassword(e.target.value)} />
           </div>
         </div>
@@ -90,7 +120,7 @@ const ProfileEdit = ({ setIsModal }) => {
         ) : (
           ''
         )}
-        <button type='submit' onClick={profileSubmitHandler}>Edit</button>
+        <button type='submit' onClick={profileEditSubmiy}>Edit</button>
         <button type='submit' onClick={modalClose}>Close</button>
       </form>
     </div>

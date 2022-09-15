@@ -1,7 +1,6 @@
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ProfileEditModal from "../../components/profileEditModal/ProfileEditModal";
 import axios from "axios";
-import { Link } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 
 const Profile = () => {
@@ -16,16 +15,6 @@ const Profile = () => {
   }
 
   useEffect(() => {
-    // const getPosts = async () => {
-    //   const posts = await axios.get(
-    //     "http://localhost:8080/api/v1/members/profile", {
-    //     headers: { Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5aXRza3lAbmF2ZXIuY29tIiwicm9sZSI6IlJPTEVfUkVTRVJWQVRJT04iLCJpYXQiOjE2NjMyMjUzNDMsImV4cCI6MTY2MzIyODk0M30.49EGzfQvuRj3SaTET1Md5g_s0vdpuWgMv0OJvU8yFfX-l0pNJxO_67G_ggjrtdZkQkfGCDrjq5eBBippPC-Ufg" }
-    //   }
-    //   );
-    //   setUserInfo(posts.data);
-    // };
-    // getPosts();
-    // console.log(userInfo)
     axios.get("http://localhost:8080/api/v1/members/profile",
       {
         headers: { Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5aXRza3lAbmF2ZXIuY29tIiwicm9sZSI6IlJPTEVfUkVTRVJWQVRJT04iLCJpYXQiOjE2NjMyNDcyNTEsImV4cCI6MTY2MzI1MDg1MX0.j_er63uI_lgy_MQW--p5UYQ8r0wjEyLP8m7Jl453agAWpsss62jm1HuIRak2y1O67977mXLmFciaKus2qYY-rA" }
