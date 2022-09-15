@@ -67,12 +67,15 @@ const SignUp = () => {
     e.preventDefault();
     console.log("중복검사");
     axios
-      .post("http://localhost:8080/auth/validation", {
-        email: "jhd7292@gmail.com",
+      .post("http://localhost:8080/auth/email-validation", {
+        email: emailRef.current.value,
       })
       .then((res) => {
-        console.log("이메일 체크");
-        console.log(res);
+        if (res.data.data.exist === false) {
+          setEmailCheckMsg("사용 가능한 이메일 입니다");
+        } else {
+          setEmailCheckMsg("이미 가입되어 있는 이메일 입니다");
+        }
       })
       .catch((err) => {
         console.log(err);

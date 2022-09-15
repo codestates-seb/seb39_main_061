@@ -40,6 +40,21 @@ const Login = () => {
           alert(errorMessage);
         }
       });
+
+    axios
+      .get("http://localhost:8080/api/v1/members/profile", {
+        headers: {
+          Authorization: `Bearer ${getLoginCookie()}`,
+        },
+      })
+      .then((res) => {
+        dispatch(authActions.login());
+        console.log("유저정보 확인");
+        console.log("유저정보", res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <section className={styles.login}>

@@ -14,17 +14,31 @@ import { useEffect } from "react";
 import { authActions } from "./store/auth.js";
 import { getLoginCookie } from "./library/cookie.js";
 import EmailValidation from "./pages/EmailValidation/EmailValidation.js";
+import axios from "axios";
 
 function App() {
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
-  // 로그인 유지
-  // useEffect(() => {
-  //   if (getLoginCookie()) {
-  //     console.log("겟쿠키", getLoginCookie());
-  //     dispatch(authActions.login());
-  //   }
-  // }, []);
+  // 로그인 유지 - app에서 새로고침 할때마다
+  useEffect(() => {
+    const accessToken = getLoginCookie();
+    console.log(getLoginCookie());
+
+    axios
+      .get("http://localhost:8080/api/v1/members/profile", {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => {
+        dispatch(authActions.login());
+        console.log("유저정보 확인");
+        console.log("유저정보", res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <BrowserRouter>
       <div className="App">
