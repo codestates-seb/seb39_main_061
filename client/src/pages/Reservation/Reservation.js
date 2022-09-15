@@ -1,5 +1,5 @@
 import Sidebar from "../../components/Sidebar/Sidebar";
-import ReservationWait from "../../components/ReservationWait"
+import ReservationWait from "../../components/Reservation/ReservationWait"
 
 
 

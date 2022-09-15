@@ -1,5 +1,5 @@
 import Sidebar from "../../components/Sidebar/Sidebar";
-import CreateQr from "../../components/CreateQr";
+import CreateQr from "../../components/CreateQr/CreateQr";
 
 
 const CreateCode = () => {

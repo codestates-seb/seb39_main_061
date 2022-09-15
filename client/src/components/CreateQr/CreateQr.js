@@ -10,7 +10,7 @@ function CreateQr() {
 	
 	const GenerateQRCode = () => {
 		
-		QRCode.toDataURL(url, {
+		QRCode.toDataURL(`${window.location.origin}/reservation?name=${url}`, {
 			width: 320,
  			height: 320,
 			color: {
