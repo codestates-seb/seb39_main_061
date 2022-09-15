@@ -2,21 +2,22 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
-import {
-  deleteCookie,
-  getLoginCookie,
-  setLoginCookie,
-} from "../../library/cookie";
+import { PURGE } from "redux-persist";
+import { deleteCookie } from "../../library/cookie";
+import { persistor } from "../../index";
 
 const Sidebar = () => {
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
-  const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutHanlder = () => {
     dispatch(authActions.logout());
-    deleteCookie(token);
+    deleteCookie("token");
+    console.log("로그아웃");
     navigate("/");
+  };
+  const purge = async () => {
+    await persistor.purge();
   };
   return (
     <div>
@@ -32,7 +33,16 @@ const Sidebar = () => {
       <Link to="/management">
         <button>management</button>
       </Link>
-      {isLogin && <button onClick={logoutHanlder}>로그아웃</button>}
+      {isLogin && (
+        <button
+          onClick={async () => {
+            await logoutHanlder();
+            await setTimeout(() => purge(), 200);
+          }}
+        >
+          로그아웃
+        </button>
+      )}
     </div>
   );
 };

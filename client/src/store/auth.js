@@ -1,21 +1,22 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { PURGE } from "redux-persist";
 
-const initialAuthState = {
+const initialState = {
   isAuthenticated: false,
-  token: null,
 };
 const authSlice = createSlice({
   name: "authentication",
-  initialState: initialAuthState,
+  initialState: initialState,
   reducers: {
     login(state, action) {
       state.isAuthenticated = true;
-      state.token = action.payload;
     },
     logout(state) {
       state.isAuthenticated = false;
-      state.token = null;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(PURGE, () => initialState);
   },
 });
 

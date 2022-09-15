@@ -2,6 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./SignUp.module.css";
 import axios from "axios";
+import baseURL from "../../library/axios";
+import { getDefaultMiddleware } from "@reduxjs/toolkit";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -14,6 +16,7 @@ const SignUp = () => {
   const businessNameRef = useRef();
   const BusinessCategoryRef = useRef();
   const [errMessage, setErrMessage] = useState("");
+  const [emailCheckMsg, setEmailCheckMsg] = useState("");
 
   const SignUpHandler = (event) => {
     event.preventDefault();
@@ -30,10 +33,9 @@ const SignUp = () => {
       alert(errMessage);
       return;
     }
-
     setIsLoading(true);
     axios
-      .post("http://211.104.147.150:8080/auth/signup", {
+      .post("http://localhost:8080/auth/signup", {
         email: email,
         password: password,
         name: name,
@@ -61,13 +63,38 @@ const SignUp = () => {
       });
   };
 
+  const emailCheckHandler = (e) => {
+    e.preventDefault();
+    console.log("중복검사");
+    axios
+      .post("http://localhost:8080/auth/email-validation", {
+        email: emailRef.current.value,
+      })
+      .then((res) => {
+        if (res.data.data.exist === false) {
+          setEmailCheckMsg("사용 가능한 이메일 입니다");
+        } else {
+          setEmailCheckMsg("이미 가입되어 있는 이메일 입니다");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        if (err.response) {
+          //
+        }
+        // 서버에서 보내는 유효성 검사 에러
+        // alert();
+      });
+  };
+
   return (
     <div className={styles.SignUp}>
       <h1>SignUp Page</h1>
       <form onSubmit={SignUpHandler} className={styles.SignUp__form}>
         <div>
           <input ref={emailRef} placeholder="이메일" />
-          <button>중복확인</button>
+          <button onClick={emailCheckHandler}>중복확인</button>
+          <p>{emailCheckMsg}</p>
         </div>
         <div>
           <input type="password" ref={PWRef} placeholder="비밀번호" />
