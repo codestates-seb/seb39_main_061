@@ -9,6 +9,7 @@ import UserPage from "./pages/UserPage/UserPage";
 import MainPage from "./pages/MainPage/MainPage";
 import CreateCode from "./pages/CreateCode/CreateCode.js";
 import FindPassword from "./pages/FindPassword/FindPassword.js";
+import Reservation from "./pages/Reservation/Reservation.js";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/create-code" element={<CreateCode />}></Route>
           <Route path="/management" element={<Management />}></Route>
+          <Route path="/reservation" element={<Reservation />}></Route>
           <Route
             path="/management-Detail"
             element={<ManagementDetail />}
