@@ -1,4 +1,4 @@
-package com.clone.stackoverflow.util;
+package com.project.QR.util;
 
 import org.springframework.restdocs.operation.preprocess.OperationRequestPreprocessor;
 import org.springframework.restdocs.operation.preprocess.OperationResponsePreprocessor;
