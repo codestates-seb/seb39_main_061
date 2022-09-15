@@ -14,7 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class Keep {
+public class Keep extends Auditable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long keepId;

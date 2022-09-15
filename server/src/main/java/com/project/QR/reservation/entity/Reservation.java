@@ -1,5 +1,6 @@
 package com.project.QR.reservation.entity;
 
+import com.project.QR.audit.CreatedAuditable;
 import com.project.QR.qrcode.entity.QrCode;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class Reservation {
+public class Reservation extends CreatedAuditable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long reservationId;

@@ -3,9 +3,11 @@ package com.project.QR.member.controller;
 import com.project.QR.dto.SingleResponseDto;
 import com.project.QR.dto.SingleResponseWithMessageDto;
 import com.project.QR.member.dto.MemberRequestDto;
+import com.project.QR.member.dto.MemberResponseDto;
 import com.project.QR.member.entity.Member;
 import com.project.QR.member.mapper.MemberMapper;
 import com.project.QR.member.service.MemberService;
+import com.project.QR.sector.service.SectorService;
 import com.project.QR.security.MemberDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,7 @@ import javax.validation.Valid;
 public class MemberController {
   private final MemberService memberService;
   private final MemberMapper mapper;
+  private final SectorService sectorService;
 
   /**
    * 회원 정보 조회 api
@@ -45,7 +48,9 @@ public class MemberController {
                                      @RequestPart(name = "file", required = false) MultipartFile multipartFile) {
     updateMemberDto.setEmail(memberDetails.getUsername());
     Member member = memberService.updateMember(mapper.updateMemberDtoToMember(updateMemberDto), multipartFile);
-    return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.memberToMemberInfoDto(member),
+    MemberResponseDto.MemberInfoDto response = mapper.memberToMemberInfoDto(member);
+    response.getSector().setName(sectorService.getSector(response.getSector().getSectorId()).getName());
+    return new ResponseEntity(new SingleResponseWithMessageDto<>(response,
       "SUCCESS"),
       HttpStatus.OK);
   }
