@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./store/auth.js";
 import { getLoginCookie } from "./library/cookie.js";
 import EmailValidation from "./pages/EmailValidation/EmailValidation.js";
+import Register from "./pages/Register/Register.js";
 import axios from "axios";
 
 function App() {
@@ -58,6 +59,7 @@ function App() {
         {isLogin && <Route path="/userPage" element={<UserPage />}></Route>}
         <Route path="*" element={<MainPage />}></Route>
         <Route path="/email-validation" element={<EmailValidation />}></Route>
+        <Route path="/oauth2/redirect" element={<Register />}></Route>
       </Routes>
     </div>
   );
