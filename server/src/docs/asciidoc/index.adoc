@@ -1,0 +1,10 @@
+= QR Service API DOCS
+:sectnums:
+:toc: left
+:toclevels: 4
+:toc-title: Table of Contents
+:source-highlighter: prettify
+
+v1.0.0, 2022.08.26
+
+***
