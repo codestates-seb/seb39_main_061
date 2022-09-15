@@ -5,6 +5,7 @@ import com.project.QR.exception.BusinessLogicException;
 import com.project.QR.exception.ExceptionCode;
 import com.project.QR.helper.event.MemberPasswordApplicationEvent;
 import com.project.QR.helper.event.MemberRegistrationApplicationEvent;
+import com.project.QR.member.entity.EmailVerified;
 import com.project.QR.member.entity.Member;
 import com.project.QR.member.repository.MemberRepository;
 import com.project.QR.security.MemberDetails;
@@ -43,7 +44,8 @@ public class AuthService {
     verifyExistsEmail(member.getEmail());
     member.setPassword(passwordEncoder.encode(member.getPassword()));
     member.setVerifiedCode(UUID.randomUUID().toString());
-    Member savedMember = memberRepository.save(member);
+    member.setEmailVerified(EmailVerified.N);
+    Member savedMember = memberRepository.saveAndFlush(member);
     publisher.publishEvent(new MemberRegistrationApplicationEvent(this, savedMember));
     return savedMember;
   }
@@ -56,7 +58,7 @@ public class AuthService {
     if(!passwordEncoder.matches(member.getPassword(), findMember.getPassword())) {
       throw new BusinessLogicException(ExceptionCode.MEMBER_INFO_INCORRECT);
     }
-    if(!findMember.getEmailVerified()) {
+    if(findMember.getEmailVerified().equals("N")) {
       throw new BusinessLogicException(ExceptionCode.EMAIL_VALIDATION_NEED);
     }
     return tokenProvider.createToken(findMember, response);
@@ -125,19 +127,20 @@ public class AuthService {
       throw new BusinessLogicException(ExceptionCode.VALIDATION_CODE_INCORRECT);
     }
     findMember.setRole(findMember.getJoinRole());
-    findMember.setEmailVerified(true);
+    findMember.setEmailVerified(EmailVerified.Y);
     memberRepository.save(findMember);
   }
 
   /**
    * oauth2 로그인 이후 추가 정보 기입
    */
-  public Member updateMember(Member member) {
+  public TokenDto.TokenInfoDto updateMember(Member member, HttpServletResponse response) {
     Member findMember = findVerifiedMember(member.getEmail());
     Member updatingMember = beanUtils.copyNonNullProperties(member, findMember);
-    updatingMember.setEmailVerified(true);
+    updatingMember.setEmailVerified(EmailVerified.Y);
     updatingMember.setMemberId(findMember.getMemberId());
-    return memberRepository.save(updatingMember);
+    Member savedMember = memberRepository.save(findMember);
+    return tokenProvider.createToken(savedMember, response);
   }
 
   /**

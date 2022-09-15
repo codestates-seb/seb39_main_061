@@ -2,6 +2,7 @@ package com.project.QR.security.oauth;
 
 import com.project.QR.exception.OAuthProcessingException;
 import com.project.QR.member.entity.AuthProvider;
+import com.project.QR.member.entity.EmailVerified;
 import com.project.QR.member.entity.Member;
 import com.project.QR.member.repository.MemberRepository;
 import com.project.QR.security.MemberDetails;
@@ -57,6 +58,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
       .profileImg(userInfo.getImageUrl())
       .role("ROLE_GUEST")
       .provider(authProvider)
+      .emailVerified(EmailVerified.N)
       .build();
     return memberRepository.save(member);
   }
