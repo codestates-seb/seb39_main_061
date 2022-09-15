@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 // import { useDispatch, useSelector } from 'react-redux';
 
@@ -9,9 +9,13 @@ const ProfileImgUpload = (submitImg) => {
     image_file: "",
     preview_URL: "img/default_image.png",
   });
+  const [selectedFile, setSelectedFile] = useState();
+  const [errorMsg, setErrorMsg] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   let inputRef;
 
+  // 이미지 preview 함수
   const saveImage = (e) => {
     e.preventDefault();
     const fileReader = new FileReader();
@@ -26,24 +30,29 @@ const ProfileImgUpload = (submitImg) => {
         }
       )
     }
+    console.log(e.target.files[0])
   }
 
+  // 이미지 upload 함수
   const sendImageToServer = async () => {
-    console.log(image)
+    console.log(image.image_file)
     if (image.image_file) {
       const formData = new FormData()
-      // formData.append('file', image.image_file);
-      formData.append("file", new Blob([JSON.stringify(image.image_file)], {
-        type: "application/json"
-      }));
-      console.log(formData)
-      const profileData = await axios.patch(
+      const profileFormData = {
+        "password": "test",
+        "sectorId": 1,
+        "service": ["RESERVATION"]
+      }
+      formData.append('file', image.image_file, { type: "application/json" })
+      formData.append("data", new Blob([JSON.stringify(profileFormData)], { type: "multipart/form-data" }));
+      console.log(formData.get('file'));
+      const profileData = await axios.post(
         '/',
         formData,
         {
           "Content-Type": "multipart/form-data",
           "Accept": "application/json, multipart/form-data",
-          headers: { Authorization: "Bearer " + JSON.parse(window.localStorage.getItem("access_token")).access_token }
+          headers: { Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5aXRza3lAbmF2ZXIuY29tIiwicm9sZSI6IlJPTEVfUkVTRVJWQVRJT04iLCJpYXQiOjE2NjMyMjE1MjMsImV4cCI6MTY2MzIyNTEyM30.QmL6f5YrfJlHxtZ02ZSVFCf85v1EyF1y3nTVKZ85J1YCc4I2SrOSXfZuC_QypTTkmYXm9VNt0zWrn7ea7Aqr5g" }
         });
       console.log(profileData);
       alert("서버에 이미지 등록이 완료되었습니다!");
@@ -59,7 +68,9 @@ const ProfileImgUpload = (submitImg) => {
 
   return (
     <div>
-      <input type="file" accept="image/*"
+      <input
+        type="file"
+        accept="image/*"
         onChange={saveImage}
         // 클릭할 때 마다 file input의 value를 초기화 하지 않으면 버그가 발생할 수 있다
         // 사진 등록을 두개 띄우고 첫번째에 사진을 올리고 지우고 두번째에 같은 사진을 올리면 그 값이 남아있음!
@@ -70,16 +81,11 @@ const ProfileImgUpload = (submitImg) => {
       <div>
         <img src={image.preview_URL} />
       </div>
-
       <div>
-        <button type="primary" variant="contained" onClick={() => inputRef.click()}>
+        <button onClick={() => inputRef.click()}>
           Preview
         </button>
-        {/*}
-        <button color="error" variant="contained" onClick={deleteImage}>
-          Delete
-  </button>*/}
-        <button color="success" variant="contained" onClick={sendImageToServer}>
+        <button onClick={sendImageToServer}>
           Upload
         </button>
       </div>
