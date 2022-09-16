@@ -43,7 +43,6 @@ import static org.springframework.restdocs.request.RequestDocumentation.requestP
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WithMockCustomUser
 @WebMvcTest(AuthController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @MockBean(JpaMetamodelMappingContext.class)
@@ -365,7 +364,7 @@ public class AuthControllerTest {
           "password-reIssue",
           getRequestPreProcessor(),
           getResponsePreProcessor(),
-          // 에러 처리 필요
+          // TO-DO : 에러 처리 필요
 //          requestFields(
 //            List.of(
 //              fieldWithPath("email").type(JsonFieldType.STRING).description("이메일")
