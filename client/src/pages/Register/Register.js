@@ -1,10 +1,11 @@
 import axios from "axios";
+import { useEffect } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import axiosInstance from "../../library/axios";
 import { getLoginCookie } from "../../library/cookie";
-import { authActions } from "../../store/auth";
+import auth, { authActions } from "../../store/auth";
 import { userAction } from "../../store/user";
 import styles from "./Register.module.css";
 
@@ -20,75 +21,69 @@ const Register = () => {
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
 
   // 인증 안됐으면 true
-  const validationIsFalse = location.search.includes("false");
+  const oauthValidation = location.search.includes("true");
 
   const accessToken = String(location.search.split("&", 1));
   const newToken = accessToken.substring(13);
 
   console.log(newToken);
-  console.log("이메일 인증 안됌 ? = ", validationIsFalse);
-
-  if (validationIsFalse === false) {
-    // 이메일 인증이 true면
-    // 1. 로그인 상태 true로
-    // 2. 토큰을 로컬스토리지에 덮어쓰기
-    // 2. 유저정보 받아서 리덕스 상태 바꾸기
-    console.log("로그인 성공!");
-    localStorage.setItem("token", newToken);
-    const getProfile = async () => {
-      try {
-        let responose = await axiosInstance.get("/api/v1/members/profile");
-        if (responose.status === 200) {
-          console.log("프로필 가져오기 성공!");
-
-          navigate("/dashboard");
-
-          // dispatch(userAction.setUser(responose.data.data));
-        }
-      } catch (err) {
-        console.log("소셜 로그인 실패");
-      }
-    };
-    dispatch(authActions.login());
-    getProfile();
-  }
-
-  const handlerSubmit = (e) => {
-    e.preventDefalut();
-
-    if (!validationIsFalse === false) {
-      axios
-        .patch(
-          "http://localhost:8080/auth/members",
-          {
-            service: "reservation",
-            sectorId: BusinessCategoryRef.current.value,
-            businessName: businessNameRef.current.value,
-            phone: phoneNumRef.current.value,
-            name: nameRef.current.value,
-          },
-          { Authorization: `Bearer ${newToken}` }
-        )
-        .then((res) => {
-          console.log(res.data);
-          console.log("추가전송 성공");
-          alert("추가전송 성공");
-          // navigate("/dashboard");
-        })
-        .catch((err) => {
-          console.log("추가전송 실패");
-          alert("추가전송 성공");
-          console.log(err);
-        });
+  console.log("이메일 인증 안됌 ? = ", oauthValidation);
+  const checkValidation = () => {
+    if (oauthValidation === true) {
+      // 이메일 인증이 true면
+      // 1. 로그인 상태 true로
+      // 2. 토큰을 로컬스토리지에 덮어쓰기
+      // 2. 유저정보 받아서 리덕스 상태 바꾸기
+      console.log("로그인 성공!");
+      localStorage.setItem("token", newToken);
+      dispatch(authActions.login());
+      navigate("/dashboard");
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("token", newToken);
+  }, []);
+
+  const oauthReq = async () => {
+    try {
+      let response = await axiosInstance.patch("/auth/members", {
+        service: "reservation",
+        sectorId: BusinessCategoryRef.current.value,
+        businessName: businessNameRef.current.value,
+        phone: phoneNumRef.current.value,
+        name: nameRef.current.value,
+      });
+      if (response.status === 200) {
+        alert(response.data);
+        console.log("추가전송 성공");
+        localStorage.setItem("token", response.data.accessToken);
+        alert("추가전송 성공");
+        dispatch(authActions.login());
+        navigate("/dashboard");
+      }
+    } catch (err) {
+      console.log("추가전송 실패");
+      alert("추가전송 성공");
+      console.log(err);
+    }
+  };
+
+  const handlerSubmit = async () => {
+    console.log("토큰:", newToken);
+    alert("전송 요청!");
+    oauthReq();
+  };
+  useEffect(() => {
+    checkValidation();
+  });
 
   return (
     <div className={styles.register}>
       <h1>추가정보 등록 페이지</h1>
       <p>{location.search}</p>
 
-      <form className={styles.register__form} onSubmit={handlerSubmit}>
+      <div className={styles.register__form}>
         <select ref={BusinessCategoryRef}>
           <option value={0}>업종을 선택하세요</option>
           <option value={1}>농업, 임업 및 어업</option>
@@ -110,8 +105,8 @@ const Register = () => {
         <input ref={businessNameRef} placeholder="상호명" />
         <input ref={phoneNumRef} placeholder="전화번호" />
         <input ref={nameRef} placeholder="이름" />
-        <button>전송</button>
-      </form>
+        <button onClick={handlerSubmit}>전송</button>
+      </div>
     </div>
   );
 };
