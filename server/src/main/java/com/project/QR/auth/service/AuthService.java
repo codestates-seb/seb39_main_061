@@ -58,7 +58,7 @@ public class AuthService {
     if(!passwordEncoder.matches(member.getPassword(), findMember.getPassword())) {
       throw new BusinessLogicException(ExceptionCode.MEMBER_INFO_INCORRECT);
     }
-    if(findMember.getEmailVerified().equals("N")) {
+    if(findMember.getEmailVerified().equals(EmailVerified.N)) {
       throw new BusinessLogicException(ExceptionCode.EMAIL_VALIDATION_NEED);
     }
     return tokenProvider.createToken(findMember, response);
