@@ -1,25 +1,29 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
 const ProfileEdit = ({ setIsModal }) => {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [errMessage, setErrMessage] = useState('');
   const [image, setImage] = useState({
     image_file: "",
     preview_URL: "img/default_image.png",
   });
 
   const navigate = useNavigate()
+  const passwordRef = useRef()
+  const confirmPasswordRef = useRef()
 
+  let inputRef;
+
+  //프로필 수정 모달
   const modalClose = () => {
     setIsModal(false);
   };
 
-  let inputRef;
-
-  // 이미지 preview 함수
+  // 이미지 preview
   const saveImage = (e) => {
     e.preventDefault();
     const fileReader = new FileReader();
@@ -40,8 +44,15 @@ const ProfileEdit = ({ setIsModal }) => {
 
   // 이미지 data,file(formData) 전송
   const profileEditSubmiy = async () => {
+    const passwordEdit = passwordRef.current.value;
+    const confirmPasswordEdit = confirmPasswordRef.current.value;
+    if (passwordEdit !== confirmPasswordEdit) {
+      setErrMessage("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+    setIsLoading(true);
     if (!password) {
-      setErrorMessage('빈칸을 채워주세요');
+      setErrMessage('빈칸을 채워주세요');
       return;
     } else if (!image.image_file) {
       alert("사진을 등록하세요!")
@@ -50,7 +61,7 @@ const ProfileEdit = ({ setIsModal }) => {
       const formData = new FormData()
       formData.enctype = "multipart/form-data"
       const profileFormData = {
-        "password": newPassword,
+        "password": passwordEdit,
         "sectorId": 1,
         "service": ["RESERVATION"]
       }
@@ -103,11 +114,19 @@ const ProfileEdit = ({ setIsModal }) => {
         <div>
           <div>
             <span>새 비밀번호</span>
-            <input type={"password"} onChange={(e) => setNewPassword(e.target.value)} />
+            <input
+              type={"password"}
+              onChange={(e) => setNewPassword(e.target.value)}
+              ref={passwordRef}
+            />
           </div>
           <div>
             <span>새 비밀번호 확인</span>
-            <input type={"password"} onChange={(e) => setPassword(e.target.value)} />
+            <input
+              type={"password"}
+              onChange={(e) => setPassword(e.target.value)}
+              ref={confirmPasswordRef}
+            />
           </div>
         </div>
         <div>
@@ -115,9 +134,9 @@ const ProfileEdit = ({ setIsModal }) => {
           <div>- 예약/대기 서비스</div>
           <div>- 관리 서비스</div>
         </div>
-        {errorMessage ? (
+        {errMessage ? (
           <div>
-            {errorMessage}
+            {errMessage}
           </div>
         ) : (
           ''
