@@ -47,12 +47,12 @@ const Login = () => {
     e.preventDefault();
     await loginReq();
     await getProfile();
-    setTimeout(() => {
-      localStorage.setItem(
-        "token",
-        "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqaGQ3MjkyQGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX1JFU0VSVkFUSU9OIiwiaWF0IjoxNjYzMjQ2MTk4LCJleHAiOjE2NjMyNDk3OTh9.9IMub88llbKuUO70SSK6EQERqWEfU0QK7CPMORzasQGRSWEpJSSGa4KMUxZAKlE93VvStXrF6G08RX07_DJIVQ"
-      );
-    }, 3000);
+    // setTimeout(() => {
+    //   localStorage.setItem(
+    //     "token",
+    //     "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqaGQ3MjkyQGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX1JFU0VSVkFUSU9OIiwiaWF0IjoxNjYzMjQ2MTk4LCJleHAiOjE2NjMyNDk3OTh9.9IMub88llbKuUO70SSK6EQERqWEfU0QK7CPMORzasQGRSWEpJSSGa4KMUxZAKlE93VvStXrF6G08RX07_DJIVQ"
+    //   );
+    // }, 3000);
   };
 
   return (
