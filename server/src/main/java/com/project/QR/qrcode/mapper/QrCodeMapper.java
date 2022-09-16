@@ -10,7 +10,13 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface QrCodeMapper {
-  QrCode createQrCodeDtoToQrCode (QrCodeRequestDto.CreateQrCodeDto createQrCodeDto);
+  default QrCode createQrCodeDtoToQrCode (QrCodeRequestDto.CreateQrCodeDto createQrCodeDto) {
+    QrCode qrCode = new QrCode();
+    qrCode.setDueDate(createQrCodeDto.getDueDate());
+    qrCode.setTarget(createQrCodeDto.getTarget());
+    qrCode.setQrType(QrCode.QrType.valueOf(createQrCodeDto.getQrType().toUpperCase()));
+    return qrCode;
+  }
   QrCodeResponseDto.QrCodeInfoDto qrCodeToQrCodeInfoDto(QrCode qrCode);
   QrCode updateQrCodeDtoToQrCode(QrCodeRequestDto.UpdateQrCodeDto updateQrCodeDto);
 
