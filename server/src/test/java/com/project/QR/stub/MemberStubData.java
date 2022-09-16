@@ -31,8 +31,14 @@ public class MemberStubData {
       .name(member().getName())
       .password(member().getPassword())
       .phone(member.getPhone())
-      .role(member.getRole())
+      .role("RESERVATION")
       .sectorId(member.getSector().getSectorId())
+      .build();
+  }
+
+  public static MemberRequestDto.EmailDto emailDto(String email) {
+    return MemberRequestDto.EmailDto.builder()
+      .email(email)
       .build();
   }
 }
