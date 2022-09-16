@@ -1,11 +1,13 @@
 package com.project.QR.stub;
 
 import com.project.QR.member.dto.MemberRequestDto;
+import com.project.QR.member.dto.MemberResponseDto;
 import com.project.QR.member.entity.AuthProvider;
 import com.project.QR.member.entity.Member;
 import com.project.QR.sector.entity.Sector;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MemberStubData {
   private static List<Sector> sectorList = SectorStubData.sectorList();
@@ -59,6 +61,35 @@ public class MemberStubData {
       .phone(member.getPhone())
       .sectorId(member.getSector().getSectorId())
       .service("reservation")
+      .build();
+  }
+
+  public static MemberResponseDto.MemberInfoDto memberInfoDto() {
+    Member member = member();
+    return MemberResponseDto.MemberInfoDto.builder()
+      .profileImg(member.getProfileImg())
+      .service(member.getRoleList().stream()
+        .map(role -> role.substring(5))
+        .collect(Collectors.toList())
+      )
+      .phone(member.getPhone())
+      .sector(member.getSector())
+      .name(member.getName())
+      .email(member.getEmail())
+      .businessName(member.getBusinessName())
+      .build();
+  }
+
+  public static MemberRequestDto.UpdateMemberDto updateMemberDto() {
+    Member member = member();
+    return MemberRequestDto.UpdateMemberDto.builder()
+      .businessName("changeBusinessName")
+      .email(member.getEmail())
+      .name("changeName")
+      .password("1234")
+      .phone("01087654321")
+      .sectorId(3)
+      .profileImg("profile-img-url")
       .build();
   }
 }
