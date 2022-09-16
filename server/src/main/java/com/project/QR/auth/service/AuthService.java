@@ -45,7 +45,7 @@ public class AuthService {
     member.setPassword(passwordEncoder.encode(member.getPassword()));
     member.setVerifiedCode(UUID.randomUUID().toString());
     member.setEmailVerified(EmailVerified.N);
-    Member savedMember = memberRepository.save(member);
+    Member savedMember = memberRepository.saveAndFlush(member);
     publisher.publishEvent(new MemberRegistrationApplicationEvent(this, savedMember));
     return savedMember;
   }
@@ -58,7 +58,7 @@ public class AuthService {
     if(!passwordEncoder.matches(member.getPassword(), findMember.getPassword())) {
       throw new BusinessLogicException(ExceptionCode.MEMBER_INFO_INCORRECT);
     }
-    if(findMember.getEmailVerified().equals(EmailVerified.N)) {
+    if(findMember.getEmailVerified().equals("N")) {
       throw new BusinessLogicException(ExceptionCode.EMAIL_VALIDATION_NEED);
     }
     return tokenProvider.createToken(findMember, response);
@@ -134,12 +134,13 @@ public class AuthService {
   /**
    * oauth2 로그인 이후 추가 정보 기입
    */
-  public Member updateMember(Member member) {
+  public TokenDto.TokenInfoDto updateMember(Member member, HttpServletResponse response) {
     Member findMember = findVerifiedMember(member.getEmail());
     Member updatingMember = beanUtils.copyNonNullProperties(member, findMember);
     updatingMember.setEmailVerified(EmailVerified.Y);
     updatingMember.setMemberId(findMember.getMemberId());
-    return memberRepository.save(updatingMember);
+    Member savedMember = memberRepository.save(findMember);
+    return tokenProvider.createToken(savedMember, response);
   }
 
   /**

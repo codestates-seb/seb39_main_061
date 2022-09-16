@@ -88,10 +88,14 @@ public class AuthController {
    */
   @PatchMapping("/members")
   public ResponseEntity updateMember(@AuthenticationPrincipal MemberDetails memberDetails,
-                                     @Valid @RequestBody MemberRequestDto.OAuthUpdateDto oAuthUpdateDto) {
+                                     @Valid @RequestBody MemberRequestDto.OAuthUpdateDto oAuthUpdateDto,
+                                     HttpServletResponse response) {
     oAuthUpdateDto.setEmail(memberDetails.getUsername());
-    Member member = authService.updateMember(mapper.oAuthUpdateDtoToMember(oAuthUpdateDto));
-    return new ResponseEntity(new SingleResponseDto<>("SUCCESS"), HttpStatus.OK);
+    TokenDto.TokenInfoDto tokenInfoDto
+      = authService.updateMember(mapper.oAuthUpdateDtoToMember(oAuthUpdateDto), response);
+    return new ResponseEntity(new SingleResponseWithMessageDto<>(tokenInfoDto,
+      "SUCCESS"),
+      HttpStatus.OK);
   }
 
   /**
