@@ -30,11 +30,11 @@ function App() {
         dispatch(authActions.login());
       }
     } catch (err) {
-      console.log(err);
+      console.log("로그인유지 실패");
     }
   };
   useEffect(() => {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem("token") && isLogin === true) {
       getProfile();
     }
   }, []);
