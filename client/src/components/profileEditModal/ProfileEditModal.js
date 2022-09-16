@@ -36,6 +36,8 @@ const ProfileEdit = ({ setIsModal }) => {
     }
   }
 
+  const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5aXRza3lAbmF2ZXIuY29tIiwicm9sZSI6IlJPTEVfR1VFU1QiLCJpYXQiOjE2NjMyOTM5NjAsImV4cCI6MTY2MzI5NzU2MH0.oxpkaOBH3hKv9xzew0JXvQcVKTP9EOJGZrT3YFpmfzwcuQ158Z0bYKxpU3U32EYBcET3mu86zbcJj1ouOBJFZg"
+
   // 이미지 data,file(formData) 전송
   const profileEditSubmiy = async () => {
     if (!password) {
@@ -61,7 +63,7 @@ const ProfileEdit = ({ setIsModal }) => {
         formData,
         {
           headers: {
-            Authorization: "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5aXRza3lAbmF2ZXIuY29tIiwicm9sZSI6IlJPTEVfUkVTRVJWQVRJT04iLCJpYXQiOjE2NjMyNDcyNTEsImV4cCI6MTY2MzI1MDg1MX0.j_er63uI_lgy_MQW--p5UYQ8r0wjEyLP8m7Jl453agAWpsss62jm1HuIRak2y1O67977mXLmFciaKus2qYY-rA",
+            Authorization: "Bearer " + token,
             "Content-Type": "multipart/form-data"
           }
         });
