@@ -13,6 +13,7 @@ import com.project.QR.member.entity.Member;
 import com.project.QR.member.mapper.MemberMapper;
 import com.project.QR.security.MemberDetails;
 import com.project.QR.stub.MemberStubData;
+import com.project.QR.stub.TokenStubData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -68,18 +69,7 @@ public class AuthControllerTest {
 
 
 
-//  /**
-//   * 로그인 api
-//   */
-//  @PostMapping("/login")
-//  public ResponseEntity login(@Valid @RequestBody MemberRequestDto.LoginDto loginDto,
-//                              HttpServletResponse response) {
-//    TokenDto.TokenInfoDto tokenInfoDto = authService.loginMember(mapper.loginDtoToMember(loginDto), response);
-//    return new ResponseEntity(new SingleResponseWithMessageDto<>(tokenInfoDto,
-//      "WELCOME"),
-//      HttpStatus.OK);
-//  }
-//
+
 //  /**
 //   * accessToken 재발급 api
 //   */
@@ -125,17 +115,6 @@ public class AuthControllerTest {
   @Test
   @DisplayName("이메일 중복 검사 테스트")
   public void emailValidationTest() throws Exception {
-    //  /**
-//   * 이메일 중복검사 api
-//   */
-//  @PostMapping("/email-validation")
-//  public ResponseEntity emailValidation(@Valid @RequestBody MemberRequestDto.EmailDto emailDto) {
-//    boolean exist = authService.findExistsEmail(emailDto.getEmail());
-//    return new ResponseEntity(new SingleResponseWithMessageDto<>(new ExistDto(exist),
-//      "SUCCESS"),
-//      HttpStatus.OK);
-//  }
-//
     // given
     String email = "test@test.com";
     MemberRequestDto.EmailDto emailDto = MemberStubData.emailDto(email);
@@ -155,7 +134,27 @@ public class AuthControllerTest {
     // then
     actions
       .andExpect(status().isOk())
-      .andExpect(jsonPath("$.data.valid").value(true));
+      .andExpect(jsonPath("$.data.exist").value(false))
+      .andExpect(jsonPath("$.message").value("SUCCESS"))
+      .andDo(
+        document(
+          "email-validation",
+          getRequestPreProcessor(),
+          getResponsePreProcessor(),
+          requestFields(
+            List.of(
+              fieldWithPath("email").type(JsonFieldType.STRING).description("이메일")
+            )
+          ),
+          responseFields(
+            List.of(
+              fieldWithPath("data").type(JsonFieldType.OBJECT).description("결과 데이터"),
+              fieldWithPath("data.exist").type(JsonFieldType.BOOLEAN).description("이메일 중복 여부"),
+              fieldWithPath("message").type(JsonFieldType.STRING).description("결과 메시지")
+            )
+          )
+        )
+      );
   }
 
   @Test
@@ -182,7 +181,7 @@ public class AuthControllerTest {
       .andExpect(jsonPath("$.data").value("WELCOME"))
       .andDo(
         document(
-          "회원가입",
+          "signup",
           getRequestPreProcessor(),
           getResponsePreProcessor(),
           requestFields(
@@ -203,5 +202,29 @@ public class AuthControllerTest {
           )
         )
       );
+  }
+
+  @Test
+  @DisplayName("로그인 테스트")
+  public void loginTest() throws Exception {
+    //  /**
+//   * 로그인 api
+//   */
+//  @PostMapping("/login")
+//  public ResponseEntity login(@Valid @RequestBody MemberRequestDto.LoginDto loginDto,
+//                              HttpServletResponse response) {
+//    TokenDto.TokenInfoDto tokenInfoDto = authService.loginMember(mapper.loginDtoToMember(loginDto), response);
+//    return new ResponseEntity(new SingleResponseWithMessageDto<>(tokenInfoDto,
+//      "WELCOME"),
+//      HttpStatus.OK);
+//  }
+//
+    // given
+    MemberRequestDto.LoginDto loginDto = MemberStubData.loginDto();
+    TokenDto.TokenInfoDto tokenInfoDto = TokenStubData.tokenInfoDTO();
+
+    // when
+
+    // then
   }
 }

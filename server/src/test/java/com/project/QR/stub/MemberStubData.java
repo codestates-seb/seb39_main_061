@@ -41,4 +41,12 @@ public class MemberStubData {
       .email(email)
       .build();
   }
+
+  public static MemberRequestDto.LoginDto loginDto() {
+    Member member = member();
+    return MemberRequestDto.LoginDto.builder()
+      .email(member.getEmail())
+      .password(member.getPassword())
+      .build();
+  }
 }
