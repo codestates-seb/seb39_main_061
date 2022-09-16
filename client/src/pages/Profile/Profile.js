@@ -14,7 +14,7 @@ const Profile = () => {
     setIsModal(true);
   }
 
-  const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ5aXRza3lAbmF2ZXIuY29tIiwicm9sZSI6IlJPTEVfR1VFU1QiLCJpYXQiOjE2NjMyOTUxMjQsImV4cCI6MTY2MzI5ODcyNH0.K7r0skN_Ir0iMrgiy5_tuGNkyJKBibPbeSH4FHz2O10Amp82wNJb7tokIN1s-sM98Rnx8wdF_iUAf6ONDQD8uQ"
+  const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJob25lc3R5NDA3QGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX0dVRVNUIiwiaWF0IjoxNjYzMjk2NDUzLCJleHAiOjE2NjMzMDAwNTN9.OjAoWxek5iG8sGZOp5saXNGNpxYghLFV6sTdEPZg6jjc9pTAMgg67YgQdg48AaMKpVpZ6kJdPnt63HFP-76i8Q"
 
   useEffect(() => {
     axios.get("http://localhost:8080/api/v1/members/profile",
