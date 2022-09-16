@@ -2,6 +2,7 @@ import axios from "axios";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
+import axiosInstance from "../../library/axios";
 import { getLoginCookie } from "../../library/cookie";
 import { authActions } from "../../store/auth";
 import { userAction } from "../../store/user";
@@ -22,53 +23,65 @@ const Register = () => {
   const validationIsFalse = location.search.includes("false");
 
   const accessToken = String(location.search.split("&", 1));
-  const token = accessToken.substring(13);
+  const newToken = accessToken.substring(13);
 
-  console.log(token);
+  console.log(newToken);
   console.log("이메일 인증 안됌 ? = ", validationIsFalse);
+
+  if (validationIsFalse === false) {
+    // 이메일 인증이 true면
+    // 1. 로그인 상태 true로
+    // 2. 토큰을 로컬스토리지에 덮어쓰기
+    // 2. 유저정보 받아서 리덕스 상태 바꾸기
+    console.log("로그인 성공!");
+    localStorage.setItem("token", newToken);
+    const getProfile = async () => {
+      try {
+        let responose = await axiosInstance.get("/api/v1/members/profile");
+        if (responose.status === 200) {
+          console.log("프로필 가져오기 성공!");
+
+          navigate("/dashboard");
+
+          // dispatch(userAction.setUser(responose.data.data));
+        }
+      } catch (err) {
+        console.log("소셜 로그인 실패");
+      }
+    };
+    dispatch(authActions.login());
+    getProfile();
+  }
 
   const handlerSubmit = (e) => {
     e.preventDefalut();
-    axios
-      .patch(
-        "http://localhost:8080/auth/members",
-        {
-          service: "reservation",
-          sectorId: BusinessCategoryRef.current.value,
-          businessName: businessNameRef.current.value,
-          phone: phoneNumRef.current.value,
-          name: nameRef.current.value,
-        },
-        { Authorization: `Bearer ${token}` }
-      )
-      .then((res) => {
-        console.log(res.data);
-        navigate("/dashboard");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
-  // 인증이 됐으면 로그인하기
-  if (validationIsFalse === false) {
-    //이메일 인증이 true면
-    // 1. 로그인 상태 true로
-    // 2. 토큰으로 로그인
-    // 2. 유저정보 받아서 리덕스 상태 바꾸기
-    axios
-      .get("http://localhost:8080/api/v1/members/profile", {
-        headers: {
-          Authorization: `Bearer ${getLoginCookie("token")}`,
-        },
-      })
-      .then((res) => {
-        dispatch(authActions.login());
-        console.log("로그인상태는? ", isLogin);
-        navigate("/dashboard");
-      })
-      .catch((err) => {});
-  }
+    if (!validationIsFalse === false) {
+      axios
+        .patch(
+          "http://localhost:8080/auth/members",
+          {
+            service: "reservation",
+            sectorId: BusinessCategoryRef.current.value,
+            businessName: businessNameRef.current.value,
+            phone: phoneNumRef.current.value,
+            name: nameRef.current.value,
+          },
+          { Authorization: `Bearer ${newToken}` }
+        )
+        .then((res) => {
+          console.log(res.data);
+          console.log("추가전송 성공");
+          alert("추가전송 성공");
+          // navigate("/dashboard");
+        })
+        .catch((err) => {
+          console.log("추가전송 실패");
+          alert("추가전송 성공");
+          console.log(err);
+        });
+    }
+  };
 
   return (
     <div className={styles.register}>

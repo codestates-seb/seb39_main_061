@@ -26,6 +26,7 @@ function App() {
     try {
       let responose = await axiosInstance.get("/api/v1/members/profile");
       if (responose.status === 200) {
+        console.log("로그인유지!");
         dispatch(authActions.login());
       }
     } catch (err) {
