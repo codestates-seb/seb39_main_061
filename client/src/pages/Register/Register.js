@@ -21,6 +21,8 @@ const Register = () => {
 
   const accessToken = String(location.search.split("&", 1));
   const token = accessToken.substring(13);
+  const pageTitle = "페이지제목";
+  window.history.pushState("", pageTitle, `/oauth2/redirect`);
   const checkValidation = () => {
     if (oauthValidation === true) {
       // 이메일 인증이 true면
@@ -49,13 +51,15 @@ const Register = () => {
       });
       if (response.status === 200) {
         console.log("새로응답받은 토큰?", response.data.data.accessToken);
-        alert(response.data.accessToken);
+        const newToken = response.data.accessToken;
         localStorage.setItem("token", response.data.data.accessToken);
         dispatch(authActions.login());
         navigate("/dashboard");
       }
     } catch (err) {
       console.log(err);
+      alert("요청에 실패하였습니다 다시 요청해주세요");
+      // navigate("/");
     }
   };
 
@@ -63,6 +67,7 @@ const Register = () => {
     console.log("인증안된 소셜 토큰:", token);
     alert("전송 요청!");
     oauthReq();
+    navigate("/dashboard");
   };
   useEffect(() => {
     checkValidation();
@@ -71,7 +76,7 @@ const Register = () => {
   return (
     <div className={styles.register}>
       <h1>추가정보 등록 페이지</h1>
-      <p>{location.search}</p>
+      {/* <p>{location.search}</p> */}
 
       <div className={styles.register__form}>
         <select ref={BusinessCategoryRef}>
