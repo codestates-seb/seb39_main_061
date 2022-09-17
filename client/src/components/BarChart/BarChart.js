@@ -8,7 +8,7 @@ const dummyData = [
     { 기간: '9월 4일', 아침: 13, 점심: 23, 저녁: 22 },
 ];
 
-const Barchart = () => {
+const BarChart = () => {
     const handle = {
         barClick: (data) => {
             console.log(data);
@@ -161,4 +161,4 @@ const Barchart = () => {
     );
 };
 
-export default Barchart;
+export default BarChart;

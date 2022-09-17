@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import ChartBar from "../../components/ChartBar/ChartBar";
+import BarChart from "../../components/BarChart/BarChart";
 import DashboardCalendar from "../../components/Calendar/Calendar";
 
 const Dashboard = () => {
@@ -11,7 +11,7 @@ const Dashboard = () => {
       <h1>Dashboard</h1>
       <div>
         <div>
-          <ChartBar />
+          <BarChart />
           <button>Download</button>
         </div>
         <div>
