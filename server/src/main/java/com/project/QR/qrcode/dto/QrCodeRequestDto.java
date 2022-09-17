@@ -23,6 +23,7 @@ public class QrCodeRequestDto {
     @NotBlank
     private String qrType;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
     private LocalDateTime dueDate;
   }
 
