@@ -31,4 +31,8 @@ axiosInstance.interceptors.request.use(async (req) => {
   return req;
 });
 
+export const getProfile = async () => {
+  const responose = await axiosInstance.get("/api/v1/members/profile");
+};
+
 export default axiosInstance;

@@ -1,12 +1,9 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import axiosInstance from "../../library/axios";
-import { getLoginCookie } from "../../library/cookie";
-import auth, { authActions } from "../../store/auth";
-import { userAction } from "../../store/user";
+import { authActions } from "../../store/auth";
 import styles from "./Register.module.css";
 
 const Register = () => {
@@ -18,16 +15,14 @@ const Register = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const isLogin = useSelector((state) => state.auth.isAuthenticated);
 
   // 인증 안됐으면 true
   const oauthValidation = location.search.includes("true");
 
   const accessToken = String(location.search.split("&", 1));
-  const newToken = accessToken.substring(13);
-
-  console.log(newToken);
-  console.log("이메일 인증 안됌 ? = ", oauthValidation);
+  const token = accessToken.substring(13);
+  const pageTitle = "페이지제목";
+  window.history.pushState("", pageTitle, `/oauth2/redirect`);
   const checkValidation = () => {
     if (oauthValidation === true) {
       // 이메일 인증이 true면
@@ -35,14 +30,14 @@ const Register = () => {
       // 2. 토큰을 로컬스토리지에 덮어쓰기
       // 2. 유저정보 받아서 리덕스 상태 바꾸기
       console.log("로그인 성공!");
-      localStorage.setItem("token", newToken);
+      localStorage.setItem("token", token);
       dispatch(authActions.login());
       navigate("/dashboard");
     }
   };
 
   useEffect(() => {
-    localStorage.setItem("token", newToken);
+    localStorage.setItem("token", token);
   }, []);
 
   const oauthReq = async () => {
@@ -55,24 +50,24 @@ const Register = () => {
         name: nameRef.current.value,
       });
       if (response.status === 200) {
-        alert(response.data);
-        console.log("추가전송 성공");
-        localStorage.setItem("token", response.data.accessToken);
-        alert("추가전송 성공");
+        console.log("새로응답받은 토큰?", response.data.data.accessToken);
+        const newToken = response.data.accessToken;
+        localStorage.setItem("token", response.data.data.accessToken);
         dispatch(authActions.login());
         navigate("/dashboard");
       }
     } catch (err) {
-      console.log("추가전송 실패");
-      alert("추가전송 성공");
       console.log(err);
+      alert("요청에 실패하였습니다 다시 요청해주세요");
+      // navigate("/");
     }
   };
 
   const handlerSubmit = async () => {
-    console.log("토큰:", newToken);
+    console.log("인증안된 소셜 토큰:", token);
     alert("전송 요청!");
     oauthReq();
+    navigate("/dashboard");
   };
   useEffect(() => {
     checkValidation();
@@ -81,7 +76,7 @@ const Register = () => {
   return (
     <div className={styles.register}>
       <h1>추가정보 등록 페이지</h1>
-      <p>{location.search}</p>
+      {/* <p>{location.search}</p> */}
 
       <div className={styles.register__form}>
         <select ref={BusinessCategoryRef}>

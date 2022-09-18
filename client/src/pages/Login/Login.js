@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import { userAction } from "../../store/user";
@@ -47,12 +47,6 @@ const Login = () => {
     e.preventDefault();
     await loginReq();
     await getProfile();
-    // setTimeout(() => {
-    //   localStorage.setItem(
-    //     "token",
-    //     "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJqaGQ3MjkyQGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX1JFU0VSVkFUSU9OIiwiaWF0IjoxNjYzMjQ2MTk4LCJleHAiOjE2NjMyNDk3OTh9.9IMub88llbKuUO70SSK6EQERqWEfU0QK7CPMORzasQGRSWEpJSSGa4KMUxZAKlE93VvStXrF6G08RX07_DJIVQ"
-    //   );
-    // }, 3000);
   };
 
   return (

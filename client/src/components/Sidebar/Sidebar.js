@@ -2,8 +2,6 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
-import { PURGE } from "redux-persist";
-import { deleteCookie } from "../../library/cookie";
 import { persistor } from "../../index";
 
 const Sidebar = () => {
@@ -11,7 +9,7 @@ const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const logoutHanlder = () => {
-    // deleteCookie("token");
+    // deleteToken("token");
     localStorage.removeItem("token");
     dispatch(authActions.logout());
     console.log("로그아웃");

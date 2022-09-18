@@ -15,19 +15,20 @@ import EmailValidation from "./pages/EmailValidation/EmailValidation.js";
 import Register from "./pages/Register/Register.js";
 import axiosInstance from "./library/axios.js";
 import { useEffect } from "react";
+import { userAction } from "./store/user.js";
 
 function App() {
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
-  const userData = useSelector((state) => state.user.userProfile);
   const dispatch = useDispatch();
 
   // 유저 정보로 새로고침해도 로그인 유지
   const getProfile = async () => {
     try {
-      let responose = await axiosInstance.get("/api/v1/members/profile");
-      if (responose.status === 200) {
+      let response = await axiosInstance.get("/api/v1/members/profile");
+      if (response.status === 200) {
         console.log("로그인유지!");
         dispatch(authActions.login());
+        dispatch(userAction.setUser(response.data.data));
       }
     } catch (err) {
       console.log("로그인유지 실패");
