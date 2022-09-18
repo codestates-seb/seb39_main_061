@@ -1,6 +1,8 @@
 package com.project.QR.security.jwt;
 
 import com.project.QR.dto.TokenDto;
+import com.project.QR.exception.BusinessLogicException;
+import com.project.QR.exception.ExceptionCode;
 import com.project.QR.member.entity.Member;
 import com.project.QR.security.MemberDetails;
 import io.jsonwebtoken.*;
@@ -12,6 +14,8 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -33,6 +37,7 @@ public class TokenProvider {
   private final Long REFRESH_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 24 * 7;	// 1week
   private final String AUTHORITIES_KEY = "role";
   private final RedisTemplate<String, Object> redisTemplate;
+  private final UserDetailsService userDetailsService;
 
   @PostConstruct
   protected void init() {
@@ -40,16 +45,14 @@ public class TokenProvider {
   }
 
   public TokenDto.TokenInfoDto createToken(Member member, HttpServletResponse response) {
+    Claims claims = Jwts.claims().setSubject(member.getEmail());
+    claims.put(AUTHORITIES_KEY, member.getRoleList());
     Date now = new Date();
     Date validity = new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_LENGTH);
 
-    String email = member.getEmail();
-    String role = member.getRole();
-
     String accessToken = Jwts.builder()
       .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
-      .setSubject(email)
-      .claim(AUTHORITIES_KEY, role)
+      .setClaims(claims)
       .setIssuedAt(now)
       .setExpiration(validity)
       .compact();
@@ -111,9 +114,11 @@ public class TokenProvider {
   public Authentication getAuthentication(String accessToken) {
     Claims claims = parseClaims(accessToken);
     String role = claims.get(AUTHORITIES_KEY).toString();
-    MemberDetails principal = new MemberDetails(claims.getSubject(), role);
+    if(claims.get(AUTHORITIES_KEY) == null)
+      throw new BusinessLogicException(ExceptionCode.ROLE_IS_NOT_EXISTS);
+    UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getSubject());
 
-    return new UsernamePasswordAuthenticationToken(principal, "", principal.getAuthorities());
+    return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
   }
 
   public Boolean validateToken(String token) {

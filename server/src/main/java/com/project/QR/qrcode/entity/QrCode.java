@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -19,9 +21,9 @@ import javax.persistence.*;
 public class QrCode extends Auditable{
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long qrCodeId;
+  private Long qrCodeId;
 
-  @Column(nullable = false, length = 500)
+  @Column(length = 500)
   private String qrCodeImg;
 
   @Column(nullable = false, length = 200)
@@ -38,21 +40,8 @@ public class QrCode extends Auditable{
   @OneToOne(mappedBy = "qrCode", cascade = CascadeType.ALL)
   private Keep keep;
 
-  @OneToOne(mappedBy = "qrCode", cascade = CascadeType.ALL)
-  private Reservation reservation;
+  @OneToMany(mappedBy = "qrCode", cascade = CascadeType.ALL)
+  private List<Reservation> reservations;
 
-  public enum QrType {
-    KEEP,
-    RESERVATION;
-  }
-
-  @Builder
-  public QrCode(String qrCodeImg, String target, QrType qrType, Member member, Keep keep, Reservation reservation) {
-    this.qrCodeImg = qrCodeImg;
-    this.target = target;
-    this.qrType = qrType;
-    this.member = member;
-    this.keep = keep;
-    this.reservation = reservation;
-  }
+  private LocalDateTime dueDate;
 }
