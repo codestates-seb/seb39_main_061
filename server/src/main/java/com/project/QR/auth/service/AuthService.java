@@ -134,12 +134,13 @@ public class AuthService {
   /**
    * oauth2 로그인 이후 추가 정보 기입
    */
-  public Member updateMember(Member member) {
+  public TokenDto.TokenInfoDto updateMember(Member member, HttpServletResponse response) {
     Member findMember = findVerifiedMember(member.getEmail());
     Member updatingMember = beanUtils.copyNonNullProperties(member, findMember);
     updatingMember.setEmailVerified(EmailVerified.Y);
     updatingMember.setMemberId(findMember.getMemberId());
-    return memberRepository.save(updatingMember);
+    Member savedMember = memberRepository.save(findMember);
+    return tokenProvider.createToken(savedMember, response);
   }
 
   /**

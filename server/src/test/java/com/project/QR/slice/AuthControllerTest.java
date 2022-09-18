@@ -294,10 +294,11 @@ public class AuthControllerTest {
     // given
     Member member = MemberStubData.member();
     MemberRequestDto.OAuthUpdateDto oAuthUpdateDto = MemberStubData.oAuthUpdateDto();
+    TokenDto.TokenInfoDto tokenInfoDto = TokenStubData.tokenInfoDTO();
     String content = gson.toJson(oAuthUpdateDto);
 
     given(mapper.oAuthUpdateDtoToMember(Mockito.any(MemberRequestDto.OAuthUpdateDto.class))).willReturn(new Member());
-    given(authService.updateMember(Mockito.any(Member.class))).willReturn(member);
+    given(authService.updateMember(Mockito.any(Member.class), Mockito.any())).willReturn(tokenInfoDto);
 
     // when
     ResultActions actions = mockMvc.perform(
@@ -311,7 +312,9 @@ public class AuthControllerTest {
     // then
     actions
       .andExpect(status().isOk())
-      .andExpect(jsonPath("$.data").value("SUCCESS"))
+      .andExpect(jsonPath("$.data.grantType").value(tokenInfoDto.getGrantType()))
+      .andExpect(jsonPath("$.data.accessToken").value(tokenInfoDto.getAccessToken()))
+      .andExpect(jsonPath("$.message").value("SUCCESS"))
       .andDo(
         document(
           "oauthMember-update",
@@ -330,7 +333,10 @@ public class AuthControllerTest {
           ),
           responseFields(
             List.of(
-              fieldWithPath("data").type(JsonFieldType.STRING).description("결과 데이터")
+              fieldWithPath("data").type(JsonFieldType.OBJECT).description("결과 데이터"),
+              fieldWithPath("data.grantType").type(JsonFieldType.STRING).description("권한 부여 타입"),
+              fieldWithPath("data.accessToken").type(JsonFieldType.STRING).description("엑세스 토큰"),
+              fieldWithPath("message").type(JsonFieldType.STRING).description("결과 메시지")
             )
           )
         )
@@ -364,15 +370,14 @@ public class AuthControllerTest {
           "password-reIssue",
           getRequestPreProcessor(),
           getResponsePreProcessor(),
-          // TO-DO : 에러 처리 필요
 //          requestFields(
 //            List.of(
-//              fieldWithPath("email").type(JsonFieldType.STRING).description("이메일")
+//              fieldWithPath("email").type(JsonFieldType.ARRAY).description("이메일")
 //            )
 //          ),
           responseFields(
             List.of(
-              fieldWithPath("data").type(JsonFieldType.STRING).description("결과 데이터")
+              fieldWithPath("data").type(JsonFieldType.STRING).description("결과 메시지")
             )
           )
         )
