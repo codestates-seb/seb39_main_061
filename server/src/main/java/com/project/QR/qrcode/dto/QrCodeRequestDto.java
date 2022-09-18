@@ -1,6 +1,5 @@
 package com.project.QR.qrcode.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,13 +16,12 @@ public class QrCodeRequestDto {
   @AllArgsConstructor
   @Builder
   public static class CreateQrCodeDto {
-    private String email;
+    private long memberId;
     @NotBlank
     private String target;
     @NotBlank
     private String qrType;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul")
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dueDate;
   }
 
@@ -32,20 +30,13 @@ public class QrCodeRequestDto {
   @AllArgsConstructor
   @Builder
   public static class UpdateQrCodeDto {
-    @NotBlank
     private long qrCodeId;
-    @NotBlank
     private long memberId;
     @NotBlank
     private String target;
-
-    public void setQrCodeId(long qrCodeId) {
-
-      this.qrCodeId = qrCodeId;
-    }
-    public void setMemberId ( long memberId){
-
-      this.memberId = memberId;
-    }
+    @NotBlank
+    private String qrType;
+    @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dueDate;
   }
 }

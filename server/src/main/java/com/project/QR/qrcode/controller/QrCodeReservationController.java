@@ -29,12 +29,10 @@ public class QrCodeReservationController {
   /**
    * QrCode 생성 api
    */
-  @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+  @PostMapping
   public ResponseEntity createQrCode(@AuthenticationPrincipal MemberDetails memberDetails,
-                                     @Valid @RequestPart("data") QrCodeRequestDto.CreateQrCodeDto createQrCodeDto,
-                                     @RequestPart(name = "file", required = false) MultipartFile multipartFile) {
-    System.out.println(memberDetails.getMember().getMemberId());
-    createQrCodeDto.setEmail(memberDetails.getUsername());
+                                     @Valid @RequestBody QrCodeRequestDto.CreateQrCodeDto createQrCodeDto) {
+    createQrCodeDto.setMemberId(memberDetails.getMember().getMemberId());
     QrCode qrCode = qrCodeService.createQrCode(mapper.createQrCodeDtoToQrCode(createQrCodeDto));
 
     return new ResponseEntity<>(new SingleResponseWithMessageDto<>(mapper.qrCodeToQrCodeInfoDto(qrCode),
@@ -60,22 +58,18 @@ public class QrCodeReservationController {
   /**
    * QrCode 변경 api
    */
-  @PostMapping(value = "/update", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+  @PostMapping(value = "{qr-code-id}/update", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   public ResponseEntity updateQrCode(@AuthenticationPrincipal MemberDetails memberDetails,
                                      @Positive @PathVariable("qr-code-id") long qrCodeId,
                                      @Valid @RequestPart(name = "data") QrCodeRequestDto.UpdateQrCodeDto updateQrCodeDto,
                                      @RequestPart(name = "file", required = false) MultipartFile multipartFile) {
-
-
-
-    updateQrCodeDto.setQrCodeId(qrCodeId);
     updateQrCodeDto.setMemberId(memberDetails.getMember().getMemberId());
-    QrCode qrCode = qrCodeService.updateQrCode(mapper.updateQrCodeDtoToQrCode(updateQrCodeDto));
+    updateQrCodeDto.setQrCodeId(qrCodeId);
+    QrCode qrCode = qrCodeService.updateQrCode(mapper.updateQrCodeDtoToQrCode(updateQrCodeDto), multipartFile);
 
-
-    return new ResponseEntity<>(
-            new SingleResponseWithMessageDto<>(mapper.qrCodeToQrCodeInfoDto(qrCode), "SUCCESS"),
-            HttpStatus.OK);
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(mapper.qrCodeToQrCodeInfoDto(qrCode),
+      "SUCCESS"),
+      HttpStatus.OK);
   }
 
   /**
