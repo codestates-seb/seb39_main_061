@@ -19,7 +19,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
-@Valid
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/members")
