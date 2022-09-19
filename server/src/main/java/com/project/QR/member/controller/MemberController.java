@@ -48,7 +48,7 @@ public class MemberController {
     updateMemberDto.setEmail(memberDetails.getUsername());
     Member member = memberService.updateMember(mapper.updateMemberDtoToMember(updateMemberDto), multipartFile);
     MemberResponseDto.MemberInfoDto response = mapper.memberToMemberInfoDto(member);
-    response.getSector().setName(sectorService.getSector(response.getSector().getSectorId()).getName());
+
     return new ResponseEntity(new SingleResponseWithMessageDto<>(response,
       "SUCCESS"),
       HttpStatus.OK);
@@ -57,6 +57,7 @@ public class MemberController {
   /**
    * 로그아웃 api
    */
+  @DeleteMapping("/logout")
   public ResponseEntity logout(@AuthenticationPrincipal MemberDetails memberDetails) {
     memberService.logout(memberDetails.getUsername());
     return new ResponseEntity(new SingleResponseDto<>("BYE"), HttpStatus.OK);
