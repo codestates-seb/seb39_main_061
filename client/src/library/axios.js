@@ -1,38 +1,47 @@
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import dayjs from "dayjs";
+import { authActions } from "../store/auth";
 
 const baseURL = "http://localhost:8080";
 
-let authToken = localStorage.getItem("token");
+export const getToken = () => localStorage.getItem("token");
 
-const axiosInstance = axios.create({
+export const getAuthorizationHeader = () => `Bearer ${getToken()}`;
+
+export const axiosInstance = axios.create({
   baseURL,
-  headers: { Authorization: `Bearer ${authToken}` },
+  headers: { Authorization: getAuthorizationHeader() },
 });
 
-axiosInstance.interceptors.request.use(async (req) => {
-  if (!authToken) {
-    authToken = localStorage.getItem("token");
-    req.headers.Authorization = `Bearer ${authToken}`;
-  }
+export const login = (email, password) => {
+  return axios
+    .post(`${baseURL}/auth/login`, {
+      email,
+      password,
+    })
+    .then((res) => {
+      console.log("로그인 데이터는?", res.data.data.accessToken);
+      return res.data.data.accessToken;
+    })
+    .catch((err) => {
+      alert(err.response.data.message);
+    });
+};
 
-  const user = jwt_decode(authToken);
-  const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
-  console.log("isExpired: ", isExpired);
-  if (!isExpired) return req;
-
-  const response = await axios.post(`${baseURL}/auth/reissue`, {
-    accessToken: authToken,
-  });
-
-  localStorage.setItem("token", JSON.stringify(response.data.accessToken));
-  req.headers.Authorization = `Bearer ${authToken}`;
-  return req;
-});
-
-export const getProfile = async () => {
-  const responose = await axiosInstance.get("/api/v1/members/profile");
+export const getProfile = () => {
+  return axios
+    .get("http://localhost:8080/api/v1/members/profile", {
+      headers: {
+        Authorization: getAuthorizationHeader(),
+      },
+    })
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((err) => {
+      console.log(err.response);
+    });
 };
 
 export default axiosInstance;

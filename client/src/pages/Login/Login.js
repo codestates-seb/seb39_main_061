@@ -1,11 +1,10 @@
-import axios from "axios";
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import { userAction } from "../../store/user";
 import styles from "./Login.module.css";
-import axiosInstance from "../../library/axios";
+import { getProfile, login } from "../../library/axios";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -13,40 +12,23 @@ const Login = () => {
   const emailRef = useRef();
   const PWRef = useRef();
 
-  const getProfile = async () => {
-    try {
-      let responose = await axiosInstance.get("/api/v1/members/profile");
-      if (responose.status === 200) {
-        dispatch(userAction.setUser(responose.data.data));
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  const loginReq = async () => {
-    try {
-      let res = await axios.post("http://localhost:8080/auth/login", {
-        email: emailRef.current.value,
-        password: PWRef.current.value,
-      });
-      if (res.status === 200) {
-        localStorage.setItem("token", res.data.data.accessToken);
+  const loginSubmitHandler = async (e) => {
+    const email = emailRef.current.value;
+    const password = PWRef.current.value;
+    e.preventDefault();
+
+    //login
+    await login(email, password).then((token) => {
+      if (token) {
+        localStorage.setItem("token", token);
         dispatch(authActions.login());
-        console.log("로그인");
         navigate("/dashboard");
       }
-    } catch (err) {
-      if (err.response) {
-        const errorMessage = err.response.data.message;
-        alert(errorMessage);
-      }
-    }
-  };
+    });
 
-  const loginSubmitHandler = async (e) => {
-    e.preventDefault();
-    await loginReq();
-    await getProfile();
+    await getProfile().then((data) => {
+      dispatch(userAction.setUser(data));
+    });
   };
 
   return (
