@@ -14,16 +14,12 @@ public class ReservationResponseDto {
   @NoArgsConstructor
   @AllArgsConstructor
   @Builder
-  public static class reservationInfoDto {
-    @NotBlank
+  public static class ReservationInfoDto {
     private long reserveId;
-    @NotBlank
     private String name;
-    @NotBlank
     private String phone;
     private LocalDateTime createdAt;
     private boolean complete;
-    @NotBlank
     private int count;
   }
 }
