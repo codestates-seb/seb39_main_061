@@ -16,19 +16,16 @@ const Login = () => {
     const email = emailRef.current.value;
     const password = PWRef.current.value;
     e.preventDefault();
-
     //login
-    await login(email, password).then((token) => {
-      if (token) {
-        localStorage.setItem("token", token);
-        dispatch(authActions.login());
-        navigate("/dashboard");
-      }
-    });
-
-    await getProfile().then((data) => {
-      dispatch(userAction.setUser(data));
-    });
+    const token = await login(email, password);
+    if (token) {
+      localStorage.setItem("token", token);
+      dispatch(authActions.login());
+      //getProfile
+      const userData = await getProfile();
+      dispatch(userAction.setUser(userData));
+      navigate("/dashboard");
+    }
   };
 
   return (
