@@ -29,6 +29,9 @@ public class Reservation extends CreatedAuditable {
   private boolean complete;
 
   @Column(nullable = false)
+  private boolean delete;
+
+  @Column(nullable = false)
   @ColumnDefault("1")
   private int count;
 
