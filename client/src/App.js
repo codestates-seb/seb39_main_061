@@ -32,6 +32,7 @@ function App() {
       }
     } catch (err) {
       console.log("로그인유지 실패");
+      dispatch(authActions.logout());
     }
   };
   useEffect(() => {

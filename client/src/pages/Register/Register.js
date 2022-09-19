@@ -22,7 +22,7 @@ const Register = () => {
   const accessToken = String(location.search.split("&", 1));
   const token = accessToken.substring(13);
   const pageTitle = "페이지제목";
-  window.history.pushState("", pageTitle, `/oauth2/redirect`);
+  window.history.pushState("", pageTitle, `/oauth2`);
   const checkValidation = () => {
     if (oauthValidation === true) {
       // 이메일 인증이 true면
