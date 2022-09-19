@@ -17,7 +17,7 @@ public class MemberResponseDto {
     private String email;
     private List<String> service;
     private String profileImg;
-    private Sector sector;
+    private long sectorId;
     private String businessName;
     private String phone;
     private String name;

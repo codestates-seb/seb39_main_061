@@ -6,6 +6,7 @@ import com.project.QR.member.entity.AuthProvider;
 import com.project.QR.member.entity.Member;
 import com.project.QR.sector.entity.Sector;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -73,23 +74,62 @@ public class MemberStubData {
         .collect(Collectors.toList())
       )
       .phone(member.getPhone())
-      .sector(member.getSector())
+      .sectorId(1L)
       .name(member.getName())
       .email(member.getEmail())
       .businessName(member.getBusinessName())
       .build();
   }
 
+  public static MemberResponseDto.MemberInfoDto memberInfoDto(Member member) {
+    return MemberResponseDto.MemberInfoDto.builder()
+      .profileImg(member.getProfileImg())
+      .service(member.getRoleList().stream()
+        .map(role -> role.substring(5))
+        .collect(Collectors.toList())
+      )
+      .phone(member.getPhone())
+      .sectorId(member.getSector().getSectorId())
+      .name(member.getName())
+      .email(member.getEmail())
+      .profileImg(member.getProfileImg())
+      .businessName(member.getBusinessName())
+      .build();
+  }
+
   public static MemberRequestDto.UpdateMemberDto updateMemberDto() {
     Member member = member();
+    List<String> service = new ArrayList<>();
+    service.add("reservation");
+    service.add("keep");
     return MemberRequestDto.UpdateMemberDto.builder()
       .businessName("changeBusinessName")
       .email(member.getEmail())
       .name("changeName")
       .password("1234")
       .phone("01087654321")
+      .service(service)
       .sectorId(3)
       .profileImg("profile-img-url")
       .build();
   }
+
+  public static Member updatedMember(MemberRequestDto.UpdateMemberDto updateMemberDto) {
+    Member member = new Member();
+    member.setMemberId(1L);
+    member.setEmail(updateMemberDto.getEmail());
+    member.setProvider(AuthProvider.local);
+    member.setPassword(updateMemberDto().getPassword());
+    member.setName(updateMemberDto().getName());
+    member.setSector(sectorList.get((int) updateMemberDto.getSectorId()));
+    member.setBusinessName(updateMemberDto.getBusinessName());
+    member.setPhone(updateMemberDto.getPhone());
+    member.setRole(updateMemberDto.getService().stream()
+      .map(r->"ROLE_"+r.toUpperCase())
+      .collect(Collectors.joining(",")));
+    member.setProfileImg(updateMemberDto.getProfileImg());
+    return member;
+  }
+
+
 }

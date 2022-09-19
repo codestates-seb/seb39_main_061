@@ -71,7 +71,7 @@ public interface MemberMapper {
         .map(role -> role.substring(5))
         .collect(Collectors.toList())
       )
-      .sector(member.getSector())
+      .sectorId(member.getSector().getSectorId())
       .build();
   }
 }
