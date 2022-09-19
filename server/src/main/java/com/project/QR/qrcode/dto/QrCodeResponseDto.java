@@ -19,6 +19,6 @@ public class QrCodeResponseDto {
     private String qrCodeImg;
     private String target;
     private QrType qrType;
-    private List<ReservationResponseDto.reservationInfoDto> reservations;
+    private List<ReservationResponseDto.ReservationInfoDto> reservations;
   }
 }

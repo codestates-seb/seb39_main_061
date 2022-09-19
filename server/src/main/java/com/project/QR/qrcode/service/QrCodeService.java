@@ -73,4 +73,13 @@ public class QrCodeService {
       throw new BusinessLogicException(ExceptionCode.QR_CODE_NOT_FOUND);
     qrCodeRepository.delete(qrCode);
   }
+
+  public void getStatisticsByMonth(String date, Long memberId) {
+  }
+
+  public void getStatisticsByYear(String date, Long memberId) {
+  }
+
+  public void getStatisticsByTime(String date, Long memberId) {
+  }
 }

@@ -30,7 +30,7 @@ public interface QrCodeMapper {
       .qrType(qrCode.getQrType())
       .target(qrCode.getTarget())
       .reservations(qrCode.getReservations().stream()
-        .map(reservation ->  ReservationResponseDto.reservationInfoDto.builder()
+        .map(reservation ->  ReservationResponseDto.ReservationInfoDto.builder()
           .complete(reservation.isComplete())
           .count(reservation.getCount())
           .createdAt(reservation.getCreatedAt())
