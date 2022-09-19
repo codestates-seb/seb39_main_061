@@ -106,6 +106,7 @@ public class MemberDetails implements UserDetails, OAuth2User {
       .email(this.email)
       .memberId(this.memberId)
       .name(this.name)
+      .role(getRole())
       .build();
   }
 }
