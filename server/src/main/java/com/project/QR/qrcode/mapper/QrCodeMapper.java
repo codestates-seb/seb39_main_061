@@ -8,6 +8,7 @@ import com.project.QR.qrcode.entity.QrType;
 import com.project.QR.reservation.dto.ReservationResponseDto;
 import org.mapstruct.Mapper;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 
@@ -42,6 +43,13 @@ public interface QrCodeMapper {
       )
       .build();
   }
+  QrCodeResponseDto.ShortQrCodeInfoDto qrCodeToShortQrCodeInfoDto(QrCode qrCode); //선언
+  default List<QrCodeResponseDto.ShortQrCodeInfoDto> qrCodeListToQrCodeInfoDtoList(List<QrCode> qrCodeList) {
+    return qrCodeList.stream()
+            .map(this::qrCodeToShortQrCodeInfoDto)
+            .collect(Collectors.toList());
+  }
+
   default QrCode updateQrCodeDtoToQrCode(QrCodeRequestDto.UpdateQrCodeDto updateQrCodeDto) {
     Member member = new Member();
     member.setMemberId(updateQrCodeDto.getMemberId());

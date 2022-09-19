@@ -21,4 +21,14 @@ public class QrCodeResponseDto {
     private QrType qrType;
     private List<ReservationResponseDto.reservationInfoDto> reservations;
   }
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  public static class ShortQrCodeInfoDto {
+    private long qrCodeId;
+    private String qrCodeImg;
+    private String target;
+    private QrType qrType;
+  }
 }

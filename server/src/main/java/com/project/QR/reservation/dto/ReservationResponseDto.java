@@ -26,4 +26,5 @@ public class ReservationResponseDto {
     @NotBlank
     private int count;
   }
+
 }

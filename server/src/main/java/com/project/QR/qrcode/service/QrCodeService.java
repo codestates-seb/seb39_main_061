@@ -3,10 +3,14 @@ package com.project.QR.qrcode.service;
 import com.project.QR.exception.BusinessLogicException;
 import com.project.QR.exception.ExceptionCode;
 import com.project.QR.file.service.FileSystemStorageService;
+import com.project.QR.member.entity.Member;
 import com.project.QR.qrcode.entity.QrCode;
 import com.project.QR.qrcode.repository.QrCodeRepository;
 import com.project.QR.util.CustomBeanUtils;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -34,11 +38,11 @@ public class QrCodeService {
    */
   public QrCode updateQrCode(QrCode qrCode, MultipartFile multipartFile) {
     QrCode findQrCode = findVerifiedQrCode(qrCode.getQrCodeId());
-    if(!multipartFile.isEmpty()) {
-      if(findQrCode.getQrCodeImg() != null)
+    if (!multipartFile.isEmpty()) {
+      if (findQrCode.getQrCodeImg() != null)
         fileSystemStorageService.remove(findQrCode.getQrCodeImg());
       qrCode.setQrCodeImg(fileSystemStorageService.store(multipartFile,
-        String.format("%d/qr-code", qrCode.getMember().getMemberId())));
+              String.format("%d/qr-code", qrCode.getMember().getMemberId())));
     }
     QrCode updatingQrCode = beanUtils.copyNonNullProperties(qrCode, findQrCode);
     return qrCodeRepository.save(updatingQrCode);
@@ -59,9 +63,16 @@ public class QrCodeService {
   @Transactional(readOnly = true)
   public QrCode getQrCode(long memberId, long qrCodeId) {
     QrCode qrCode = findVerifiedQrCode(qrCodeId);
-    if(qrCode.getMember().getMemberId() != memberId)
+    if (qrCode.getMember().getMemberId() != memberId)
       throw new BusinessLogicException(ExceptionCode.QR_CODE_NOT_FOUND);
     return qrCode;
+  }
+
+  /**
+   * 전체 QrCode 리스트 조회
+   */
+  public Page<QrCode> getQrCodes(int page, int size, long memberId) {
+    return qrCodeRepository.findAllByMemberId(memberId, PageRequest.of(page, size - 1, Sort.by("CREATED_AT").descending()));
   }
 
   /**
