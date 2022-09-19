@@ -24,15 +24,9 @@ const data = [
 const DashboardCalendar = () => {
 
   const [value, onChange] = useState(new Date());
-  console.log(value)
 
   let clickDate = moment(value).format("YYYYMMDD")
   console.log(JSON.parse(clickDate))
-  // console.log(clickDate)
-  // console.log(data[0].date)
-  // if(clickDate === data[0].date){
-
-  // }
 
   return (
     <div>
