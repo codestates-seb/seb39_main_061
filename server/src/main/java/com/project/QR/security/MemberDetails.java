@@ -96,8 +96,9 @@ public class MemberDetails implements UserDetails, OAuth2User {
   }
 
   public String getRole() {
-    System.out.println(this.roles.toString());
-    return this.roles.toString();
+    return this.roles.stream()
+      .map(GrantedAuthority::getAuthority)
+      .collect(Collectors.joining(","));
   }
 
   public Member getMember() {

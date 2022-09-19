@@ -46,7 +46,7 @@ public class TokenProvider {
 
   public TokenDto.TokenInfoDto createToken(Member member, HttpServletResponse response) {
     Claims claims = Jwts.claims().setSubject(member.getEmail());
-    claims.put(AUTHORITIES_KEY, member.getRoleList());
+    claims.put(AUTHORITIES_KEY, member.getRole());
     Date now = new Date();
     Date validity = new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_LENGTH);
 
@@ -113,7 +113,7 @@ public class TokenProvider {
 
   public Authentication getAuthentication(String accessToken) {
     Claims claims = parseClaims(accessToken);
-    String role = claims.get(AUTHORITIES_KEY).toString();
+
     if(claims.get(AUTHORITIES_KEY) == null)
       throw new BusinessLogicException(ExceptionCode.ROLE_IS_NOT_EXISTS);
     UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getSubject());
