@@ -26,7 +26,7 @@ const Dashboard = () => {
           <div>QR Code List</div>
         </div>
         <Piechart />
-        <Today />
+        {/* <Today /> */}
       </div>
     </div>
   );
