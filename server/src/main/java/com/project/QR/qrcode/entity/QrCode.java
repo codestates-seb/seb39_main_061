@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -41,7 +42,7 @@ public class QrCode extends Auditable{
   private Keep keep;
 
   @OneToMany(mappedBy = "qrCode", cascade = CascadeType.ALL)
-  private List<Reservation> reservations;
+  private List<Reservation> reservations = new ArrayList<>();
 
   private LocalDateTime dueDate;
 }
