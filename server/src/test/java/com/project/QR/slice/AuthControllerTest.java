@@ -349,7 +349,7 @@ public class AuthControllerTest {
     // given
     String email = "test@test.com";
     MemberRequestDto.EmailDto emailDto = MemberStubData.emailDto(email);
-    String content = gson.toJson(email);
+    String content = gson.toJson(emailDto);
 
     doNothing().when(authService).reIssuePassword(emailDto.getEmail());
 
@@ -370,11 +370,11 @@ public class AuthControllerTest {
           "password-reIssue",
           getRequestPreProcessor(),
           getResponsePreProcessor(),
-//          requestFields(
-//            List.of(
-//              fieldWithPath("email").type(JsonFieldType.ARRAY).description("이메일")
-//            )
-//          ),
+          requestFields(
+            List.of(
+              fieldWithPath("email").type(JsonFieldType.STRING).description("이메일")
+            )
+          ),
           responseFields(
             List.of(
               fieldWithPath("data").type(JsonFieldType.STRING).description("결과 메시지")
