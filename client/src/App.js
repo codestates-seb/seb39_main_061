@@ -13,30 +13,27 @@ import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./store/auth.js";
 import EmailValidation from "./pages/EmailValidation/EmailValidation.js";
 import Register from "./pages/Register/Register.js";
-import axiosInstance from "./library/axios.js";
+import { getProfile } from "./library/axios.js";
 import { useEffect } from "react";
 import { userAction } from "./store/user.js";
 
 function App() {
+  const url = process.env.REACT_APP_BASE_URL;
+  console.log("베이스유알엘", url);
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
 
   // 유저 정보로 새로고침해도 로그인 유지
-  const getProfile = async () => {
-    try {
-      let response = await axiosInstance.get("/api/v1/members/profile");
-      if (response.status === 200) {
-        console.log("로그인유지!");
-        dispatch(authActions.login());
-        dispatch(userAction.setUser(response.data.data));
-      }
-    } catch (err) {
-      console.log("로그인유지 실패");
-    }
-  };
   useEffect(() => {
     if (localStorage.getItem("token") && isLogin === true) {
-      getProfile();
+      getProfile()
+        .then((res) => {
+          console.log("로그인 유지 성공!");
+          dispatch(userAction.setUser(res));
+        })
+        .catch((err) => {
+          console.log("로그인 유지 실패");
+        });
     }
   }, []);
 

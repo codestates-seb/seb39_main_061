@@ -30,8 +30,7 @@ const SignUp = () => {
     console.log(sectorId);
     if (password !== confirmPassword) {
       setErrMessage("비밀번호가 일치하지 않습니다.");
-      alert(errMessage);
-      return;
+      return alert("비밀번호가 일치하지 않습니다.");
     }
     setIsLoading(true);
     axios

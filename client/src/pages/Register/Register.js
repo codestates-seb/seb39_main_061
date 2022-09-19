@@ -1,12 +1,15 @@
 import { useEffect } from "react";
 import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import axiosInstance from "../../library/axios";
 import { authActions } from "../../store/auth";
 import styles from "./Register.module.css";
+import axios from "axios";
+import { getProfile } from "../../library/axios";
+import { userAction } from "../../store/user";
 
 const Register = () => {
+  const url = process.env.REACT_APP_BASE_URL;
   const BusinessCategoryRef = useRef();
   const businessNameRef = useRef();
   const phoneNumRef = useRef();
@@ -22,7 +25,7 @@ const Register = () => {
   const accessToken = String(location.search.split("&", 1));
   const token = accessToken.substring(13);
   const pageTitle = "페이지제목";
-  window.history.pushState("", pageTitle, `/oauth2/redirect`);
+  window.history.pushState("", pageTitle, `/oauth2`);
   const checkValidation = () => {
     if (oauthValidation === true) {
       // 이메일 인증이 true면
@@ -31,28 +34,42 @@ const Register = () => {
       // 2. 유저정보 받아서 리덕스 상태 바꾸기
       console.log("로그인 성공!");
       localStorage.setItem("token", token);
-      dispatch(authActions.login());
-      navigate("/dashboard");
+      getProfile().then((data) => {
+        console.log("겟프로필 받아옴", data);
+        dispatch(userAction.setUser(data));
+        dispatch(authActions.login());
+      });
     }
   };
 
   useEffect(() => {
     localStorage.setItem("token", token);
+    checkValidation();
+    navigate("/dashboard");
   }, []);
 
   const oauthReq = async () => {
     try {
-      let response = await axiosInstance.patch("/auth/members", {
-        service: "reservation",
-        sectorId: BusinessCategoryRef.current.value,
-        businessName: businessNameRef.current.value,
-        phone: phoneNumRef.current.value,
-        name: nameRef.current.value,
-      });
+      let response = await axios.patch(
+        `${url}/auth/members`,
+        {
+          service: "reservation",
+          sectorId: BusinessCategoryRef.current.value,
+          businessName: businessNameRef.current.value,
+          phone: phoneNumRef.current.value,
+          name: nameRef.current.value,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       if (response.status === 200) {
         console.log("새로응답받은 토큰?", response.data.data.accessToken);
         const newToken = response.data.accessToken;
-        localStorage.setItem("token", response.data.data.accessToken);
+        localStorage.setItem("token", newToken);
+
         dispatch(authActions.login());
         navigate("/dashboard");
       }
@@ -66,12 +83,8 @@ const Register = () => {
   const handlerSubmit = async () => {
     console.log("인증안된 소셜 토큰:", token);
     alert("전송 요청!");
-    oauthReq();
-    navigate("/dashboard");
+    await oauthReq();
   };
-  useEffect(() => {
-    checkValidation();
-  });
 
   return (
     <div className={styles.register}>
