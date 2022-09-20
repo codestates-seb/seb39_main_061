@@ -4,7 +4,6 @@ import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.QR.audit.Auditable;
-import com.project.QR.sector.entity.Sector;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -52,10 +51,6 @@ public class Member extends Auditable {
 
   private String joinRole;
 
-  @ManyToOne
-  @JoinColumn(name = "SECTOR_ID")
-  private Sector sector;
-
   public List<String> getRoleList() {
     if(this.role.length() > 0) {
       return Arrays.asList(this.role.split(","));
@@ -64,7 +59,7 @@ public class Member extends Auditable {
   }
   @Builder
   public Member(Long memberId, String email, String name, String password, String role, String businessName,
-                AuthProvider provider, String profileImg, Sector sector, String phone, String joinRole, EmailVerified emailVerified) {
+                AuthProvider provider, String profileImg, String phone, String joinRole, EmailVerified emailVerified) {
     this.memberId = memberId;
     this.email = email;
     this.name = name;
@@ -72,7 +67,6 @@ public class Member extends Auditable {
     this.role = role;
     this.provider = provider;
     this.profileImg = profileImg;
-    this.sector = sector;
     this.phone = phone;
     this.businessName = businessName;
     this.joinRole = joinRole;

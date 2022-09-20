@@ -4,7 +4,6 @@ import com.project.QR.member.dto.MemberRequestDto;
 import com.project.QR.member.dto.MemberResponseDto;
 import com.project.QR.member.entity.AuthProvider;
 import com.project.QR.member.entity.Member;
-import com.project.QR.sector.entity.Sector;
 import org.mapstruct.Mapper;
 
 import java.util.stream.Collectors;
@@ -13,8 +12,6 @@ import java.util.stream.Collectors;
 public interface MemberMapper {
 
   default Member createMemberDtoToMember(MemberRequestDto.CreateMemberDto createMemberDto) {
-    Sector sector = new Sector();
-    sector.setSectorId(createMemberDto.getSectorId());
     return Member.builder()
       .phone(createMemberDto.getPhone())
       .name(createMemberDto.getName())
@@ -24,20 +21,16 @@ public interface MemberMapper {
       .role("ROLE_GUEST")
       .joinRole("ROLE_"+createMemberDto.getRole().toUpperCase())
       .businessName(createMemberDto.getBusinessName())
-      .sector(sector)
       .build();
   }
 
   Member loginDtoToMember(MemberRequestDto.LoginDto loginDto);
 
   default Member updateMemberDtoToMember(MemberRequestDto.UpdateMemberDto updateMemberDto) {
-    Sector sector = new Sector();
-    sector.setSectorId(updateMemberDto.getSectorId());
     return Member.builder()
       .email(updateMemberDto.getEmail())
       .name(updateMemberDto.getName())
       .businessName(updateMemberDto.getBusinessName())
-      .sector(sector)
       .password(updateMemberDto.getPassword())
       .phone(updateMemberDto.getPhone())
       .role(updateMemberDto.getService().stream()
@@ -48,13 +41,10 @@ public interface MemberMapper {
   }
 
   default Member oAuthUpdateDtoToMember(MemberRequestDto.OAuthUpdateDto oAuthUpdateDto) {
-    Sector sector = new Sector();
-    sector.setSectorId(oAuthUpdateDto.getSectorId());
     return Member.builder()
       .email(oAuthUpdateDto.getEmail())
       .name(oAuthUpdateDto.getName())
       .businessName(oAuthUpdateDto.getBusinessName())
-      .sector(sector)
       .phone(oAuthUpdateDto.getPhone())
       .role("ROLE_"+oAuthUpdateDto.getService().toUpperCase())
       .build();
@@ -71,7 +61,6 @@ public interface MemberMapper {
         .map(role -> role.substring(5))
         .collect(Collectors.toList())
       )
-      .sectorId(member.getSector().getSectorId())
       .build();
   }
 }

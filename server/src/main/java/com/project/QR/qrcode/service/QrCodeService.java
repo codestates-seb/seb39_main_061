@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -57,7 +58,7 @@ public class QrCodeService {
    * 특정 QrCode 조회
    */
   @Transactional(readOnly = true)
-  public QrCode getQrCode(long memberId, long qrCodeId) {
+  public QrCode getQrCode(long qrCodeId, long memberId) {
     QrCode qrCode = findVerifiedQrCode(qrCodeId);
     if(qrCode.getMember().getMemberId() != memberId)
       throw new BusinessLogicException(ExceptionCode.QR_CODE_NOT_FOUND);
@@ -72,14 +73,5 @@ public class QrCodeService {
     if(qrCode.getMember().getMemberId() != memberId)
       throw new BusinessLogicException(ExceptionCode.QR_CODE_NOT_FOUND);
     qrCodeRepository.delete(qrCode);
-  }
-
-  public void getStatisticsByMonth(String date, Long memberId) {
-  }
-
-  public void getStatisticsByYear(String date, Long memberId) {
-  }
-
-  public void getStatisticsByTime(String date, Long memberId) {
   }
 }

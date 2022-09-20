@@ -72,7 +72,7 @@ public class ReservationController {
   /**
    * 예약 취소
    */
-  @PostMapping("/{reservation-id}")
+  @PatchMapping("/cancel/{reservation-id}")
   public ResponseEntity deleteReservation(@Positive @PathVariable("qr-code-id") long qrCodeId,
                                           @Positive @PathVariable("reservation-id") long reservationId,
                                           @Valid @RequestBody ReservationRequestDto.UpdateReservationDto updateReservationDto) {

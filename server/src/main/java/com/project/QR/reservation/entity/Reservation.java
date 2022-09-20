@@ -26,10 +26,12 @@ public class Reservation extends CreatedAuditable {
   private String phone;
 
   @Column(nullable = false)
-  private boolean complete;
+  @Enumerated(EnumType.STRING)
+  private Check completed;
 
   @Column(nullable = false)
-  private boolean delete;
+  @Enumerated(EnumType.STRING)
+  private Check deleted;
 
   @Column(nullable = false)
   @ColumnDefault("1")
@@ -38,16 +40,5 @@ public class Reservation extends CreatedAuditable {
   @OneToOne
   @JoinColumn(nullable = false, name = "QR_CODE_ID") //FK one-to-one
   private QrCode qrCode;
-
-  @Builder
-  public Reservation(long reservationId, String name, String phone,
-                     boolean complete, int count, QrCode qrCode) {
-    this.reservationId = reservationId;
-    this.name = name;
-    this.phone = phone;
-    this.complete = complete;
-    this.count = count;
-    this.qrCode = qrCode;
-  }
 }
 

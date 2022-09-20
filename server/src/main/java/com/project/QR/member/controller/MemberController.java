@@ -7,7 +7,6 @@ import com.project.QR.member.dto.MemberResponseDto;
 import com.project.QR.member.entity.Member;
 import com.project.QR.member.mapper.MemberMapper;
 import com.project.QR.member.service.MemberService;
-import com.project.QR.sector.service.SectorService;
 import com.project.QR.security.MemberDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,7 +24,6 @@ import javax.validation.Valid;
 public class MemberController {
   private final MemberService memberService;
   private final MemberMapper mapper;
-  private final SectorService sectorService;
 
   /**
    * 회원 정보 조회 api

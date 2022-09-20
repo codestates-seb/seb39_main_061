@@ -4,14 +4,13 @@ import com.project.QR.member.dto.MemberRequestDto;
 import com.project.QR.member.dto.MemberResponseDto;
 import com.project.QR.member.entity.AuthProvider;
 import com.project.QR.member.entity.Member;
-import com.project.QR.sector.entity.Sector;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class MemberStubData {
-  private static List<Sector> sectorList = SectorStubData.sectorList();
+
   public static Member member() {
     Member member = new Member();
     member.setMemberId(1L);
@@ -19,7 +18,6 @@ public class MemberStubData {
     member.setProvider(AuthProvider.local);
     member.setPassword("1234");
     member.setName("hgd");
-    member.setSector(sectorList.get(1));
     member.setBusinessName("사업명");
     member.setPhone("01012345678");
     member.setRole("ROLE_RESERVATION");
@@ -35,7 +33,6 @@ public class MemberStubData {
       .password(member().getPassword())
       .phone(member.getPhone())
       .role("RESERVATION")
-      .sectorId(member.getSector().getSectorId())
       .build();
   }
 
@@ -60,7 +57,6 @@ public class MemberStubData {
       .email(member.getEmail())
       .name(member.getName())
       .phone(member.getPhone())
-      .sectorId(member.getSector().getSectorId())
       .service("reservation")
       .build();
   }
@@ -74,7 +70,6 @@ public class MemberStubData {
         .collect(Collectors.toList())
       )
       .phone(member.getPhone())
-      .sectorId(1L)
       .name(member.getName())
       .email(member.getEmail())
       .businessName(member.getBusinessName())
@@ -89,7 +84,6 @@ public class MemberStubData {
         .collect(Collectors.toList())
       )
       .phone(member.getPhone())
-      .sectorId(member.getSector().getSectorId())
       .name(member.getName())
       .email(member.getEmail())
       .profileImg(member.getProfileImg())
@@ -109,7 +103,6 @@ public class MemberStubData {
       .password("1234")
       .phone("01087654321")
       .service(service)
-      .sectorId(3)
       .profileImg("profile-img-url")
       .build();
   }
@@ -121,7 +114,6 @@ public class MemberStubData {
     member.setProvider(AuthProvider.local);
     member.setPassword(updateMemberDto().getPassword());
     member.setName(updateMemberDto().getName());
-    member.setSector(sectorList.get((int) updateMemberDto.getSectorId()));
     member.setBusinessName(updateMemberDto.getBusinessName());
     member.setPhone(updateMemberDto.getPhone());
     member.setRole(updateMemberDto.getService().stream()

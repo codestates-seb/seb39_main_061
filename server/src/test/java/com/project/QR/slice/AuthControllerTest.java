@@ -139,7 +139,6 @@ public class AuthControllerTest {
               fieldWithPath("name").type(JsonFieldType.STRING).description("이름"),
               fieldWithPath("phone").type(JsonFieldType.STRING).description("연락처"),
               fieldWithPath("businessName").type(JsonFieldType.STRING).description("사업명"),
-              fieldWithPath("sectorId").type(JsonFieldType.NUMBER).description("업종 번호"),
               fieldWithPath("role").type(JsonFieldType.STRING).description("가입한 서비스")
             )
           ),
@@ -325,7 +324,6 @@ public class AuthControllerTest {
             List.of(
               fieldWithPath("email").type(JsonFieldType.STRING).description("이메일").ignored(),
               fieldWithPath("service").type(JsonFieldType.STRING).description("가입할 서비스"),
-              fieldWithPath("sectorId").type(JsonFieldType.NUMBER).description("업종 식별자"),
               fieldWithPath("businessName").type(JsonFieldType.STRING).description("사업명"),
               fieldWithPath("phone").type(JsonFieldType.STRING).description("연락처"),
               fieldWithPath("name").type(JsonFieldType.STRING).description("이름")

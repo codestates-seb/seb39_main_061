@@ -46,9 +46,7 @@ public class QrCodeReservationController {
   @GetMapping("/{qr-code-id}")
   public ResponseEntity getQrCode(@Positive @PathVariable("member-id") long memberId,
                                   @Positive @PathVariable("qr-code-id")  long qrCodeId){
-
-
-    QrCode qrCode = qrCodeService.getQrCode(memberId, qrCodeId);
+    QrCode qrCode = qrCodeService.getQrCode(qrCodeId, memberId);
 
     return new ResponseEntity<>(
             new SingleResponseWithMessageDto<>(mapper.qrCodeToQrCodeInfoDto(qrCode),"SUCCESS"),
