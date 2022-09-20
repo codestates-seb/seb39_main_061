@@ -1,0 +1,48 @@
+import Chart from "react-apexcharts";
+import moment from 'moment';
+
+const data = {
+  series:
+  {
+    week: [23, 30, 60, 37, 50, 20, 50],
+    cancelData: [5, 10, 3, 6, 7, 8, 5]
+  }
+}
+
+const WeekApexChart = () => {
+  // 그래프 하단 요일 출력
+  const beforeWeek = () => {
+    const today = moment(new Date()).format("MM/DD")
+    let rendering = [today];
+    for (let i = 1; i < 7; i++) {
+      rendering.unshift(moment(new Date()).subtract([i], 'days').format("MM/DD"))
+    }
+    return rendering;
+  }
+
+  const series = [
+    {
+      name: "주간 예약자 수",
+      data: data.series.week
+    },
+    {
+      name: "주간 예약 취소자 수",
+      data: data.series.cancelData
+    }
+  ];
+  const options = {
+    chart: {
+      id: "simple-bar"
+    },
+    xaxis: {
+      categories: beforeWeek()
+    }
+  };
+  return (
+    <div>
+      <Chart options={options} type="bar" series={series} width="55%" />
+    </div>
+  );
+}
+
+export default WeekApexChart;

@@ -1,13 +1,22 @@
 // import { Link } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
-import ApexChart from "../../components/BarChart/ApexChart";
-
+import WeekApexChart from "../../components/BarChart/WeekApexChart";
+import MonthApexChart from "../../components/BarChart/MonthApexChart";
 import Piechart from "../../components/PieChart/PieChart"
 import DashboardCalendar from "../../components/Calendar/Calendar";
-
+import { useState } from "react";
 
 
 const Dashboard = () => {
+  const [isBarChart, setIsBarChart] = useState(true);
+
+  const weekBtnHandler = () => {
+    setIsBarChart(true);
+  }
+
+  const monthBtnHandler = () => {
+    setIsBarChart(false);
+  }
 
   return (
     <div>
@@ -15,9 +24,9 @@ const Dashboard = () => {
       <h1>Dashboard</h1>
       <div>
         <div>
-          <button>주간</button>
-          <button>월간</button>
-          <ApexChart />
+          <button onClick={weekBtnHandler}>Week</button>
+          <button onClick={monthBtnHandler}>Month</button>
+          {isBarChart ? <WeekApexChart /> : <MonthApexChart />}
         </div>
         <div>
           <DashboardCalendar />
