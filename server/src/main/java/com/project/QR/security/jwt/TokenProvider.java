@@ -46,7 +46,7 @@ public class TokenProvider {
 
   public TokenDto.TokenInfoDto createToken(Member member, HttpServletResponse response) {
     Claims claims = Jwts.claims().setSubject(member.getEmail());
-    claims.put(AUTHORITIES_KEY, member.getRoleList());
+    claims.put(AUTHORITIES_KEY, member.getRole());
     Date now = new Date();
     Date validity = new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_LENGTH);
 
@@ -88,14 +88,13 @@ public class TokenProvider {
     MemberDetails member = (MemberDetails) authentication.getPrincipal();
 
     String email = member.getUsername();
-    String role = authentication.getAuthorities().stream()
-      .map(GrantedAuthority::getAuthority)
-      .collect(Collectors.joining(","));
+    String role = member.getRole();
+    Claims claims = Jwts.claims().setSubject(email);
+    claims.put(AUTHORITIES_KEY, role);
 
     String accessToken = Jwts.builder()
       .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
-      .setSubject(email)
-      .claim(AUTHORITIES_KEY, role)
+      .setClaims(claims)
       .setIssuedAt(now)
       .setExpiration(validity)
       .compact();
@@ -113,7 +112,7 @@ public class TokenProvider {
 
   public Authentication getAuthentication(String accessToken) {
     Claims claims = parseClaims(accessToken);
-    String role = claims.get(AUTHORITIES_KEY).toString();
+
     if(claims.get(AUTHORITIES_KEY) == null)
       throw new BusinessLogicException(ExceptionCode.ROLE_IS_NOT_EXISTS);
     UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getSubject());

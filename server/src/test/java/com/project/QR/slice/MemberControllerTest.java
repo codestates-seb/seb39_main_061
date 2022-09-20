@@ -1,8 +1,6 @@
 package com.project.QR.slice;
 
 import com.google.gson.Gson;
-import com.project.QR.dto.SingleResponseDto;
-import com.project.QR.dto.SingleResponseWithMessageDto;
 import com.project.QR.helper.WithMockCustomUser;
 import com.project.QR.member.controller.MemberController;
 import com.project.QR.member.dto.MemberRequestDto;
@@ -10,8 +8,6 @@ import com.project.QR.member.dto.MemberResponseDto;
 import com.project.QR.member.entity.Member;
 import com.project.QR.member.mapper.MemberMapper;
 import com.project.QR.member.service.MemberService;
-import com.project.QR.sector.service.SectorService;
-import com.project.QR.security.MemberDetails;
 import com.project.QR.stub.MemberStubData;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -22,20 +18,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.multipart.MultipartFile;
-
-import javax.validation.Valid;
 
 import java.util.List;
 
@@ -71,9 +59,6 @@ public class MemberControllerTest {
   @MockBean
   private MemberMapper mapper;
 
-  @MockBean
-  private SectorService sectorService;
-
   @Test
   @DisplayName("회원 정보 조회 테스트")
   public void getMemberTest() throws Exception {
@@ -98,7 +83,6 @@ public class MemberControllerTest {
       .andExpect(jsonPath("$.data.email").value(memberInfoDto.getEmail()))
       .andExpect(jsonPath("$.data.service").value(memberInfoDto.getService()))
       .andExpect(jsonPath("$.data.profileImg").value(memberInfoDto.getProfileImg()))
-      .andExpect(jsonPath("$.data.sectorId").value(memberInfoDto.getSectorId()))
       .andExpect(jsonPath("$.data.phone").value(memberInfoDto.getPhone()))
       .andExpect(jsonPath("$.data.name").value(memberInfoDto.getName()))
       .andExpect(jsonPath("$.data.businessName").value(memberInfoDto.getBusinessName()))
@@ -115,7 +99,6 @@ public class MemberControllerTest {
               fieldWithPath("data.email").type(JsonFieldType.STRING).description("이메일"),
               fieldWithPath("data.profileImg").type(JsonFieldType.STRING).description("프로필 이미지 URL").optional(),
               fieldWithPath("data.service").type(JsonFieldType.ARRAY).description("가입한 서비스"),
-              fieldWithPath("data.sectorId").type(JsonFieldType.NUMBER).description("업종 식별자"),
               fieldWithPath("data.businessName").type(JsonFieldType.STRING).description("사업명"),
               fieldWithPath("data.phone").type(JsonFieldType.STRING).description("연락처"),
               fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
@@ -158,7 +141,6 @@ public class MemberControllerTest {
       .andExpect(jsonPath("$.data.email").value(memberInfoDto.getEmail()))
       .andExpect(jsonPath("$.data.name").value(memberInfoDto.getName()))
       .andExpect(jsonPath("$.data.profileImg").value(memberInfoDto.getProfileImg()))
-      .andExpect(jsonPath("$.data.sectorId").value(memberInfoDto.getSectorId()))
       .andExpect(jsonPath("$.data.businessName").value(memberInfoDto.getBusinessName()))
       .andExpect(jsonPath("$.data.phone").value(memberInfoDto.getPhone()))
       .andExpect(jsonPath("$.message").value("SUCCESS"))
@@ -175,7 +157,6 @@ public class MemberControllerTest {
           fieldWithPath("email").description("이메일").ignored(),
           fieldWithPath("password").description("비밀번호").optional(),
           fieldWithPath("service").description("가입한 서비스").optional(),
-          fieldWithPath("sectorId").description("업종 식별자").optional(),
           fieldWithPath("name").description("이름").optional(),
           fieldWithPath("businessName").description("이름").optional(),
           fieldWithPath("profileImg").description("프로필 이미지 URL").ignored(),
@@ -187,7 +168,6 @@ public class MemberControllerTest {
             fieldWithPath("data.email").type(JsonFieldType.STRING).description("이메일"),
             fieldWithPath("data.service[]").type(JsonFieldType.ARRAY).description("가입한 서비스"),
             fieldWithPath("data.profileImg").type(JsonFieldType.STRING).description("프로필 이미지 URL"),
-            fieldWithPath("data.sectorId").type(JsonFieldType.NUMBER).description("업종 식별자"),
             fieldWithPath("data.businessName").type(JsonFieldType.STRING).description("사업명"),
             fieldWithPath("data.phone").type(JsonFieldType.STRING).description("연락처"),
             fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
