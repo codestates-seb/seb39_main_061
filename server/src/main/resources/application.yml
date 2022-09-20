@@ -11,16 +11,20 @@ spring:
     pool:
       max-idle: 10
       min-idle: 0
+  jpa:
+    hibernate:
+      ddl-auto: update
+      naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+      format_sql: true
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: com.project.QR.config.NamingStrategy
+    show-sql: true
   datasource:
     dialect: org.hibernate.dialect.MySQL8Dialect
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/qr?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: root
     password: qr_service_app
-  jpa:
-    hibernate:
-      ddl-auto: update
-      naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
-    show-sql: true
 
 
