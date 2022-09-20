@@ -4,11 +4,15 @@ import WeekApexChart from "../../components/BarChart/WeekApexChart";
 import MonthApexChart from "../../components/BarChart/MonthApexChart";
 import Piechart from "../../components/PieChart/PieChart"
 import DashboardCalendar from "../../components/Calendar/Calendar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
 
 const Dashboard = () => {
   const [isBarChart, setIsBarChart] = useState(true);
+  const [weekCount, setWeekCount] = useState([]);
+  const [monthCount, setMonthCount] = useState([]);
+
 
   const weekBtnHandler = () => {
     setIsBarChart(true);
@@ -17,6 +21,21 @@ const Dashboard = () => {
   const monthBtnHandler = () => {
     setIsBarChart(false);
   }
+
+  const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJob25lc3R5NDA3QGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX0dVRVNUIiwiaWF0IjoxNjYzMjk2NDUzLCJleHAiOjE2NjMzMDAwNTN9.OjAoWxek5iG8sGZOp5saXNGNpxYghLFV6sTdEPZg6jjc9pTAMgg67YgQdg48AaMKpVpZ6kJdPnt63HFP-76i8Q"
+
+  useEffect(() => {
+    axios.get("http://localhost:8080/api/v1/members/profile",
+      {
+        headers: { Authorization: "Bearer " + token }
+      }
+    )
+      .then(userData => {
+        console.log(userData.data.data)
+
+      })
+  }, [])
+
 
   return (
     <div>
