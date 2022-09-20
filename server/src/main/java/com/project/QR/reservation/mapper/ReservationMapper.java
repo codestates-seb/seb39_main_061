@@ -3,6 +3,8 @@ package com.project.QR.reservation.mapper;
 import com.project.QR.qrcode.entity.QrCode;
 import com.project.QR.reservation.dto.ReservationRequestDto;
 import com.project.QR.reservation.dto.ReservationResponseDto;
+import com.project.QR.reservation.dto.Statistics;
+import com.project.QR.reservation.entity.Check;
 import com.project.QR.reservation.entity.Reservation;
 import org.mapstruct.Mapper;
 
@@ -18,6 +20,8 @@ public interface ReservationMapper {
     reservation.setCount(createReservationDto.getCount());
     reservation.setName(createReservationDto.getName());
     reservation.setPhone(createReservationDto.getPhone());
+    reservation.setDeleted(Check.N);
+    reservation.setCompleted(Check.N);
     reservation.setQrCode(qrCode);
     return reservation;
   }
@@ -36,7 +40,7 @@ public interface ReservationMapper {
 
   default ReservationResponseDto.ReservationInfoDto reservationToReservationInfoDto(Reservation reservation) {
     return ReservationResponseDto.ReservationInfoDto.builder()
-      .complete(reservation.isComplete())
+      .completed(reservation.getCompleted())
       .reserveId(reservation.getReservationId())
       .count(reservation.getCount())
       .createdAt(reservation.getCreatedAt())
@@ -48,6 +52,20 @@ public interface ReservationMapper {
   default List<ReservationResponseDto.ReservationInfoDto> reservationListToReservationInfoDtoList(List<Reservation> reservationList) {
     return reservationList.stream()
       .map(this::reservationToReservationInfoDto)
+      .collect(Collectors.toList());
+  }
+
+  default ReservationResponseDto.StatisticsInfo statisticsToStatistics(Statistics statistics) {
+    return ReservationResponseDto.StatisticsInfo.builder()
+      .count(statistics.getCount())
+      .date(statistics.getDate())
+      .deleted(statistics.getDeleted())
+      .build();
+  }
+
+  default List<ReservationResponseDto.StatisticsInfo> statisticsListToStatisticsInfoList(List<Statistics> statisticsList) {
+    return statisticsList.stream()
+      .map(this::statisticsToStatistics)
       .collect(Collectors.toList());
   }
 }

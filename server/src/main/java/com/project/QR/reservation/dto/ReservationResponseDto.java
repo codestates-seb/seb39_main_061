@@ -1,5 +1,6 @@
 package com.project.QR.reservation.dto;
 
+import com.project.QR.reservation.entity.Check;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,7 +20,17 @@ public class ReservationResponseDto {
     private String name;
     private String phone;
     private LocalDateTime createdAt;
-    private boolean complete;
+    private Check completed;
+    private int count;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  public static class StatisticsInfo {
+    private Check deleted;
+    private String date;
     private int count;
   }
 }

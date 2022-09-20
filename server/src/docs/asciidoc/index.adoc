@@ -229,24 +229,3 @@ include::{snippets}/member-logout/response-body.adoc[]
 
 .response-fields
 include::{snippets}/member-logout/response-fields.adoc[]
-
-== SectorController
-==== 업종 전체 조회
-.curl-request
-include::{snippets}/sectors-get/curl-request.adoc[]
-
-.http-request
-include::{snippets}/sectors-get/http-request.adoc[]
-
-.request-body
-include::{snippets}/sectors-get/request-body.adoc[]
-
-.http-response
-include::{snippets}/sectors-get/http-response.adoc[]
-
-.response-body
-include::{snippets}/sectors-get/response-body.adoc[]
-
-.response-fields
-include::{snippets}/sectors-get/response-fields.adoc[]
-

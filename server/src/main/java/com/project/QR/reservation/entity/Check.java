@@ -1,2 +1,6 @@
-package com.project.QR.reservation.entity;public enum Chek {
+package com.project.QR.reservation.entity;
+
+public enum Check {
+  Y,
+  N
 }
