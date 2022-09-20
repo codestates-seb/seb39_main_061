@@ -16,29 +16,39 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.websocket.server.PathParam;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.ResolverStyle;
 
 @Validated
 @RestController
-@RequestMapping("/api/dash-board/reservation/statistics")
+@RequestMapping("/api/v1/reservation/statistics")
 @AllArgsConstructor
 public class QrCodeReservationStatisticsController {
   private final QrCodeService qrCodeService;
 
   @GetMapping
   public ResponseEntity getStatistics(@AuthenticationPrincipal MemberDetails memberDetails,
-                                      @Positive @PathParam("date") String date,
+                                      @NotBlank @PathParam("date") String date,
                                       @PathParam("option") String option) {
-    if(option != null) {
-      if(option.equals("month")) {
-        qrCodeService.getStatisticsByMonth(date, memberDetails.getMember().getMemberId());
-      } else if(option.equals("year")) {
-        qrCodeService.getStatisticsByYear(date, memberDetails.getMember().getMemberId());
-      } else {
-        throw new BusinessLogicException(ExceptionCode.OPTION_IS_INVALID);
-      }
-    } else {
-      qrCodeService.getStatisticsByTime(date, memberDetails.getMember().getMemberId());
-    }
+
+
+    LocalDate start = LocalDate.parse(date, DateTimeFormatter.BASIC_ISO_DATE);
+    System.out.println(start);
+//    if(option != null) {
+//      if(option.equals("month")) {
+//        qrCodeService.getStatisticsByMonth(date, memberDetails.getMember().getMemberId());
+//      } else if(option.equals("week")) {
+//        qrCodeService.getStatisticsByWeek(date, memberDetails.getMember().getMemberId());
+//      } else {
+//        throw new BusinessLogicException(ExceptionCode.OPTION_IS_INVALID);
+//      }
+//    } else {
+//      qrCodeService.getStatisticsByTime(date, memberDetails.getMember().getMemberId());
+//    }
+    System.out.println(date);
     return new ResponseEntity(HttpStatus.OK);
   }
 }
