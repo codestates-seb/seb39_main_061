@@ -72,7 +72,7 @@ public class QrCodeService {
    * 전체 QrCode 리스트 조회
    */
   public Page<QrCode> getQrCodes(int page, int size, long memberId) {
-    return qrCodeRepository.findAllByMemberId(memberId, PageRequest.of(page, size - 1, Sort.by("CREATED_AT").descending()));
+    return qrCodeRepository.findAllByMemberId(memberId, PageRequest.of(page, size, Sort.by("CREATED_AT").descending()));
   }
 
   /**
