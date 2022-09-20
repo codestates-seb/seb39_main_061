@@ -1,7 +1,7 @@
 // import { Link } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import ApexChart from "../../components/BarChart/ApexChart";
-import Today from "../../components/Date/Date"
+
 import Piechart from "../../components/PieChart/PieChart"
 import DashboardCalendar from "../../components/Calendar/Calendar";
 
@@ -15,8 +15,9 @@ const Dashboard = () => {
       <h1>Dashboard</h1>
       <div>
         <div>
+          <button>주간</button>
+          <button>월간</button>
           <ApexChart />
-          {/* <button>Download</button> */}
         </div>
         <div>
           <DashboardCalendar />
@@ -26,7 +27,6 @@ const Dashboard = () => {
           <div>QR Code List</div>
         </div>
         <Piechart />
-        {/* <Today /> */}
       </div>
     </div>
   );
