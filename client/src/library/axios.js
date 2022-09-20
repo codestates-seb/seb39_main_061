@@ -1,7 +1,4 @@
 import axios from "axios";
-import jwt_decode from "jwt-decode";
-import dayjs from "dayjs";
-import { authActions } from "../store/auth";
 
 const baseURL = "http://localhost:8080";
 
@@ -21,17 +18,42 @@ export const login = (email, password) => {
       password,
     })
     .then((res) => {
-      console.log("로그인 데이터는?", res.data.data.accessToken);
       return res.data.data.accessToken;
     })
     .catch((err) => {
-      alert(err.response.data.message);
+      console.log(err.response.data.message);
+    });
+};
+
+export const signUpReq = (
+  email,
+  password,
+  name,
+  businessName,
+  phone,
+  sectorId
+) => {
+  return axios
+    .post(`${baseURL}/auth/signup`, {
+      email,
+      password,
+      name,
+      businessName,
+      phone,
+      role: "reservation",
+      sectorId,
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err.response.data;
     });
 };
 
 export const getProfile = () => {
   return axios
-    .get("http://localhost:8080/api/v1/members/profile", {
+    .get(`${baseURL}/api/v1/members/profile`, {
       headers: {
         Authorization: getAuthorizationHeader(),
       },
@@ -41,6 +63,32 @@ export const getProfile = () => {
     })
     .catch((err) => {
       console.log(err.response);
+    });
+};
+
+export const oauthReq = (sectorId, businessName, phone, name) => {
+  return axios
+    .patch(
+      `${baseURL}/auth/members`,
+      {
+        service: "reservation",
+        sectorId,
+        businessName,
+        phone,
+        name,
+      },
+      {
+        headers: {
+          Authorization: getAuthorizationHeader(),
+        },
+      }
+    )
+    .then((res) => {
+      return res.data.data.accessToken;
+    })
+    .catch((err) => {
+      console.log(err);
+      return err;
     });
 };
 

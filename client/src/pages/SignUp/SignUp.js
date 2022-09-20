@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./SignUp.module.css";
 import axios from "axios";
-import baseURL from "../../library/axios";
-import { getDefaultMiddleware } from "@reduxjs/toolkit";
+import { signUpReq } from "../../library/axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -27,39 +26,20 @@ const SignUp = () => {
     const businessName = businessNameRef.current.value;
     const phone = phoneNumRef.current.value;
     const sectorId = BusinessCategoryRef.current.value;
-    console.log(sectorId);
     if (password !== confirmPassword) {
       setErrMessage("비밀번호가 일치하지 않습니다.");
-      return alert("비밀번호가 일치하지 않습니다.");
+      return console.log("비밀번호가 일치하지 않습니다.");
     }
     setIsLoading(true);
-    axios
-      .post("http://localhost:8080/auth/signup", {
-        email: email,
-        password: password,
-        name: name,
-        businessName: businessName,
-        phone: phone,
-        role: "reservation",
-        sectorId: sectorId,
-      })
-      .then((res) => {
-        setIsLoading(false);
-        console.log(res);
-        navigate("/login");
-      })
-      .catch((err) => {
-        setIsLoading(false);
-        if (err.response) {
-          const data = err.response.data;
-          let errorMessage = "Authentication failed!";
-          if (data && data.error && data.error.message) {
-            errorMessage = data.error.message;
-          }
-          // 서버에서 보내는 유효성 검사 에러
-          alert(errorMessage);
-        }
-      });
+
+    try {
+      signUpReq(email, password, name, businessName, phone, sectorId);
+      setIsLoading(false);
+      navigate("/login");
+    } catch (err) {
+      let errorMessage = err.error.message;
+      alert(errorMessage);
+    }
   };
 
   const emailCheckHandler = (e) => {
