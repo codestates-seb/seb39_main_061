@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import styles from "./Register.module.css";
 import { getProfile } from "../../library/axios";
@@ -81,7 +81,12 @@ const Register = () => {
         <input ref={businessNameRef} placeholder="상호명" />
         <input ref={phoneNumRef} placeholder="전화번호" />
         <input ref={nameRef} placeholder="이름" />
-        <button onClick={handlerSubmit}>전송</button>
+        <div>
+          <button onClick={handlerSubmit}>전송</button>
+          <Link to="/login">
+            <button>취소</button>
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
 import axios from "axios";
 import { signUpReq } from "../../library/axios";
+import { emailCheck } from "../../library/axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -45,25 +46,31 @@ const SignUp = () => {
   const emailCheckHandler = (e) => {
     e.preventDefault();
     console.log("중복검사");
-    axios
-      .post("http://localhost:8080/auth/email-validation", {
-        email: emailRef.current.value,
-      })
-      .then((res) => {
-        if (res.data.data.exist === false) {
-          setEmailCheckMsg("사용 가능한 이메일 입니다");
-        } else {
-          setEmailCheckMsg("이미 가입되어 있는 이메일 입니다");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        if (err.response) {
-          //
-        }
-        // 서버에서 보내는 유효성 검사 에러
-        // alert();
-      });
+    const email = emailRef.current.value;
+    const exist = emailCheck(email);
+    exist
+      ? setEmailCheckMsg("사용 가능한 이메일 입니다")
+      : setEmailCheckMsg("이미 가입되어 있는 이메일 입니다");
+
+    //   axios
+    //     .post("http://localhost:8080/auth/email-validation", {
+    //       email: emailRef.current.value,
+    //     })
+    //     .then((res) => {
+    //       if (res.data.data.exist === false) {
+
+    //       } else {
+
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //       if (err.response) {
+    //         //
+    //       }
+    //       // 서버에서 보내는 유효성 검사 에러
+    //       // alert();
+    //     });
   };
 
   return (
@@ -106,8 +113,13 @@ const SignUp = () => {
           <option value={14}>협회 및 단체, 수리 및 기타 개인서비스업</option>
           <option value={15}>기타</option>
         </select>
-        {!isLoading && <button>회원가입</button>}
-        {isLoading && <p>요청중...</p>}
+        <div>
+          {!isLoading && <button>회원가입</button>}
+          {isLoading && <p>요청중...</p>}
+          <Link to="/login">
+            <button>취소</button>
+          </Link>
+        </div>
       </form>
     </div>
   );

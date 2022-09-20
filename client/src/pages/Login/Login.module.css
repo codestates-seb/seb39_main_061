@@ -4,10 +4,106 @@
   align-items: center;
   height: 100vh;
   flex-direction: column;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0, 43, 91, 1) 0%,
+    rgba(43, 72, 101, 1) 35%,
+    rgba(37, 109, 133, 1) 100%
+  );
 }
 .login__form {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
   flex-direction: column;
+  height: 600px;
+  width: 400px;
+  border-radius: 20px;
+}
+
+.login__form__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  color: #256d85;
+  font-size: 30px;
+  height: 120px;
+}
+
+.login__form__input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.login__form__input input {
+  height: 50px;
+  border-style: none;
+  outline: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 18px;
+  padding-left: 8px;
+  font-size: 15px;
+}
+
+.login__form__input > p {
+  font-size: 15px;
+  color: #256d85;
+  height: 15px;
+  margin: 0px;
+  margin-bottom: 3px;
+  font-weight: 400;
+}
+
+.login__form__oauth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.login__form__oauth > div {
+  margin: 10px;
+}
+.login__form__oauth img {
+  height: 40px;
+  width: 40px;
+}
+
+.login__form__loginBtn button {
+  width: 220px;
+  height: 50px;
+  border-style: none;
+  background-color: #256d85;
+  border-radius: 25px;
+  color: white;
+  font-size: 18px;
+  margin-bottom: 25px;
+  cursor: pointer;
+}
+.login__form__loginBtn button:active {
+  box-shadow: 0 2px #666;
+  transform: translateY(2px);
+}
+
+.login__form__findPassword {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login__form__findPassword a {
+  text-decoration: none;
+}
+
+.login__form__findPassword p {
+  margin: 15px;
+  color: black;
+  font-size: 15px;
+}
+
+.login__form__findPassword a:last-child p {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 13px;
 }

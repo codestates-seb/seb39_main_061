@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import baseURL from "../../library/axios";
+import { baseURL } from "../../library/axios";
 import styles from "./EmailValidation.module.css";
 
 const EmailValidation = () => {
@@ -10,26 +10,22 @@ const EmailValidation = () => {
   const navigate = useNavigate();
   const location = useLocation();
   useEffect(() => {
-    axios
-      .get(`http://localhost:8080/auth/validation${location.search}`)
-      .then((res) => {
-        setValidation(true);
-        alert("인증 성공!");
-        setTimeout(() => {
-          navigate("/login");
-        }, 5000);
-      })
+    const res = axios
+      .get(`${baseURL}/auth/validation${location.search}`)
       .catch((err) => {
         setValidation(false);
         if (err.response) {
           const errMsg = err.response.data;
           console.log(errMsg);
-
-          //   setTimeout(() => {
-          //     navigate("/signup");
-          //   }, 5000);
         }
       });
+    if (res) {
+      setValidation(true);
+      alert("인증 성공!");
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
+    }
   }, []);
 
   return (
