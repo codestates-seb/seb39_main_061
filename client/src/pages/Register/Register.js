@@ -1,10 +1,12 @@
 import { useEffect } from "react";
 import { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import axiosInstance from "../../library/axios";
 import { authActions } from "../../store/auth";
 import styles from "./Register.module.css";
+import { getProfile } from "../../library/axios";
+import { userAction } from "../../store/user";
+import { oauthReq } from "../../library/axios";
 
 const Register = () => {
   const BusinessCategoryRef = useRef();
@@ -16,62 +18,41 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // 인증 안됐으면 true
   const oauthValidation = location.search.includes("true");
-
   const accessToken = String(location.search.split("&", 1));
   const token = accessToken.substring(13);
   const pageTitle = "페이지제목";
-  window.history.pushState("", pageTitle, `/oauth2/redirect`);
-  const checkValidation = () => {
+  window.history.pushState("", pageTitle, `/oauth2`);
+
+  // 인증 됐으면 바로 로그인 -> 유저데이터 받아오기 -> 대시보드
+  const checkValidation = async () => {
     if (oauthValidation === true) {
-      // 이메일 인증이 true면
-      // 1. 로그인 상태 true로
-      // 2. 토큰을 로컬스토리지에 덮어쓰기
-      // 2. 유저정보 받아서 리덕스 상태 바꾸기
-      console.log("로그인 성공!");
       localStorage.setItem("token", token);
+      const userData = await getProfile();
+      dispatch(userAction.setUser(userData));
       dispatch(authActions.login());
       navigate("/dashboard");
     }
   };
-
   useEffect(() => {
     localStorage.setItem("token", token);
+    checkValidation();
   }, []);
 
-  const oauthReq = async () => {
-    try {
-      let response = await axiosInstance.patch("/auth/members", {
-        service: "reservation",
-        sectorId: BusinessCategoryRef.current.value,
-        businessName: businessNameRef.current.value,
-        phone: phoneNumRef.current.value,
-        name: nameRef.current.value,
-      });
-      if (response.status === 200) {
-        console.log("새로응답받은 토큰?", response.data.data.accessToken);
-        const newToken = response.data.accessToken;
-        localStorage.setItem("token", response.data.data.accessToken);
-        dispatch(authActions.login());
-        navigate("/dashboard");
-      }
-    } catch (err) {
-      console.log(err);
-      alert("요청에 실패하였습니다 다시 요청해주세요");
-      // navigate("/");
-    }
-  };
-
+  //인증 false -> 추가 기입 전송 -> 로그인,유저데이터 받아오기
   const handlerSubmit = async () => {
-    console.log("인증안된 소셜 토큰:", token);
+    const sectorId = BusinessCategoryRef.current.value;
+    const businessName = businessNameRef.current.value;
+    const phone = phoneNumRef.current.value;
+    const name = nameRef.current.value;
     alert("전송 요청!");
-    oauthReq();
+    const newToken = await oauthReq(sectorId, businessName, phone, name);
+    localStorage.setItem("token", newToken);
+    dispatch(authActions.login());
+    const userData = await getProfile();
+    dispatch(userAction.setUser(userData));
     navigate("/dashboard");
   };
-  useEffect(() => {
-    checkValidation();
-  });
 
   return (
     <div className={styles.register}>

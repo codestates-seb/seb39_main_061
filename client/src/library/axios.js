@@ -1,38 +1,95 @@
 import axios from "axios";
-import jwt_decode from "jwt-decode";
-import dayjs from "dayjs";
 
 const baseURL = "http://localhost:8080";
 
-let authToken = localStorage.getItem("token");
+export const getToken = () => localStorage.getItem("token");
 
-const axiosInstance = axios.create({
+export const getAuthorizationHeader = () => `Bearer ${getToken()}`;
+
+export const axiosInstance = axios.create({
   baseURL,
-  headers: { Authorization: `Bearer ${authToken}` },
+  headers: { Authorization: getAuthorizationHeader() },
 });
 
-axiosInstance.interceptors.request.use(async (req) => {
-  if (!authToken) {
-    authToken = localStorage.getItem("token");
-    req.headers.Authorization = `Bearer ${authToken}`;
-  }
+export const login = (email, password) => {
+  return axios
+    .post(`${baseURL}/auth/login`, {
+      email,
+      password,
+    })
+    .then((res) => {
+      return res.data.data.accessToken;
+    })
+    .catch((err) => {
+      console.log(err.response.data.message);
+    });
+};
 
-  const user = jwt_decode(authToken);
-  const isExpired = dayjs.unix(user.exp).diff(dayjs()) < 1;
-  console.log("isExpired: ", isExpired);
-  if (!isExpired) return req;
+export const signUpReq = (
+  email,
+  password,
+  name,
+  businessName,
+  phone,
+  sectorId
+) => {
+  return axios
+    .post(`${baseURL}/auth/signup`, {
+      email,
+      password,
+      name,
+      businessName,
+      phone,
+      role: "reservation",
+      sectorId,
+    })
+    .then((res) => {
+      return res;
+    })
+    .catch((err) => {
+      return err.response.data;
+    });
+};
 
-  const response = await axios.post(`${baseURL}/auth/reissue`, {
-    accessToken: authToken,
-  });
+export const getProfile = () => {
+  return axios
+    .get(`${baseURL}/api/v1/members/profile`, {
+      headers: {
+        Authorization: getAuthorizationHeader(),
+      },
+    })
+    .then((res) => {
+      return res.data.data;
+    })
+    .catch((err) => {
+      console.log(err.response);
+    });
+};
 
-  localStorage.setItem("token", JSON.stringify(response.data.accessToken));
-  req.headers.Authorization = `Bearer ${authToken}`;
-  return req;
-});
-
-export const getProfile = async () => {
-  const responose = await axiosInstance.get("/api/v1/members/profile");
+export const oauthReq = (sectorId, businessName, phone, name) => {
+  return axios
+    .patch(
+      `${baseURL}/auth/members`,
+      {
+        service: "reservation",
+        sectorId,
+        businessName,
+        phone,
+        name,
+      },
+      {
+        headers: {
+          Authorization: getAuthorizationHeader(),
+        },
+      }
+    )
+    .then((res) => {
+      return res.data.data.accessToken;
+    })
+    .catch((err) => {
+      console.log(err);
+      return err;
+    });
 };
 
 export default axiosInstance;
