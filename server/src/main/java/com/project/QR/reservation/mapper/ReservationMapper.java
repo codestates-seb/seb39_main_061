@@ -55,17 +55,17 @@ public interface ReservationMapper {
       .collect(Collectors.toList());
   }
 
-  default ReservationResponseDto.StatisticsInfo statisticsToStatistics(Statistics statistics) {
-    return ReservationResponseDto.StatisticsInfo.builder()
-      .count(statistics.getCount())
-      .date(statistics.getDate())
-      .deleted(statistics.getDeleted())
-      .build();
-  }
-
-  default List<ReservationResponseDto.StatisticsInfo> statisticsListToStatisticsInfoList(List<Statistics> statisticsList) {
-    return statisticsList.stream()
-      .map(this::statisticsToStatistics)
-      .collect(Collectors.toList());
-  }
+//  default ReservationResponseDto.StatisticsInfoDto statisticsToStatistics(Statistics statistics) {
+//    return ReservationResponseDto.StatisticsInfoDto.builder()
+//      .count(statistics.getCount())
+//      .date(statistics.getDate())
+//      .deleted(statistics.getDeleted())
+//      .build();
+//  }
+//
+//  default List<ReservationResponseDto.StatisticsInfoDto> statisticsListToStatisticsInfoList(List<Statistics> statisticsList) {
+//    return statisticsList.stream()
+//      .map(this::statisticsToStatistics)
+//      .collect(Collectors.toList());
+//  }
 }

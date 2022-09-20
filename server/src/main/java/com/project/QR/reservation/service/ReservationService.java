@@ -21,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -88,6 +89,10 @@ public class ReservationService {
     reservationRepository.save(updatingReservation);
   }
 
+  /**
+   * 월간 통계 데이터
+   */
+  @Transactional(readOnly = true)
   public List<Statistics> getStatisticsByMonth(long qrCodeId, LocalDateTime start, Long memberId) {
     QrCode qrCode = qrCodeService.getQrCode(qrCodeId, memberId);
     if(!qrCode.getQrType().equals(QrType.RESERVATION)) {
@@ -96,6 +101,10 @@ public class ReservationService {
     return reservationRepository.findStatisticsByMonth(qrCodeId, start);
   }
 
+  /**
+   * 주간 통계 데이터
+   */
+  @Transactional(readOnly = true)
   public List<Statistics> getStatisticsByWeek(long qrCodeId, LocalDateTime start, Long memberId) {
     QrCode qrCode = qrCodeService.getQrCode(qrCodeId, memberId);
     if(!qrCode.getQrType().equals(QrType.RESERVATION)) {
@@ -104,6 +113,54 @@ public class ReservationService {
     return reservationRepository.findStatisticsByWeek(qrCodeId, start);
   }
 
-  public void getStatisticsByTime(long qrCodeId, Long memberId) {
+  /**
+   * 시간대별 통계 데이터
+   */
+  @Transactional(readOnly = true)
+  public List<Statistics> getStatisticsByTime(long qrCodeId, LocalDateTime start, Long memberId) {
+    QrCode qrCode = qrCodeService.getQrCode(qrCodeId, memberId);
+    if(!qrCode.getQrType().equals(QrType.RESERVATION)) {
+      throw new BusinessLogicException(ExceptionCode.QR_CODE_NOT_FOUND);
+    }
+    return reservationRepository.findStatisticsByTime(qrCodeId, start);
+  }
+
+  /**
+   * 통계 데이터
+   */
+  @Transactional(readOnly = true)
+  public ReservationResponseDto.StatisticsInfoDto getStatistics(long qrCodeId, LocalDateTime start, Long memberId) {
+    List<Statistics> monthList = getStatisticsByMonth(qrCodeId, start, memberId);
+    List<Statistics> weekList = getStatisticsByWeek(qrCodeId, start, memberId);
+    List<Statistics> timeList = getStatisticsByTime(qrCodeId, start, memberId);
+    return ReservationResponseDto.StatisticsInfoDto.builder()
+      .month(monthList.stream()
+        .map(month->ReservationResponseDto.StatisticsDto.builder()
+          .count(month.getCount())
+          .date(month.getDate())
+          .deleted(month.getDeleted())
+          .build()
+        )
+        .collect(Collectors.toList())
+      )
+      .week(weekList.stream()
+        .map(week->ReservationResponseDto.StatisticsDto.builder()
+          .count(week.getCount())
+          .date(week.getDate())
+          .deleted(week.getDeleted())
+          .build()
+        )
+        .collect(Collectors.toList())
+      )
+      .time(timeList.stream()
+        .map(time->ReservationResponseDto.StatisticsDto.builder()
+          .count(time.getCount())
+          .date(time.getDate())
+          .deleted(time.getDeleted())
+          .build()
+        )
+        .collect(Collectors.toList())
+      )
+      .build();
   }
 }

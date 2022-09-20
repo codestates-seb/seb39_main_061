@@ -28,7 +28,17 @@ public class ReservationResponseDto {
   @NoArgsConstructor
   @AllArgsConstructor
   @Builder
-  public static class StatisticsInfo {
+  public static class StatisticsInfoDto {
+    private List<StatisticsDto> month;
+    private List<StatisticsDto> week;
+    private List<StatisticsDto> time;
+  }
+
+  @Data
+  @NoArgsConstructor
+  @AllArgsConstructor
+  @Builder
+  public static class StatisticsDto {
     private Check deleted;
     private String date;
     private int count;

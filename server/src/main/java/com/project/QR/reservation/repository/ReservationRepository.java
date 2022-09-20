@@ -56,5 +56,14 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     "WHERE QR_CODE_ID = :qrCodeId AND " +
     "DATE(CREATED_AT) BETWEEN DATE_SUB(:start, INTERVAL 1 WEEK) AND " +
     ":start GROUP BY DELETED, DATE_FORMAT(CREATED_AT, '%Y-%m-%d')", nativeQuery = true)
-  List<Statistics> findStatisticsByWeek(long qrCodeId, LocalDateTime start);
+  List<Statistics> findStatisticsByWeek(@Param("qrCodeId") long qrCodeId,
+                                        @Param("start") LocalDateTime start);
+
+  @Query(value = "SELECT DELETED, HOUR(CREATED_AT) AS DATE, COUNT(HOUR(CREATED_AT)) AS COUNT " +
+    "FROM RESERVATION " +
+    "WHERE QR_CODE_ID = :qrCodeId AND " +
+    "DATE(CREATED_AT) = DATE(:start) " +
+    "GROUP BY DELETED, HOUR(CREATED_AT)", nativeQuery = true)
+  List<Statistics> findStatisticsByTime(@Param("qrCodeId") long qrCodeId,
+                                        @Param("start") LocalDateTime start);
 }
