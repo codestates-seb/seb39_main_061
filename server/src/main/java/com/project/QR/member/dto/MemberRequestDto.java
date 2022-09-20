@@ -35,8 +35,6 @@ public class MemberRequestDto {
     private String phone;
     @NotBlank
     private String businessName;
-    @NotNull
-    private long sectorId;
     @NotBlank
     private String role;
   }
@@ -61,9 +59,6 @@ public class MemberRequestDto {
     private String email;
     @NotBlank
     private String service;
-    @Min(1)
-    @Max(15)
-    private long sectorId;
     @NotBlank
     private String businessName;
     @NotBlank
@@ -82,9 +77,6 @@ public class MemberRequestDto {
     @NotEmpty
     private List<String> service;
     private String profileImg;
-    @Min(1)
-    @Max(15)
-    private long sectorId;
     private String businessName;
     private String phone;
     private String name;
