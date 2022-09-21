@@ -2,7 +2,6 @@ package com.project.QR.reservation.entity;
 
 import com.project.QR.audit.CreatedAuditable;
 import com.project.QR.qrcode.entity.QrCode;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,8 +36,7 @@ public class Reservation extends CreatedAuditable {
   @ColumnDefault("1")
   private int count;
 
-  @OneToOne
+  @ManyToOne
   @JoinColumn(nullable = false, name = "QR_CODE_ID") //FK one-to-one
   private QrCode qrCode;
 }
-
