@@ -9,6 +9,10 @@ const EmailValidation = () => {
   const [validation, setValidation] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
+  console.log(location.search);
+  let email = String(location.search.split("&", 1));
+  email = email.slice(7);
+
   useEffect(() => {
     const res = axios
       .get(`${baseURL}/auth/validation${location.search}`)
@@ -30,14 +34,18 @@ const EmailValidation = () => {
 
   return (
     <section className={styles.EmailValidation}>
-      {validation ? (
-        <h1>이메일 인증이 성공하였습니다!</h1>
-      ) : (
-        <h1>이메일 인증이 실패하였습니다!</h1>
-      )}
-      {validation && <p>잠시후 로그인 페이지로 이동합니다</p>}
-      {!validation && <p>잠시후 회원가입 페이지로 이동합니다</p>}
-      {!validation && <button>이메일 다시 보내기</button>}
+      <div>
+        {validation ? (
+          <h1>
+            {email}님의 회원가입을 축하합니다. 로그인 후 QuickBook의 모든
+            서비스를 이용해보세요.
+          </h1>
+        ) : (
+          <h1>이메일 인증이 실패하였습니다</h1>
+        )}
+        {validation && <p>잠시후 로그인 페이지로 이동합니다</p>}
+        {!validation && <p>다시 시도해주세요 회원가입 페이지로 이동합니다 </p>}
+      </div>
     </section>
   );
 };

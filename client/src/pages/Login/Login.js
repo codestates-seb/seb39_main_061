@@ -9,6 +9,7 @@ import googleLogo from "../../assets/google-logo.png";
 import naverLogo from "../../assets/naver-logo.png";
 import kakaoLogo from "../../assets/kakao-logo.png";
 import { useState } from "react";
+import mainLogo from "../../assets/logo1.png";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -78,12 +79,13 @@ const Login = () => {
     <section className={styles.login}>
       <form onSubmit={loginSubmitHandler} className={styles.login__form}>
         <div className={styles.login__form__title}>
-          <h1>Login</h1>
+          <img src={mainLogo} alt="React" />
+          {/* <h1>Login</h1> */}
+          <p>{validationMSG}</p>
         </div>
         <div className={styles.login__form__input}>
           <input ref={emailRef} placeholder="이메일" />
           <input type="password" ref={PWRef} placeholder="비밀번호" />
-          <p>{validationMSG}</p>
         </div>
 
         <div className={styles.login__form__oauth}>
