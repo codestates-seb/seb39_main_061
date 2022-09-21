@@ -46,7 +46,6 @@ public class AuthService {
     member.setVerifiedCode(UUID.randomUUID().toString());
     member.setEmailVerified(EmailVerified.N);
     Member savedMember = memberRepository.save(member);
-
     publisher.publishEvent(new MemberRegistrationApplicationEvent(this, savedMember));
     return savedMember;
   }
