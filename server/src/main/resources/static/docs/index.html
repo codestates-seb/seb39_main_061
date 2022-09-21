@@ -606,8 +606,8 @@ Content-Length: 70
   "email" : "hgd@gmail.com",
   "password" : "1234",
   "name" : "hgd",
-  "phone" : "01012345678",
-  "businessName" : "사업명",
+  "phone" : "010-1234-5678",
+  "businessName" : "business",
   "role" : "RESERVATION"
 }'</code></pre>
 </div>
@@ -618,15 +618,15 @@ Content-Length: 70
 <pre class="prettyprint highlight nowrap"><code data-lang="http">POST /auth/signup HTTP/1.1
 Content-Type: application/json
 Accept: application/json
-Content-Length: 164
+Content-Length: 165
 Host: localhost:8080
 
 {
   "email" : "hgd@gmail.com",
   "password" : "1234",
   "name" : "hgd",
-  "phone" : "01012345678",
-  "businessName" : "사업명",
+  "phone" : "010-1234-5678",
+  "businessName" : "business",
   "role" : "RESERVATION"
 }</code></pre>
 </div>
@@ -638,8 +638,8 @@ Host: localhost:8080
   "email" : "hgd@gmail.com",
   "password" : "1234",
   "name" : "hgd",
-  "phone" : "01012345678",
-  "businessName" : "사업명",
+  "phone" : "010-1234-5678",
+  "businessName" : "business",
   "role" : "RESERVATION"
 }</code></pre>
 </div>
@@ -997,7 +997,7 @@ Content-Length: 330
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/auth/validation?email=hgd@gmail.com&amp;code=c94a1a2b-31c7-46d8-a41a-df55b4a67598' -i -X GET \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/auth/validation?email=hgd@gmail.com&amp;code=ce1c2ea4-76cc-41ac-b66b-477ced6630e6' -i -X GET \
     -H 'Content-Type: application/json' \
     -H 'Accept: application/json'</code></pre>
 </div>
@@ -1005,7 +1005,7 @@ Content-Length: 330
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /auth/validation?email=hgd@gmail.com&amp;code=c94a1a2b-31c7-46d8-a41a-df55b4a67598 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /auth/validation?email=hgd@gmail.com&amp;code=ce1c2ea4-76cc-41ac-b66b-477ced6630e6 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 Host: localhost:8080</code></pre>
@@ -1095,8 +1095,8 @@ Content-Length: 26
     -d '{
   "email" : "hgd@gmail.com",
   "service" : "reservation",
-  "businessName" : "사업명",
-  "phone" : "01012345678",
+  "businessName" : "business",
+  "phone" : "010-1234-5678",
   "name" : "hgd"
 }'</code></pre>
 </div>
@@ -1108,14 +1108,14 @@ Content-Length: 26
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {ACCESS_TOKEN}
-Content-Length: 143
+Content-Length: 144
 Host: localhost:8080
 
 {
   "email" : "hgd@gmail.com",
   "service" : "reservation",
-  "businessName" : "사업명",
-  "phone" : "01012345678",
+  "businessName" : "business",
+  "phone" : "010-1234-5678",
   "name" : "hgd"
 }</code></pre>
 </div>
@@ -1126,8 +1126,8 @@ Host: localhost:8080
 <pre class="prettyprint highlight nowrap"><code>{
   "email" : "hgd@gmail.com",
   "service" : "reservation",
-  "businessName" : "사업명",
-  "phone" : "01012345678",
+  "businessName" : "business",
+  "phone" : "010-1234-5678",
   "name" : "hgd"
 }</code></pre>
 </div>
@@ -1391,15 +1391,19 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 228
+Content-Length: 315
 
 {
   "data" : {
     "email" : "hgd@gmail.com",
     "service" : [ "RESERVATION" ],
     "profileImg" : null,
-    "businessName" : "사업명",
-    "phone" : "01012345678",
+    "business" : {
+      "businessId" : 1,
+      "name" : "business",
+      "introduction" : "introduction"
+    },
+    "phone" : "010-1234-5678",
     "name" : "hgd"
   },
   "message" : "SUCCESS"
@@ -1414,8 +1418,12 @@ Content-Length: 228
     "email" : "hgd@gmail.com",
     "service" : [ "RESERVATION" ],
     "profileImg" : null,
-    "businessName" : "사업명",
-    "phone" : "01012345678",
+    "business" : {
+      "businessId" : 1,
+      "name" : "business",
+      "introduction" : "introduction"
+    },
+    "phone" : "010-1234-5678",
     "name" : "hgd"
   },
   "message" : "SUCCESS"
@@ -1458,9 +1466,24 @@ Content-Length: 228
 <td class="tableblock halign-left valign-top"><p class="tableblock">가입한 서비스</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.businessName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.business</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사업 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.business.businessId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사업 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.business.name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">사업명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.business.introduction</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사업 소개글</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.phone</code></p></td>
@@ -1489,7 +1512,7 @@ Content-Length: 228
     -H 'Content-Type: multipart/form-data' \
     -H 'Accept: application/json, multipart/form-data' \
     -H 'Authorization: Bearer {ACCESS_TOKEN}' \
-    -F 'data={"email":"hgd@gmail.com","password":"1234","service":["reservation","keep"],"profileImg":"profile-img-url","businessName":"changeBusinessName","phone":"01087654321","name":"changeName"};type=application/json' \
+    -F 'data={"email":"hgd@gmail.com","password":"1234","service":["reservation","keep"],"profileImg":"profile-img-url","businessId":1,"businessName":"changeBusinessName","businessIntroduction":"change introduction","phone":"010-8765-4321","name":"changeName"};type=application/json' \
     -F 'file=@profile.jpg;type=image/jpeg'</code></pre>
 </div>
 </div>
@@ -1506,7 +1529,7 @@ Host: localhost:8080
 Content-Disposition: form-data; name=data
 Content-Type: application/json
 
-{"email":"hgd@gmail.com","password":"1234","service":["reservation","keep"],"profileImg":"profile-img-url","businessName":"changeBusinessName","phone":"01087654321","name":"changeName"}
+{"email":"hgd@gmail.com","password":"1234","service":["reservation","keep"],"profileImg":"profile-img-url","businessId":1,"businessName":"changeBusinessName","businessIntroduction":"change introduction","phone":"010-8765-4321","name":"changeName"}
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
 Content-Disposition: form-data; name=file; filename=profile.jpg
 Content-Type: image/jpeg
@@ -1588,9 +1611,19 @@ profile
 <td class="tableblock halign-left valign-top"><p class="tableblock">이름</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>businessId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사업 식별자</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>businessName</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">이름</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사업명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>businessIntroduction</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사업 소개글</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>phone</code></p></td>
@@ -1604,15 +1637,19 @@ profile
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 265
+Content-Length: 343
 
 {
   "data" : {
     "email" : "hgd@gmail.com",
     "service" : [ "RESERVATION", "KEEP" ],
     "profileImg" : "profile-img-url",
-    "businessName" : "changeBusinessName",
-    "phone" : "01087654321",
+    "business" : {
+      "businessId" : 1,
+      "name" : "business",
+      "introduction" : "introduction"
+    },
+    "phone" : "010-8765-4321",
     "name" : "changeName"
   },
   "message" : "SUCCESS"
@@ -1627,8 +1664,12 @@ Content-Length: 265
     "email" : "hgd@gmail.com",
     "service" : [ "RESERVATION", "KEEP" ],
     "profileImg" : "profile-img-url",
-    "businessName" : "changeBusinessName",
-    "phone" : "01087654321",
+    "business" : {
+      "businessId" : 1,
+      "name" : "business",
+      "introduction" : "introduction"
+    },
+    "phone" : "010-8765-4321",
     "name" : "changeName"
   },
   "message" : "SUCCESS"
@@ -1671,9 +1712,24 @@ Content-Length: 265
 <td class="tableblock halign-left valign-top"><p class="tableblock">프로필 이미지 URL</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.businessName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.business</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Object</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사업 데이터</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.business.businessId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사업 식별자</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.business.name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">사업명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.business.introduction</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">사업 소개글</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.phone</code></p></td>
