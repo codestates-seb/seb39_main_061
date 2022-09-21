@@ -43,4 +43,5 @@ public class ReservationResponseDto {
     private String date;
     private int count;
   }
+
 }
