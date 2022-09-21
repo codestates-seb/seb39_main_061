@@ -26,7 +26,7 @@ public class Keep extends Auditable {
   @ColumnDefault("1")
   private int count;
 
-  @OneToOne
+  @ManyToOne
   @JoinColumn(name = "QR_CODE_ID") //FK one-to-one
   private QrCode qrCode;
 
