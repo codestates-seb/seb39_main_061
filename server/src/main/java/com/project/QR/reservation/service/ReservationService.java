@@ -44,8 +44,9 @@ public class ReservationService {
    * 예약 조회
    */
   @Transactional(readOnly = true)
-  public Page<Reservation> getReservations(long qrCodeId, int page, int size) {
-    return reservationRepository.findAllByToday(qrCodeId, PageRequest.of(page, size, Sort.by("CREATED_AT").descending()));
+  public Page<Reservation> getReservations(long businessId, long qrCodeId, int page, int size) {
+    return reservationRepository.findAllByToday(businessId, qrCodeId,
+      PageRequest.of(page, size, Sort.by("CREATED_AT").descending()));
   }
 
   /**
@@ -93,11 +94,7 @@ public class ReservationService {
    * 월간 통계 데이터
    */
   @Transactional(readOnly = true)
-  public List<Statistics> getStatisticsByMonth(long qrCodeId, LocalDateTime start, Long memberId) {
-    QrCode qrCode = qrCodeService.getQrCode(qrCodeId, memberId);
-    if(!qrCode.getQrType().equals(QrType.RESERVATION)) {
-      throw new BusinessLogicException(ExceptionCode.QR_CODE_NOT_FOUND);
-    }
+  private List<Statistics> getStatisticsByMonth(long qrCodeId, LocalDateTime start) {
     return reservationRepository.findStatisticsByMonth(qrCodeId, start);
   }
 
@@ -105,11 +102,7 @@ public class ReservationService {
    * 주간 통계 데이터
    */
   @Transactional(readOnly = true)
-  public List<Statistics> getStatisticsByWeek(long qrCodeId, LocalDateTime start, Long memberId) {
-    QrCode qrCode = qrCodeService.getQrCode(qrCodeId, memberId);
-    if(!qrCode.getQrType().equals(QrType.RESERVATION)) {
-      throw new BusinessLogicException(ExceptionCode.QR_CODE_NOT_FOUND);
-    }
+  private List<Statistics> getStatisticsByWeek(long qrCodeId, LocalDateTime start) {
     return reservationRepository.findStatisticsByWeek(qrCodeId, start);
   }
 
@@ -117,11 +110,7 @@ public class ReservationService {
    * 시간대별 통계 데이터
    */
   @Transactional(readOnly = true)
-  public List<Statistics> getStatisticsByTime(long qrCodeId, LocalDateTime start, Long memberId) {
-    QrCode qrCode = qrCodeService.getQrCode(qrCodeId, memberId);
-    if(!qrCode.getQrType().equals(QrType.RESERVATION)) {
-      throw new BusinessLogicException(ExceptionCode.QR_CODE_NOT_FOUND);
-    }
+  private List<Statistics> getStatisticsByTime(long qrCodeId, LocalDateTime start) {
     return reservationRepository.findStatisticsByTime(qrCodeId, start);
   }
 
@@ -129,10 +118,14 @@ public class ReservationService {
    * 통계 데이터
    */
   @Transactional(readOnly = true)
-  public ReservationResponseDto.StatisticsInfoDto getStatistics(long qrCodeId, LocalDateTime start, Long memberId) {
-    List<Statistics> monthList = getStatisticsByMonth(qrCodeId, start, memberId);
-    List<Statistics> weekList = getStatisticsByWeek(qrCodeId, start, memberId);
-    List<Statistics> timeList = getStatisticsByTime(qrCodeId, start, memberId);
+  public ReservationResponseDto.StatisticsInfoDto getStatistics(long businessId, long qrCodeId, LocalDateTime start, Long memberId) {
+    QrCode qrCode = qrCodeService.getQrCode(qrCodeId, businessId, memberId);
+    if(!qrCode.getQrType().equals(QrType.RESERVATION)) {
+      throw new BusinessLogicException(ExceptionCode.QR_CODE_NOT_FOUND);
+    }
+    List<Statistics> monthList = getStatisticsByMonth(qrCodeId, start);
+    List<Statistics> weekList = getStatisticsByWeek(qrCodeId, start);
+    List<Statistics> timeList = getStatisticsByTime(qrCodeId, start);
     return ReservationResponseDto.StatisticsInfoDto.builder()
       .month(monthList.stream()
         .map(month->ReservationResponseDto.StatisticsDto.builder()

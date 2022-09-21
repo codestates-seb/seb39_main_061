@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.project.QR.stub.BusinessStubData.*;
+
 public class MemberStubData {
 
   public static Member member() {
@@ -18,8 +20,8 @@ public class MemberStubData {
     member.setProvider(AuthProvider.local);
     member.setPassword("1234");
     member.setName("hgd");
-    member.setBusinessName("사업명");
-    member.setPhone("01012345678");
+    member.setBusiness(business());
+    member.setPhone("010-1234-5678");
     member.setRole("ROLE_RESERVATION");
     return member;
   }
@@ -28,7 +30,7 @@ public class MemberStubData {
     Member member = member();
     return MemberRequestDto.CreateMemberDto.builder()
       .email(member.getEmail())
-      .businessName(member.getBusinessName())
+      .businessName(member.getBusiness().getName())
       .name(member().getName())
       .password(member().getPassword())
       .phone(member.getPhone())
@@ -53,7 +55,7 @@ public class MemberStubData {
   public static MemberRequestDto.OAuthUpdateDto oAuthUpdateDto() {
     Member member = member();
     return MemberRequestDto.OAuthUpdateDto.builder()
-      .businessName(member.getBusinessName())
+      .businessName(member.getBusiness().getName())
       .email(member.getEmail())
       .name(member.getName())
       .phone(member.getPhone())
@@ -72,7 +74,7 @@ public class MemberStubData {
       .phone(member.getPhone())
       .name(member.getName())
       .email(member.getEmail())
-      .businessName(member.getBusinessName())
+      .business(businessInfoDto())
       .build();
   }
 
@@ -87,7 +89,7 @@ public class MemberStubData {
       .name(member.getName())
       .email(member.getEmail())
       .profileImg(member.getProfileImg())
-      .businessName(member.getBusinessName())
+      .business(businessInfoDto())
       .build();
   }
 
@@ -100,8 +102,10 @@ public class MemberStubData {
       .businessName("changeBusinessName")
       .email(member.getEmail())
       .name("changeName")
+      .businessId(1L)
+      .businessIntroduction("change introduction")
       .password("1234")
-      .phone("01087654321")
+      .phone("010-8765-4321")
       .service(service)
       .profileImg("profile-img-url")
       .build();
@@ -114,7 +118,7 @@ public class MemberStubData {
     member.setProvider(AuthProvider.local);
     member.setPassword(updateMemberDto().getPassword());
     member.setName(updateMemberDto().getName());
-    member.setBusinessName(updateMemberDto.getBusinessName());
+    member.setBusiness(updatedBusiness());
     member.setPhone(updateMemberDto.getPhone());
     member.setRole(updateMemberDto.getService().stream()
       .map(r->"ROLE_"+r.toUpperCase())

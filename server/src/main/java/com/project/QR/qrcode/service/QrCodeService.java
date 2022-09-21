@@ -1,5 +1,6 @@
 package com.project.QR.qrcode.service;
 
+import com.project.QR.business.service.BusinessService;
 import com.project.QR.exception.BusinessLogicException;
 import com.project.QR.exception.ExceptionCode;
 import com.project.QR.file.service.FileSystemStorageService;
@@ -25,6 +26,7 @@ public class QrCodeService {
   private final QrCodeRepository qrCodeRepository;
   private final FileSystemStorageService fileSystemStorageService;
   private final CustomBeanUtils<QrCode> beanUtils;
+  private final BusinessService businessService;
 
   /**
    * QrCode 등록
@@ -38,12 +40,12 @@ public class QrCodeService {
    * QrCode 변경
    */
   public QrCode updateQrCode(QrCode qrCode, MultipartFile multipartFile) {
-    QrCode findQrCode = findVerifiedQrCode(qrCode.getQrCodeId());
+    QrCode findQrCode = findVerifiedQrCode(qrCode.getQrCodeId(), qrCode.getBusiness().getBusinessId());
     if (!multipartFile.isEmpty()) {
       if (findQrCode.getQrCodeImg() != null)
         fileSystemStorageService.remove(findQrCode.getQrCodeImg());
       qrCode.setQrCodeImg(fileSystemStorageService.store(multipartFile,
-              String.format("%d/qr-code", qrCode.getMember().getMemberId())));
+              String.format("%d/qr-code", qrCode.getBusiness().getMember().getMemberId())));
     }
     QrCode updatingQrCode = beanUtils.copyNonNullProperties(qrCode, findQrCode);
     return qrCodeRepository.save(updatingQrCode);
@@ -53,8 +55,8 @@ public class QrCodeService {
    * qrCode 아이디로 QR 코드 찾기
    */
   @Transactional(readOnly = true)
-  public QrCode findVerifiedQrCode(long qrCodeId) {
-    Optional<QrCode> optionalQrCode = qrCodeRepository.findById(qrCodeId);
+  private QrCode findVerifiedQrCode(long qrCodeId, long businessId) {
+    Optional<QrCode> optionalQrCode = qrCodeRepository.findByIdAndBusinessId(qrCodeId, businessId);
     return optionalQrCode.orElseThrow(() -> new BusinessLogicException(ExceptionCode.QR_CODE_NOT_FOUND));
   }
 
@@ -62,9 +64,9 @@ public class QrCodeService {
    * 특정 QrCode 조회
    */
   @Transactional(readOnly = true)
-  public QrCode getQrCode(long qrCodeId, long memberId) {
-    QrCode qrCode = findVerifiedQrCode(qrCodeId);
-    if (qrCode.getMember().getMemberId() != memberId)
+  public QrCode getQrCode(long qrCodeId, long businessId, long memberId) {
+    QrCode qrCode = findVerifiedQrCode(qrCodeId, businessId);
+    if (qrCode.getBusiness().getMember().getMemberId() != memberId)
       throw new BusinessLogicException(ExceptionCode.QR_CODE_NOT_FOUND);
     return qrCode;
   }
@@ -72,16 +74,17 @@ public class QrCodeService {
   /**
    * 전체 QrCode 리스트 조회
    */
-  public Page<QrCode> getQrCodes(int page, int size, long memberId) {
-    return qrCodeRepository.findAllByMemberId(memberId, PageRequest.of(page, size, Sort.by("CREATED_AT").descending()));
+  public Page<QrCode> getQrCodes(int page, int size, long businessId, long memberId) {
+    return qrCodeRepository.findAllByBusinessIdAndMemberId(businessId, memberId,
+      PageRequest.of(page, size, Sort.by("CREATED_AT").descending()));
   }
 
   /**
    * 특정 QrCode 삭제
    */
-  public void deleteQrCode(long qrCodeId, long memberId) {
-    QrCode qrCode = findVerifiedQrCode(qrCodeId);
-    if(qrCode.getMember().getMemberId() != memberId)
+  public void deleteQrCode(long qrCodeId, long businessId, long memberId) {
+    QrCode qrCode = findVerifiedQrCode(qrCodeId, businessId);
+    if(qrCode.getBusiness().getMember().getMemberId() != memberId)
       throw new BusinessLogicException(ExceptionCode.QR_CODE_NOT_FOUND);
     qrCodeRepository.delete(qrCode);
   }

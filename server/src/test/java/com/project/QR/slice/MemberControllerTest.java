@@ -85,7 +85,9 @@ public class MemberControllerTest {
       .andExpect(jsonPath("$.data.profileImg").value(memberInfoDto.getProfileImg()))
       .andExpect(jsonPath("$.data.phone").value(memberInfoDto.getPhone()))
       .andExpect(jsonPath("$.data.name").value(memberInfoDto.getName()))
-      .andExpect(jsonPath("$.data.businessName").value(memberInfoDto.getBusinessName()))
+      .andExpect(jsonPath("$.data.business.businessId").value(memberInfoDto.getBusiness().getBusinessId()))
+      .andExpect(jsonPath("$.data.business.name").value(memberInfoDto.getBusiness().getName()))
+      .andExpect(jsonPath("$.data.business.introduction").value(memberInfoDto.getBusiness().getIntroduction()))
       .andExpect(jsonPath("$.message").value("SUCCESS"))
       .andDo(
         document(
@@ -99,7 +101,10 @@ public class MemberControllerTest {
               fieldWithPath("data.email").type(JsonFieldType.STRING).description("이메일"),
               fieldWithPath("data.profileImg").type(JsonFieldType.STRING).description("프로필 이미지 URL").optional(),
               fieldWithPath("data.service").type(JsonFieldType.ARRAY).description("가입한 서비스"),
-              fieldWithPath("data.businessName").type(JsonFieldType.STRING).description("사업명"),
+              fieldWithPath("data.business").type(JsonFieldType.OBJECT).description("사업 데이터"),
+              fieldWithPath("data.business.businessId").type(JsonFieldType.NUMBER).description("사업 식별자"),
+              fieldWithPath("data.business.name").type(JsonFieldType.STRING).description("사업명"),
+              fieldWithPath("data.business.introduction").type(JsonFieldType.STRING).description("사업 소개글"),
               fieldWithPath("data.phone").type(JsonFieldType.STRING).description("연락처"),
               fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
               fieldWithPath("message").type(JsonFieldType.STRING).description("결과 메시지")
@@ -141,7 +146,9 @@ public class MemberControllerTest {
       .andExpect(jsonPath("$.data.email").value(memberInfoDto.getEmail()))
       .andExpect(jsonPath("$.data.name").value(memberInfoDto.getName()))
       .andExpect(jsonPath("$.data.profileImg").value(memberInfoDto.getProfileImg()))
-      .andExpect(jsonPath("$.data.businessName").value(memberInfoDto.getBusinessName()))
+      .andExpect(jsonPath("$.data.business.businessId").value(memberInfoDto.getBusiness().getBusinessId()))
+      .andExpect(jsonPath("$.data.business.name").value(memberInfoDto.getBusiness().getName()))
+      .andExpect(jsonPath("$.data.business.introduction").value(memberInfoDto.getBusiness().getIntroduction()))
       .andExpect(jsonPath("$.data.phone").value(memberInfoDto.getPhone()))
       .andExpect(jsonPath("$.message").value("SUCCESS"))
       .andDo(document(
@@ -158,7 +165,9 @@ public class MemberControllerTest {
           fieldWithPath("password").description("비밀번호").optional(),
           fieldWithPath("service").description("가입한 서비스").optional(),
           fieldWithPath("name").description("이름").optional(),
-          fieldWithPath("businessName").description("이름").optional(),
+          fieldWithPath("businessId").description("사업 식별자").optional(),
+          fieldWithPath("businessName").description("사업명").optional(),
+          fieldWithPath("businessIntroduction").description("사업 소개글").optional(),
           fieldWithPath("profileImg").description("프로필 이미지 URL").ignored(),
           fieldWithPath("phone").description("연락처").optional()
         )),
@@ -168,7 +177,10 @@ public class MemberControllerTest {
             fieldWithPath("data.email").type(JsonFieldType.STRING).description("이메일"),
             fieldWithPath("data.service[]").type(JsonFieldType.ARRAY).description("가입한 서비스"),
             fieldWithPath("data.profileImg").type(JsonFieldType.STRING).description("프로필 이미지 URL"),
-            fieldWithPath("data.businessName").type(JsonFieldType.STRING).description("사업명"),
+            fieldWithPath("data.business").type(JsonFieldType.OBJECT).description("사업 데이터"),
+            fieldWithPath("data.business.businessId").type(JsonFieldType.NUMBER).description("사업 식별자"),
+            fieldWithPath("data.business.name").type(JsonFieldType.STRING).description("사업명"),
+            fieldWithPath("data.business.introduction").type(JsonFieldType.STRING).description("사업 소개글"),
             fieldWithPath("data.phone").type(JsonFieldType.STRING).description("연락처"),
             fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
             fieldWithPath("message").type(JsonFieldType.STRING).description("결과 메시지")

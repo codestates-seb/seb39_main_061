@@ -3,7 +3,6 @@ package com.project.QR.helper;
 
 import com.project.QR.member.entity.AuthProvider;
 import com.project.QR.member.entity.Member;
-import com.project.QR.sector.entity.Sector;
 import com.project.QR.security.MemberDetails;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -17,10 +16,6 @@ public class WithMockCustomUserSecurityContextFactory implements WithSecurityCon
   public SecurityContext createSecurityContext(WithMockCustomUser customUser) {
     SecurityContext context = SecurityContextHolder.createEmptyContext();
     Member member = getMember(customUser);
-    Sector sector = new Sector();
-    sector.setSectorId(1L);
-    sector.setName("업종 1");
-    member.setSector(sector);
     MemberDetails principal = MemberDetails.create(member);
     Authentication auth =
       new UsernamePasswordAuthenticationToken(principal, "", principal.getAuthorities());

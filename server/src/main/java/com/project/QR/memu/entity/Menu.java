@@ -27,6 +27,6 @@ public class Menu {
   private String img;
 
   @ManyToOne
-  @JoinColumn(nullable = false, name = "BUSINESS_ID") //FK
+  @JoinColumn(name = "BUSINESS_ID") //FK
   private Business business;
 }

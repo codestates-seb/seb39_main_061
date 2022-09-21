@@ -31,7 +31,7 @@ public class MemberRequestDto {
     private String password;
     @NotBlank
     private String name;
-    @NotBlank
+    @Pattern(regexp = "\\d{3}-\\d{4}-\\d{4}", message = "휴대전화 양식이 아닙니다.")
     private String phone;
     @NotBlank
     private String businessName;
@@ -61,7 +61,8 @@ public class MemberRequestDto {
     private String service;
     @NotBlank
     private String businessName;
-    @NotBlank
+    private String businessIntroduction;
+    @Pattern(regexp = "\\d{3}-\\d{4}-\\d{4}", message = "휴대전화 양식이 아닙니다.")
     private String phone;
     @NotBlank
     private String name;
@@ -77,7 +78,11 @@ public class MemberRequestDto {
     @NotEmpty
     private List<String> service;
     private String profileImg;
+    @NotNull
+    private long businessId;
     private String businessName;
+    private String businessIntroduction;
+    @Pattern(regexp = "\\d{3}-\\d{4}-\\d{4}", message = "휴대전화 양식이 아닙니다.")
     private String phone;
     private String name;
   }

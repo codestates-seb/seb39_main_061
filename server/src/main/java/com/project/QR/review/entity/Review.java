@@ -24,6 +24,6 @@ public class Review extends CreatedAuditable {
   private int score;
 
   @ManyToOne
-  @JoinColumn(nullable = false, name = "BUSINESS_ID") //FK
+  @JoinColumn(name = "BUSINESS_ID") //FK
   private Business business;
 }

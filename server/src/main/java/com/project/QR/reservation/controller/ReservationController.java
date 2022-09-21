@@ -20,7 +20,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/reservation/{qr-code-id}")
+@RequestMapping("/reservation/{business-id}/qr-code/{qr-code-id}")
 @AllArgsConstructor
 public class ReservationController {
   private final ReservationService reservationService;
@@ -31,7 +31,9 @@ public class ReservationController {
    */
   @PostMapping
   public ResponseEntity createReservation(@Valid @RequestBody ReservationRequestDto.CreateReservationDto createReservationDto,
+                                          @Positive @PathVariable("business-id") long businessId,
                                           @Positive @PathVariable("qr-code-id") long qrCodeId) {
+    createReservationDto.setBusinessId(businessId);
     createReservationDto.setQrCodeId(qrCodeId);
     Reservation reservation =  reservationService.createReservation(mapper.createReservationToReservation(createReservationDto));
     return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.reservationToReservationInfoDto(reservation),
@@ -43,10 +45,11 @@ public class ReservationController {
    * 예약 조회 API
    */
   @GetMapping
-  public ResponseEntity getReservations(@Positive @PathVariable("qr-code-id") long qrCodeId,
+  public ResponseEntity getReservations(@Positive @PathVariable("business-id") long businessId,
+                                        @Positive @PathVariable("qr-code-id") long qrCodeId,
                                         @Positive @PathParam("page") int page,
                                         @Positive @PathParam("size") int size) {
-    Page<Reservation> pageOfReservation = reservationService.getReservations(qrCodeId,page - 1, size);
+    Page<Reservation> pageOfReservation = reservationService.getReservations(businessId, qrCodeId,page - 1, size);
     List<Reservation> reservationList = pageOfReservation.getContent();
     return new ResponseEntity(new MultiResponseWithPageInfoDto<>(
       mapper.reservationListToReservationInfoDtoList(reservationList),
@@ -58,11 +61,13 @@ public class ReservationController {
    * 예약 변경 API
    */
   @PatchMapping("/{reservation-id}")
-  public ResponseEntity updateReservation(@Positive @PathVariable("qr-code-id") long qrCodeId,
+  public ResponseEntity updateReservation(@Positive @PathVariable("business-id") long businessId,
+                                          @Positive @PathVariable("qr-code-id") long qrCodeId,
                                           @Positive @PathVariable("reservation-id") long reservationId,
                                           @Valid @RequestBody ReservationRequestDto.UpdateReservationDto updateReservationDto) {
-    updateReservationDto.setReservationId(reservationId);
+    updateReservationDto.setBusinessId(businessId);
     updateReservationDto.setQrCodeId(qrCodeId);
+    updateReservationDto.setReservationId(reservationId);
     Reservation reservation = reservationService.updateReservation(mapper.updateReservationToReservation(updateReservationDto));
     return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.reservationToReservationInfoDto(reservation),
       "SUCCESS"),
@@ -73,11 +78,13 @@ public class ReservationController {
    * 예약 취소
    */
   @PatchMapping("/cancel/{reservation-id}")
-  public ResponseEntity deleteReservation(@Positive @PathVariable("qr-code-id") long qrCodeId,
+  public ResponseEntity deleteReservation(@Positive @PathVariable("business-id") long businessId,
+                                          @Positive @PathVariable("qr-code-id") long qrCodeId,
                                           @Positive @PathVariable("reservation-id") long reservationId,
                                           @Valid @RequestBody ReservationRequestDto.UpdateReservationDto updateReservationDto) {
-    updateReservationDto.setReservationId(reservationId);
+    updateReservationDto.setBusinessId(businessId);
     updateReservationDto.setQrCodeId(qrCodeId);
+    updateReservationDto.setReservationId(reservationId);
     reservationService.deleteReservation(mapper.updateReservationToReservation(updateReservationDto));
     return new ResponseEntity(HttpStatus.NO_CONTENT);
   }

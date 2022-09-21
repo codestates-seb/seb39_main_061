@@ -1,5 +1,6 @@
 package com.project.QR.qrcode.mapper;
 
+import com.project.QR.business.entity.Business;
 import com.project.QR.member.entity.Member;
 import com.project.QR.qrcode.dto.QrCodeRequestDto;
 import com.project.QR.qrcode.dto.QrCodeResponseDto;
@@ -17,8 +18,11 @@ public interface QrCodeMapper {
   default QrCode createQrCodeDtoToQrCode (QrCodeRequestDto.CreateQrCodeDto createQrCodeDto) {
     Member member = new Member();
     member.setMemberId(createQrCodeDto.getMemberId());
+    Business business = new Business();
+    business.setBusinessId(createQrCodeDto.getBusinessId());
+    business.setMember(member);
     QrCode qrCode = new QrCode();
-    qrCode.setMember(member);
+    qrCode.setBusiness(business);
     qrCode.setDueDate(createQrCodeDto.getDueDate());
     qrCode.setTarget(createQrCodeDto.getTarget());
     qrCode.setQrType(QrType.valueOf(createQrCodeDto.getQrType().toUpperCase()));
@@ -53,8 +57,11 @@ public interface QrCodeMapper {
   default QrCode updateQrCodeDtoToQrCode(QrCodeRequestDto.UpdateQrCodeDto updateQrCodeDto) {
     Member member = new Member();
     member.setMemberId(updateQrCodeDto.getMemberId());
+    Business business = new Business();
+    business.setBusinessId(updateQrCodeDto.getBusinessId());
+    business.setMember(member);
     QrCode qrCode = new QrCode();
-    qrCode.setMember(member);
+    qrCode.setBusiness(business);
     qrCode.setDueDate(updateQrCodeDto.getDueDate());
     qrCode.setTarget(updateQrCodeDto.getTarget());
     qrCode.setQrCodeId(updateQrCodeDto.getQrCodeId());

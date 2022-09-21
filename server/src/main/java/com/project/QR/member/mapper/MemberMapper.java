@@ -1,5 +1,7 @@
 package com.project.QR.member.mapper;
 
+import com.project.QR.business.dto.BusinessResponseDto;
+import com.project.QR.business.entity.Business;
 import com.project.QR.member.dto.MemberRequestDto;
 import com.project.QR.member.dto.MemberResponseDto;
 import com.project.QR.member.entity.AuthProvider;
@@ -12,25 +14,31 @@ import java.util.stream.Collectors;
 public interface MemberMapper {
 
   default Member createMemberDtoToMember(MemberRequestDto.CreateMemberDto createMemberDto) {
+    Business business = new Business();
+    business.setName(createMemberDto.getBusinessName());
     return Member.builder()
       .phone(createMemberDto.getPhone())
       .name(createMemberDto.getName())
       .email(createMemberDto.getEmail())
       .password(createMemberDto.getPassword())
       .provider(AuthProvider.local)
+      .business(business)
       .role("ROLE_GUEST")
       .joinRole("ROLE_"+createMemberDto.getRole().toUpperCase())
-      .businessName(createMemberDto.getBusinessName())
       .build();
   }
 
   Member loginDtoToMember(MemberRequestDto.LoginDto loginDto);
 
   default Member updateMemberDtoToMember(MemberRequestDto.UpdateMemberDto updateMemberDto) {
+    Business business = new Business();
+    business.setName(updateMemberDto.getBusinessName());
+    business.setIntroduction(updateMemberDto.getBusinessIntroduction());
+    business.setBusinessId(updateMemberDto.getBusinessId());
     return Member.builder()
       .email(updateMemberDto.getEmail())
       .name(updateMemberDto.getName())
-      .businessName(updateMemberDto.getBusinessName())
+      .business(business)
       .password(updateMemberDto.getPassword())
       .phone(updateMemberDto.getPhone())
       .role(updateMemberDto.getService().stream()
@@ -41,18 +49,27 @@ public interface MemberMapper {
   }
 
   default Member oAuthUpdateDtoToMember(MemberRequestDto.OAuthUpdateDto oAuthUpdateDto) {
+    Business business = new Business();
+    business.setName(oAuthUpdateDto.getBusinessName());
+    business.setIntroduction(oAuthUpdateDto.getBusinessIntroduction());
     return Member.builder()
       .email(oAuthUpdateDto.getEmail())
       .name(oAuthUpdateDto.getName())
-      .businessName(oAuthUpdateDto.getBusinessName())
+      .business(business)
       .phone(oAuthUpdateDto.getPhone())
       .role("ROLE_"+oAuthUpdateDto.getService().toUpperCase())
       .build();
   }
 
   default MemberResponseDto.MemberInfoDto memberToMemberInfoDto(Member member) {
+
     return MemberResponseDto.MemberInfoDto.builder()
-      .businessName(member.getBusinessName())
+      .business(BusinessResponseDto.BusinessInfoDto.builder()
+        .businessId(member.getBusiness().getBusinessId())
+        .introduction(member.getBusiness().getIntroduction())
+        .name(member.getBusiness().getName())
+        .build()
+      )
       .email(member.getEmail())
       .profileImg(member.getProfileImg())
       .name(member.getName())
