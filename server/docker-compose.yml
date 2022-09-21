@@ -14,22 +14,15 @@ services:
       - MYSQL_ROOT_HOST=%
     ports:
       - "3306:3306"
-    networks:
-      - springboot-mysql-net
   backend:
     container_name: backend
     build: .
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/qr?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
       SPRING_DATASOURCE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      SPRING_REDIS_HOST: redis
     ports:
       - "8080:8080"
     depends_on:
       - db
-    networks:
-      - springboot-mysql-net
     restart: unless-stopped
-
-networks:
-  springboot-mysql-net:
-    driver: bridge
