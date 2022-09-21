@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Positive;
 import javax.websocket.server.PathParam;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ import java.time.format.DateTimeFormatter;
 
 @Validated
 @RestController
-@RequestMapping("/api/v1/reservation/{qr-code-id}/statistics")
+@RequestMapping("/api/v1/reservation/{business-id}/qr-code/{qr-code-id}/statistics")
 @AllArgsConstructor
 public class ReservationStatisticsController {
   private final ReservationService reservationService;
@@ -31,11 +32,12 @@ public class ReservationStatisticsController {
 
   @GetMapping
   public ResponseEntity getStatistics(@AuthenticationPrincipal MemberDetails memberDetails,
-                                      @PathVariable("qr-code-id") long qrCodeId,
+                                      @Positive @PathVariable("business-id") long businessId,
+                                      @Positive @PathVariable("qr-code-id") long qrCodeId,
                                       @NotBlank @PathParam("date") String date) {
     LocalDateTime start = LocalDate.parse(date, DateTimeFormatter.BASIC_ISO_DATE).atStartOfDay();
     ReservationResponseDto.StatisticsInfoDto statisticsInfoDto =
-      reservationService.getStatistics(qrCodeId, start, memberDetails.getMember().getMemberId());
+      reservationService.getStatistics(businessId, qrCodeId, start, memberDetails.getMember().getMemberId());
 
     return new ResponseEntity(new SingleResponseWithMessageDto<>(statisticsInfoDto,
       "SUCCESS"),

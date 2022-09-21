@@ -1,5 +1,7 @@
 package com.project.QR.auth.service;
 
+import com.project.QR.business.entity.Business;
+import com.project.QR.business.service.BusinessService;
 import com.project.QR.dto.TokenDto;
 import com.project.QR.exception.BusinessLogicException;
 import com.project.QR.exception.ExceptionCode;
@@ -36,6 +38,7 @@ public class AuthService {
   private final RedisTemplate<String, Object> redisTemplate;
   private final ApplicationEventPublisher publisher;
   private final CustomBeanUtils<Member> beanUtils;
+  private final BusinessService businessService;
 
   /**
    * 회원가입
@@ -46,7 +49,8 @@ public class AuthService {
     member.setVerifiedCode(UUID.randomUUID().toString());
     member.setEmailVerified(EmailVerified.N);
     Member savedMember = memberRepository.save(member);
-
+    member.getBusiness().setMember(savedMember);
+    businessService.createBusiness(member.getBusiness());
     publisher.publishEvent(new MemberRegistrationApplicationEvent(this, savedMember));
     return savedMember;
   }

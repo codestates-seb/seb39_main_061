@@ -37,6 +37,6 @@ public class Reservation extends CreatedAuditable {
   private int count;
 
   @ManyToOne
-  @JoinColumn(nullable = false, name = "QR_CODE_ID") //FK one-to-one
+  @JoinColumn(name = "QR_CODE_ID") //FK one-to-one
   private QrCode qrCode;
 }

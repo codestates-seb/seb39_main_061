@@ -55,12 +55,12 @@ public class Member extends Auditable {
     }
     return new ArrayList<>();
   }
-  @OneToOne
-  @JoinColumn(nullable = false, name = "BUSINESS_ID") //FK one-to-one
+  @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
   private Business business;
+
   @Builder
-  public Member(Long memberId, String email, String name, String password, String role, String businessName,
-                AuthProvider provider, String profileImg, String phone, String joinRole, EmailVerified emailVerified, Business business) {
+  public Member(Long memberId, String email, String name, String password, String role, AuthProvider provider,
+                 String profileImg, String phone, String joinRole, EmailVerified emailVerified, Business business) {
     this.memberId = memberId;
     this.email = email;
     this.name = name;
