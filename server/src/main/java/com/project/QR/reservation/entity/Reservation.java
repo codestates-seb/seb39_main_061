@@ -18,7 +18,7 @@ import javax.persistence.*;
 public class Reservation extends CreatedAuditable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long reserveId;
+  private long reservationId;
 
   @Column(nullable = false, length = 200)
   private String name;
