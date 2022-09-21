@@ -53,7 +53,7 @@ const Dashboard = () => {
           </div>
           <div className={styles.component}>
             <h3 className={styles.h3}>Calendar</h3>
-            <DashboardCalendar className={styles.component_width} />
+            <DashboardCalendar />
           </div>
         </div>
         <div className={styles.container}>

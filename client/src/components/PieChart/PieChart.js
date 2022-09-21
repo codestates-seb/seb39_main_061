@@ -21,14 +21,6 @@ const ApexChart = () => {
       plotOptions: {
         pie: {
           donut: {
-            // hollow: {  
-            //   margin: 15,
-            //   size: '70%',
-            //   image: '../../css/images/a-icon.jpg',
-            //   imageWidth: 64,
-            //   imageHeight: 64,
-            //   imageClipped: false
-            // },
             labels: {
               show: true,
               total: {
