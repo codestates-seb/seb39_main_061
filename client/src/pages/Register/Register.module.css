@@ -141,14 +141,14 @@
     justify-content: center;
   }
   .register__form__title {
-    height: 5%;
+    height: 50px;
   }
   .register__form__validation {
     margin-top: 5px;
-    height: 5%;
+    height: 30px;
   }
   .register__form__input {
-    height: 50%;
+    height: 300px;
   }
   .register__form__btn {
     margin-top: 20px;
