@@ -1,10 +1,9 @@
 package com.project.QR.qrcode.entity;
 
 import com.project.QR.audit.Auditable;
+import com.project.QR.business.entity.Business;
 import com.project.QR.keep.entity.Keep;
-import com.project.QR.member.entity.Member;
 import com.project.QR.reservation.entity.Reservation;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -35,11 +34,11 @@ public class QrCode extends Auditable{
   private QrType qrType;
 
   @ManyToOne
-  @JoinColumn(name = "MEMBER_ID") //FK
-  private Member member;
+  @JoinColumn(name = "BUSINESS_ID") //FK
+  private Business business;
 
-  @OneToOne(mappedBy = "qrCode", cascade = CascadeType.ALL)
-  private Keep keep;
+  @OneToMany(mappedBy = "qrCode", cascade = CascadeType.ALL)
+  private List<Keep> keep = new ArrayList<>();
 
   @OneToMany(mappedBy = "qrCode", cascade = CascadeType.ALL)
   private List<Reservation> reservations = new ArrayList<>();

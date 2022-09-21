@@ -15,6 +15,7 @@ public class ReservationRequestDto {
   @AllArgsConstructor
   @Builder
   public static class CreateReservationDto {
+    private long businessId;
     private long qrCodeId;
     @Size(min = 2, message = "이름은 최소 두 글자 이상이어야합니다.")
     private String name;
@@ -29,6 +30,7 @@ public class ReservationRequestDto {
   @AllArgsConstructor
   @Builder
   public static class UpdateReservationDto {
+    private long businessId;
     private long qrCodeId;
     private long reservationId;
     @Size(min = 2, message = "이름은 최소 두 글자 이상이어야합니다.")

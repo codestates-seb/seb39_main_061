@@ -4,8 +4,8 @@ import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.QR.audit.Auditable;
+import com.project.QR.business.entity.Business;
 import lombok.*;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -45,8 +45,6 @@ public class Member extends Auditable {
 
   private String phone;
 
-  private String businessName;
-
   private String verifiedCode;
 
   private String joinRole;
@@ -57,9 +55,12 @@ public class Member extends Auditable {
     }
     return new ArrayList<>();
   }
+  @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+  private Business business;
+
   @Builder
-  public Member(Long memberId, String email, String name, String password, String role, String businessName,
-                AuthProvider provider, String profileImg, String phone, String joinRole, EmailVerified emailVerified) {
+  public Member(Long memberId, String email, String name, String password, String role, AuthProvider provider,
+                 String profileImg, String phone, String joinRole, EmailVerified emailVerified, Business business) {
     this.memberId = memberId;
     this.email = email;
     this.name = name;
@@ -68,9 +69,9 @@ public class Member extends Auditable {
     this.provider = provider;
     this.profileImg = profileImg;
     this.phone = phone;
-    this.businessName = businessName;
     this.joinRole = joinRole;
     this.emailVerified = emailVerified;
+    this.business = business;
   }
 }
 

@@ -1,6 +1,7 @@
 package com.project.QR.member.service;
 
 import com.project.QR.auth.service.AuthService;
+import com.project.QR.business.entity.Business;
 import com.project.QR.file.service.FileSystemStorageService;
 import com.project.QR.member.entity.Member;
 import com.project.QR.member.repository.MemberRepository;
@@ -19,7 +20,8 @@ public class MemberService {
   private final MemberRepository memberRepository;
   private final AuthService authService;
   private final PasswordEncoder passwordEncoder;
-  private final CustomBeanUtils<Member> beanUtils;
+  private final CustomBeanUtils<Member> MemberBeanUtils;
+  private final CustomBeanUtils<Business> BusinessBeanUtils;
   private final FileSystemStorageService fileSystemStorageService;
   private final RedisTemplate<String, Object> redisTemplate;
 
@@ -44,7 +46,9 @@ public class MemberService {
     if(member.getPassword() != null) {
       member.setPassword(passwordEncoder.encode(member.getPassword()));
     }
-    Member updatingMember = beanUtils.copyNonNullProperties(member, findMember);
+    Business updatingBusiness = BusinessBeanUtils.copyNonNullProperties(member.getBusiness(), findMember.getBusiness());
+    member.setBusiness(updatingBusiness);
+    Member updatingMember = MemberBeanUtils.copyNonNullProperties(member, findMember);
     return memberRepository.save(updatingMember);
   }
 
