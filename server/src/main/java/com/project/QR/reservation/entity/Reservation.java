@@ -1,9 +1,7 @@
 package com.project.QR.reservation.entity;
 
 import com.project.QR.audit.CreatedAuditable;
-import com.project.QR.business.entity.Business;
 import com.project.QR.qrcode.entity.QrCode;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

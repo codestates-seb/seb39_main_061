@@ -1,21 +1,16 @@
 package com.project.QR.business.entity;
 
-import com.project.QR.audit.Auditable;
-import com.project.QR.keep.entity.Keep;
 import com.project.QR.member.entity.Member;
 import com.project.QR.memu.entity.Menu;
 import com.project.QR.qrcode.entity.QrCode;
-import com.project.QR.reservation.entity.Reservation;
 import com.project.QR.review.entity.Review;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @NoArgsConstructor
 @Getter
@@ -33,7 +28,7 @@ public class Business {
   private String introduction;
 
   @OneToOne
-  @JoinColumn(name = "MEMBER_ID") //FK one-to-one
+  @JoinColumn(nullable = false, name = "MEMBER_ID") //FK one-to-one
   private Member member;
 
   @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
