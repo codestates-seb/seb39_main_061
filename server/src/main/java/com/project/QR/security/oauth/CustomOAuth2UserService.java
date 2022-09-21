@@ -41,12 +41,12 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     Optional<Member> optionalMember = memberRepository.findByEmail(userInfo.getEmail());
     Member member;
 
-    if (optionalMember.isPresent()) {		// 이미 가입된 경우
+    if (optionalMember.isPresent()) {
       member = optionalMember.get();
       if (authProvider != member.getProvider()) {
-        throw new OAuthProcessingException("Wrong Match Auth Provider");
+        member = updateMember(member, authProvider);
       }
-    } else {			// 가입되지 않은 경우
+    } else {
       member = createMember(userInfo, authProvider);
     }
     return MemberDetails.create(member, oAuth2User.getAttributes());
@@ -60,6 +60,11 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
       .provider(authProvider)
       .emailVerified(EmailVerified.N)
       .build();
+    return memberRepository.save(member);
+  }
+
+  private Member updateMember(Member member, AuthProvider authProvider) {
+    member.setProvider(authProvider);
     return memberRepository.save(member);
   }
 }
