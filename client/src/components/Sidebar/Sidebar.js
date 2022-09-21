@@ -3,14 +3,21 @@ import { Link } from "react-router-dom";
 const Sidebar = () => {
   return (
     <div>
+      <image src="">logo</image>
       <Link to="/profile">
-        <button>Profile</button>
+        <img src = ""></img>
       </Link>
       <Link to="/create-Code">
-        <button>CreateCode</button>
+        <button>QR CreateCode</button>
       </Link>
       <Link to="/management">
-        <button>management</button>
+        <button>QR Management</button>
+      </Link>
+      <Link to="/">
+        <button>Booking Management</button>
+      </Link>
+      <Link to="/">
+        <button>Menu management</button>
       </Link>
     </div>
   );

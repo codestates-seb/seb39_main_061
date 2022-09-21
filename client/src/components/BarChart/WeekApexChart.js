@@ -1,5 +1,6 @@
 import Chart from "react-apexcharts";
 import moment from 'moment';
+import styles from "./WeekApexChart.module.css";
 
 const data = {
   series:
@@ -40,7 +41,12 @@ const WeekApexChart = () => {
   };
   return (
     <div>
-      <Chart options={options} type="bar" series={series} width="55%" />
+      <Chart className={styles.barChart}
+        options={options}
+        type="bar"
+        series={series}
+        width="95%"
+      />
     </div>
   );
 }

@@ -6,13 +6,10 @@ import Piechart from "../../components/PieChart/PieChart"
 import DashboardCalendar from "../../components/Calendar/Calendar";
 import { useState, useEffect } from "react";
 import axios from "axios";
-
+import styles from "./Dashboard.module.css";
 
 const Dashboard = () => {
   const [isBarChart, setIsBarChart] = useState(true);
-  const [weekCount, setWeekCount] = useState([]);
-  const [monthCount, setMonthCount] = useState([]);
-
 
   const weekBtnHandler = () => {
     setIsBarChart(true);
@@ -22,7 +19,7 @@ const Dashboard = () => {
     setIsBarChart(false);
   }
 
-  const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJob25lc3R5NDA3QGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX0dVRVNUIiwiaWF0IjoxNjYzMjk2NDUzLCJleHAiOjE2NjMzMDAwNTN9.OjAoWxek5iG8sGZOp5saXNGNpxYghLFV6sTdEPZg6jjc9pTAMgg67YgQdg48AaMKpVpZ6kJdPnt63HFP-76i8Q"
+  const token = ""
 
   useEffect(() => {
     axios.get("http://localhost:8080/api/v1/members/profile",
@@ -36,25 +33,40 @@ const Dashboard = () => {
       })
   }, [])
 
-
   return (
     <div>
       <Sidebar />
       <h1>Dashboard</h1>
-      <div>
-        <div>
-          <button onClick={weekBtnHandler}>Week</button>
-          <button onClick={monthBtnHandler}>Month</button>
-          {isBarChart ? <WeekApexChart /> : <MonthApexChart />}
+      <div className={styles.main_container}>
+        <div className={styles.container}>
+          <div className={styles.component}>
+            <div>
+              <h3 className={styles.h3}>주간/월간 예약 현황</h3>
+              <div className={styles.barChartsBtn}>
+                <button onClick={weekBtnHandler}>Week</button>
+                <button onClick={monthBtnHandler}>Month</button>
+              </div>
+              <div>
+                {isBarChart ? <WeekApexChart className={styles.barChart} /> : <MonthApexChart className={styles.barChart} />}
+              </div>
+            </div>
+          </div>
+          <div className={styles.component}>
+            <h3 className={styles.h3}>Calendar</h3>
+            <DashboardCalendar className={styles.component_width} />
+          </div>
         </div>
-        <div>
-          <DashboardCalendar />
+        <div className={styles.container}>
+          <div className={styles.component}>
+            {/* QR 코드 리스트는 QR코드 리스트 컴포넌트 연결(주영님 작업중) */}
+            <h3 className={styles.h3}>QR 코드 목록</h3>
+          </div>
+          <div className={styles.component}>
+            <h3 className={styles.h3}>시간 별 예약 현황</h3>
+
+            <Piechart />
+          </div>
         </div>
-        <div>
-          {/* QR 코드 리스트는 QR코드 리스트 컴포넌트 연결(주영님 작업중) */}
-          <div>QR Code List</div>
-        </div>
-        <Piechart />
       </div>
     </div>
   );

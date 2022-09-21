@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+ }
+
+.main_container {
+  width: 1130px;
+  height: 892px;
+  
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-content:space-around;
+  height: 470px;
+}
+
+.component {
+  width: 100%;
+  margin: 20px 20px;
+  padding: 20px 20px;
+  background-color: #eeeeee;
+  border-radius: 10px;
+  align-items: stretch;
+}
+
+.styles.component_width {
+  /* min-width: 350px; */
+}
+
+.barChartsBtn {
+padding-left: 15px;
+}
+
+.barChartsBtn > button {
+  padding: 5px 8px;
+  margin-right: 10px;
+  border: 0;
+  border-radius: 5px;
+  background-color: #256D85;
+  background-color: #e69166;
+  color: white;
+  font: italic 11px arial;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 1px 2px 0 rgb(0,0,0,0.5);
+}
+.barChartsBtn > button:active {
+  background-color: #8FE3CF;
+  box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
+}
+
+.h3 {
+  color: #2b4865;
+  margin-bottom: 20px;
+}

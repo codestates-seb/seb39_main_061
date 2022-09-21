@@ -2,6 +2,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { useState } from 'react';
 import moment from 'moment';
+import styles from "./Calendar.module.css";
 
 const data = [
   {
@@ -29,16 +30,24 @@ const DashboardCalendar = () => {
   console.log(JSON.parse(clickDate))
 
   return (
-    <div>
-      <Calendar onChange={onChange} value={value} />
-      <div>
-        {/* 클릭한 날짜 하단에 표시 */}
-        {moment(value).format("YYYY년 MM월 DD일")}
-        {data.map((item, idx) => {
-          if (JSON.parse(clickDate) === item.date) {
-            return <div key={idx}>{item.count}명</div>
-          }
-        })}
+    <div className={styles.calendar_container}>
+      <Calendar
+        onChange={onChange}
+        value={value}
+        className={styles.calendar}
+      />
+      <div className={styles.clickDate}>
+        <div>
+          {/* 클릭한 날짜 하단에 표시 */}
+          {moment(value).format("YYYY년 MM월 DD일")}
+        </div>
+        <div>
+          {data.map((item, idx) => {
+            if (JSON.parse(clickDate) === item.date) {
+              return <div key={idx}>{item.count}명</div>
+            }
+          })}
+        </div>
       </div>
     </div>
   );
