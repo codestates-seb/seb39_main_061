@@ -84,7 +84,8 @@ const SignUp = () => {
     <div className={styles.signUp}>
       <form onSubmit={SignUpHandler} className={styles.signUp__form}>
         <div className={styles.signUp__form__title}>
-          <img src={mainLogo} alt="react" />
+          {/* <img src={mainLogo} alt="react" /> */}
+          <h1>회원가입</h1>
         </div>
         <div className={styles.signUp__form__validation}>
           <p>{validationMSG}</p>
