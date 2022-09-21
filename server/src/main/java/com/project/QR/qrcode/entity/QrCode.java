@@ -34,11 +34,11 @@ public class QrCode extends Auditable{
   private QrType qrType;
 
   @ManyToOne
-  @JoinColumn(nullable = false, name = "BUSINESS_ID") //FK
+  @JoinColumn(name = "BUSINESS_ID") //FK
   private Business business;
 
   @OneToMany(mappedBy = "qrCode", cascade = CascadeType.ALL)
-  private Keep keep;
+  private List<Keep> keep = new ArrayList<>();
 
   @OneToMany(mappedBy = "qrCode", cascade = CascadeType.ALL)
   private List<Reservation> reservations = new ArrayList<>();

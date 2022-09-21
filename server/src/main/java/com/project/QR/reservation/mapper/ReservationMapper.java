@@ -1,5 +1,6 @@
 package com.project.QR.reservation.mapper;
 
+import com.project.QR.business.entity.Business;
 import com.project.QR.qrcode.entity.QrCode;
 import com.project.QR.reservation.dto.ReservationRequestDto;
 import com.project.QR.reservation.dto.ReservationResponseDto;
@@ -14,7 +15,10 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface ReservationMapper {
   default Reservation createReservationToReservation(ReservationRequestDto.CreateReservationDto createReservationDto) {
+    Business business = new Business();
+    business.setBusinessId(createReservationDto.getBusinessId());
     QrCode qrCode = new QrCode();
+    qrCode.setBusiness(business);
     qrCode.setQrCodeId(createReservationDto.getQrCodeId());
     Reservation reservation = new Reservation();
     reservation.setCount(createReservationDto.getCount());
@@ -27,7 +31,10 @@ public interface ReservationMapper {
   }
 
   default Reservation updateReservationToReservation(ReservationRequestDto.UpdateReservationDto updateReservationDto) {
+    Business business = new Business();
+    business.setBusinessId(updateReservationDto.getBusinessId());
     QrCode qrCode = new QrCode();
+    qrCode.setBusiness(business);
     qrCode.setQrCodeId(updateReservationDto.getQrCodeId());
     Reservation reservation = new Reservation();
     reservation.setReservationId(updateReservationDto.getReservationId());

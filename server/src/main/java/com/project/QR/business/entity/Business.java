@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -24,24 +26,24 @@ public class Business {
   @Column
   private String name;
 
-  @Column
+  @Column(columnDefinition = "TEXT")
   private String introduction;
 
   @OneToOne
-  @JoinColumn(nullable = false, name = "MEMBER_ID") //FK one-to-one
+  @JoinColumn(name = "MEMBER_ID") //FK one-to-one
   private Member member;
 
   @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
-  private Review review;
+  private List<Review> review = new ArrayList<>();
 
   @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
-  private Menu menu;
+  private List<Menu> menu = new ArrayList<>();
 
   @OneToMany(mappedBy = "business", cascade = CascadeType.ALL)
-  private QrCode qrCode;
+  private List<QrCode> qrCode = new ArrayList<>();
 
   @Builder
-  public Business(String name, String introduction, Member member, Review review, Menu menu, QrCode qrCode) {
+  public Business(String name, String introduction, Member member, List<Review> review, List<Menu> menu, List<QrCode> qrCode) {
     this.name = name;
     this.introduction = introduction;
     this.member = member;

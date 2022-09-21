@@ -31,6 +31,7 @@ public class MemberController {
   @GetMapping("/profile")
   public ResponseEntity getMember(@AuthenticationPrincipal MemberDetails memberDetails) {
     Member member = memberService.getMember(memberDetails.getUsername());
+
     return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.memberToMemberInfoDto(member),
       "SUCCESS"),
       HttpStatus.OK);
@@ -58,6 +59,7 @@ public class MemberController {
   @DeleteMapping("/logout")
   public ResponseEntity logout(@AuthenticationPrincipal MemberDetails memberDetails) {
     memberService.logout(memberDetails.getUsername());
+
     return new ResponseEntity(new SingleResponseDto<>("BYE"), HttpStatus.OK);
   }
 }

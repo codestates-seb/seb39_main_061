@@ -21,6 +21,7 @@ public class QrCodeRequestDto {
     private String target;
     @NotBlank
     private String qrType;
+    private long businessId;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dueDate;
   }
@@ -36,6 +37,7 @@ public class QrCodeRequestDto {
     private String target;
     @NotBlank
     private String qrType;
+    private long businessId;
     @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dueDate;
   }

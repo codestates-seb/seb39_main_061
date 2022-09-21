@@ -28,12 +28,17 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
   long existsByPhoneAndToday(@Param("qrCodeId") long qrCodeId,
                                 @Param("phone") String phone);
 
-  @Query(value = "SELECT * FROM RESERVATION WHERE COMPLETED = 'N' AND " +
-    "QR_CODE_ID = :qrCodeId AND " +
-    "DELETED = 'N' AND " +
-    "DATE_FORMAT(CREATED_AT, \"%Y-%m-%d\") = CURDATE()",
+  @Query(value = "SELECT R.* FROM RESERVATION AS R " +
+    "LEFT JOIN QR_CODE AS Q ON R.QR_CODE_ID = Q.QR_CODE_ID " +
+    "WHERE Q.BUSINESS_ID = :businessId AND " +
+    "R.COMPLETED = 'N' AND " +
+    "R.QR_CODE_ID = :qrCodeId AND " +
+    "R.DELETED = 'N' AND " +
+    "DATE_FORMAT(R.CREATED_AT, \"%Y-%m-%d\") = CURDATE()",
     nativeQuery = true)
-  Page<Reservation> findAllByToday(@Param("qrCodeId") long qrCodeId, PageRequest created_at);
+  Page<Reservation> findAllByToday(@Param("businessId") long businessId,
+                                   @Param("qrCodeId") long qrCodeId,
+                                   PageRequest created_at);
 
   @Query(value = "SELECT * FROM RESERVATION WHERE QR_CODE_ID = :qrCodeId AND " +
     "RESERVATION_ID = :reservationId AND " +
