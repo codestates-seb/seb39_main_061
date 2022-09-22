@@ -40,7 +40,7 @@ const ProfileEdit = ({ setIsModal }) => {
     }
   }
 
-  const token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJob25lc3R5NDA3QGdtYWlsLmNvbSIsInJvbGUiOiJST0xFX0dVRVNUIiwiaWF0IjoxNjYzMjk2NDUzLCJleHAiOjE2NjMzMDAwNTN9.OjAoWxek5iG8sGZOp5saXNGNpxYghLFV6sTdEPZg6jjc9pTAMgg67YgQdg48AaMKpVpZ6kJdPnt63HFP-76i8Q"
+  const token = ""
 
   // 이미지 data,file(formData) 전송
   const profileEditSubmiy = async () => {
