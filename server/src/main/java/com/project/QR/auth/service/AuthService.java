@@ -37,7 +37,8 @@ public class AuthService {
   private final TokenProvider tokenProvider;
   private final RedisTemplate<String, Object> redisTemplate;
   private final ApplicationEventPublisher publisher;
-  private final CustomBeanUtils<Member> beanUtils;
+  private final CustomBeanUtils<Member> memberBeanUtils;
+  private final CustomBeanUtils<Business> businessBeanUtils;
   private final BusinessService businessService;
 
   /**
@@ -141,10 +142,12 @@ public class AuthService {
    */
   public TokenDto.TokenInfoDto updateMember(Member member, HttpServletResponse response) {
     Member findMember = findVerifiedMember(member.getEmail());
-    Member updatingMember = beanUtils.copyNonNullProperties(member, findMember);
+    Member updatingMember = memberBeanUtils.copyNonNullProperties(member, findMember);
     updatingMember.setEmailVerified(EmailVerified.Y);
     updatingMember.setMemberId(findMember.getMemberId());
-    Member savedMember = memberRepository.save(findMember);
+    Member savedMember = memberRepository.save(updatingMember);
+    savedMember.getBusiness().setMember(savedMember);
+    businessService.createBusiness(savedMember.getBusiness());
     return tokenProvider.createToken(savedMember, response);
   }
 
