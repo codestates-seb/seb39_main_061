@@ -48,7 +48,7 @@ public interface ReservationMapper {
   default ReservationResponseDto.ReservationInfoDto reservationToReservationInfoDto(Reservation reservation) {
     return ReservationResponseDto.ReservationInfoDto.builder()
       .completed(reservation.getCompleted())
-      .reserveId(reservation.getReservationId())
+      .reservationId(reservation.getReservationId())
       .count(reservation.getCount())
       .createdAt(reservation.getCreatedAt())
       .name(new StringBuffer(reservation.getName()).replace(1, 2, "*").toString())

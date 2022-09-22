@@ -60,7 +60,7 @@ public class ReservationController {
   /**
    * 예약 변경 API
    */
-  @PatchMapping("/{reservation-id}")
+  @PatchMapping("/info/{reservation-id}")
   public ResponseEntity updateReservation(@Positive @PathVariable("business-id") long businessId,
                                           @Positive @PathVariable("qr-code-id") long qrCodeId,
                                           @Positive @PathVariable("reservation-id") long reservationId,
