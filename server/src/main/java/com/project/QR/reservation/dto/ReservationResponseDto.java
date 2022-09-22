@@ -16,7 +16,7 @@ public class ReservationResponseDto {
   @AllArgsConstructor
   @Builder
   public static class ReservationInfoDto {
-    private long reserveId;
+    private long reservationId;
     private String name;
     private String phone;
     private LocalDateTime createdAt;
