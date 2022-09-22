@@ -7,10 +7,8 @@ import styles from "./Register.module.css";
 import { getProfile } from "../../library/axios";
 import { userAction } from "../../store/user";
 import { oauthReq } from "../../library/axios";
-import mainLogo from "../../assets/logo1.png";
 
 const Register = () => {
-  const BusinessCategoryRef = useRef();
   const businessNameRef = useRef();
   const phoneNumRef = useRef();
   const nameRef = useRef();
@@ -57,10 +55,7 @@ const Register = () => {
       setValidationMSG("상호명은 한글로 입력해주세요");
       return;
     }
-    if (kor_check.test(businessName)) {
-      setValidationMSG("상호명은 한글로 입력해주세요");
-      return;
-    }
+
     if (phone.length === 0) {
       setValidationMSG("전화번호를 입력해주세요");
       return;

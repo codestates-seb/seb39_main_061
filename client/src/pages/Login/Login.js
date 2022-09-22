@@ -115,7 +115,7 @@ const Login = () => {
             <p>회원가입</p>
           </Link>
           <Link to="/find-password">
-            <p>아이디/비밀번호 찾기</p>
+            <p>비밀번호 찾기</p>
           </Link>
         </div>
       </form>

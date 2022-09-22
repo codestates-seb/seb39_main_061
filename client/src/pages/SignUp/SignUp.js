@@ -18,7 +18,6 @@ const SignUp = () => {
   const OwenerNameRef = useRef();
   const phoneNumRef = useRef();
   const businessNameRef = useRef();
-  const BusinessCategoryRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
 
   const SignUpHandler = (event) => {
@@ -29,10 +28,12 @@ const SignUp = () => {
     const name = OwenerNameRef.current.value;
     const businessName = businessNameRef.current.value;
     const phone = phoneNumRef.current.value;
-
-    const checkValidation = () => {
+    setIsLoading(true);
+    const validationInput = () => {
       let regEmail =
         /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
+      const phoneCheck = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+      const kor_check = /([^가-힣ㄱ-ㅎㅏ-ㅣ\x20])/i;
       if (email.length === 0) {
         setValidationMSG("이메일을 입력해주세요");
         return false;
@@ -45,25 +46,45 @@ const SignUp = () => {
         setValidationMSG("비밀번호를 입력해주세요");
         return false;
       }
+      if (password !== confirmPassword) {
+        // 비밀번호 일치 검사
+        setValidationMSG("비밀번호가 일치하지 않습니다.");
+        return false;
+      }
+      if (name.length === 0) {
+        setValidationMSG("대표 성명을 입력해주세요");
+        return false;
+      }
+      if (businessName.length === 0) {
+        setValidationMSG("상호명을 입력해주세요");
+        return false;
+      }
+      if (kor_check.test(businessName)) {
+        setValidationMSG("상호명은 한글로 입력해주세요");
+        return false;
+      }
+      if (phone.length === 0) {
+        setValidationMSG("휴대폰 번호를 입력해주세요");
+        return false;
+      }
+      if (!phoneCheck.test(phone)) {
+        setValidationMSG("휴대폰 번호를 정확히 입력해주세요");
+        return false;
+      }
+
       return true;
     };
 
     //email check
-    checkValidation(email); // 이메일 유효성검사
-    if (checkValidation(email) === false) {
+    validationInput(); // 유효성검사
+    if (validationInput() === false) {
+      setIsLoading(false);
       return;
     }
     const exist = emailCheck(email); // 이메일 중복검사
     exist
       ? setValidationMSG("사용 가능한 이메일 입니다")
       : setValidationMSG("이미 가입되어 있는 이메일 입니다");
-
-    if (password !== confirmPassword) {
-      // 비밀번호 일치 검사
-      setValidationMSG("비밀번호가 일치하지 않습니다.");
-      return console.log("비밀번호가 일치하지 않습니다.");
-    }
-    setIsLoading(true);
 
     try {
       signUpReq(email, password, name, businessName, phone);
@@ -73,11 +94,6 @@ const SignUp = () => {
       let errorMessage = err.error.message;
       alert(errorMessage);
     }
-  };
-
-  const emailCheckReq = () => {
-    console.log("중복검사");
-    const email = emailRef.current.value;
   };
 
   return (
@@ -117,7 +133,11 @@ const SignUp = () => {
           </div>
           <div className={styles.signUp__form__input__bussnissName}>
             <span>상호명</span>
-            <input ref={businessNameRef} placeholder="예: 덕이네곱창(한글)" />
+            <input
+              maxLength={10}
+              ref={businessNameRef}
+              placeholder="예: 덕이네곱창(한글)"
+            />
           </div>
           <div className={styles.signUp__form__input__phone}>
             <span>전화번호</span>
@@ -146,7 +166,7 @@ const SignUp = () => {
         </div>
         <div className={styles.signUp__form__btn}>
           {!isLoading && <button>회원가입</button>}
-          {isLoading && <p>요청중...</p>}
+          {isLoading && <button>요청중</button>}
           <Link to="/login">
             <button>취소</button>
           </Link>
