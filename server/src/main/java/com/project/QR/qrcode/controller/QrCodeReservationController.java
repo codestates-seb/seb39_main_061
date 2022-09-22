@@ -25,7 +25,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/api/v1/qr-code/reservation/{business-id}/qr-code")
+@RequestMapping("/api/v1/reservation/{business-id}/qr-code")
 @AllArgsConstructor
 public class QrCodeReservationController {
   private final QrCodeService qrCodeService;
@@ -79,7 +79,7 @@ public class QrCodeReservationController {
   /**
    * QrCode 변경 api
    */
-  @PostMapping(value = "{qr-code-id}/update", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+  @PostMapping(value = "/{qr-code-id}/update", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   public ResponseEntity updateQrCode(@AuthenticationPrincipal MemberDetails memberDetails,
                                      @Positive @PathVariable("business-id") long businessId,
                                      @Positive @PathVariable("qr-code-id") long qrCodeId,
@@ -98,7 +98,7 @@ public class QrCodeReservationController {
   /**
    * QrCode 삭제 api
    */
-  @PostMapping("/delete")
+  @DeleteMapping("/{qr-code-id}")
   public ResponseEntity deleteQrCode(@AuthenticationPrincipal MemberDetails memberDetails,
                                      @Positive @PathVariable("business-id") long businessId,
                                      @Positive @PathVariable("qr-code-id") long qrCodeId) {
