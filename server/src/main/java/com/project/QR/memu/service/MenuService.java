@@ -88,6 +88,8 @@ public class MenuService {
   public void deleteMenu(long menuId, long businessId, Long memberId) {
     businessService.getBusiness(businessId, memberId);
     Menu menu = findVerifiedMenu(menuId, businessId);
+    if(menu.getImg() != null)
+      fileSystemStorageService.remove(menu.getImg());
     menuRepository.delete(menu);
   }
 
