@@ -1,11 +1,32 @@
-// import { configureStore } from "@reduxjs/toolkit";
-// import profileImg from "./profileImg";
-// // import authReducer from "./auth";
+import { configureStore } from "@reduxjs/toolkit";
+import authReducer from "./auth";
+import storage from "redux-persist/lib/storage";
+import { combineReducers } from "redux";
+import { persistReducer, PERSIST, PURGE } from "redux-persist";
+import userReducer from "./user";
+import logger from "redux-logger";
 
-// const store = configureStore({
-//   reducer: {
-//     profileImg: profileImg.reducer,
-//   },
-// });
+const reducers = combineReducers({
+  user: userReducer,
+  auth: authReducer,
+});
 
-// export default store;
+const persistConfig = {
+  key: "root",
+  version: 1,
+  storage,
+  blacklist: [],
+};
+const persistedReducer = persistReducer(persistConfig, reducers);
+
+const store = configureStore({
+  reducer: persistedReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [PERSIST, PURGE],
+      },
+    }),
+});
+
+export default store;
