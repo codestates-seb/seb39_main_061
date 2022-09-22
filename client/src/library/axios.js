@@ -63,13 +63,12 @@ export const getProfile = () => {
     });
 };
 
-export const oauthReq = (sectorId, businessName, phone, name) => {
+export const oauthReq = (businessName, phone, name) => {
   return axios
     .patch(
       `${baseURL}/auth/members`,
       {
         service: "reservation",
-        sectorId,
         businessName,
         phone,
         name,

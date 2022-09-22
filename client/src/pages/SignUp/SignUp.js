@@ -8,6 +8,7 @@ import mainLogo from "../../assets/logo1.png";
 import naverLogo from "../../assets/naver-logo.png";
 import kakaoLogo from "../../assets/kakao-logo.png";
 import googleLogo from "../../assets/google-logo.png";
+import Modal from "../../components/Modal/Modal";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -19,8 +20,9 @@ const SignUp = () => {
   const phoneNumRef = useRef();
   const businessNameRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
-  const SignUpHandler = (event) => {
+  const SignUpHandler = async (event) => {
     event.preventDefault();
     const email = emailRef.current.value;
     const password = PWRef.current.value;
@@ -29,11 +31,13 @@ const SignUp = () => {
     const businessName = businessNameRef.current.value;
     const phone = phoneNumRef.current.value;
     setIsLoading(true);
-    const validationInput = () => {
+
+    const validationInput = async () => {
       let regEmail =
         /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
       const phoneCheck = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
       const kor_check = /([^가-힣ㄱ-ㅎㅏ-ㅣ\x20])/i;
+
       if (email.length === 0) {
         setValidationMSG("이메일을 입력해주세요");
         return false;
@@ -42,6 +46,14 @@ const SignUp = () => {
         setValidationMSG("올바른 이메일 주소를 입력해주세요");
         return false;
       }
+
+      const exist = await emailCheck(email); // 이메일 중복검사
+
+      if (exist) {
+        setValidationMSG("이미 가입되어 있는 이메일 입니다");
+        return false;
+      }
+
       if (password.length === 0) {
         setValidationMSG("비밀번호를 입력해주세요");
         return false;
@@ -74,26 +86,29 @@ const SignUp = () => {
 
       return true;
     };
+    const check = await validationInput();
 
-    //email check
-    validationInput(); // 유효성검사
-    if (validationInput() === false) {
+    if (check === true) {
+      console.log("유효성 통과");
+      try {
+        signUpReq(email, password, name, businessName, phone);
+        setIsLoading(false);
+        setModalOpen(true);
+        setTimeout(() => {
+          navigate("/login");
+        }, 3500);
+      } catch (err) {
+        let errorMessage = err.error.message;
+        alert(errorMessage);
+      }
+    } else {
       setIsLoading(false);
       return;
     }
-    const exist = emailCheck(email); // 이메일 중복검사
-    exist
-      ? setValidationMSG("사용 가능한 이메일 입니다")
-      : setValidationMSG("이미 가입되어 있는 이메일 입니다");
 
-    try {
-      signUpReq(email, password, name, businessName, phone);
-      setIsLoading(false);
-      navigate("/login");
-    } catch (err) {
-      let errorMessage = err.error.message;
-      alert(errorMessage);
-    }
+    //email check
+
+    // validationInput(); // 유효성검사
   };
 
   return (
@@ -171,6 +186,7 @@ const SignUp = () => {
             <button>취소</button>
           </Link>
         </div>
+        {modalOpen && <Modal key={1} setOpenModal={setModalOpen} />}
       </form>
     </div>
   );

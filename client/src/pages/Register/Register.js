@@ -7,6 +7,7 @@ import styles from "./Register.module.css";
 import { getProfile } from "../../library/axios";
 import { userAction } from "../../store/user";
 import { oauthReq } from "../../library/axios";
+import Modal from "../../components/Modal/Modal";
 
 const Register = () => {
   const businessNameRef = useRef();
@@ -17,6 +18,7 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [validationMSG, setValidationMSG] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const oauthValidation = location.search.includes("true");
   const accessToken = String(location.search.split("&", 1));
@@ -57,11 +59,11 @@ const Register = () => {
     }
 
     if (phone.length === 0) {
-      setValidationMSG("전화번호를 입력해주세요");
+      setValidationMSG("휴대폰 번호를 입력해주세요");
       return;
     }
     if (!phoneCheck.test(phone)) {
-      setValidationMSG("전화번호를 정확히 입력해주세요");
+      setValidationMSG("휴대폰 번호를 정확히 입력해주세요");
       return;
     }
     if (name.length === 0) {
@@ -70,12 +72,16 @@ const Register = () => {
     }
 
     const newToken = await oauthReq(businessName, phone, name);
+
     if (newToken.status === 200) {
       localStorage.setItem("token", newToken);
       dispatch(authActions.login());
       const userData = await getProfile();
       dispatch(userAction.setUser(userData));
-      navigate("/dashboard");
+      setModalOpen(true);
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 3500);
     }
   };
 
@@ -119,6 +125,7 @@ const Register = () => {
           </Link>
         </div>
       </div>
+      {modalOpen && <Modal key={2} setOpenModal={setModalOpen} />}
     </div>
   );
 };
