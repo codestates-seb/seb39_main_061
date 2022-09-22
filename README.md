@@ -15,15 +15,14 @@
 <br/>
 
 ## FE Skills
-
-<p>
-  
-<img src="https://user-images.githubusercontent.com/52682603/138834243-fb74d81e-e90d-4c6a-8793-05df588f59ab.png" width=15%>
-<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1567749614/noticon/zgdaxpaif5ojeduonygb.png" width=15%>
-<img src="https://user-images.githubusercontent.com/52682603/138835731-e0e727ad-0bd1-44ca-a3b3-98c4d1b89c20.png" width=15%>
-<img src="https://noticon-static.tammolo.com/dgggcrkxq/image/upload/v1568851518/noticon/lwj3hr9v1yoheimtwc1w.png" width=15%>
-</p>
-
+<div>
+  <p>
+    <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white"/>  
+    <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white"/> 
+    <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/> 
+  </p>
+</div>
 
 <br/>
 
