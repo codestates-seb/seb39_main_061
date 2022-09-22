@@ -16,6 +16,7 @@ import Register from "./pages/Register/Register.js";
 import { getProfile } from "./library/axios.js";
 import { useEffect } from "react";
 import { userAction } from "./store/user.js";
+import "./app.css";
 
 function App() {
   const url = process.env.REACT_APP_BASE_URL;

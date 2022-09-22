@@ -1,15 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, Link } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import styles from "./Register.module.css";
 import { getProfile } from "../../library/axios";
 import { userAction } from "../../store/user";
 import { oauthReq } from "../../library/axios";
+import Modal from "../../components/Modal/Modal";
 
 const Register = () => {
-  const BusinessCategoryRef = useRef();
   const businessNameRef = useRef();
   const phoneNumRef = useRef();
   const nameRef = useRef();
@@ -17,6 +17,8 @@ const Register = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [validationMSG, setValidationMSG] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   const oauthValidation = location.search.includes("true");
   const accessToken = String(location.search.split("&", 1));
@@ -41,48 +43,89 @@ const Register = () => {
 
   //인증 false -> 추가 기입 전송 -> 로그인,유저데이터 받아오기
   const handlerSubmit = async () => {
-    const sectorId = BusinessCategoryRef.current.value;
     const businessName = businessNameRef.current.value;
     const phone = phoneNumRef.current.value;
     const name = nameRef.current.value;
-    alert("전송 요청!");
-    const newToken = await oauthReq(sectorId, businessName, phone, name);
-    localStorage.setItem("token", newToken);
-    dispatch(authActions.login());
-    const userData = await getProfile();
-    dispatch(userAction.setUser(userData));
-    navigate("/dashboard");
+
+    if (businessName.length === 0) {
+      setValidationMSG("상호명을 입력해주세요");
+      return;
+    }
+    let phoneCheck = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
+    let kor_check = /([^가-힣ㄱ-ㅎㅏ-ㅣ\x20])/i;
+    if (kor_check.test(businessName)) {
+      setValidationMSG("상호명은 한글로 입력해주세요");
+      return;
+    }
+
+    if (phone.length === 0) {
+      setValidationMSG("휴대폰 번호를 입력해주세요");
+      return;
+    }
+    if (!phoneCheck.test(phone)) {
+      setValidationMSG("휴대폰 번호를 정확히 입력해주세요");
+      return;
+    }
+    if (name.length === 0) {
+      setValidationMSG("이름을 입력해주세요");
+      return;
+    }
+
+    const newToken = await oauthReq(businessName, phone, name);
+
+    if (newToken.status === 200) {
+      localStorage.setItem("token", newToken);
+      dispatch(authActions.login());
+      const userData = await getProfile();
+      dispatch(userAction.setUser(userData));
+      setModalOpen(true);
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 3500);
+    }
   };
 
   return (
     <div className={styles.register}>
-      <h1>추가정보 등록 페이지</h1>
       {/* <p>{location.search}</p> */}
-
       <div className={styles.register__form}>
-        <select ref={BusinessCategoryRef}>
-          <option value={0}>업종을 선택하세요</option>
-          <option value={1}>농업, 임업 및 어업</option>
-          <option value={2}>전기, 가스 및 수도사업</option>
-          <option value={3}>하수·폐기물 처리, 원료재생 및 환경복원업</option>
-          <option value={4}>건설업</option>
-          <option value={5}>숙박 및 음식점업</option>
-          <option value={6}>출판, 영상, 방송통신 및 정보서비스업</option>
-          <option value={7}>금융 및 보험업</option>
-          <option value={8}>부동산 및 임대업</option>
-          <option value={9}>전문, 과학 및 기술 서비스업</option>
-          <option value={10}>공공행정, 국방 및 사회보장 행정</option>
-          <option value={11}>교육 서비스업</option>
-          <option value={12}>보건 및 사회복지사업</option>
-          <option value={13}>예술, 스포츠 및 여가관련 서비스업</option>
-          <option value={14}>협회 및 단체, 수리 및 기타 개인서비스업</option>
-          <option value={15}>기타</option>
-        </select>
-        <input ref={businessNameRef} placeholder="상호명" />
-        <input ref={phoneNumRef} placeholder="전화번호" />
-        <input ref={nameRef} placeholder="이름" />
-        <button onClick={handlerSubmit}>전송</button>
+        <div className={styles.register__form__title}>
+          <h1>회원가입</h1>
+          {/* <img src={mainLogo} alt="react" /> */}
+        </div>
+        <div className={styles.register__form__validation}>
+          <p>{validationMSG}</p>
+        </div>
+        <div className={styles.register__form__input}>
+          <div className={styles.register__form__input__businessName}>
+            <span>상호명</span>
+            <input
+              maxLength={15}
+              ref={businessNameRef}
+              placeholder="예: 덕이네곱창(한글)"
+            />
+          </div>
+          <div className={styles.register__form__input__phone}>
+            <span>휴대폰 번호</span>
+            <input ref={phoneNumRef} placeholder="예: 010-xxxx-xxxx" />
+          </div>
+          <div className={styles.register__form__input__name}>
+            <span>이름</span>
+            <input
+              maxLength={8}
+              ref={nameRef}
+              placeholder="2글자 ~ 8글자 입력"
+            />
+          </div>
+        </div>
+        <div className={styles.register__form__btn}>
+          <button onClick={handlerSubmit}>회원가입</button>
+          <Link to="/login">
+            <button>취소</button>
+          </Link>
+        </div>
       </div>
+      {modalOpen && <Modal key={2} setOpenModal={setModalOpen} />}
     </div>
   );
 };
