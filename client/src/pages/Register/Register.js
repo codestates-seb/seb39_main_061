@@ -72,8 +72,8 @@ const Register = () => {
     }
 
     const newToken = await oauthReq(businessName, phone, name);
-
-    if (newToken.status === 200) {
+    if (newToken) {
+      console.log("추가전송");
       localStorage.setItem("token", newToken);
       dispatch(authActions.login());
       const userData = await getProfile();
