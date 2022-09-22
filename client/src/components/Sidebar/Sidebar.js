@@ -13,7 +13,7 @@ const Sidebar = () => {
         <img src="" className={styles.profile}></img>
       </Link>
       <div className={styles.btnContainer}>
-        <Link to="/">
+        <Link to="/dashboard">
           <button className={styles.componentsBtn}>대시보드</button>
         </Link>
         <Link to="/create-Code">
