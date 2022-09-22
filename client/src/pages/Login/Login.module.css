@@ -61,12 +61,32 @@
 }
 
 .login__form__title > p {
-  font-size: 15px;
+  font-size: 14px;
   color: #256d85;
   height: 5px;
   margin: 0px;
   margin-bottom: 3px;
   font-weight: 400;
+}
+
+.shake {
+  animation: gelatine 0.5s ease-out;
+}
+
+@keyframes gelatine {
+  from,
+  to {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(0.9, 1.1);
+  }
+  50% {
+    transform: scale(1.1, 0.9);
+  }
+  75% {
+    transform: scale(0.95, 1.05);
+  }
 }
 
 .login__form__oauth {
@@ -94,10 +114,12 @@
   margin-bottom: 10px;
   cursor: pointer;
 }
+
 .login__form__loginBtn button:active {
   box-shadow: 0 2px #666;
   animation: press 0.2s 1 linear;
 }
+
 @keyframes press {
   0% {
     transform: scale(1);
@@ -124,11 +146,15 @@
   color: black;
   font-size: 15px;
 }
+.validationMSG {
+  animation: gelatine 0.5s ease-out;
+}
 
 .login__form__findPassword a:last-child p {
   color: rgba(0, 0, 0, 0.7);
   font-size: 13px;
 }
+
 @media all and (min-width: 844px) {
   .login__form {
     height: 800px;
@@ -144,5 +170,8 @@
   }
   .login__form__loginBtn {
     margin-bottom: 30px;
+  }
+  .validationMSG {
+    animation: gelatine 0.5s ease-out;
   }
 }

@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
 import axios from "axios";
@@ -21,9 +21,14 @@ const SignUp = () => {
   const businessNameRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [changeCSS, setChangeCSS] = useState(false);
+  useEffect(() => {
+    setChangeCSS(true);
+  }, [changeCSS]);
 
   const SignUpHandler = async (event) => {
     event.preventDefault();
+
     const email = emailRef.current.value;
     const password = PWRef.current.value;
     const confirmPassword = confirmPWRef.current.value;
@@ -31,6 +36,7 @@ const SignUp = () => {
     const businessName = businessNameRef.current.value;
     const phone = phoneNumRef.current.value;
     setIsLoading(true);
+    setChangeCSS(false);
 
     const validationInput = async () => {
       let regEmail =
@@ -89,6 +95,7 @@ const SignUp = () => {
     const check = await validationInput();
 
     if (check === true) {
+      setValidationMSG("");
       console.log("유효성 통과");
       try {
         signUpReq(email, password, name, businessName, phone);
@@ -119,7 +126,11 @@ const SignUp = () => {
           <h1>회원가입</h1>
         </div>
         <div className={styles.signUp__form__validation}>
-          <p>{validationMSG}</p>
+          {changeCSS === false ? (
+            <p>{validationMSG}</p>
+          ) : (
+            <p className={styles.shake}>{validationMSG}</p>
+          )}
         </div>
         <div className={styles.signUp__form__input}>
           <div className={styles.signUp__form__input__email}>

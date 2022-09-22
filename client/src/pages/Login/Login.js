@@ -11,6 +11,7 @@ import kakaoLogo from "../../assets/kakao-logo.png";
 import { useState } from "react";
 import mainLogo from "../../assets/logo1.png";
 import Modal from "../../components/Modal/Modal";
+import { useEffect } from "react";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,10 @@ const Login = () => {
   const [validationMSG, setValidationMSG] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const key = 0;
+  const [changeCSS, setChangeCSS] = useState(false);
+  useEffect(() => {
+    setChangeCSS(true);
+  }, [changeCSS]);
 
   const checkValidation = () => {
     const email = emailRef.current.value;
@@ -43,6 +48,7 @@ const Login = () => {
 
   const loginSubmitHandler = async (e) => {
     e.preventDefault();
+    setChangeCSS(false);
     const email = emailRef.current.value;
     const password = PWRef.current.value;
     checkValidation(email);
@@ -64,6 +70,7 @@ const Login = () => {
       }
     });
     if (token) {
+      setValidationMSG("");
       console.log(token);
       localStorage.setItem("token", token);
       setModalOpen(true);
@@ -85,7 +92,11 @@ const Login = () => {
         <div className={styles.login__form__title}>
           <img src={mainLogo} alt="React" />
           {/* <h1>Login</h1> */}
-          <p>{validationMSG}</p>
+          {changeCSS === false ? (
+            <p>{validationMSG}</p>
+          ) : (
+            <p className={styles.shake}>{validationMSG}</p>
+          )}
         </div>
         <div className={styles.login__form__input}>
           <input ref={emailRef} placeholder="이메일" />

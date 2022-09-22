@@ -100,10 +100,12 @@
 }
 
 .signUp__form__validation {
-  font-size: 15px;
-  color: #8ff3cf;
+  font-size: 14px;
+  color: #256d85;
   font-weight: 400;
   height: 40px;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 .signUp__form__btn button {
@@ -142,10 +144,38 @@
     border-radius: 20px;
     justify-content: center;
   }
+  .signUp__form__validation {
+    margin-top: 5px;
+    margin-bottom: 0px;
+  }
 }
 
 @media all and (max-width: 375px) {
   .signUp__form__title {
     margin-top: 60px;
+  }
+  .signUp__form__validation {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+}
+
+.shake {
+  animation: gelatine 0.5s ease-out;
+}
+
+@keyframes gelatine {
+  from,
+  to {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(0.9, 1.1);
+  }
+  50% {
+    transform: scale(1.1, 0.9);
+  }
+  75% {
+    transform: scale(0.95, 1.05);
   }
 }
