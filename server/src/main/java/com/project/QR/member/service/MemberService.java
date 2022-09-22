@@ -20,8 +20,8 @@ public class MemberService {
   private final MemberRepository memberRepository;
   private final AuthService authService;
   private final PasswordEncoder passwordEncoder;
-  private final CustomBeanUtils<Member> MemberBeanUtils;
-  private final CustomBeanUtils<Business> BusinessBeanUtils;
+  private final CustomBeanUtils<Member> memberBeanUtils;
+  private final CustomBeanUtils<Business> businessBeanUtils;
   private final FileSystemStorageService fileSystemStorageService;
   private final RedisTemplate<String, Object> redisTemplate;
 
@@ -46,9 +46,9 @@ public class MemberService {
     if(member.getPassword() != null) {
       member.setPassword(passwordEncoder.encode(member.getPassword()));
     }
-    Business updatingBusiness = BusinessBeanUtils.copyNonNullProperties(member.getBusiness(), findMember.getBusiness());
+    Business updatingBusiness = businessBeanUtils.copyNonNullProperties(member.getBusiness(), findMember.getBusiness());
     member.setBusiness(updatingBusiness);
-    Member updatingMember = MemberBeanUtils.copyNonNullProperties(member, findMember);
+    Member updatingMember = memberBeanUtils.copyNonNullProperties(member, findMember);
     return memberRepository.save(updatingMember);
   }
 
