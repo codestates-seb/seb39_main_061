@@ -38,7 +38,8 @@ const MonthApexChart = () => {
     },
     xaxis: {
       categories: beforeMonth()
-    }
+    },
+    colors: [ '#256D85', '#e6ce66', '#94A74A', '#256D85', '#e6ce66', '#e69166']
   };
   return (
     <div>

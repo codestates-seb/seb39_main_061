@@ -4,16 +4,25 @@
   box-sizing: border-box;
  }
 
+ .container {
+  display: flex;
+  justify-content: flex-start;
+ }
+
 .main_container {
   width: 1130px;
-  height: 892px;
-  
+  height: 100vh;
+  margin-left: 40px;
+}
+
+.title {
+  margin: 60px 0 20px 15px;
 }
 
 .container {
   display: flex;
   flex-direction: row;
-  justify-content:space-around;
+  justify-content:stretch;
   height: 470px;
 }
 
@@ -35,16 +44,17 @@ padding-left: 15px;
   margin-right: 10px;
   border: 0;
   border-radius: 5px;
-  background-color: #256D85;
+  background-color: #dedddd;
   /* background-color: #e69166; */
-  color: white;
+  color: #256D85;
   font: 11px arial;
   font-size: 0.7rem;
   cursor: pointer;
   box-shadow: 1px 2px 0 rgb(0,0,0,0.5);
 }
 .barChartsBtn > button:active {
-  background-color: #8FE3CF;
+  background-color: #256D85;
+  color: white;
   box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
 }
 

@@ -37,7 +37,8 @@ const WeekApexChart = () => {
     },
     xaxis: {
       categories: beforeWeek()
-    }
+    },
+    colors: [ '#e69166', '#669DB5', '#94A74A', '#256D85', '#e6ce66', '#e69166']
   };
   return (
     <div>

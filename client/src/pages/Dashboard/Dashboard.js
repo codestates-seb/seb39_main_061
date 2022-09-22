@@ -34,10 +34,10 @@ const Dashboard = () => {
   }, [])
 
   return (
-    <div>
+    <div className={styles.container}>
       <Sidebar />
-      <h1>Dashboard</h1>
       <div className={styles.main_container}>
+      <h1 className={styles.title}>Dashboard</h1>
         <div className={styles.container}>
           <div className={styles.component}>
             <div>
