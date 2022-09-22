@@ -15,12 +15,14 @@
 }
 .signUp__form {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   background-color: white;
   flex-direction: column;
   height: 100vh;
   width: 100vw;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .signUp__form__title {
@@ -104,8 +106,8 @@
   color: #256d85;
   font-weight: 400;
   height: 40px;
-  margin-top: 5px;
-  margin-bottom: 10px;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 .signUp__form__btn button {
@@ -139,8 +141,8 @@
 
 @media all and (min-width: 844px) {
   .signUp__form {
-    height: 800px;
-    width: 450px;
+    height: 700px;
+    width: 420px;
     border-radius: 20px;
     justify-content: center;
   }
@@ -151,6 +153,9 @@
 }
 
 @media all and (max-width: 375px) {
+  .signUp__form {
+    padding-top: 10px;
+  }
   .signUp__form__title {
     margin-top: 60px;
   }

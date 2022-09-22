@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useHistory } from "react";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate, Link } from "react-router-dom";
@@ -30,7 +30,8 @@ const Register = () => {
   const accessToken = String(location.search.split("&", 1));
   const token = accessToken.substring(13);
   const pageTitle = "페이지제목";
-  // window.history.pushState("", pageTitle, `/oauth2`);
+
+  window.history.pushState("", pageTitle, `/oauth2`);
 
   // 인증 됐으면 바로 로그인 -> 유저데이터 받아오기 -> 대시보드
   const checkValidation = async () => {

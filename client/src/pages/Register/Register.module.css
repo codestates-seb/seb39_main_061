@@ -83,12 +83,12 @@
   font-size: 14px;
   color: #2b4865;
   font-weight: 400;
-  height: 15px;
+  height: 30px;
   width: 400px;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 .register__form__btn {
@@ -136,7 +136,7 @@
 @media all and (min-width: 844px) {
   .register__form {
     height: 800px;
-    width: 450px;
+    width: 420px;
     border-radius: 20px;
     justify-content: center;
   }
