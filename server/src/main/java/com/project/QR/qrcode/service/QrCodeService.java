@@ -87,6 +87,8 @@ public class QrCodeService {
     QrCode qrCode = findVerifiedQrCode(qrCodeId, businessId);
     if(qrCode.getBusiness().getMember().getMemberId() != memberId)
       throw new BusinessLogicException(ExceptionCode.QR_CODE_NOT_FOUND);
+    if(qrCode.getQrCodeImg() != null)
+      fileSystemStorageService.remove(qrCode.getQrCodeImg());
     qrCodeRepository.delete(qrCode);
   }
 }

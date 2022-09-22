@@ -20,7 +20,7 @@ import javax.websocket.server.PathParam;
 import java.util.List;
 
 @RestController
-@RequestMapping("/business/{business-id}")
+@RequestMapping("/business/{business-id}/menu")
 @AllArgsConstructor
 public class MenuUserController {
   private final MenuService menuService;
