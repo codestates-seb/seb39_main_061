@@ -1,7 +1,7 @@
 import React from "react";
 import "./Modal.css";
 
-function Modal({ key }) {
+function Modal({ num }) {
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -25,16 +25,14 @@ function Modal({ key }) {
             </div>
           </div>
           <div className="success-text">
-            {key === 1 ? (
-              <p>인증 메일이 발송되었습니다</p>
-            ) : (
-              <p>환영합니다. 회원가입이 완료되었습니다 </p>
-            )}
-            {key === 1 ? (
-              <p>잠시후 로그인 페이지로 이동합니다</p>
-            ) : (
-              <p>잠시후 대시보드 페이지로 이동합니다</p>
-            )}
+            {num === 0 && <p>환영합니다.</p>}
+            {num === 0 && <p>잠시후 대시보드로 이동합니다</p>}
+
+            {num === 1 && <p>인증 메일이 발송되었습니다</p>}
+            {num === 1 && <p>환영합니다. 회원가입이 완료되었습니다 </p>}
+
+            {num === 2 && <p>환영합니다.</p>}
+            {num === 2 && <p>잠시후 대시보드로 이동합니다</p>}
           </div>
         </div>
         {/* <div className="footer">

@@ -81,7 +81,7 @@ const Register = () => {
       setModalOpen(true);
       setTimeout(() => {
         navigate("/dashboard");
-      }, 3500);
+      }, 3000);
     }
   };
 
@@ -125,7 +125,7 @@ const Register = () => {
           </Link>
         </div>
       </div>
-      {modalOpen && <Modal key={2} setOpenModal={setModalOpen} />}
+      {modalOpen && <Modal num={2} setOpenModal={setModalOpen} />}
     </div>
   );
 };

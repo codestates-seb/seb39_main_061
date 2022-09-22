@@ -10,6 +10,7 @@ import naverLogo from "../../assets/naver-logo.png";
 import kakaoLogo from "../../assets/kakao-logo.png";
 import { useState } from "react";
 import mainLogo from "../../assets/logo1.png";
+import Modal from "../../components/Modal/Modal";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ const Login = () => {
   const emailRef = useRef();
   const PWRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const key = 0;
 
   const checkValidation = () => {
     const email = emailRef.current.value;
@@ -46,10 +49,6 @@ const Login = () => {
     if (checkValidation(email) === false) {
       return;
     }
-    // if (validationMSG.length === 0) {
-    //   return;
-    // }
-
     //login
 
     const token = await login(email, password).catch((err) => {
@@ -67,11 +66,16 @@ const Login = () => {
     if (token) {
       console.log(token);
       localStorage.setItem("token", token);
-      dispatch(authActions.login());
+      setModalOpen(true);
+
       //getProfile
       const userData = await getProfile();
       dispatch(userAction.setUser(userData));
-      navigate("/dashboard");
+
+      setTimeout(() => {
+        dispatch(authActions.login());
+        navigate("/dashboard");
+      }, 3000);
     }
   };
 
@@ -85,7 +89,12 @@ const Login = () => {
         </div>
         <div className={styles.login__form__input}>
           <input ref={emailRef} placeholder="이메일" />
-          <input type="password" ref={PWRef} placeholder="비밀번호" />
+          <input
+            maxLength={16}
+            type="password"
+            ref={PWRef}
+            placeholder="비밀번호"
+          />
         </div>
 
         <div className={styles.login__form__oauth}>
@@ -119,6 +128,7 @@ const Login = () => {
           </Link>
         </div>
       </form>
+      {modalOpen && <Modal num={key} setOpenModal={setModalOpen} />}
     </section>
   );
 };

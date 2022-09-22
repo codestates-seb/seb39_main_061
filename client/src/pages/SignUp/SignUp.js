@@ -96,7 +96,7 @@ const SignUp = () => {
         setModalOpen(true);
         setTimeout(() => {
           navigate("/login");
-        }, 3500);
+        }, 3000);
       } catch (err) {
         let errorMessage = err.error.message;
         alert(errorMessage);
@@ -129,6 +129,7 @@ const SignUp = () => {
           <div className={styles.signUp__form__input__password}>
             <span>비밀번호</span>
             <input
+              maxLength={16}
               type="password"
               ref={PWRef}
               placeholder="숫자,영문,특수문자 8~16자 입력"
@@ -136,7 +137,9 @@ const SignUp = () => {
           </div>
           <div className={styles.signUp__form__input__passwordCheck}>
             <span>비밀번호 확인</span>
+
             <input
+              maxLength={16}
               type="password"
               ref={confirmPWRef}
               placeholder="비밀번호 확인"
@@ -144,7 +147,11 @@ const SignUp = () => {
           </div>
           <div className={styles.signUp__form__input__name}>
             <span>대표 성명</span>
-            <input ref={OwenerNameRef} placeholder="대표자 성명" />
+            <input
+              maxLength={8}
+              ref={OwenerNameRef}
+              placeholder="대표자 성명"
+            />
           </div>
           <div className={styles.signUp__form__input__bussnissName}>
             <span>상호명</span>
@@ -186,7 +193,7 @@ const SignUp = () => {
             <button>취소</button>
           </Link>
         </div>
-        {modalOpen && <Modal key={1} setOpenModal={setModalOpen} />}
+        {modalOpen && <Modal num={1} setOpenModal={setModalOpen} />}
       </form>
     </div>
   );
