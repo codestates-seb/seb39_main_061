@@ -64,7 +64,7 @@ public class MenuAdminController {
 
     return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.menuToMenuInfoDto(menu),
       "SUCCESS"),
-      HttpStatus.CREATED);
+      HttpStatus.OK);
   }
 
   /**
