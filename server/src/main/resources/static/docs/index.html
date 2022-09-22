@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.10">
-<title>QR Service API DOCS</title>
+<title>Quick Book API DOCS</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /* Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -438,7 +438,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article toc2 toc-left">
 <div id="header">
-<h1>QR Service API DOCS</h1>
+<h1>Quick Book API DOCS</h1>
 <div class="details">
 <span id="revnumber">version 0.0.1-SNAPSHOT</span>
 </div>
@@ -502,7 +502,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>v1.0.0, 2022.08.26</p>
+<p>v1.0.0, 2022.09.23</p>
 </div>
 <hr>
 <div class="paragraph">
@@ -1032,7 +1032,7 @@ Content-Length: 330
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/auth/validation?email=hgd@gmail.com&amp;code=baba9a1b-400e-4511-b7a9-06c848209dbe' -i -X GET \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/auth/validation?email=hgd@gmail.com&amp;code=37e50eaa-1042-4918-9a6d-0ec9ebd0a196' -i -X GET \
     -H 'Content-Type: application/json' \
     -H 'Accept: application/json'</code></pre>
 </div>
@@ -1040,7 +1040,7 @@ Content-Length: 330
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /auth/validation?email=hgd@gmail.com&amp;code=baba9a1b-400e-4511-b7a9-06c848209dbe HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /auth/validation?email=hgd@gmail.com&amp;code=37e50eaa-1042-4918-9a6d-0ec9ebd0a196 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 Host: localhost:8080</code></pre>
@@ -2358,21 +2358,21 @@ Content-Length: 759
       "reservationId" : 1,
       "name" : "name1",
       "phone" : "000-0000-0000",
-      "createdAt" : "2022-09-23T03:21:22.6331635",
+      "createdAt" : "2022-09-23T03:27:22.9784476",
       "completed" : "Y",
       "count" : 1
     }, {
       "reservationId" : 1,
       "name" : "name2",
       "phone" : "000-1234-0000",
-      "createdAt" : "2022-09-23T03:21:22.6331635",
+      "createdAt" : "2022-09-23T03:27:22.9784476",
       "completed" : "Y",
       "count" : 1
     }, {
       "reservationId" : 1,
       "name" : "name3",
       "phone" : "000-0000-5678",
-      "createdAt" : "2022-09-23T03:21:22.6331635",
+      "createdAt" : "2022-09-23T03:27:22.9784476",
       "completed" : "Y",
       "count" : 1
     } ]
@@ -2394,21 +2394,21 @@ Content-Length: 759
       "reservationId" : 1,
       "name" : "name1",
       "phone" : "000-0000-0000",
-      "createdAt" : "2022-09-23T03:21:22.6331635",
+      "createdAt" : "2022-09-23T03:27:22.9784476",
       "completed" : "Y",
       "count" : 1
     }, {
       "reservationId" : 1,
       "name" : "name2",
       "phone" : "000-1234-0000",
-      "createdAt" : "2022-09-23T03:21:22.6331635",
+      "createdAt" : "2022-09-23T03:27:22.9784476",
       "completed" : "Y",
       "count" : 1
     }, {
       "reservationId" : 1,
       "name" : "name3",
       "phone" : "000-0000-5678",
-      "createdAt" : "2022-09-23T03:21:22.6331635",
+      "createdAt" : "2022-09-23T03:27:22.9784476",
       "completed" : "Y",
       "count" : 1
     } ]
@@ -3123,7 +3123,7 @@ Content-Length: 223
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-23T03:21:23.6581621",
+    "createdAt" : "2022-09-23T03:27:25.3272676",
     "completed" : "Y",
     "count" : 4
   },
@@ -3139,7 +3139,7 @@ Content-Length: 223
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-23T03:21:23.6581621",
+    "createdAt" : "2022-09-23T03:27:25.3272676",
     "completed" : "Y",
     "count" : 4
   },
@@ -3282,21 +3282,21 @@ Content-Length: 675
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-23T03:21:23.7341584",
+    "createdAt" : "2022-09-23T03:27:25.4032812",
     "completed" : "Y",
     "count" : 3
   }, {
     "reservationId" : 1,
     "name" : "이*신",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-23T03:21:23.7341584",
+    "createdAt" : "2022-09-23T03:27:25.4032812",
     "completed" : "Y",
     "count" : 2
   }, {
     "reservationId" : 1,
     "name" : "세*대왕",
     "phone" : "000-****-5678",
-    "createdAt" : "2022-09-23T03:21:23.7341584",
+    "createdAt" : "2022-09-23T03:27:25.4032812",
     "completed" : "Y",
     "count" : 1
   } ],
@@ -3514,7 +3514,7 @@ Content-Length: 223
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-23T03:21:23.6971604",
+    "createdAt" : "2022-09-23T03:27:25.3672696",
     "completed" : "Y",
     "count" : 1
   },
@@ -3530,7 +3530,7 @@ Content-Length: 223
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-23T03:21:23.6971604",
+    "createdAt" : "2022-09-23T03:27:25.3672696",
     "completed" : "Y",
     "count" : 1
   },
@@ -4766,7 +4766,7 @@ Content-Length: 416
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-09-23 03:19:42 +0900
+Last updated 2022-09-23 03:25:37 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
