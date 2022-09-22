@@ -1,13 +1,15 @@
-= QR Service API DOCS
+= Quick Book API DOCS
 :sectnums:
 :toc: left
 :toclevels: 4
 :toc-title: Table of Contents
 :source-highlighter: prettify
 
-v1.0.0, 2022.08.26
+v1.0.0, 2022.09.23
 
 ***
+include::oveerview.adoc[]
+
 == AuthController
 ==== 이메일 중복검사
 .curl-request
@@ -230,7 +232,7 @@ include::{snippets}/member-logout/response-body.adoc[]
 .response-fields
 include::{snippets}/member-logout/response-fields.adoc[]
 
-== QrCodeReservationController(업주 용 / 예약관련)
+== QrCodeReservationController (업주 용 / 예약 관련)
 ==== QR 코드 등록
 .curl-request
 include::{snippets}/qr-code-create/curl-request.adoc[]
@@ -347,7 +349,7 @@ include::{snippets}/qr-code-delete/http-response.adoc[]
 .response-body
 include::{snippets}/qr-code-delete/response-body.adoc[]
 
-== ReservationStatisticsController(업주 용 / 예약관련)
+== ReservationStatisticsController (업주 용 / 예약관련)
 .curl-request
 include::{snippets}/reservation-statistics-get/curl-request.adoc[]
 
@@ -372,7 +374,7 @@ include::{snippets}/reservation-statistics-get/response-body.adoc[]
 .response-fields
 include::{snippets}/reservation-statistics-get/response-fields.adoc[]
 
-== ReservationController(사용자)
+== ReservationController (사용자)
 ==== 예약 등록
 .curl-request
 include::{snippets}/reservation-create/curl-request.adoc[]
@@ -463,4 +465,151 @@ include::{snippets}/reservation-delete/http-response.adoc[]
 
 .response-body
 include::{snippets}/reservation-delete/response-body.adoc[]
+
+== MenuAdminController (업주 용)
+==== 메뉴 등록
+.curl-request
+include::{snippets}/menu-create/curl-request.adoc[]
+
+.http-request
+include::{snippets}/menu-create/http-request.adoc[]
+
+.request-headers
+include::{snippets}/menu-create/request-headers.adoc[]
+
+.path-parameters
+include::{snippets}/menu-create/path-parameters.adoc[]
+
+.request-parts
+include::{snippets}/menu-create/request-parts.adoc[]
+
+.request-part-data-fields
+include::{snippets}/menu-create/request-part-data-fields.adoc[]
+
+.http-response
+include::{snippets}/menu-create/http-response.adoc[]
+
+.response-body
+include::{snippets}/menu-create/response-body.adoc[]
+
+.response-fields
+include::{snippets}/menu-create/response-fields.adoc[]
+
+==== 메뉴 변경
+.curl-request
+include::{snippets}/menu-update/curl-request.adoc[]
+
+.http-request
+include::{snippets}/menu-update/http-request.adoc[]
+
+.request-headers
+include::{snippets}/menu-update/request-headers.adoc[]
+
+.path-parameters
+include::{snippets}/menu-update/path-parameters.adoc[]
+
+.request-parts
+include::{snippets}/menu-update/request-parts.adoc[]
+
+.request-part-data-fields
+include::{snippets}/menu-update/request-part-data-fields.adoc[]
+
+.http-response
+include::{snippets}/menu-update/http-response.adoc[]
+
+.response-body
+include::{snippets}/menu-update/response-body.adoc[]
+
+.response-fields
+include::{snippets}/menu-update/response-fields.adoc[]
+
+==== 메뉴 리스트 조회
+.curl-request
+include::{snippets}/get-menu-list-admin/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-menu-list-admin/http-request.adoc[]
+
+.request-headers
+include::{snippets}/get-menu-list-admin/request-headers.adoc[]
+
+.path-parameters
+include::{snippets}/get-menu-list-admin/path-parameters.adoc[]
+
+.request-parameters
+include::{snippets}/get-menu-list-admin/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/get-menu-list-admin/http-response.adoc[]
+
+.response-body
+include::{snippets}/get-menu-list-admin/response-body.adoc[]
+
+.response-fields
+include::{snippets}/get-menu-list-admin/response-fields.adoc[]
+
+==== 메뉴 조회
+.curl-request
+include::{snippets}/menu-get/curl-request.adoc[]
+
+.http-request
+include::{snippets}/menu-get/http-request.adoc[]
+
+.request-headers
+include::{snippets}/menu-get/request-headers.adoc[]
+
+.path-parameters
+include::{snippets}/menu-get/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/menu-get/http-response.adoc[]
+
+.response-body
+include::{snippets}/menu-get/response-body.adoc[]
+
+.response-fields
+include::{snippets}/menu-get/response-fields.adoc[]
+
+==== 메뉴 삭제
+.curl-request
+include::{snippets}/menu-delete/curl-request.adoc[]
+
+.http-request
+include::{snippets}/menu-delete/http-request.adoc[]
+
+.request-headers
+include::{snippets}/menu-delete/request-headers.adoc[]
+
+.path-parameters
+include::{snippets}/menu-delete/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/menu-delete/http-response.adoc[]
+
+.response-body
+include::{snippets}/menu-delete/response-body.adoc[]
+
+== MenuUserController (사용자)
+==== 메뉴 리스트 조회
+.curl-request
+include::{snippets}/get-menu-list-user/curl-request.adoc[]
+
+.http-request
+include::{snippets}/get-menu-list-user/http-request.adoc[]
+
+.path-parameters
+include::{snippets}/get-menu-list-user/path-parameters.adoc[]
+
+.request-parameters
+include::{snippets}/get-menu-list-user/request-parameters.adoc[]
+
+.http-response
+include::{snippets}/get-menu-list-user/http-response.adoc[]
+
+.response-body
+include::{snippets}/get-menu-list-user/response-body.adoc[]
+
+.response-fields
+include::{snippets}/get-menu-list-user/response-fields.adoc[]
+
 
