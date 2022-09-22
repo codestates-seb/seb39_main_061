@@ -10,6 +10,7 @@ import com.project.QR.security.MemberDetails;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.annotation.Validated;
@@ -32,13 +33,14 @@ public class MenuAdminController {
   /**
    * 메뉴 등록 API
    */
-  @PostMapping
+  @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   public ResponseEntity createMenu(@AuthenticationPrincipal MemberDetails memberDetails,
                                    @Positive @PathVariable("business-id") long businessId,
-                                   @Valid @RequestParam("data") MenuRequestDto.CreateMenuDto createMenuDto,
-                                   @RequestParam(value = "file", required = false) MultipartFile multipartFile) {
+                                   @Valid @RequestPart("data") MenuRequestDto.CreateMenuDto createMenuDto,
+                                   @RequestPart(value = "file", required = false) MultipartFile multipartFile) {
     createMenuDto.setMemberId(memberDetails.getMember().getMemberId());
     createMenuDto.setBusinessId(businessId);
+
     Menu menu = menuService.createMenu(mapper.createMenuDtoToMenu(createMenuDto), multipartFile);
 
     return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.menuToMenuInfoDto(menu),
@@ -49,12 +51,12 @@ public class MenuAdminController {
   /**
    * 메뉴 변경 API
    */
-  @PostMapping("/{menu-id}")
+  @PostMapping(value = "/{menu-id}", consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   public ResponseEntity updateMenu(@AuthenticationPrincipal MemberDetails memberDetails,
                                    @Positive @PathVariable("business-id") long businessId,
                                    @Positive @PathVariable("menu-id") long menuId,
-                                   @Valid @RequestParam("data") MenuRequestDto.UpdateMenuDto updateMenuDto,
-                                   @RequestParam(value = "file", required = false) MultipartFile multipartFile) {
+                                   @Valid @RequestPart("data") MenuRequestDto.UpdateMenuDto updateMenuDto,
+                                   @RequestPart(value = "file", required = false) MultipartFile multipartFile) {
     updateMenuDto.setMemberId(memberDetails.getMember().getMemberId());
     updateMenuDto.setBusinessId(businessId);
     updateMenuDto.setMenuId(menuId);

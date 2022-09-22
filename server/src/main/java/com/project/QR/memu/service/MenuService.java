@@ -31,7 +31,7 @@ public class MenuService {
    */
   public Menu createMenu(Menu menu, MultipartFile multipartFile) {
     businessService.getBusiness(menu.getBusiness().getBusinessId(), menu.getBusiness().getMember().getMemberId());
-    existMenu(menu.getBusiness().getBusinessId(), menu.getBusiness().getMember().getMemberId());
+
     if(!multipartFile.isEmpty()) {
       menu.setImg(fileSystemStorageService.store(multipartFile,
         String.format("%d/menu", menu.getBusiness().getMember().getMemberId())));
