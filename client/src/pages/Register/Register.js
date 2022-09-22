@@ -24,7 +24,7 @@ const Register = () => {
   const accessToken = String(location.search.split("&", 1));
   const token = accessToken.substring(13);
   const pageTitle = "페이지제목";
-  window.history.pushState("", pageTitle, `/oauth2`);
+  // window.history.pushState("", pageTitle, `/oauth2`);
 
   // 인증 됐으면 바로 로그인 -> 유저데이터 받아오기 -> 대시보드
   const checkValidation = async () => {
@@ -71,16 +71,16 @@ const Register = () => {
       return;
     }
 
-    const newToken = await oauthReq(businessName, phone, name);
-    if (newToken) {
+    const res = await oauthReq(businessName, phone, name);
+    if (res.status === 200) {
       console.log("추가전송");
-      localStorage.setItem("token", newToken);
-      dispatch(authActions.login());
+      localStorage.setItem("token", res.data.data.accessToken);
       const userData = await getProfile();
       dispatch(userAction.setUser(userData));
       setModalOpen(true);
       setTimeout(() => {
         navigate("/dashboard");
+        dispatch(authActions.login());
       }, 3000);
     }
   };

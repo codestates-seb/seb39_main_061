@@ -81,7 +81,7 @@ export const oauthReq = (businessName, phone, name) => {
     )
     .then((res) => {
       console.log("추가 전송 성공!");
-      return res.data.data.accessToken;
+      return res;
     })
     .catch((err) => {
       console.log(err);
