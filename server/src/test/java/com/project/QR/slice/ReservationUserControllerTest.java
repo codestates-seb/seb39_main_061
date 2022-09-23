@@ -1,7 +1,7 @@
 package com.project.QR.slice;
 
 import com.google.gson.Gson;
-import com.project.QR.reservation.controller.ReservationController;
+import com.project.QR.reservation.controller.ReservationUserController;
 import com.project.QR.reservation.dto.ReservationRequestDto;
 import com.project.QR.reservation.dto.ReservationResponseDto;
 import com.project.QR.reservation.entity.Reservation;
@@ -36,11 +36,11 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ReservationController.class)
+@WebMvcTest(ReservationUserController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureRestDocs
-public class ReservationControllerTest {
+public class ReservationUserControllerTest {
   @Autowired
   private MockMvc mockMvc;
 
@@ -70,7 +70,7 @@ public class ReservationControllerTest {
 
     // when
     ResultActions actions = mockMvc.perform(
-      post("/reservation/{business-id}/qr-code/{qr-code-id}", businessId, qrCodeId)
+      post("/business/{business-id}/reservation/qr-code/{qr-code-id}", businessId, qrCodeId)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .content(content)
@@ -132,13 +132,13 @@ public class ReservationControllerTest {
     List<ReservationResponseDto.ReservationInfoDto> reservationInfoDtoList
       = ReservationStubData.reservationInfoDtoList(reservationList);
 
-    given(reservationService.getReservations(Mockito.anyLong(), Mockito.anyLong(), Mockito.anyInt(), Mockito.anyInt()))
+    given(reservationService.getUserReservationList(Mockito.anyLong(), Mockito.anyLong(), Mockito.anyInt(), Mockito.anyInt()))
       .willReturn(pageOfReservation);
     given(mapper.reservationListToReservationInfoDtoList(Mockito.anyList())).willReturn(reservationInfoDtoList);
 
     // when
     ResultActions actions = mockMvc.perform(
-      get("/reservation/{business-id}/qr-code/{qr-code-id}?page={page}&size={size}",
+      get("/business/{business-id}/reservation/qr-code/{qr-code-id}?page={page}&size={size}",
         businessId, qrCodeId, page, size)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
@@ -152,7 +152,7 @@ public class ReservationControllerTest {
       .andExpect(jsonPath("$.pageInfo.totalElements").value(pageOfReservation.getTotalElements()))
       .andDo(
         document(
-          "reservation-list-get",
+          "reservation-list-get-user",
           getRequestPreProcessor(),
           getResponsePreProcessor(),
           pathParameters(
@@ -201,7 +201,7 @@ public class ReservationControllerTest {
 
     // when
     ResultActions actions = mockMvc.perform(
-      patch("/reservation/{business-id}/qr-code/{qr-code-id}/info/{reservation-id}",
+      patch("/business/{business-id}/reservation/qr-code/{qr-code-id}/info/{reservation-id}",
         businessId, qrCodeId, reservationId)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
@@ -267,7 +267,7 @@ public class ReservationControllerTest {
 
     // when
     ResultActions actions = mockMvc.perform(
-      patch("/reservation/{business-id}/qr-code/{qr-code-id}/cancel/{reservation-id}",
+      patch("/business/{business-id}/reservation/qr-code/{qr-code-id}/cancel/{reservation-id}",
         businessId, qrCodeId, reservationId)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
