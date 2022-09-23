@@ -65,15 +65,6 @@ public class ReviewService {
   }
 
   /**
-   * 리뷰 삭제
-   */
-  public void deleteReview(long reviewId, long businessId, long memberId) {
-    businessService.getBusiness(businessId, memberId);
-    Review findReview = findVerifiedReview(reviewId);
-    reviewRepository.delete(findReview);
-  }
-
-  /**
    * 유효한 리뷰 조회
    */
   @Transactional(readOnly = true)
@@ -81,6 +72,4 @@ public class ReviewService {
     Optional<Review> optionalReview = reviewRepository.findById(reviewId);
     return optionalReview.orElseThrow(() -> new BusinessLogicException(ExceptionCode.REVIEW_NOT_FOUND));
   }
-
-
 }
