@@ -56,7 +56,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
     MemberDetails memberDetails = (MemberDetails) authentication.getPrincipal();
     TokenDto.TokenInfoDto tokenInfoDto = tokenProvider.createToken(memberDetails.getMember(), response);
-    System.out.println(memberDetails.getRole());
+
     return UriComponentsBuilder.fromUriString(targetUrl)
       .queryParam("accessToken", tokenInfoDto.getAccessToken())
       .queryParam("emailVerified", !memberDetails.getRole().equals("ROLE_GUEST"))
