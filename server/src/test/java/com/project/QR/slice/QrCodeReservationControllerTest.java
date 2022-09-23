@@ -48,7 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureRestDocs
-public class QrCodeReservationUserControllerTest {
+public class QrCodeReservationControllerTest {
   @Autowired
   private MockMvc mockMvc;
 
@@ -82,7 +82,7 @@ public class QrCodeReservationUserControllerTest {
 
     // when
     ResultActions actions = mockMvc.perform(
-      post("/api/v1/reservation/{business-id}/qr-code", businessId)
+      post("/api/v1/business/{business-id}/type/reservation/qr-code", businessId)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .header("Authorization", "Bearer {ACCESS_TOKEN}")
@@ -150,7 +150,7 @@ public class QrCodeReservationUserControllerTest {
 
     // when
     ResultActions actions = mockMvc.perform(
-      multipart("/api/v1/reservation/{business-id}/qr-code/{qr-code-id}/update", businessId, qrCodeId)
+      multipart("/api/v1/business/{business-id}/type/reservation/qr-code/{qr-code-id}/update", businessId, qrCodeId)
         .file(dataJson)
         .file(fileData)
         .accept(MediaType.APPLICATION_JSON, MediaType.MULTIPART_FORM_DATA)
@@ -216,7 +216,7 @@ public class QrCodeReservationUserControllerTest {
 
     // when
     ResultActions actions = mockMvc.perform(
-      get("/api/v1/reservation/{business-id}/qr-code/{qr-code-id}", businessId, qrCodeId)
+      get("/api/v1/business/{business-id}/type/reservation/qr-code/{qr-code-id}", businessId, qrCodeId)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .header("Authorization", "Bearer {ACCESS_TOKEN}")
@@ -278,7 +278,7 @@ public class QrCodeReservationUserControllerTest {
 
     // when
     ResultActions actions = mockMvc.perform(
-      get("/api/v1/reservation/{business-id}/qr-code?page={page}&size={size}", businessId, page, size)
+      get("/api/v1/business/{business-id}/type/reservation/qr-code?page={page}&size={size}", businessId, page, size)
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
         .header("Authorization", "Bearer {ACCESS_TOKEN}")
@@ -332,7 +332,7 @@ public class QrCodeReservationUserControllerTest {
 
     // when
     ResultActions actions = mockMvc.perform(
-      delete("/api/v1/reservation/{business-id}/qr-code/{qr-code-id}", businessId, qrCodeId)
+      delete("/api/v1/business/{business-id}/type/reservation/qr-code/{qr-code-id}", businessId, qrCodeId)
         .contentType(MediaType.APPLICATION_JSON)
         .accept(MediaType.APPLICATION_JSON)
         .header("Authorization", "Bearer {ACCESS_TOKEN}")
