@@ -2,13 +2,11 @@ package com.project.QR.review.controller;
 
 import com.project.QR.dto.MultiResponseWithPageInfoDto;
 import com.project.QR.dto.SingleResponseWithMessageDto;
-import com.project.QR.member.entity.Member;
 import com.project.QR.review.entity.Review;
 import com.project.QR.review.mapper.ReviewMapper;
 import com.project.QR.review.service.ReviewService;
 import com.project.QR.security.MemberDetails;
 import lombok.AllArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,7 +34,7 @@ public class ReviewAdminController {
                                       @Positive @PathVariable("business-id") long businessId,
                                       @Positive @PathParam("page") int page,
                                       @Positive @PathParam("size") int size) {
-    Page<Review> pageOfReview = reviewService.getReviewList(businessId, memberDetails.getMember().getMemberId(),
+    Page<Review> pageOfReview = reviewService.getAdminReviewList(businessId, memberDetails.getMember().getMemberId(),
       page - 1, size);
     List<Review> reviewList = pageOfReview.getContent();
 
@@ -52,7 +50,7 @@ public class ReviewAdminController {
   public ResponseEntity getReview(@AuthenticationPrincipal MemberDetails memberDetails,
                                   @Positive @PathVariable("business-id") long businessId,
                                   @Positive @PathVariable("review-id") long reviewId) {
-    Review review = reviewService.getReview(reviewId, businessId, memberDetails.getMember().getMemberId());
+    Review review = reviewService.getAdminReview(reviewId, businessId, memberDetails.getMember().getMemberId());
 
     return new ResponseEntity<>(new SingleResponseWithMessageDto<>(mapper.reviewToReviewInfoDto(review),
       "SUCCESS"),

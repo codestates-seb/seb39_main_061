@@ -29,28 +29,45 @@ public class ReviewService {
   }
 
   /**
-   * 리뷰 리스트 조회
+   * 리뷰 리스트 조회(업주 입장)
    */
   @Transactional(readOnly = true)
-  public Page<Review> getReviewList(long businessId, Long memberId, int page, int size) {
+  public Page<Review> getAdminReviewList(long businessId, long memberId, int page, int size) {
     businessService.getBusiness(businessId, memberId);
     return reviewRepository.findAllByBusinessId(businessId,
       PageRequest.of(page, size, Sort.by("CREATED_AT").descending()));
   }
 
   /**
-   * 리뷰 조회
+   * 리뷰 리스트 조회(사용자 입장)
    */
   @Transactional(readOnly = true)
-  public Review getReview(long reviewId, long businessId, Long memberId) {
+  public Page<Review> getUserReviewList(long businessId, int page, int size) {
+    return reviewRepository.findAllByBusinessId(businessId,
+      PageRequest.of(page, size, Sort.by("CREATED_AT").descending()));
+  }
+
+  /**
+   * 리뷰 조회(업주 입장)
+   */
+  @Transactional(readOnly = true)
+  public Review getAdminReview(long reviewId, long businessId, long memberId) {
     businessService.getBusiness(businessId, memberId);
+    return findVerifiedReview(reviewId);
+  }
+
+  /**
+   * 리뷰 조회(업주 입장)
+   */
+  @Transactional(readOnly = true)
+  public Review getUserReview(long reviewId, long memberId) {
     return findVerifiedReview(reviewId);
   }
 
   /**
    * 리뷰 삭제
    */
-  public void deleteReview(long reviewId, long businessId, Long memberId) {
+  public void deleteReview(long reviewId, long businessId, long memberId) {
     businessService.getBusiness(businessId, memberId);
     Review findReview = findVerifiedReview(reviewId);
     reviewRepository.delete(findReview);
