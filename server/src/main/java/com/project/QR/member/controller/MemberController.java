@@ -32,7 +32,7 @@ public class MemberController {
   public ResponseEntity getMember(@AuthenticationPrincipal MemberDetails memberDetails) {
     Member member = memberService.getMember(memberDetails.getUsername());
 
-    return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.memberToMemberInfoDto(member),
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(mapper.memberToMemberInfoDto(member),
       "SUCCESS"),
       HttpStatus.OK);
   }
@@ -48,7 +48,7 @@ public class MemberController {
     Member member = memberService.updateMember(mapper.updateMemberDtoToMember(updateMemberDto), multipartFile);
     MemberResponseDto.MemberInfoDto response = mapper.memberToMemberInfoDto(member);
 
-    return new ResponseEntity(new SingleResponseWithMessageDto<>(response,
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(response,
       "SUCCESS"),
       HttpStatus.OK);
   }
@@ -60,6 +60,6 @@ public class MemberController {
   public ResponseEntity logout(@AuthenticationPrincipal MemberDetails memberDetails) {
     memberService.logout(memberDetails.getUsername());
 
-    return new ResponseEntity(new SingleResponseDto<>("BYE"), HttpStatus.OK);
+    return new ResponseEntity<>(new SingleResponseDto<>("BYE"), HttpStatus.OK);
   }
 }

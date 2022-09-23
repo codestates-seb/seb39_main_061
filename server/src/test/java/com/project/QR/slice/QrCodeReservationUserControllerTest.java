@@ -48,7 +48,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc(addFilters = false)
 @MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureRestDocs
-public class QrCodeReservationControllerTest {
+public class QrCodeReservationUserControllerTest {
   @Autowired
   private MockMvc mockMvc;
 

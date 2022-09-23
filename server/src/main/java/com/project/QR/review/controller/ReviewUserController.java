@@ -35,7 +35,7 @@ public class ReviewUserController {
     createReviewDto.setBusinessId(businessId);
     Review review = reviewService.createReview(mapper.createReviewDtoToReview(createReviewDto));
 
-    return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.reviewToReviewInfoDto(review),
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(mapper.reviewToReviewInfoDto(review),
       "CREATED"),
       HttpStatus.CREATED);
   }

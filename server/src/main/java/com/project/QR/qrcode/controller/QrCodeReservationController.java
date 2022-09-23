@@ -18,14 +18,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.websocket.server.PathParam;
 import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/api/v1/reservation/{business-id}/qr-code")
+@RequestMapping("/api/v1/business/{business-id}/type/reservation/qr-code")
 @AllArgsConstructor
 public class QrCodeReservationController {
   private final QrCodeService qrCodeService;
