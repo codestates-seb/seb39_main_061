@@ -260,7 +260,7 @@ public class ReservationAdminControllerTest {
       .andExpect(jsonPath("$.message").value("SUCCESS"))
       .andDo(
         document(
-          "reservation-enter",
+          "reservation-cancel",
           getRequestPreProcessor(),
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
