@@ -43,7 +43,7 @@ public class MenuAdminController {
 
     Menu menu = menuService.createMenu(mapper.createMenuDtoToMenu(createMenuDto), multipartFile);
 
-    return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.menuToMenuInfoDto(menu),
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(mapper.menuToMenuInfoDto(menu),
       "CREATED"),
       HttpStatus.CREATED);
   }
@@ -62,7 +62,7 @@ public class MenuAdminController {
     updateMenuDto.setMenuId(menuId);
     Menu menu = menuService.updateMenu(mapper.updateMenuDtoToMenu(updateMenuDto), multipartFile);
 
-    return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.menuToMenuInfoDto(menu),
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(mapper.menuToMenuInfoDto(menu),
       "SUCCESS"),
       HttpStatus.OK);
   }
@@ -79,7 +79,7 @@ public class MenuAdminController {
       page - 1, size);
     List<Menu> menuList = pageOfMenu.getContent();
 
-    return new ResponseEntity(new MultiResponseWithPageInfoDto<>(mapper.menuListToMenuInfoDtoList(menuList),
+    return new ResponseEntity<>(new MultiResponseWithPageInfoDto<>(mapper.menuListToMenuInfoDtoList(menuList),
       pageOfMenu),
       HttpStatus.OK);
   }
@@ -93,7 +93,7 @@ public class MenuAdminController {
                                 @Positive @PathVariable("menu-id") long menuId) {
     Menu menu = menuService.findMenu(menuId, businessId, memberDetails.getMember().getMemberId());
 
-    return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.menuToMenuInfoDto(menu),
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(mapper.menuToMenuInfoDto(menu),
       "SUCCESS"),
       HttpStatus.OK);
   }
@@ -107,6 +107,6 @@ public class MenuAdminController {
                                 @Positive @PathVariable("menu-id") long menuId) {
     menuService.deleteMenu(menuId, businessId, memberDetails.getMember().getMemberId());
 
-    return new ResponseEntity(HttpStatus.NO_CONTENT);
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 }

@@ -1,5 +1,6 @@
 package com.project.QR.reservation.service;
 
+import com.project.QR.business.service.BusinessService;
 import com.project.QR.exception.BusinessLogicException;
 import com.project.QR.exception.ExceptionCode;
 import com.project.QR.qrcode.entity.QrCode;
@@ -30,6 +31,7 @@ public class ReservationService {
   private ReservationRepository reservationRepository;
   private CustomBeanUtils<Reservation> beanUtils;
   private QrCodeService qrCodeService;
+  private BusinessService businessService;
 
   /**
    * 예약 등록
@@ -41,10 +43,10 @@ public class ReservationService {
   }
 
   /**
-   * 예약 조회
+   * 예약 리스트 조회(사용자 입장)
    */
   @Transactional(readOnly = true)
-  public Page<Reservation> getReservations(long businessId, long qrCodeId, int page, int size) {
+  public Page<Reservation> getUserReservationList(long businessId, long qrCodeId, int page, int size) {
     return reservationRepository.findAllByToday(businessId, qrCodeId,
       PageRequest.of(page, size, Sort.by("CREATED_AT").descending()));
   }
@@ -72,7 +74,7 @@ public class ReservationService {
   /**
    * 예약 조회
    */
-  public Reservation findVerifiedReservation(long reservationId, long qrCodeId) {
+  private Reservation findVerifiedReservation(long reservationId, long qrCodeId) {
     Optional<Reservation> optionalReservation = reservationRepository.findByIdAndQrCodeId(reservationId, qrCodeId);
     return optionalReservation.orElseThrow(() -> new BusinessLogicException(ExceptionCode.RESERVATION_NOT_FOUND));
   }
@@ -155,5 +157,36 @@ public class ReservationService {
         .collect(Collectors.toList())
       )
       .build();
+  }
+
+  /**
+   * 예약 리스트 조회(업주 입장)
+   */
+  public Page<Reservation> getAdminReservationList(long businessId, long qrCodeId, Long memberId, int page, int size) {
+    businessService.getBusiness(businessId, memberId);
+    return reservationRepository.findAllByToday(businessId, qrCodeId,
+      PageRequest.of(page, size, Sort.by("CREATED_AT").descending()));
+  }
+
+  /**
+   * 예약 입장
+   */
+  public void enterReservation(long reservationId, long qrCodeId, long businessId, Long memberId) {
+    businessService.getBusiness(businessId, memberId);
+    Reservation findReservation = findVerifiedReservation(reservationId, qrCodeId);
+    // TO-DO : SMS 발송 기능
+    findReservation.setCompleted(Check.Y);
+    reservationRepository.save(findReservation);
+  }
+
+  /**
+   * 예약 취소
+   */
+  public void cancelReservation(long reservationId, long qrCodeId, long businessId, Long memberId) {
+    businessService.getBusiness(businessId, memberId);
+    Reservation findReservation = findVerifiedReservation(reservationId, qrCodeId);
+    // TO-DO : SMS 발송 기능
+    findReservation.setDeleted(Check.Y);
+    reservationRepository.save(findReservation);
   }
 }

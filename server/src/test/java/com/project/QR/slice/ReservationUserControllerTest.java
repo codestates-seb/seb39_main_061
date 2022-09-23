@@ -1,7 +1,7 @@
 package com.project.QR.slice;
 
 import com.google.gson.Gson;
-import com.project.QR.reservation.controller.ReservationController;
+import com.project.QR.reservation.controller.ReservationUserController;
 import com.project.QR.reservation.dto.ReservationRequestDto;
 import com.project.QR.reservation.dto.ReservationResponseDto;
 import com.project.QR.reservation.entity.Reservation;
@@ -36,11 +36,11 @@ import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(ReservationController.class)
+@WebMvcTest(ReservationUserController.class)
 @AutoConfigureMockMvc(addFilters = false)
 @MockBean(JpaMetamodelMappingContext.class)
 @AutoConfigureRestDocs
-public class ReservationControllerTest {
+public class ReservationUserControllerTest {
   @Autowired
   private MockMvc mockMvc;
 
