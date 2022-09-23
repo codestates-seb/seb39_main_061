@@ -17,22 +17,20 @@ const Sidebar = () => {
   //   await persistor.purge();
   // };
 
-//   return (
-//     <div className={styles.sidebar_container}>
-//       <Link to="/dashboard">
-//         <img src={logo} alt="React" className={styles.logo}></img>
-// import { useSelector, useDispatch } from "react-redux";
-// import { authActions } from "../../store/auth";
-// import { useNavigate } from "react-router-dom";
-// import { persistor } from "../../index";
+  //   return (
+  //     <div className={styles.sidebar_container}>
+  //       <Link to="/dashboard">
+  //         <img src={logo} alt="React" className={styles.logo}></img>
+  // import { useSelector, useDispatch } from "react-redux";
+  // import { authActions } from "../../store/auth";
+  // import { useNavigate } from "react-router-dom";
+  // import { persistor } from "../../index";
 
   return (
-    <div>
-      <Link to="/dashboard">
-        <button>dashboard</button>
-      </Link>
+    <div className={styles.sidebar_container}>
+      <img src={logo} className={styles.logo}/>
       <Link to="/profile">
-        <img src="" className={styles.profile}></img>
+        <img src="" className={styles.profile} />
       </Link>
       <div className={styles.btnContainer}>
         <Link to="/dashboard">
