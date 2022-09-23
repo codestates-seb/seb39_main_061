@@ -41,7 +41,7 @@ public interface QrCodeMapper {
           .createdAt(reservation.getCreatedAt())
           .name(reservation.getName())
           .phone(reservation.getPhone())
-          .reserveId(reservation.getReservationId())
+          .reservationId(reservation.getReservationId())
           .build())
         .collect(Collectors.toList())
       )
