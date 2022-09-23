@@ -1,7 +1,6 @@
 package com.project.QR.slice;
 
 import com.project.QR.helper.WithMockCustomUser;
-import com.project.QR.reservation.controller.ReservationStatisticsController;
 import com.project.QR.review.controller.ReviewAdminController;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
