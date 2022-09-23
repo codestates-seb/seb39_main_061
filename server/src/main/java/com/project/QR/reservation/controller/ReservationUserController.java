@@ -20,9 +20,9 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/reservation/{business-id}/qr-code/{qr-code-id}")
+@RequestMapping("/business/{business-id}/reservation/qr-code/{qr-code-id}")
 @AllArgsConstructor
-public class ReservationController {
+public class ReservationUserController {
   private final ReservationService reservationService;
   private final ReservationMapper mapper;
 
@@ -36,7 +36,7 @@ public class ReservationController {
     createReservationDto.setBusinessId(businessId);
     createReservationDto.setQrCodeId(qrCodeId);
     Reservation reservation =  reservationService.createReservation(mapper.createReservationToReservation(createReservationDto));
-    return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.reservationToReservationInfoDto(reservation),
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(mapper.reservationToReservationInfoDto(reservation),
       "CREATED"),
       HttpStatus.CREATED);
   }
@@ -49,9 +49,10 @@ public class ReservationController {
                                         @Positive @PathVariable("qr-code-id") long qrCodeId,
                                         @Positive @PathParam("page") int page,
                                         @Positive @PathParam("size") int size) {
-    Page<Reservation> pageOfReservation = reservationService.getReservations(businessId, qrCodeId,page - 1, size);
+    Page<Reservation> pageOfReservation = reservationService.getUserReservationList(businessId, qrCodeId,page - 1, size);
     List<Reservation> reservationList = pageOfReservation.getContent();
-    return new ResponseEntity(new MultiResponseWithPageInfoDto<>(
+
+    return new ResponseEntity<>(new MultiResponseWithPageInfoDto<>(
       mapper.reservationListToReservationInfoDtoList(reservationList),
       pageOfReservation
     ), HttpStatus.OK);
@@ -69,7 +70,8 @@ public class ReservationController {
     updateReservationDto.setQrCodeId(qrCodeId);
     updateReservationDto.setReservationId(reservationId);
     Reservation reservation = reservationService.updateReservation(mapper.updateReservationToReservation(updateReservationDto));
-    return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.reservationToReservationInfoDto(reservation),
+
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(mapper.reservationToReservationInfoDto(reservation),
       "SUCCESS"),
       HttpStatus.OK);
   }
@@ -86,6 +88,7 @@ public class ReservationController {
     updateReservationDto.setQrCodeId(qrCodeId);
     updateReservationDto.setReservationId(reservationId);
     reservationService.deleteReservation(mapper.updateReservationToReservation(updateReservationDto));
-    return new ResponseEntity(HttpStatus.NO_CONTENT);
+
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 }
