@@ -36,7 +36,7 @@ public class AuthController {
   public ResponseEntity emailValidation(@Valid @RequestBody MemberRequestDto.EmailDto emailDto) {
     boolean exist = authService.findExistsEmail(emailDto.getEmail());
 
-    return new ResponseEntity(new SingleResponseWithMessageDto<>(new ExistDto(exist),
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(new ExistDto(exist),
       "SUCCESS"),
       HttpStatus.OK);
   }
@@ -48,7 +48,7 @@ public class AuthController {
   public ResponseEntity signUp(@Valid @RequestBody MemberRequestDto.CreateMemberDto createMemberDto) {
     authService.createMember(mapper.createMemberDtoToMember(createMemberDto));
 
-    return new ResponseEntity(new SingleResponseDto<>("WELCOME"), HttpStatus.CREATED);
+    return new ResponseEntity<>(new SingleResponseDto<>("WELCOME"), HttpStatus.CREATED);
   }
 
   /**
@@ -59,7 +59,7 @@ public class AuthController {
                               HttpServletResponse response) {
     TokenDto.TokenInfoDto tokenInfoDto = authService.loginMember(mapper.loginDtoToMember(loginDto), response);
 
-    return new ResponseEntity(new SingleResponseWithMessageDto<>(tokenInfoDto,
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(tokenInfoDto,
       "WELCOME"),
       HttpStatus.OK);
   }
@@ -72,7 +72,7 @@ public class AuthController {
                                 @CookieValue(name = "refresh", required = false) Cookie cookie) {
     TokenDto.TokenInfoDto tokenInfoDto = authService.reIssue(reIssueDto.getAccessToken(), cookie.getValue());
 
-    return new ResponseEntity(new SingleResponseWithMessageDto<>(tokenInfoDto,
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(tokenInfoDto,
       "SUCCESS"),
       HttpStatus.OK);
   }
@@ -85,7 +85,7 @@ public class AuthController {
                                    @NotBlank @PathParam("code") String code) {
     authService.validation(email, code);
 
-    return new ResponseEntity(new SingleResponseDto<>("SUCCESS"), HttpStatus.OK);
+    return new ResponseEntity<>(new SingleResponseDto<>("SUCCESS"), HttpStatus.OK);
   }
 
   /**
@@ -99,7 +99,7 @@ public class AuthController {
     TokenDto.TokenInfoDto tokenInfoDto
       = authService.updateMember(mapper.oAuthUpdateDtoToMember(oAuthUpdateDto), response);
 
-    return new ResponseEntity(new SingleResponseWithMessageDto<>(tokenInfoDto,
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(tokenInfoDto,
       "SUCCESS"),
       HttpStatus.OK);
   }
@@ -111,6 +111,6 @@ public class AuthController {
   public ResponseEntity reIssuePassword(@Valid @RequestBody MemberRequestDto.EmailDto emailDto) {
     authService.reIssuePassword(emailDto.getEmail());
 
-    return new ResponseEntity(new SingleResponseDto<>("SUCCESS"), HttpStatus.OK);
+    return new ResponseEntity<>(new SingleResponseDto<>("SUCCESS"), HttpStatus.OK);
   }
 }

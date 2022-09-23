@@ -33,7 +33,7 @@ public class MenuUserController {
     Page<Menu> pageOfMenu = menuService.getUserMenuList(businessId, page - 1, size);
     List<Menu> menuList = pageOfMenu.getContent();
 
-    return new ResponseEntity(new MultiResponseWithPageInfoDto<>(mapper.menuListToMenuInfoDtoList(menuList),
+    return new ResponseEntity<>(new MultiResponseWithPageInfoDto<>(mapper.menuListToMenuInfoDtoList(menuList),
       pageOfMenu),
       HttpStatus.OK);
   }
