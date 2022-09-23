@@ -56,16 +56,4 @@ public class ReviewAdminController {
       "SUCCESS"),
       HttpStatus.OK);
   }
-
-  /**
-   * 리뷰 삭제 API
-   */
-  @DeleteMapping("/{review-id}")
-  public ResponseEntity deleteReview(@AuthenticationPrincipal MemberDetails memberDetails,
-                                     @Positive @PathVariable("business-id") long businessId,
-                                     @Positive @PathVariable("review-id") long reviewId) {
-    reviewService.deleteReview(reviewId, businessId, memberDetails.getMember().getMemberId());
-
-    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-  }
 }
