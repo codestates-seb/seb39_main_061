@@ -349,7 +349,80 @@ include::{snippets}/qr-code-delete/http-response.adoc[]
 .response-body
 include::{snippets}/qr-code-delete/response-body.adoc[]
 
-== ReservationStatisticsController (업주 용 / 예약관련)
+== ReservationAdminController (업주 용 / 예약관련)
+==== 예약 리스트 조회
+.curl-request
+include::{snippets}/reservation-list-get-admin/curl-request.adoc[]
+
+.http-request
+include::{snippets}/reservation-list-get-admin/http-request.adoc[]
+
+.request-headers
+include::{snippets}/reservation-list-get-admin/request-headers.adoc[]
+
+.path-parameters
+include::{snippets}/reservation-enter/path-parameters.adoc[]
+
+.request-parameters
+include::{snippets}/reservation-list-get-admin/request-parameters.adoc[]
+
+.request-body
+include::{snippets}/reservation-list-get-admin/request-body.adoc[]
+
+.http-response
+include::{snippets}/reservation-list-get-admin/response-body.adoc[]
+
+.response-body
+include::{snippets}/reservation-list-get-admin/response-body.adoc[]
+
+.response-fields
+include::{snippets}/reservation-list-get-admin/response-fields.adoc[]
+
+==== 에약 입장
+.curl-request
+include::{snippets}/reservation-enter/curl-request.adoc[]
+
+.http-request
+include::{snippets}/reservation-enter/http-request.adoc[]
+
+.request-headers
+include::{snippets}/reservation-enter/request-headers.adoc[]
+
+.path-parameters
+include::{snippets}/reservation-enter/path-parameters.adoc[]
+
+.request-body
+include::{snippets}/reservation-enter/request-body.adoc[]
+
+.http-response
+include::{snippets}/reservation-enter/http-response.adoc[]
+
+.response-body
+include::{snippets}/reservation-enter/response-body.adoc[]
+
+==== 에약 삭제
+.curl-request
+include::{snippets}/reservation-cancel/curl-request.adoc[]
+
+.http-request
+include::{snippets}/reservation-cancel/http-request.adoc[]
+
+.request-headers
+include::{snippets}/reservation-cancel/request-headers.adoc[]
+
+.path-parameters
+include::{snippets}/reservation-cancel/path-parameters.adoc[]
+
+.request-body
+include::{snippets}/reservation-cancel/request-body.adoc[]
+
+.http-response
+include::{snippets}/reservation-cancel/http-response.adoc[]
+
+.response-body
+include::{snippets}/reservation-cancel/response-body.adoc[]
+
+==== 통계 데이터 조회
 .curl-request
 include::{snippets}/reservation-statistics-get/curl-request.adoc[]
 
@@ -374,7 +447,7 @@ include::{snippets}/reservation-statistics-get/response-body.adoc[]
 .response-fields
 include::{snippets}/reservation-statistics-get/response-fields.adoc[]
 
-== ReservationController (사용자)
+== ReservationUserController (사용자)
 ==== 예약 등록
 .curl-request
 include::{snippets}/reservation-create/curl-request.adoc[]
@@ -402,22 +475,22 @@ include::{snippets}/reservation-create/response-fields.adoc[]
 
 ==== 예약 리스트 조회
 .curl-request
-include::{snippets}/reservation-list-get/curl-request.adoc[]
+include::{snippets}/reservation-list-get-user/curl-request.adoc[]
 
 .http-request
-include::{snippets}/reservation-list-get/http-request.adoc[]
+include::{snippets}/reservation-list-get-user/http-request.adoc[]
 
 .path-parameters
-include::{snippets}/reservation-list-get/path-parameters.adoc[]
+include::{snippets}/reservation-list-get-user/path-parameters.adoc[]
 
 .request-parameters
-include::{snippets}/reservation-list-get/request-parameters.adoc[]
+include::{snippets}/reservation-list-get-user/request-parameters.adoc[]
 
 .http-response
-include::{snippets}/reservation-list-get/http-response.adoc[]
+include::{snippets}/reservation-list-get-user/http-response.adoc[]
 
 .response-fields
-include::{snippets}/reservation-list-get/response-fields.adoc[]
+include::{snippets}/reservation-list-get-user/response-fields.adoc[]
 
 ==== 예약 정보 변경
 .curl-request
