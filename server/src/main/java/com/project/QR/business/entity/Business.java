@@ -23,11 +23,24 @@ public class Business {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long businessId;
 
-  @Column
   private String name;
 
   @Column(columnDefinition = "TEXT")
   private String introduction;
+
+  private String openTime;
+
+  private String holiday;
+
+  private String address;
+
+  private String phone;
+
+  private String img;
+
+  private double lon;
+
+  private double lat;
 
   @OneToOne
   @JoinColumn(name = "MEMBER_ID") //FK one-to-one
