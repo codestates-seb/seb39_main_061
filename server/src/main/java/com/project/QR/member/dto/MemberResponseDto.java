@@ -17,7 +17,6 @@ public class MemberResponseDto {
     private String email;
     private List<String> service;
     private String profileImg;
-    private BusinessResponseDto.BusinessInfoDto business;
     private String phone;
     private String name;
   }

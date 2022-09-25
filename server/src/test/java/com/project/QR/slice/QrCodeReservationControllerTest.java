@@ -104,14 +104,14 @@ public class QrCodeReservationControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자")
+            parameterWithName("business-id").description("매장 식별자")
           ),
           requestFields(
             List.of(
               fieldWithPath("memberId").type(JsonFieldType.NUMBER).description("회원 식별자").ignored(),
               fieldWithPath("target").type(JsonFieldType.STRING).description("관리 대상"),
               fieldWithPath("qrType").type(JsonFieldType.STRING).description("QR 코드 타입"),
-              fieldWithPath("businessId").type(JsonFieldType.NUMBER).description("사업 식별자").ignored(),
+              fieldWithPath("businessId").type(JsonFieldType.NUMBER).description("매장 식별자").ignored(),
               fieldWithPath("dueDate").type(JsonFieldType.STRING).description("QR 코드 만료 기간")
             )
           ),
@@ -172,7 +172,7 @@ public class QrCodeReservationControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("qr-code-id").description("QR 코드 식별자")
           ),
           requestParts(
@@ -237,7 +237,7 @@ public class QrCodeReservationControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("qr-code-id").description("QR 코드 식별자")
           ),
           responseFields(
@@ -297,7 +297,7 @@ public class QrCodeReservationControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자")
+            parameterWithName("business-id").description("매장 식별자")
           ),
           requestParameters(
             parameterWithName("page").description("페이지 수"),
@@ -348,7 +348,7 @@ public class QrCodeReservationControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("qr-code-id").description("QR 코드 식별자")
           )
         )

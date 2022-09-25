@@ -88,11 +88,11 @@ public class ReviewUserControllerTest {
           getRequestPreProcessor(),
           getResponsePreProcessor(),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자")
+            parameterWithName("business-id").description("매장 식별자")
           ),
           requestFields(
             List.of(
-              fieldWithPath("businessId").type(JsonFieldType.NUMBER).description("사업 식별자").ignored(),
+              fieldWithPath("businessId").type(JsonFieldType.NUMBER).description("매장 식별자").ignored(),
               fieldWithPath("contents").type(JsonFieldType.STRING).description("리뷰 내용"),
               fieldWithPath("score").type(JsonFieldType.NUMBER).description("리뷰 점수")
             )
@@ -140,7 +140,7 @@ public class ReviewUserControllerTest {
           getRequestPreProcessor(),
           getResponsePreProcessor(),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자")
+            parameterWithName("business-id").description("매장 식별자")
           ),
           requestParameters(
             parameterWithName("page").description("페이지 수"),
@@ -195,7 +195,7 @@ public class ReviewUserControllerTest {
           getRequestPreProcessor(),
           getResponsePreProcessor(),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("review-id").description("리뷰 식별자")
           ),
           responseFields(

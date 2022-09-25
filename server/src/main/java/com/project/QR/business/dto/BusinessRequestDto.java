@@ -5,20 +5,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-public class BusinessResponseDto {
+import javax.persistence.Column;
+
+public class BusinessRequestDto {
   @Data
   @NoArgsConstructor
   @AllArgsConstructor
   @Builder
-  public static class BusinessInfoDto {
-    private long businessId;
+  public static class UpdateBusinessDto {
+    private long memberId;
     private String name;
     private String introduction;
     private String openTime;
     private String holiday;
     private String address;
     private String phone;
-    private String img;
     private double lon;
     private double lat;
   }
