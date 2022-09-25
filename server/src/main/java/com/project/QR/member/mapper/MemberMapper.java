@@ -64,12 +64,6 @@ public interface MemberMapper {
   default MemberResponseDto.MemberInfoDto memberToMemberInfoDto(Member member) {
 
     return MemberResponseDto.MemberInfoDto.builder()
-      .business(BusinessResponseDto.BusinessInfoDto.builder()
-        .businessId(member.getBusiness().getBusinessId())
-        .introduction(member.getBusiness().getIntroduction())
-        .name(member.getBusiness().getName())
-        .build()
-      )
       .email(member.getEmail())
       .profileImg(member.getProfileImg())
       .name(member.getName())

@@ -799,3 +799,68 @@ include::{snippets}/review-get-user/response-body.adoc[]
 
 .response-fields
 include::{snippets}/review-get-user/response-fields.adoc[]
+
+== BusinessAdminController (업주용)
+==== 매장 정보 변경
+.curl-request
+include::{snippets}/business-update/curl-request.adoc[]
+
+.http-request
+include::{snippets}/business-update/http-request.adoc[]
+
+.request-headers
+include::{snippets}/business-update/request-headers.adoc[]
+
+.request-parts
+include::{snippets}/business-update/request-parts.adoc[]
+
+.request-part-data-fields
+include::{snippets}/business-update/request-part-data-fields.adoc[]
+
+.http-response
+include::{snippets}/business-update/http-response.adoc[]
+
+.response-body
+include::{snippets}/business-update/response-body.adoc[]
+
+.response-fields
+include::{snippets}/business-update/response-fields.adoc[]
+
+==== 매장 정보 조회
+.curl-request
+include::{snippets}/business-get-admin/curl-request.adoc[]
+
+.http-request
+include::{snippets}/business-get-admin/http-request.adoc[]
+
+.request-headers
+include::{snippets}/business-get-admin/request-headers.adoc[]
+
+.http-response
+include::{snippets}/business-get-admin/http-response.adoc[]
+
+.response-body
+include::{snippets}/business-get-admin/response-body.adoc[]
+
+.response-fields
+include::{snippets}/business-get-admin/response-fields.adoc[]
+
+== BusinessUserController (사용자)
+==== 매장 정보 조회
+.curl-request
+include::{snippets}/business-get-user/curl-request.adoc[]
+
+.http-request
+include::{snippets}/business-get-user/http-request.adoc[]
+
+.path-parameters
+include::{snippets}/business-get-user/path-parameters.adoc[]
+
+.http-response
+include::{snippets}/business-get-user/http-response.adoc[]
+
+.response-body
+include::{snippets}/business-get-user/response-body.adoc[]
+
+.response-fields
+include::{snippets}/business-get-user/response-fields.adoc[]

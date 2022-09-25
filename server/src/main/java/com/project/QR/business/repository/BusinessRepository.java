@@ -11,4 +11,6 @@ public interface BusinessRepository extends JpaRepository<Business, Long> {
   @Query(value = "SELECT * FROM BUSINESS WHERE BUSINESS_ID = :businessId AND MEMBER_ID = :memberId", nativeQuery = true)
   Optional<Business> findByIdAndMemberId(@Param("businessId") long businessId,
                                          @Param("memberId") long memberId);
+
+  Optional<Business> findByMemberId(long memberId);
 }

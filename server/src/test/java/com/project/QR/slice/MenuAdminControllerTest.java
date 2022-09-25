@@ -114,7 +114,7 @@ public class MenuAdminControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자")
+            parameterWithName("business-id").description("매장 식별자")
           ),
           requestParts(
             partWithName("data").description("메뉴 등록 정보").optional(),
@@ -124,7 +124,7 @@ public class MenuAdminControllerTest {
             fieldWithPath("name").description("음식명"),
             fieldWithPath("price").description("가격").optional(),
             fieldWithPath("memberId").description("회원 식별자").ignored(),
-            fieldWithPath("businessId").description("사업 식별자").ignored()
+            fieldWithPath("businessId").description("매장 식별자").ignored()
           )),
           responseFields(
             List.of(
@@ -183,7 +183,7 @@ public class MenuAdminControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("menu-id").description("메뉴 식별자")
           ),
           requestParts(
@@ -195,7 +195,7 @@ public class MenuAdminControllerTest {
             fieldWithPath("price").description("가격").optional(),
             fieldWithPath("menuId").description("메뉴 식별자").ignored(),
             fieldWithPath("memberId").description("회원 식별자").ignored(),
-            fieldWithPath("businessId").description("사업 식별자").ignored()
+            fieldWithPath("businessId").description("매장 식별자").ignored()
           )),
           responseFields(
             List.of(
@@ -247,7 +247,7 @@ public class MenuAdminControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자")
+            parameterWithName("business-id").description("매장 식별자")
           ),
           requestParameters(
             parameterWithName("page").description("페이지 수"),
@@ -305,7 +305,7 @@ public class MenuAdminControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("menu-id").description("메뉴 식별자")
           ),
           responseFields(
@@ -347,7 +347,7 @@ public class MenuAdminControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("menu-id").description("메뉴 식별자")
           )
         )

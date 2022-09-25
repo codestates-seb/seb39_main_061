@@ -90,7 +90,7 @@ public class ReviewAdminControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자")
+            parameterWithName("business-id").description("매장 식별자")
           ),
           requestParameters(
             parameterWithName("page").description("페이지 수"),
@@ -147,7 +147,7 @@ public class ReviewAdminControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("review-id").description("리뷰 식별자")
           ),
           responseFields(

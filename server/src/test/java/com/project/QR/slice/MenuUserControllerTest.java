@@ -90,7 +90,7 @@ public class MenuUserControllerTest {
           getRequestPreProcessor(),
           getResponsePreProcessor(),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자")
+            parameterWithName("business-id").description("매장 식별자")
           ),
           requestParameters(
             parameterWithName("page").description("페이지 수"),
