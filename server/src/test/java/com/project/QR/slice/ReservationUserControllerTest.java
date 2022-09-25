@@ -91,12 +91,12 @@ public class ReservationUserControllerTest {
           getRequestPreProcessor(),
           getResponsePreProcessor(),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("qr-code-id").description("QR 코드 식별자")
           ),
           requestFields(
             List.of(
-              fieldWithPath("businessId").type(JsonFieldType.NUMBER).description("사업 식별자").ignored(),
+              fieldWithPath("businessId").type(JsonFieldType.NUMBER).description("매장 식별자").ignored(),
               fieldWithPath("qrCodeId").type(JsonFieldType.NUMBER).description("QR 코드 식별자").ignored(),
               fieldWithPath("name").type(JsonFieldType.STRING).description("예약자 이름"),
               fieldWithPath("phone").type(JsonFieldType.STRING).description("예약자 연락처"),
@@ -156,7 +156,7 @@ public class ReservationUserControllerTest {
           getRequestPreProcessor(),
           getResponsePreProcessor(),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("qr-code-id").description("QR 코드 식별자")
           ),
           requestParameters(
@@ -223,14 +223,14 @@ public class ReservationUserControllerTest {
           getRequestPreProcessor(),
           getResponsePreProcessor(),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("qr-code-id").description("QR 코드 식별자"),
             parameterWithName("reservation-id").description("예약 식별자")
           ),
           requestFields(
             List.of(
               fieldWithPath("reservationId").type(JsonFieldType.NUMBER).description("예약 식별자").ignored(),
-              fieldWithPath("businessId").type(JsonFieldType.NUMBER).description("사업 식별자").ignored(),
+              fieldWithPath("businessId").type(JsonFieldType.NUMBER).description("매장 식별자").ignored(),
               fieldWithPath("qrCodeId").type(JsonFieldType.NUMBER).description("QR 코드 식별자").ignored(),
               fieldWithPath("name").type(JsonFieldType.STRING).description("예약자 이름"),
               fieldWithPath("phone").type(JsonFieldType.STRING).description("예약자 연락처"),
@@ -283,14 +283,14 @@ public class ReservationUserControllerTest {
           getRequestPreProcessor(),
           getResponsePreProcessor(),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("qr-code-id").description("QR 코드 식별자"),
             parameterWithName("reservation-id").description("예약 식별자")
           ),
           requestFields(
             List.of(
               fieldWithPath("reservationId").type(JsonFieldType.NUMBER).description("예약 식별자").ignored(),
-              fieldWithPath("businessId").type(JsonFieldType.NUMBER).description("사업 식별자").ignored(),
+              fieldWithPath("businessId").type(JsonFieldType.NUMBER).description("매장 식별자").ignored(),
               fieldWithPath("qrCodeId").type(JsonFieldType.NUMBER).description("QR 코드 식별자").ignored(),
               fieldWithPath("name").type(JsonFieldType.STRING).description("예약자 이름"),
               fieldWithPath("phone").type(JsonFieldType.STRING).description("예약자 연락처"),
