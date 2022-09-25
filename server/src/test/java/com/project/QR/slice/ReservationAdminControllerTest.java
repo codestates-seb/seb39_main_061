@@ -102,7 +102,7 @@ public class ReservationAdminControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("qr-code-id").description("QR 코드 식별자")
           ),
           requestParameters(
@@ -169,7 +169,7 @@ public class ReservationAdminControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("qr-code-id").description("QR 코드 식별자")
           ),
           requestParameters(
@@ -224,7 +224,7 @@ public class ReservationAdminControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("qr-code-id").description("QR 코드 식별자"),
             parameterWithName("reservation-id").description("예약 식별자")
           ),
@@ -265,7 +265,7 @@ public class ReservationAdminControllerTest {
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
           pathParameters(
-            parameterWithName("business-id").description("사업 식별자"),
+            parameterWithName("business-id").description("매장 식별자"),
             parameterWithName("qr-code-id").description("QR 코드 식별자"),
             parameterWithName("reservation-id").description("예약 식별자")
           ),

@@ -74,7 +74,6 @@ public class MemberStubData {
       .phone(member.getPhone())
       .name(member.getName())
       .email(member.getEmail())
-      .business(businessInfoDto())
       .build();
   }
 
@@ -89,7 +88,6 @@ public class MemberStubData {
       .name(member.getName())
       .email(member.getEmail())
       .profileImg(member.getProfileImg())
-      .business(businessInfoDto())
       .build();
   }
 
@@ -118,7 +116,6 @@ public class MemberStubData {
     member.setProvider(AuthProvider.local);
     member.setPassword(updateMemberDto().getPassword());
     member.setName(updateMemberDto().getName());
-    member.setBusiness(updatedBusiness());
     member.setPhone(updateMemberDto.getPhone());
     member.setRole(updateMemberDto.getService().stream()
       .map(r->"ROLE_"+r.toUpperCase())
