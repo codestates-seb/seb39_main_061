@@ -1063,7 +1063,7 @@ Content-Length: 330
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/auth/validation?email=hgd@gmail.com&amp;code=604db369-4c52-4179-b55c-d176fd997a1f' -i -X GET \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/auth/validation?email=hgd@gmail.com&amp;code=0229dd30-b13a-4f0f-940f-597b66278f6b' -i -X GET \
     -H 'Content-Type: application/json' \
     -H 'Accept: application/json'</code></pre>
 </div>
@@ -1071,7 +1071,7 @@ Content-Length: 330
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /auth/validation?email=hgd@gmail.com&amp;code=604db369-4c52-4179-b55c-d176fd997a1f HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /auth/validation?email=hgd@gmail.com&amp;code=0229dd30-b13a-4f0f-940f-597b66278f6b HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 Host: localhost:8080</code></pre>
@@ -1948,15 +1948,14 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json
-Content-Length: 178
+Content-Length: 151
 
 {
   "data" : {
     "qrCodeId" : 1,
     "qrCodeImg" : null,
     "target" : "target",
-    "qrType" : "RESERVATION",
-    "reservations" : [ ]
+    "qrType" : "RESERVATION"
   },
   "message" : "CREATED"
 }</code></pre>
@@ -1970,8 +1969,7 @@ Content-Length: 178
     "qrCodeId" : 1,
     "qrCodeImg" : null,
     "target" : "target",
-    "qrType" : "RESERVATION",
-    "reservations" : [ ]
+    "qrType" : "RESERVATION"
   },
   "message" : "CREATED"
 }</code></pre>
@@ -2016,11 +2014,6 @@ Content-Length: 178
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.qrType</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QR 코드 타입</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.reservations</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">예약 목록</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
@@ -2167,15 +2160,14 @@ qr-code
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 198
+Content-Length: 171
 
 {
   "data" : {
     "qrCodeId" : 1,
     "qrCodeImg" : "qr-code-img.png",
     "target" : "update target",
-    "qrType" : "RESERVATION",
-    "reservations" : [ ]
+    "qrType" : "RESERVATION"
   },
   "message" : "SUCCESS"
 }</code></pre>
@@ -2189,8 +2181,7 @@ Content-Length: 198
     "qrCodeId" : 1,
     "qrCodeImg" : "qr-code-img.png",
     "target" : "update target",
-    "qrType" : "RESERVATION",
-    "reservations" : [ ]
+    "qrType" : "RESERVATION"
   },
   "message" : "SUCCESS"
 }</code></pre>
@@ -2235,11 +2226,6 @@ Content-Length: 198
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.qrType</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QR 코드 타입</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.reservations</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">예약 목록</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
@@ -2317,36 +2303,14 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 757
+Content-Length: 151
 
 {
   "data" : {
     "qrCodeId" : 1,
     "qrCodeImg" : null,
     "target" : "target",
-    "qrType" : "RESERVATION",
-    "reservations" : [ {
-      "reservationId" : 1,
-      "name" : "name1",
-      "phone" : "000-0000-0000",
-      "createdAt" : "2022-09-26T10:29:00.1325189",
-      "completed" : "Y",
-      "count" : 1
-    }, {
-      "reservationId" : 1,
-      "name" : "name2",
-      "phone" : "000-1234-0000",
-      "createdAt" : "2022-09-26T10:29:00.133516",
-      "completed" : "Y",
-      "count" : 1
-    }, {
-      "reservationId" : 1,
-      "name" : "name3",
-      "phone" : "000-0000-5678",
-      "createdAt" : "2022-09-26T10:29:00.133516",
-      "completed" : "Y",
-      "count" : 1
-    } ]
+    "qrType" : "RESERVATION"
   },
   "message" : "SUCCESS"
 }</code></pre>
@@ -2360,29 +2324,7 @@ Content-Length: 757
     "qrCodeId" : 1,
     "qrCodeImg" : null,
     "target" : "target",
-    "qrType" : "RESERVATION",
-    "reservations" : [ {
-      "reservationId" : 1,
-      "name" : "name1",
-      "phone" : "000-0000-0000",
-      "createdAt" : "2022-09-26T10:29:00.1325189",
-      "completed" : "Y",
-      "count" : 1
-    }, {
-      "reservationId" : 1,
-      "name" : "name2",
-      "phone" : "000-1234-0000",
-      "createdAt" : "2022-09-26T10:29:00.133516",
-      "completed" : "Y",
-      "count" : 1
-    }, {
-      "reservationId" : 1,
-      "name" : "name3",
-      "phone" : "000-0000-5678",
-      "createdAt" : "2022-09-26T10:29:00.133516",
-      "completed" : "Y",
-      "count" : 1
-    } ]
+    "qrType" : "RESERVATION"
   },
   "message" : "SUCCESS"
 }</code></pre>
@@ -2427,41 +2369,6 @@ Content-Length: 757
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.qrType</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QR 코드 타입</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.reservations</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">예약 목록</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.reservations[].reservationId</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">예약 식별자</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.reservations[].name</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">예약자 이름</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.reservations[].phone</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">예약자 연락처</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.reservations[].createdAt</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">예약 등록 일자</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.reservations[].completed</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">예약 입장 완료 여부</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.reservations[].count</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">예약 식별자</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>message</code></p></td>
@@ -2845,21 +2752,21 @@ Host: localhost:8080</code></pre>
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-26T10:29:01.3955489",
+    "createdAt" : "2022-09-26T16:09:44.8673313",
     "completed" : "Y",
     "count" : 3
   }, {
     "reservationId" : 1,
     "name" : "이*신",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-26T10:29:01.3955489",
+    "createdAt" : "2022-09-26T16:09:44.8673313",
     "completed" : "Y",
     "count" : 2
   }, {
     "reservationId" : 1,
     "name" : "세*대왕",
     "phone" : "000-****-5678",
-    "createdAt" : "2022-09-26T10:29:01.3955489",
+    "createdAt" : "2022-09-26T16:09:44.8673313",
     "completed" : "Y",
     "count" : 1
   } ],
@@ -2880,21 +2787,21 @@ Host: localhost:8080</code></pre>
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-26T10:29:01.3955489",
+    "createdAt" : "2022-09-26T16:09:44.8673313",
     "completed" : "Y",
     "count" : 3
   }, {
     "reservationId" : 1,
     "name" : "이*신",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-26T10:29:01.3955489",
+    "createdAt" : "2022-09-26T16:09:44.8673313",
     "completed" : "Y",
     "count" : 2
   }, {
     "reservationId" : 1,
     "name" : "세*대왕",
     "phone" : "000-****-5678",
-    "createdAt" : "2022-09-26T10:29:01.3955489",
+    "createdAt" : "2022-09-26T16:09:44.8673313",
     "completed" : "Y",
     "count" : 1
   } ],
@@ -3529,7 +3436,7 @@ Content-Length: 223
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-26T10:29:02.4295124",
+    "createdAt" : "2022-09-26T16:09:46.2403358",
     "completed" : "Y",
     "count" : 4
   },
@@ -3545,7 +3452,7 @@ Content-Length: 223
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-26T10:29:02.4295124",
+    "createdAt" : "2022-09-26T16:09:46.2403358",
     "completed" : "Y",
     "count" : 4
   },
@@ -3688,21 +3595,21 @@ Content-Length: 675
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-26T10:29:02.4865138",
+    "createdAt" : "2022-09-26T16:09:46.3143329",
     "completed" : "Y",
     "count" : 3
   }, {
     "reservationId" : 1,
     "name" : "이*신",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-26T10:29:02.4865138",
+    "createdAt" : "2022-09-26T16:09:46.3143329",
     "completed" : "Y",
     "count" : 2
   }, {
     "reservationId" : 1,
     "name" : "세*대왕",
     "phone" : "000-****-5678",
-    "createdAt" : "2022-09-26T10:29:02.4865138",
+    "createdAt" : "2022-09-26T16:09:46.3143329",
     "completed" : "Y",
     "count" : 1
   } ],
@@ -3920,7 +3827,7 @@ Content-Length: 223
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-26T10:29:02.4595134",
+    "createdAt" : "2022-09-26T16:09:46.2793333",
     "completed" : "Y",
     "count" : 1
   },
@@ -3936,7 +3843,7 @@ Content-Length: 223
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-26T10:29:02.4595134",
+    "createdAt" : "2022-09-26T16:09:46.2793333",
     "completed" : "Y",
     "count" : 1
   },
