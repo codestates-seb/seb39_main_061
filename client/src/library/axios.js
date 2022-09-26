@@ -59,7 +59,6 @@ export const getProfile = () => {
       return res.data.data;
     })
     .catch((err) => {
-      console.log(err.response);
     });
 };
 
@@ -99,6 +98,22 @@ export const emailCheck = (email) => {
     })
     .catch((err) => {
       return console.log(err);
+    });
+};
+
+export const getReservationChart = () => {
+  return axios
+    .get(`${baseURL}/api/v1/business/1/reservation/qr-code/1/statistics?date=20220926`, {
+      headers: {
+        Authorization: getAuthorizationHeader(),
+      },
+    })
+    .then((res) => {
+      console.log(res.data.data)
+      return res.data.data;
+    })
+    .catch((err) => {
+      console.log(err.response);
     });
 };
 
