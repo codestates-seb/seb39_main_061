@@ -38,7 +38,8 @@ public class BatchScheduler {
     JobParameters jobParameters = new JobParameters(confMap);
 
     try {
-      jobLauncher.run(batchConfig.deleteJob(),  jobParameters);
+      jobLauncher.run(batchConfig.deleteJob(), jobParameters);
+      jobLauncher.run(batchConfig.expiredJob(), jobParameters);
     } catch (JobExecutionAlreadyRunningException | JobInstanceAlreadyCompleteException
              | JobParametersInvalidException | org.springframework.batch.core.repository.JobRestartException e) {
 
