@@ -122,7 +122,6 @@ public class QrCodeReservationControllerTest {
               fieldWithPath("data.qrCodeImg").type(JsonFieldType.STRING).description("QR 코드 이미지").optional(),
               fieldWithPath("data.target").type(JsonFieldType.STRING).description("관리 대상"),
               fieldWithPath("data.qrType").type(JsonFieldType.STRING).description("QR 코드 타입"),
-              fieldWithPath("data.reservations").type(JsonFieldType.ARRAY).description("예약 목록"),
               fieldWithPath("message").type(JsonFieldType.STRING).description("결과 메시지")
             )
           )
@@ -194,7 +193,6 @@ public class QrCodeReservationControllerTest {
               fieldWithPath("data.qrCodeImg").type(JsonFieldType.STRING).description("QR 코드 이미지").optional(),
               fieldWithPath("data.target").type(JsonFieldType.STRING).description("관리 대상"),
               fieldWithPath("data.qrType").type(JsonFieldType.STRING).description("QR 코드 타입"),
-              fieldWithPath("data.reservations").type(JsonFieldType.ARRAY).description("예약 목록"),
               fieldWithPath("message").type(JsonFieldType.STRING).description("결과 메시지")
             )
           )
@@ -247,13 +245,6 @@ public class QrCodeReservationControllerTest {
               fieldWithPath("data.qrCodeImg").type(JsonFieldType.STRING).description("QR 코드 이미지").optional(),
               fieldWithPath("data.target").type(JsonFieldType.STRING).description("관리 대상"),
               fieldWithPath("data.qrType").type(JsonFieldType.STRING).description("QR 코드 타입"),
-              fieldWithPath("data.reservations").type(JsonFieldType.ARRAY).description("예약 목록"),
-              fieldWithPath("data.reservations[].reservationId").type(JsonFieldType.NUMBER).description("예약 식별자"),
-              fieldWithPath("data.reservations[].name").type(JsonFieldType.STRING).description("예약자 이름"),
-              fieldWithPath("data.reservations[].phone").type(JsonFieldType.STRING).description("예약자 연락처"),
-              fieldWithPath("data.reservations[].createdAt").type(JsonFieldType.STRING).description("예약 등록 일자"),
-              fieldWithPath("data.reservations[].completed").type(JsonFieldType.STRING).description("예약 입장 완료 여부"),
-              fieldWithPath("data.reservations[].count").type(JsonFieldType.NUMBER).description("예약 식별자"),
               fieldWithPath("message").type(JsonFieldType.STRING).description("결과 메시지")
             )
           )
