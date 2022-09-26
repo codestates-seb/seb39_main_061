@@ -4,7 +4,10 @@ server:
 spring:
   profiles:
     include: app, security, mail, file
-
+  batch:
+    job:
+      enabled: false
+    initialize-schema: always
   redis:
     host: localhost
     port: 6379
