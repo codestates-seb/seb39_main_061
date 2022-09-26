@@ -60,7 +60,6 @@ public class QrCodeStubData {
       .qrCodeId(qrCode.getQrCodeId())
       .qrCodeImg(qrCode.getQrCodeImg())
       .target(qrCode.getTarget())
-      .reservations(new ArrayList<>())
       .qrType(QrType.RESERVATION)
       .build();
   }
@@ -107,7 +106,6 @@ public class QrCodeStubData {
       .qrCodeId(qrCode.getQrCodeId())
       .qrCodeImg(qrCode.getQrCodeImg())
       .target(qrCode.getTarget())
-      .reservations(ReservationStubData.reservationInfoDtoList())
       .qrType(QrType.RESERVATION)
       .build();
   }
