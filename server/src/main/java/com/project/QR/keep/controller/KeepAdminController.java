@@ -23,7 +23,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/keep/{qr-code-id}")
+@RequestMapping("/api/v1/business/{business-id}/type/keep/qr-code/{qr-code-id}/info")
 @AllArgsConstructor
 public class KeepAdminController {
   private final KeepService keepService;
@@ -60,8 +60,8 @@ public class KeepAdminController {
     List<Keep> keepList = pageOfKeep.getContent();
 
     return new ResponseEntity<>(new MultiResponseWithPageInfoDto<>(
-            mapper.keepListToKeepInfoDtoList(keepList),
-            pageOfKeep), HttpStatus.OK);
+            mapper.keepListToKeepInfoDtoList(keepList), pageOfKeep),
+            HttpStatus.OK);
   }
 
   /**
@@ -86,7 +86,7 @@ public class KeepAdminController {
   /**
    * 자재 삭제
    */
-  @PatchMapping("/delete/{keep-id}")
+  @PatchMapping("/{keep-id}/delete")
   public ResponseEntity deleteKeep(@AuthenticationPrincipal MemberDetails memberDetails,
                                    @Positive @PathVariable("business-id") long businessId,
                                    @Positive @PathVariable("qr-code-id") long qrCodeId,

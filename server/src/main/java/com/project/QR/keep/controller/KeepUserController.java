@@ -17,7 +17,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/business/{business-id}/keep/qr-code/{qr-code-id}")
+@RequestMapping("/business/{business-id}/type/keep/qr-code/{qr-code-id}")
 @AllArgsConstructor
 public class KeepUserController {
   private final KeepService keepService;
@@ -28,9 +28,9 @@ public class KeepUserController {
    */
   @GetMapping
   public ResponseEntity getKeeps(@Positive @PathVariable("business-id") long businessId,
-                                        @Positive @PathVariable("qr-code-id") long qrCodeId,
-                                        @Positive @PathParam("page") int page,
-                                        @Positive @PathParam("size") int size) {
+                                 @Positive @PathVariable("qr-code-id") long qrCodeId,
+                                 @Positive @PathParam("page") int page,
+                                 @Positive @PathParam("size") int size) {
     Page<Keep> pageOfKeep = keepService.getUserKeepList(businessId, qrCodeId,page - 1, size);
     List<Keep> keepList = pageOfKeep.getContent();
 
