@@ -19,17 +19,16 @@ const Dashboard = () => {
     setIsBarChart(false);
   }
 
-  const token = ""
+  const token = window.localStorage.getItem("token")
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/v1/members/profile",
+    axios.get("http://localhost:8080/api/v1/business/1/reservation/qr-code/1/statistics?date=20220922",
       {
         headers: { Authorization: "Bearer " + token }
       }
     )
-      .then(userData => {
-        console.log(userData.data.data)
-
+      .then(reservedData => {
+        console.log(reservedData.data.data)
       })
   }, [])
 
