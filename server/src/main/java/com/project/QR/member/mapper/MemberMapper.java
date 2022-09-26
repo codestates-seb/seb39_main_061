@@ -31,14 +31,9 @@ public interface MemberMapper {
   Member loginDtoToMember(MemberRequestDto.LoginDto loginDto);
 
   default Member updateMemberDtoToMember(MemberRequestDto.UpdateMemberDto updateMemberDto) {
-    Business business = new Business();
-    business.setName(updateMemberDto.getBusinessName());
-    business.setIntroduction(updateMemberDto.getBusinessIntroduction());
-    business.setBusinessId(updateMemberDto.getBusinessId());
     return Member.builder()
       .email(updateMemberDto.getEmail())
       .name(updateMemberDto.getName())
-      .business(business)
       .password(updateMemberDto.getPassword())
       .phone(updateMemberDto.getPhone())
       .role(updateMemberDto.getService().stream()
