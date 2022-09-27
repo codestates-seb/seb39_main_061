@@ -811,11 +811,11 @@ include::{snippets}/business-update/http-request.adoc[]
 .request-headers
 include::{snippets}/business-update/request-headers.adoc[]
 
-.request-parts
-include::{snippets}/business-update/request-parts.adoc[]
+.request-body
+include::{snippets}/business-update/request-body.adoc[]
 
-.request-part-data-fields
-include::{snippets}/business-update/request-part-data-fields.adoc[]
+.request-fields
+include::{snippets}/business-update/request-fields.adoc[]
 
 .http-response
 include::{snippets}/business-update/http-response.adoc[]
