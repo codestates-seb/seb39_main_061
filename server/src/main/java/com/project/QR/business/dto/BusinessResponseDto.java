@@ -18,7 +18,6 @@ public class BusinessResponseDto {
     private String holiday;
     private String address;
     private String phone;
-    private String img;
     private double lon;
     private double lat;
   }

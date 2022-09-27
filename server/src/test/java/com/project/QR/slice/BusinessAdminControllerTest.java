@@ -44,8 +44,7 @@ import static org.mockito.BDDMockito.given;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.multipart;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
@@ -75,28 +74,24 @@ public class BusinessAdminControllerTest {
   public void updateBusinessTest() throws Exception {
     // given
     Business business = BusinessStubData.business(1L, "business", "introduction",
-      "business.jpg", "매주 월요일", "11:00 ~ 22:00", "서울", 37.5, 128.7,
+      "매주 월요일", "11:00 ~ 22:00", "서울", 37.5, 128.7,
       "000-0000-0000");
     BusinessRequestDto.UpdateBusinessDto updateBusinessDto = BusinessStubData.updateBusinessDto(business);
     BusinessResponseDto.BusinessInfoDto businessInfoDto = BusinessStubData.businessInfoDto(business);
     String content = gson.toJson(updateBusinessDto);
-    MockMultipartFile dataJson = new MockMultipartFile("data", null,
-      "application/json", content.getBytes());
-    MockMultipartFile fileData = new MockMultipartFile("file", "business.jpg", "image/jpeg",
-      "business".getBytes());
 
     given(mapper.updateBusinessDtoToBusiness(Mockito.any(BusinessRequestDto.UpdateBusinessDto.class)))
       .willReturn(new Business());
-    given(businessService.updateBusiness(Mockito.any(Business.class), Mockito.any(MultipartFile.class))).willReturn(business);
+    given(businessService.updateBusiness(Mockito.any(Business.class))).willReturn(business);
     given(mapper.businessToBusinessInfoDto(Mockito.any(Business.class))).willReturn(businessInfoDto);
 
     // when
     ResultActions actions = mockMvc.perform(
-      multipart("/api/v1/business")
-        .file(dataJson)
-        .file(fileData)
-        .accept(MediaType.APPLICATION_JSON, MediaType.MULTIPART_FORM_DATA)
+      patch("/api/v1/business")
+        .accept(MediaType.APPLICATION_JSON)
+        .contentType(MediaType.APPLICATION_JSON)
         .header("Authorization", "Bearer {ACCESS_TOKEN}")
+        .content(content)
     );
 
     // then
@@ -109,7 +104,6 @@ public class BusinessAdminControllerTest {
       .andExpect(jsonPath("$.data.holiday").value(businessInfoDto.getHoliday()))
       .andExpect(jsonPath("$.data.address").value(businessInfoDto.getAddress()))
       .andExpect(jsonPath("$.data.phone").value(businessInfoDto.getPhone()))
-      .andExpect(jsonPath("$.data.img").value(businessInfoDto.getImg()))
       .andExpect(jsonPath("$.data.lon").value(businessInfoDto.getLon()))
       .andExpect(jsonPath("$.data.lat").value(businessInfoDto.getLat()))
       .andExpect(jsonPath("$.message").value("SUCCESS"))
@@ -119,21 +113,19 @@ public class BusinessAdminControllerTest {
           getRequestPreProcessor(),
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
-          requestParts(
-            partWithName("data").description("회원 업데이트 정보").optional(),
-            partWithName("file").description("프로필 이미지 파일").optional()
+          requestFields(
+            List.of(
+              fieldWithPath("memberId").description("회원 식별자").ignored(),
+              fieldWithPath("introduction").description("매장 소개글").optional(),
+              fieldWithPath("openTime").description("영업 시간").optional(),
+              fieldWithPath("holiday").description("휴무일").optional(),
+              fieldWithPath("address").description("주소").optional(),
+              fieldWithPath("name").description("사업명").optional(),
+              fieldWithPath("lon").description("경도").optional(),
+              fieldWithPath("lat").description("위도").optional(),
+              fieldWithPath("phone").description("연락처").optional()
+            )
           ),
-          requestPartFields("data", List.of(
-            fieldWithPath("memberId").description("회원 식별자").ignored(),
-            fieldWithPath("introduction").description("매장 소개글").optional(),
-            fieldWithPath("openTime").description("영업 시간").optional(),
-            fieldWithPath("holiday").description("휴무일").optional(),
-            fieldWithPath("address").description("주소").optional(),
-            fieldWithPath("name").description("사업명").optional(),
-            fieldWithPath("lon").description("경도").optional(),
-            fieldWithPath("lat").description("위도").optional(),
-            fieldWithPath("phone").description("연락처").optional()
-          )),
           responseFields(
             List.of(
               fieldWithPath("data").type(JsonFieldType.OBJECT).description("결과 데이터"),
@@ -144,7 +136,6 @@ public class BusinessAdminControllerTest {
               fieldWithPath("data.holiday").type(JsonFieldType.STRING).description("휴무일"),
               fieldWithPath("data.address").type(JsonFieldType.STRING).description("주소"),
               fieldWithPath("data.phone").type(JsonFieldType.STRING).description("연락처"),
-              fieldWithPath("data.img").type(JsonFieldType.STRING).description("매장 이미지 URL"),
               fieldWithPath("data.lon").type(JsonFieldType.NUMBER).description("경도"),
               fieldWithPath("data.lat").type(JsonFieldType.NUMBER).description("위도"),
               fieldWithPath("message").type(JsonFieldType.STRING).description("결과 메시지")
@@ -159,7 +150,7 @@ public class BusinessAdminControllerTest {
   public void getBusinessTest() throws Exception {
     // given
     Business business = BusinessStubData.business(1L, "business", "introduction",
-      "business.jpg", "매주 월요일", "11:00 ~ 22:00", "서울", 37.5, 128.7,
+      "매주 월요일", "11:00 ~ 22:00", "서울", 37.5, 128.7,
       "000-0000-0000");
     BusinessResponseDto.BusinessInfoDto businessInfoDto = BusinessStubData.businessInfoDto(business);
 
@@ -184,7 +175,6 @@ public class BusinessAdminControllerTest {
       .andExpect(jsonPath("$.data.holiday").value(businessInfoDto.getHoliday()))
       .andExpect(jsonPath("$.data.address").value(businessInfoDto.getAddress()))
       .andExpect(jsonPath("$.data.phone").value(businessInfoDto.getPhone()))
-      .andExpect(jsonPath("$.data.img").value(businessInfoDto.getImg()))
       .andExpect(jsonPath("$.data.lon").value(businessInfoDto.getLon()))
       .andExpect(jsonPath("$.data.lat").value(businessInfoDto.getLat()))
       .andExpect(jsonPath("$.message").value("SUCCESS"))
@@ -204,7 +194,6 @@ public class BusinessAdminControllerTest {
               fieldWithPath("data.holiday").type(JsonFieldType.STRING).description("휴무일"),
               fieldWithPath("data.address").type(JsonFieldType.STRING).description("주소"),
               fieldWithPath("data.phone").type(JsonFieldType.STRING).description("연락처"),
-              fieldWithPath("data.img").type(JsonFieldType.STRING).description("매장 이미지 URL"),
               fieldWithPath("data.lon").type(JsonFieldType.NUMBER).description("경도"),
               fieldWithPath("data.lat").type(JsonFieldType.NUMBER).description("위도"),
               fieldWithPath("message").type(JsonFieldType.STRING).description("결과 메시지")

@@ -36,8 +36,6 @@ public class Business {
 
   private String phone;
 
-  private String img;
-
   private double lon;
 
   private double lat;

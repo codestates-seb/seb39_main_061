@@ -23,7 +23,6 @@ public class BusinessStubData {
       .introduction(business.getIntroduction())
       .address(business.getAddress())
       .holiday(business.getHoliday())
-      .img(business.getImg())
       .lat(business.getLat())
       .lon(business.getLon())
       .openTime(business.getOpenTime())
@@ -31,13 +30,12 @@ public class BusinessStubData {
       .build();
   }
 
-  public static Business business(long businessId, String name, String introduction, String img, String holiday,
+  public static Business business(long businessId, String name, String introduction, String holiday,
                                          String openTime, String address, double lon, double lat, String phone) {
     Business business = new Business();
     business.setBusinessId(businessId);
     business.setName(name);
     business.setIntroduction(introduction);
-    business.setImg(img);
     business.setHoliday(holiday);
     business.setOpenTime(openTime);
     business.setAddress(address);

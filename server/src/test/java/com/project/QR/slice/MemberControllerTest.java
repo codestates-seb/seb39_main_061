@@ -155,9 +155,6 @@ public class MemberControllerTest {
           fieldWithPath("password").description("비밀번호").optional(),
           fieldWithPath("service").description("가입한 서비스").optional(),
           fieldWithPath("name").description("이름").optional(),
-          fieldWithPath("businessId").description("매장 식별자").optional(),
-          fieldWithPath("businessName").description("사업명").optional(),
-          fieldWithPath("businessIntroduction").description("매장 소개글").optional(),
           fieldWithPath("profileImg").description("프로필 이미지 URL").ignored(),
           fieldWithPath("phone").description("연락처").optional()
         )),
