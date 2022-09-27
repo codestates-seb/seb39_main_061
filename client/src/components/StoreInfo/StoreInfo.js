@@ -1,14 +1,21 @@
 import Styles from "./StoreInfo.module.css";
 import { PostBusinessInfo } from "../../api/services/store";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import DaumPostcode from "react-daum-postcode";
+import Post from "../Post";
+import axios from "axios";
+import { useEffect } from "react";
+import { getCoodinate } from "../../api/services/map";
 
 const StoreInfo = () => {
+  const [address, setAddress] = useState(""); // 주소
   const nameRef = useRef();
   const openTimeRef = useRef();
   const holidayRef = useRef();
   const phoneRef = useRef();
   const introductionRef = useRef();
-  const addressRef = useRef();
+  const detailAddress = useRef();
+
   const storeSubmitHanlder = (e) => {
     e.preventDefault();
     const name = nameRef.current.value;
@@ -16,9 +23,11 @@ const StoreInfo = () => {
     const holiday = holidayRef.current.value;
     const phone = phoneRef.current.value;
     const introduction = introductionRef.current.value;
-    const address = addressRef.current.value;
+    const fullAddress = encodeURIComponent(address);
+    console.log("풀주소", fullAddress);
     // 매장 정보 post
-    PostBusinessInfo();
+    // PostBusinessInfo();
+    getCoodinate(address);
   };
   return (
     <form onSubmit={storeSubmitHanlder} className={Styles.StoreInfo}>
@@ -57,11 +66,19 @@ const StoreInfo = () => {
             ></textarea>
           </div>
           <div className={Styles.StoreInfo__input__wrap2__info2}>
-            <span>매장 위치</span>
-            <input
-              ref={addressRef}
-              placeholder="ex: 서울특별시 동작구 밤리단길 369 B1"
-            />
+            <div className={Styles.StoreInfo__input__wrap2__info2__title}>
+              <span>매장 위치</span>
+            </div>
+
+            <div className={Styles.StoreInfo__input__wrap2__info2__address}>
+              <input
+                value={address}
+                disabled
+                placeholder="ex: 서울특별시 동작구 밤리단길 369 B1"
+              />
+              <Post setAddress={setAddress} />
+            </div>
+            <input ref={detailAddress} placeholder="상세주소" />
           </div>
         </div>
       </div>

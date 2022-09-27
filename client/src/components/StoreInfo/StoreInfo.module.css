@@ -1,3 +1,11 @@
+.postmodal {
+  background: rgba(0, 0, 0, 0.25);
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+}
 .StoreInfo {
   display: flex;
   justify-content: center;
@@ -49,8 +57,18 @@
 .StoreInfo__input__wrap2__info2 {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
+}
+.StoreInfo__input__wrap2__info2__title {
+  display: flex;
+  width: 320px;
+  justify-content: center;
+  align-items: center;
+}
+
+.StoreInfo__input__wrap2__info2 input {
+  width: 220px;
 }
 
 .StoreInfo__input__wrap1__info1 div,
@@ -59,4 +77,8 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.StoreInfo__input__wrap2__info2__address {
+  display: flex;
 }
