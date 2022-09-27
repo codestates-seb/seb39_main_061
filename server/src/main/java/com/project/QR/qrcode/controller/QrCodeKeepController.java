@@ -61,7 +61,7 @@ public class QrCodeKeepController {
   }
 
   /**
-   * 전체 QrCode 리스트 조회 api
+   * QrCode 리스트 조회 api (Keep)
    */
   @GetMapping
   public ResponseEntity getKeepQrCodes(@AuthenticationPrincipal MemberDetails memberDetails,
