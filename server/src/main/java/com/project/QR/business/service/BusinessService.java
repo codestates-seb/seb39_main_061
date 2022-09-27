@@ -81,15 +81,8 @@ public class BusinessService {
   /**
    * Business 정보 변경
    */
-  public Business updateBusiness(Business business, MultipartFile multipartFile) {
+  public Business updateBusiness(Business business) {
     Business findBusiness = findVerifiedBusiness(business.getBusinessId(), business.getMember().getMemberId());
-    if(!multipartFile.isEmpty()) {
-      if(findBusiness.getImg() != null) {
-        storageService.remove(findBusiness.getImg());
-      }
-      business.setImg(storageService.store(multipartFile,
-        String.format("%d/business", findBusiness.getMember().getMemberId())));
-    }
     Business updatingBusiness = beanUtils.copyNonNullProperties(business, findBusiness);
     return businessRepository.save(updatingBusiness);
   }
