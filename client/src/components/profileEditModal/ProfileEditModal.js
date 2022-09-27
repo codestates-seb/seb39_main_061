@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import React, { useState, useRef } from 'react';
+import styles from "./profileEditModal.module.css";
+import noneProfile from "../../Img/Asset_5.png";
 
 const ProfileEdit = ({ setIsModal }) => {
   const [password, setPassword] = useState("");
@@ -40,8 +42,6 @@ const ProfileEdit = ({ setIsModal }) => {
     }
   }
 
-  const token = ""
-
   // 이미지 data,file(formData) 전송
   const profileEditSubmiy = async () => {
     const passwordEdit = passwordRef.current.value;
@@ -74,7 +74,7 @@ const ProfileEdit = ({ setIsModal }) => {
         formData,
         {
           headers: {
-            Authorization: "Bearer " + token,
+            Authorization: "Bearer ",
             "Content-Type": "multipart/form-data"
           }
         });
@@ -91,7 +91,7 @@ const ProfileEdit = ({ setIsModal }) => {
 
   return (
     <div>
-      <h1>프로필 수정</h1>
+      <h1 className={styles.title}>프로필 수정</h1>
       <form onSubmit={(e) => e.preventDefault()}>
         <input
           type="file"
@@ -104,7 +104,11 @@ const ProfileEdit = ({ setIsModal }) => {
           style={{ display: "none" }}
         />
         <div>
-          <img src={image.preview_URL} />
+        <img src={noneProfile} />
+        {/* 데이터에 프로필 이미지 있는지 없는지 */}
+          {/* {data.profile === null? 
+          <img src={noneProfile} /> : 
+          <img src={image.preview_URL} />  */}
         </div>
         <div>
           <button onClick={() => inputRef.click()}>
