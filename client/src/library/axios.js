@@ -1,4 +1,6 @@
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { barChartsData } from "../store/barCharts";
 
 const baseURL = "http://localhost:8080";
 
@@ -89,6 +91,23 @@ export const oauthReq = (sectorId, businessName, phone, name) => {
     .catch((err) => {
       console.log(err);
       return err;
+    });
+};
+
+export const getStatisticsChart = () => {
+  
+  return axios
+    .get(`${baseURL}/api/v1/business/1/reservation/qr-code/1/statistics?date=20220927`, {
+      headers: {
+        Authorization: getAuthorizationHeader(),
+      },
+    })
+    .then((res) => {
+      console.log(res.data.data)
+      return useDispatch(barChartsData(res.data.data));
+    })
+    .catch((err) => {
+      // console.log(err.response);
     });
 };
 

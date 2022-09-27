@@ -4,11 +4,13 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import { persistReducer, PERSIST, PURGE } from "redux-persist";
 import userReducer from "./user";
-import logger from "redux-logger";
+import barChartsreducer from "./barCharts";
+// import logger from "redux-logger";
 
 const reducers = combineReducers({
   user: userReducer,
   auth: authReducer,
+  barCharts: barChartsreducer,
 });
 
 const persistConfig = {

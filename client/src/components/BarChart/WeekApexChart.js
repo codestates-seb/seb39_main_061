@@ -1,6 +1,7 @@
 import Chart from "react-apexcharts";
 import moment from 'moment';
 import styles from "./WeekApexChart.module.css";
+import { useSelector } from "react-redux";
 
 const data = {
   series:
@@ -11,6 +12,8 @@ const data = {
 }
 
 const WeekApexChart = () => {
+  const chartData = useSelector(state => { return state.barCharts})
+  console.log(chartData)
   // 그래프 하단 요일 출력
   const beforeWeek = () => {
     const today = moment(new Date()).format("MM/DD")

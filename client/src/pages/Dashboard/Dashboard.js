@@ -7,9 +7,13 @@ import DashboardCalendar from "../../components/Calendar/Calendar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./Dashboard.module.css";
+import { getStatisticsChart } from "../../library/axios"
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const [isBarChart, setIsBarChart] = useState(true);
+  // const chartData = useSelector(state => { return state.barCharts})
+  // console.log(chartData)
 
   const weekBtnHandler = () => {
     setIsBarChart(true);
@@ -19,24 +23,15 @@ const Dashboard = () => {
     setIsBarChart(false);
   }
 
-  const token = window.localStorage.getItem("token")
-
   useEffect(() => {
-    axios.get("http://localhost:8080/api/v1/business/1/reservation/qr-code/1/statistics?date=20220922",
-      {
-        headers: { Authorization: "Bearer " + token }
-      }
-    )
-      .then(reservedData => {
-        console.log(reservedData.data.data)
-      })
+    getStatisticsChart()
   }, [])
 
   return (
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.main_container}>
-      <h1 className={styles.title}>Dashboard</h1>
+        <h1 className={styles.title}>Dashboard</h1>
         <div className={styles.container}>
           <div className={styles.component}>
             <div>
