@@ -5,8 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
 
 public class KeepRequestDto {
   @Data
@@ -17,10 +15,8 @@ public class KeepRequestDto {
     private long memberId;
     private long businessId;
     private long qrCodeId;
-    @NotBlank
+    private String target;
     private String info;
-    @NotBlank
-    @Min(0)
     private int count;
   }
 
@@ -33,9 +29,8 @@ public class KeepRequestDto {
     private long businessId;
     private long qrCodeId;
     private long keepId;
-    @NotBlank
+    private String target;
     private String info;
-    @NotBlank
     private int count;
   }
 }

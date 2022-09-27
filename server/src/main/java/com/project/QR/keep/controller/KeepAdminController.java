@@ -23,7 +23,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/api/v1/business/{business-id}/type/keep/qr-code/{qr-code-id}/info")
+@RequestMapping("/api/v1/business/{business-id}/keep/qr-code/{qr-code-id}")
 @AllArgsConstructor
 public class KeepAdminController {
   private final KeepService keepService;
@@ -37,6 +37,7 @@ public class KeepAdminController {
                                    @Valid @RequestBody KeepRequestDto.CreateKeepDto createKeepDto,
                                    @Positive @PathVariable("business-id") long businessId,
                                    @Positive @PathVariable("qr-code-id") long qrCodeId) {
+    createKeepDto.setMemberId(memberDetails.getMember().getMemberId());
     createKeepDto.setBusinessId(businessId);
     createKeepDto.setQrCodeId(qrCodeId);
     Keep keep = keepService.createKeep(mapper.createKeepDtoToKeep(createKeepDto));
@@ -47,7 +48,7 @@ public class KeepAdminController {
   }
 
   /**
-   * 자재 조회
+   * 자재 리스트 조회
    */
   @GetMapping
   public ResponseEntity getKeep(@AuthenticationPrincipal MemberDetails memberDetails,
@@ -65,7 +66,7 @@ public class KeepAdminController {
   }
 
   /**
-   * 자재 변경
+   * 자재 정보 변경
    */
   @PatchMapping("/{keep-id}")
   public ResponseEntity updateKeep(@AuthenticationPrincipal MemberDetails memberDetails,
@@ -73,6 +74,7 @@ public class KeepAdminController {
                                    @Positive @PathVariable("qr-code-id") long qrCodeId,
                                    @Positive @PathVariable("keep-id") long keepId,
                                    @Valid @RequestBody KeepRequestDto.UpdateKeepDto updateKeepDto) {
+    updateKeepDto.setMemberId(memberDetails.getMember().getMemberId());
     updateKeepDto.setBusinessId(businessId);
     updateKeepDto.setKeepId(keepId);
     updateKeepDto.setQrCodeId(qrCodeId);
@@ -92,7 +94,7 @@ public class KeepAdminController {
                                    @Positive @PathVariable("qr-code-id") long qrCodeId,
                                    @Positive @PathVariable("keep-id") long keepId,
                                    @Valid @RequestBody KeepRequestDto.UpdateKeepDto updateKeepDto) {
-
+    updateKeepDto.setMemberId(memberDetails.getMember().getMemberId());
     updateKeepDto.setBusinessId(businessId);
     updateKeepDto.setQrCodeId(qrCodeId);
     updateKeepDto.setKeepId(keepId);

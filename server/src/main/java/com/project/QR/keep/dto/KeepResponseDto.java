@@ -14,6 +14,7 @@ public class KeepResponseDto {
   @Builder
   public static class KeepInfoDto {
     private long keepId;
+    private String target;
     private String info;
     private int count;
     private LocalDateTime createdAt;
