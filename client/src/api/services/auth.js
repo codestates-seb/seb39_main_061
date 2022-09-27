@@ -1,15 +1,6 @@
+import { baseURL } from "../axios";
 import axios from "axios";
-
-const baseURL = "http://localhost:8080";
-
-export const getToken = () => localStorage.getItem("token");
-
-export const getAuthorizationHeader = () => `Bearer ${getToken()}`;
-
-export const axiosInstance = axios.create({
-  baseURL,
-  headers: { Authorization: getAuthorizationHeader() },
-});
+import { getAuthorizationHeader } from "../axios";
 
 export const login = (email, password) => {
   return axios
@@ -19,9 +10,6 @@ export const login = (email, password) => {
     })
     .then((res) => {
       return res.data.data.accessToken;
-    })
-    .catch((err) => {
-      console.log(err.response.data.message);
     });
 };
 
@@ -51,28 +39,12 @@ export const signUpReq = (
     });
 };
 
-export const getProfile = () => {
-  return axios
-    .get(`${baseURL}/api/v1/members/profile`, {
-      headers: {
-        Authorization: getAuthorizationHeader(),
-      },
-    })
-    .then((res) => {
-      return res.data.data;
-    })
-    .catch((err) => {
-      console.log(err.response);
-    });
-};
-
-export const oauthReq = (sectorId, businessName, phone, name) => {
+export const oauthReq = (businessName, phone, name) => {
   return axios
     .patch(
       `${baseURL}/auth/members`,
       {
         service: "reservation",
-        sectorId,
         businessName,
         phone,
         name,
@@ -84,7 +56,8 @@ export const oauthReq = (sectorId, businessName, phone, name) => {
       }
     )
     .then((res) => {
-      return res.data.data.accessToken;
+      console.log("추가 전송 성공!");
+      return res;
     })
     .catch((err) => {
       console.log(err);
@@ -92,4 +65,16 @@ export const oauthReq = (sectorId, businessName, phone, name) => {
     });
 };
 
-export default axiosInstance;
+export const emailCheck = (email) => {
+  return axios
+    .post(`${baseURL}/auth/email-validation`, {
+      email,
+    })
+    .then((res) => {
+      console.log(res.data.data.exist);
+      return res.data.data.exist;
+    })
+    .catch((err) => {
+      return console.log(err);
+    });
+};
