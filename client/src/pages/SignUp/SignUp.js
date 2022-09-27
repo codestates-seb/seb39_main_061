@@ -1,14 +1,13 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
 import axios from "axios";
-import { signUpReq } from "../../library/axios";
-import { emailCheck } from "../../library/axios";
 import mainLogo from "../../assets/logo1.png";
 import naverLogo from "../../assets/naver-logo.png";
 import kakaoLogo from "../../assets/kakao-logo.png";
 import googleLogo from "../../assets/google-logo.png";
 import Modal from "../../components/Modal/Modal";
+import { emailCheck, signUpReq } from "../../api/services/auth";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -21,9 +20,14 @@ const SignUp = () => {
   const businessNameRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
+  const [changeCSS, setChangeCSS] = useState(false);
+  useEffect(() => {
+    setChangeCSS(true);
+  }, [changeCSS]);
 
   const SignUpHandler = async (event) => {
     event.preventDefault();
+
     const email = emailRef.current.value;
     const password = PWRef.current.value;
     const confirmPassword = confirmPWRef.current.value;
@@ -31,6 +35,7 @@ const SignUp = () => {
     const businessName = businessNameRef.current.value;
     const phone = phoneNumRef.current.value;
     setIsLoading(true);
+    setChangeCSS(false);
 
     const validationInput = async () => {
       let regEmail =
@@ -89,6 +94,7 @@ const SignUp = () => {
     const check = await validationInput();
 
     if (check === true) {
+      setValidationMSG("");
       console.log("유효성 통과");
       try {
         signUpReq(email, password, name, businessName, phone);
@@ -96,7 +102,7 @@ const SignUp = () => {
         setModalOpen(true);
         setTimeout(() => {
           navigate("/login");
-        }, 3500);
+        }, 3000);
       } catch (err) {
         let errorMessage = err.error.message;
         alert(errorMessage);
@@ -119,7 +125,11 @@ const SignUp = () => {
           <h1>회원가입</h1>
         </div>
         <div className={styles.signUp__form__validation}>
-          <p>{validationMSG}</p>
+          {changeCSS === false ? (
+            <p>{validationMSG}</p>
+          ) : (
+            <p className={styles.shake}>{validationMSG}</p>
+          )}
         </div>
         <div className={styles.signUp__form__input}>
           <div className={styles.signUp__form__input__email}>
@@ -129,6 +139,7 @@ const SignUp = () => {
           <div className={styles.signUp__form__input__password}>
             <span>비밀번호</span>
             <input
+              maxLength={16}
               type="password"
               ref={PWRef}
               placeholder="숫자,영문,특수문자 8~16자 입력"
@@ -136,7 +147,9 @@ const SignUp = () => {
           </div>
           <div className={styles.signUp__form__input__passwordCheck}>
             <span>비밀번호 확인</span>
+
             <input
+              maxLength={16}
               type="password"
               ref={confirmPWRef}
               placeholder="비밀번호 확인"
@@ -144,7 +157,11 @@ const SignUp = () => {
           </div>
           <div className={styles.signUp__form__input__name}>
             <span>대표 성명</span>
-            <input ref={OwenerNameRef} placeholder="대표자 성명" />
+            <input
+              maxLength={8}
+              ref={OwenerNameRef}
+              placeholder="대표자 성명"
+            />
           </div>
           <div className={styles.signUp__form__input__bussnissName}>
             <span>상호명</span>
@@ -186,7 +203,7 @@ const SignUp = () => {
             <button>취소</button>
           </Link>
         </div>
-        {modalOpen && <Modal key={1} setOpenModal={setModalOpen} />}
+        {modalOpen && <Modal num={1} setOpenModal={setModalOpen} />}
       </form>
     </div>
   );

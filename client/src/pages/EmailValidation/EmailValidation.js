@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import { baseURL } from "../../library/axios";
+import { baseURL } from "../../api/axios";
 import styles from "./EmailValidation.module.css";
 
 const EmailValidation = () => {

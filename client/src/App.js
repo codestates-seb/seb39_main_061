@@ -3,6 +3,7 @@ import Login from "./pages/Login/Login.js";
 import SignUp from "./pages/SignUp/SignUp";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Profile from "./pages/Profile/Profile";
+// import ProfileEdit from "./pages/Profile/ProfileEdit";
 import Management from "./pages/Management/Management";
 import ManagementDetail from "./pages/ManagementDetail/ManagementDetail";
 import UserPage from "./pages/UserPage/UserPage";
@@ -13,10 +14,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./store/auth.js";
 import EmailValidation from "./pages/EmailValidation/EmailValidation.js";
 import Register from "./pages/Register/Register.js";
-import { getProfile } from "./library/axios.js";
 import { useEffect } from "react";
 import { userAction } from "./store/user.js";
 import "./app.css";
+import { getProfile } from "./api/services/user.js";
 
 function App() {
   const url = process.env.REACT_APP_BASE_URL;

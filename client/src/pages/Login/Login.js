@@ -4,12 +4,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import { userAction } from "../../store/user";
 import styles from "./Login.module.css";
-import { getProfile, login } from "../../library/axios";
 import googleLogo from "../../assets/google-logo.png";
 import naverLogo from "../../assets/naver-logo.png";
 import kakaoLogo from "../../assets/kakao-logo.png";
 import { useState } from "react";
 import mainLogo from "../../assets/logo1.png";
+import Modal from "../../components/Modal/Modal";
+import { useEffect } from "react";
+import { getProfile } from "../../api/services/user";
+import { login } from "../../api/services/auth";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -17,6 +20,12 @@ const Login = () => {
   const emailRef = useRef();
   const PWRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+  const key = 0;
+  const [changeCSS, setChangeCSS] = useState(false);
+  useEffect(() => {
+    setChangeCSS(true);
+  }, [changeCSS]);
 
   const checkValidation = () => {
     const email = emailRef.current.value;
@@ -40,16 +49,13 @@ const Login = () => {
 
   const loginSubmitHandler = async (e) => {
     e.preventDefault();
+    setChangeCSS(false);
     const email = emailRef.current.value;
     const password = PWRef.current.value;
     checkValidation(email);
     if (checkValidation(email) === false) {
       return;
     }
-    // if (validationMSG.length === 0) {
-    //   return;
-    // }
-
     //login
 
     const token = await login(email, password).catch((err) => {
@@ -65,27 +71,44 @@ const Login = () => {
       }
     });
     if (token) {
+      setValidationMSG("");
       console.log(token);
       localStorage.setItem("token", token);
-      dispatch(authActions.login());
+      setModalOpen(true);
+
       //getProfile
       const userData = await getProfile();
       dispatch(userAction.setUser(userData));
-      navigate("/dashboard");
+
+      setTimeout(() => {
+        dispatch(authActions.login());
+        navigate("/dashboard");
+      }, 3000);
     }
   };
 
   return (
-    <section className={styles.login}>
+    <div className={styles.login}>
       <form onSubmit={loginSubmitHandler} className={styles.login__form}>
         <div className={styles.login__form__title}>
           <img src={mainLogo} alt="React" />
           {/* <h1>Login</h1> */}
-          <p>{validationMSG}</p>
+        </div>
+        <div className={styles.register__form__validation}>
+          {changeCSS === false ? (
+            <p>{validationMSG}</p>
+          ) : (
+            <p className={styles.shake}>{validationMSG}</p>
+          )}
         </div>
         <div className={styles.login__form__input}>
           <input ref={emailRef} placeholder="이메일" />
-          <input type="password" ref={PWRef} placeholder="비밀번호" />
+          <input
+            maxLength={16}
+            type="password"
+            ref={PWRef}
+            placeholder="비밀번호"
+          />
         </div>
 
         <div className={styles.login__form__oauth}>
@@ -119,7 +142,8 @@ const Login = () => {
           </Link>
         </div>
       </form>
-    </section>
+      {modalOpen && <Modal num={key} setOpenModal={setModalOpen} />}
+    </div>
   );
 };
 export default Login;

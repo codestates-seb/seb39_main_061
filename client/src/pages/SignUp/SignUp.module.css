@@ -8,19 +8,21 @@
 
   background: linear-gradient(
     90deg,
-    rgba(0, 43, 91, 1) 0%,
-    rgba(43, 72, 101, 1) 35%,
-    rgba(37, 109, 133, 1) 100%
+    rgba(143, 227, 207, 1) 0%,
+    rgba(37, 109, 133, 1) 50%,
+    rgba(43, 72, 101, 1) 100%
   );
 }
 .signUp__form {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   background-color: white;
   flex-direction: column;
   height: 100vh;
   width: 100vw;
+  padding-top: 70px;
+  padding-bottom: 50px;
 }
 
 .signUp__form__title {
@@ -37,17 +39,19 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 375px;
-  margin-bottom: 20px;
+  width: 300px;
 }
 .signUp__form__input input {
-  width: 200px;
+  width: 170px;
   height: 20px;
   border-style: none;
   outline: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  font-size: 15px;
+  font-size: 13px;
   padding-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .signUp__form__input input::placeholder {
   opacity: 0.6;
@@ -61,11 +65,14 @@
 .signUp__form__title h1 {
   margin: 0px;
   padding: 0px;
+  font-size: 30px;
 }
 
 .signUp__form__input span {
-  font-size: 15px;
+  font-size: 14px;
   opacity: 0.7;
+  width: 100px;
+  padding-bottom: 5px;
 }
 .signUp__form__input__email,
 .signUp__form__input__password,
@@ -80,7 +87,11 @@
 }
 
 .signUp__form__input div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 15px;
+  height: 40px;
 }
 
 .signUp__form__oauth {
@@ -100,14 +111,16 @@
 }
 
 .signUp__form__validation {
-  font-size: 15px;
-  color: #8ff3cf;
+  font-size: 14px;
+  color: #256d85;
   font-weight: 400;
   height: 40px;
+  margin-top: 3px;
+  margin-bottom: 3px;
 }
 
 .signUp__form__btn button {
-  width: 150px;
+  width: 120px;
   height: 50px;
   border-style: none;
   background-color: #256d85;
@@ -137,15 +150,43 @@
 
 @media all and (min-width: 844px) {
   .signUp__form {
-    height: 800px;
-    width: 450px;
+    height: 600px;
+    width: 420px;
     border-radius: 20px;
     justify-content: center;
   }
+  .signUp__form__input div {
+    justify-content: center;
+  }
+  .signUp__form__input {
+    width: 350px;
+  }
+
+  .signUp__form__validation {
+    margin-top: 5px;
+    margin-bottom: 0px;
+  }
+  .signUp__form__btn button {
+    width: 150px;
+  }
 }
 
-@media all and (max-width: 375px) {
-  .signUp__form__title {
-    margin-top: 60px;
+.shake {
+  animation: gelatine 0.5s ease-out;
+}
+
+@keyframes gelatine {
+  from,
+  to {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(0.9, 1.1);
+  }
+  50% {
+    transform: scale(1.1, 0.9);
+  }
+  75% {
+    transform: scale(0.95, 1.05);
   }
 }
