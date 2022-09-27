@@ -34,17 +34,6 @@ public interface QrCodeMapper {
       .qrCodeImg(qrCode.getQrCodeImg())
       .qrType(qrCode.getQrType())
       .target(qrCode.getTarget())
-      .reservations(qrCode.getReservations().stream()
-        .map(reservation ->  ReservationResponseDto.ReservationInfoDto.builder()
-          .completed(reservation.getCompleted())
-          .count(reservation.getCount())
-          .createdAt(reservation.getCreatedAt())
-          .name(reservation.getName())
-          .phone(reservation.getPhone())
-          .reservationId(reservation.getReservationId())
-          .build())
-        .collect(Collectors.toList())
-      )
       .build();
   }
   QrCodeResponseDto.ShortQrCodeInfoDto qrCodeToShortQrCodeInfoDto(QrCode qrCode); //선언

@@ -46,8 +46,7 @@ public class MemberService {
     if(member.getPassword() != null) {
       member.setPassword(passwordEncoder.encode(member.getPassword()));
     }
-    Business updatingBusiness = businessBeanUtils.copyNonNullProperties(member.getBusiness(), findMember.getBusiness());
-    member.setBusiness(updatingBusiness);
+
     Member updatingMember = memberBeanUtils.copyNonNullProperties(member, findMember);
     return memberRepository.save(updatingMember);
   }
