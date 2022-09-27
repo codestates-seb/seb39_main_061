@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { barChartsData } from "../store/barCharts";
+import { barChartsAction } from "../store/barCharts";
+// import { useState } from "react";
+// import { barCharts, extraReducers } from "../store/barCharts";
+// import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 const baseURL = "http://localhost:8080";
 
@@ -94,9 +97,8 @@ export const oauthReq = (sectorId, businessName, phone, name) => {
     });
 };
 
-export const getStatisticsChart = () => {
-  
-  return axios
+export const getStatisticsChart = async () => {
+  return await axios
     .get(`${baseURL}/api/v1/business/1/reservation/qr-code/1/statistics?date=20220927`, {
       headers: {
         Authorization: getAuthorizationHeader(),
@@ -104,11 +106,31 @@ export const getStatisticsChart = () => {
     })
     .then((res) => {
       console.log(res.data.data)
-      return useDispatch(barChartsData(res.data.data));
+      return res.data.data
     })
     .catch((err) => {
-      // console.log(err.response);
+      console.log(err.response);
     });
 };
+
+// export const asyncChartAxios = createAsyncThunk(
+//   'barChartSlice/asyncChartAxios',
+//   async () => {
+//     await axios
+//       .get(`${baseURL}/api/v1/business/1/reservation/qr-code/1/statistics?date=20220927`, {
+//         headers: {
+//           Authorization: getAuthorizationHeader(),
+//         },
+//       })
+//       .then((res) => {
+//         console.log(res.data.data)
+//         useDispatch(barCharts.extraReducers(res.data.data))
+//       })
+//       .catch((err) => {
+//         console.log(err.response);
+//       });
+
+//   }
+// )
 
 export default axiosInstance;

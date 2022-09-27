@@ -1,7 +1,10 @@
 import Chart from "react-apexcharts";
 import moment from 'moment';
 import styles from "./WeekApexChart.module.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+// import { useEffect } from "react";
+// import { getStatisticsChart } from "../../library/axios";
+// import barCharts, { barChartsAction } from "../../store/barCharts";
 
 const data = {
   series:
@@ -12,7 +15,7 @@ const data = {
 }
 
 const WeekApexChart = () => {
-  const chartData = useSelector(state => { return state.barCharts})
+  const chartData = useSelector(state => state.barCharts.value)
   console.log(chartData)
   // 그래프 하단 요일 출력
   const beforeWeek = () => {
