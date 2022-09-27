@@ -1,26 +1,11 @@
-.login {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100vh;
-  width: 100vw;
-  background: linear-gradient(
-    90deg,
-    rgba(0, 43, 91, 1) 0%,
-    rgba(43, 72, 101, 1) 35%,
-    rgba(37, 109, 133, 1) 100%
-  );
-}
 .login__form {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   background-color: white;
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  padding-bottom: 20px;
 }
 
 .login__form__title {
@@ -28,11 +13,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 400px;
   height: 20%;
 }
 .login__form__title img {
-  width: 320px;
+  width: 270px;
   height: 130px;
   object-fit: cover;
 }
@@ -58,15 +42,6 @@
 .login__form__input input::placeholder {
   font-size: 15px;
   opacity: 0.6;
-}
-
-.login__form__title > p {
-  font-size: 14px;
-  color: #256d85;
-  height: 20px;
-  margin: 0px;
-  margin-bottom: 3px;
-  font-weight: 400;
 }
 
 .shake {
@@ -101,6 +76,17 @@
 .login__form__oauth img {
   height: 40px;
   width: 40px;
+}
+
+.register__form__validation {
+  font-size: 14px;
+  color: #2b4865;
+  font-weight: 400;
+  height: 20px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .login__form__loginBtn button {
@@ -155,21 +141,22 @@
   font-size: 13px;
 }
 
-@media all and (min-width: 389px) {
-  .login__form {
-    justify-content: space-around;
-    padding-bottom: 80px;
-    padding-top: 30px;
+@media all and (min-width: 768px) {
+  .login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+      90deg,
+      rgba(143, 227, 207, 1) 0%,
+      rgba(37, 109, 133, 1) 50%,
+      rgba(43, 72, 101, 1) 100%
+    );
+    margin: auto;
   }
-  .login__form__title img {
-    height: 160px;
-  }
-  .login__form__input {
-    margin-bottom: 10px;
-  }
-}
-
-@media all and (min-width: 844px) {
   .login__form {
     height: 690px;
     width: 420px;

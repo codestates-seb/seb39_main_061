@@ -7,9 +7,9 @@
 
   background: linear-gradient(
     90deg,
-    rgba(0, 43, 91, 1) 0%,
-    rgba(43, 72, 101, 1) 35%,
-    rgba(37, 109, 133, 1) 100%
+    rgba(143, 227, 207, 1) 0%,
+    rgba(37, 109, 133, 1) 50%,
+    rgba(43, 72, 101, 1) 100%
   );
 }
 
@@ -27,7 +27,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 400px;
+  width: 200px;
   height: 60px;
   margin-top: 60px;
 }
@@ -35,10 +35,11 @@
   margin: 0px;
   padding: 0px;
   color: #256d85;
+  font-size: 35px;
 }
 
 .register__form__title img {
-  width: 320px;
+  width: 200px;
   height: 200px;
   object-fit: cover;
 }
@@ -48,7 +49,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  width: 400px;
+  width: 150px;
   height: 350px;
   margin-bottom: 70px;
 }
@@ -84,7 +85,7 @@
   color: #2b4865;
   font-weight: 400;
   height: 30px;
-  width: 400px;
+  width: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -96,7 +97,7 @@
 }
 
 .register__form__btn button {
-  width: 150px;
+  width: 120px;
   height: 50px;
   border-style: none;
   background-color: #256d85;
@@ -135,7 +136,7 @@
 
 @media all and (min-width: 844px) {
   .register__form {
-    height: 800px;
+    height: 700px;
     width: 420px;
     border-radius: 20px;
     justify-content: center;
@@ -156,6 +157,9 @@
   .register__form__btn {
     margin-top: 20px;
     height: 20%;
+  }
+  .register__form__btn button {
+    width: 150px;
   }
 
   .register__form__input input {

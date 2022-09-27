@@ -4,11 +4,11 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import styles from "./Register.module.css";
-import { getProfile } from "../../library/axios";
 import { userAction } from "../../store/user";
-import { oauthReq } from "../../library/axios";
 import Modal from "../../components/Modal/Modal";
 import Login from "../Login/Login";
+import { oauthReq } from "../../api/services/auth";
+import { getProfile } from "../../api/services/user";
 
 const Register = () => {
   const businessNameRef = useRef();

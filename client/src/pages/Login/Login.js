@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import { userAction } from "../../store/user";
 import styles from "./Login.module.css";
-import { getProfile, login } from "../../library/axios";
 import googleLogo from "../../assets/google-logo.png";
 import naverLogo from "../../assets/naver-logo.png";
 import kakaoLogo from "../../assets/kakao-logo.png";
@@ -12,6 +11,8 @@ import { useState } from "react";
 import mainLogo from "../../assets/logo1.png";
 import Modal from "../../components/Modal/Modal";
 import { useEffect } from "react";
+import { getProfile } from "../../api/services/user";
+import { login } from "../../api/services/auth";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -87,11 +88,13 @@ const Login = () => {
   };
 
   return (
-    <section className={styles.login}>
+    <div className={styles.login}>
       <form onSubmit={loginSubmitHandler} className={styles.login__form}>
         <div className={styles.login__form__title}>
           <img src={mainLogo} alt="React" />
           {/* <h1>Login</h1> */}
+        </div>
+        <div className={styles.register__form__validation}>
           {changeCSS === false ? (
             <p>{validationMSG}</p>
           ) : (
@@ -140,7 +143,7 @@ const Login = () => {
         </div>
       </form>
       {modalOpen && <Modal num={key} setOpenModal={setModalOpen} />}
-    </section>
+    </div>
   );
 };
 export default Login;

@@ -2,13 +2,12 @@ import { useRef, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
 import axios from "axios";
-import { signUpReq } from "../../library/axios";
-import { emailCheck } from "../../library/axios";
 import mainLogo from "../../assets/logo1.png";
 import naverLogo from "../../assets/naver-logo.png";
 import kakaoLogo from "../../assets/kakao-logo.png";
 import googleLogo from "../../assets/google-logo.png";
 import Modal from "../../components/Modal/Modal";
+import { emailCheck, signUpReq } from "../../api/services/auth";
 
 const SignUp = () => {
   const navigate = useNavigate();

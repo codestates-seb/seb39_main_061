@@ -1,15 +1,6 @@
+import { baseURL } from "../axios";
 import axios from "axios";
-
-export const baseURL = process.env.REACT_APP_BASE_URL;
-
-export const getToken = () => localStorage.getItem("token");
-
-export const getAuthorizationHeader = () => `Bearer ${getToken()}`;
-
-export const axiosInstance = axios.create({
-  baseURL,
-  headers: { Authorization: getAuthorizationHeader() },
-});
+import { getAuthorizationHeader } from "../axios";
 
 export const login = (email, password) => {
   return axios
@@ -45,21 +36,6 @@ export const signUpReq = (
     })
     .catch((err) => {
       return err.response.data;
-    });
-};
-
-export const getProfile = () => {
-  return axios
-    .get(`${baseURL}/api/v1/members/profile`, {
-      headers: {
-        Authorization: getAuthorizationHeader(),
-      },
-    })
-    .then((res) => {
-      return res.data.data;
-    })
-    .catch((err) => {
-      console.log(err.response);
     });
 };
 
@@ -102,5 +78,3 @@ export const emailCheck = (email) => {
       return console.log(err);
     });
 };
-
-export default axiosInstance;
