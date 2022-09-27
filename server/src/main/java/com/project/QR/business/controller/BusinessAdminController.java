@@ -26,12 +26,11 @@ public class BusinessAdminController {
   /**
    * 매장 정보 변경 API
    */
-  @PostMapping(consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+  @PatchMapping
   public ResponseEntity updateBusiness(@AuthenticationPrincipal MemberDetails memberDetails,
-                                       @Valid @RequestPart("data") BusinessRequestDto.UpdateBusinessDto updateBusinessDto,
-                                       @RequestPart(value = "file", required = false) MultipartFile multipartFile) {
+                                       @Valid @RequestBody BusinessRequestDto.UpdateBusinessDto updateBusinessDto) {
     updateBusinessDto.setMemberId(memberDetails.getMember().getMemberId());
-    Business business = businessService.updateBusiness(mapper.updateBusinessDtoToBusiness(updateBusinessDto), multipartFile);
+    Business business = businessService.updateBusiness(mapper.updateBusinessDtoToBusiness(updateBusinessDto));
 
     return new ResponseEntity<>(new SingleResponseWithMessageDto<>(mapper.businessToBusinessInfoDto(business),
       "SUCCESS"),
