@@ -68,7 +68,7 @@ public class BusinessUserControllerTest {
     // given
     long businessId = 1L;
     Business business = BusinessStubData.business(1L, "business", "introduction",
-      "business.jpg", "매주 월요일", "11:00 ~ 22:00", "서울", 37.5, 128.7,
+      "매주 월요일", "11:00 ~ 22:00", "서울", 37.5, 128.7,
       "000-0000-0000");
     BusinessResponseDto.BusinessInfoDto businessInfoDto = BusinessStubData.businessInfoDto(business);
 
@@ -92,7 +92,6 @@ public class BusinessUserControllerTest {
       .andExpect(jsonPath("$.data.holiday").value(businessInfoDto.getHoliday()))
       .andExpect(jsonPath("$.data.address").value(businessInfoDto.getAddress()))
       .andExpect(jsonPath("$.data.phone").value(businessInfoDto.getPhone()))
-      .andExpect(jsonPath("$.data.img").value(businessInfoDto.getImg()))
       .andExpect(jsonPath("$.data.lon").value(businessInfoDto.getLon()))
       .andExpect(jsonPath("$.data.lat").value(businessInfoDto.getLat()))
       .andExpect(jsonPath("$.message").value("SUCCESS"))
@@ -114,7 +113,6 @@ public class BusinessUserControllerTest {
               fieldWithPath("data.holiday").type(JsonFieldType.STRING).description("휴무일"),
               fieldWithPath("data.address").type(JsonFieldType.STRING).description("주소"),
               fieldWithPath("data.phone").type(JsonFieldType.STRING).description("연락처"),
-              fieldWithPath("data.img").type(JsonFieldType.STRING).description("매장 이미지 URL"),
               fieldWithPath("data.lon").type(JsonFieldType.NUMBER).description("경도"),
               fieldWithPath("data.lat").type(JsonFieldType.NUMBER).description("위도"),
               fieldWithPath("message").type(JsonFieldType.STRING).description("결과 메시지")
