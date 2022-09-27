@@ -12,6 +12,7 @@ import FindPassword from "./pages/FindPassword/FindPassword.js";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./store/auth.js";
 import EmailValidation from "./pages/EmailValidation/EmailValidation.js";
+import StoreManagement from "./pages/StoreManagement/StoreManagement";
 import Register from "./pages/Register/Register.js";
 import { useEffect } from "react";
 import { userAction } from "./store/user.js";
@@ -60,6 +61,9 @@ function App() {
           ></Route>
         )}
         {isLogin && <Route path="/userPage" element={<UserPage />}></Route>}
+        {isLogin && (
+          <Route path="store-management" element={<StoreManagement />}></Route>
+        )}
         <Route path="*" element={<MainPage />}></Route>
         <Route path="/email-validation" element={<EmailValidation />}></Route>
         <Route path="/oauth2/redirect" element={<Register />}></Route>

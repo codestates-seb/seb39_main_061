@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
 import { persistor } from "../../index";
+import StoreManagement from "../../pages/StoreManagement/StoreManagement";
 
 const Sidebar = () => {
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
@@ -31,6 +32,9 @@ const Sidebar = () => {
       </Link>
       <Link to="/management">
         <button>management</button>
+      </Link>
+      <Link to="/store-management">
+        <button>StoreManagement</button>
       </Link>
       {isLogin && (
         <button
