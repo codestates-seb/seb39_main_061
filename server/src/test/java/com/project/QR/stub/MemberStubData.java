@@ -97,11 +97,8 @@ public class MemberStubData {
     service.add("reservation");
     service.add("keep");
     return MemberRequestDto.UpdateMemberDto.builder()
-      .businessName("changeBusinessName")
       .email(member.getEmail())
       .name("changeName")
-      .businessId(1L)
-      .businessIntroduction("change introduction")
       .password("1234")
       .phone("010-8765-4321")
       .service(service)
