@@ -4,11 +4,13 @@ import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import { persistReducer, PERSIST, PURGE } from "redux-persist";
 import userReducer from "./user";
+import profileImgSlice from "./profileImg"
 import logger from "redux-logger";
 
 const reducers = combineReducers({
   user: userReducer,
   auth: authReducer,
+  profileImg : profileImgSlice.reducer,
 });
 
 const persistConfig = {

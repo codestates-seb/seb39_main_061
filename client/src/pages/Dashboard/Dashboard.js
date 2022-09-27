@@ -3,7 +3,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import WeekApexChart from "../../components/BarChart/WeekApexChart";
 import MonthApexChart from "../../components/BarChart/MonthApexChart";
 import Piechart from "../../components/PieChart/PieChart"
-import DashboardCalendar from "../../components/Calendar/Calendar";
+import DashboardCalendar from "../../components/Calendar/Calendar";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import styles from "./Dashboard.module.css";
