@@ -3,10 +3,13 @@ import { useNavigate } from "react-router-dom";
 import React, { useState, useRef } from 'react';
 import styles from "./profileEditModal.module.css";
 import noneProfile from "../../Img/Asset_5.png";
+import axiosInstance from "../../api/axios";
+import { useSelector } from "react-redux";
 
 const ProfileEdit = ({ setIsModal }) => {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [newName, setNewName] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [errMessage, setErrMessage] = useState('');
   const [image, setImage] = useState({
@@ -16,8 +19,10 @@ const ProfileEdit = ({ setIsModal }) => {
 
   const navigate = useNavigate()
   const passwordRef = useRef()
+  const nameRef = useRef()
   const confirmPasswordRef = useRef()
-
+  const profileImg = useSelector(state => state.profileImg.value)
+  console.log(profileImg)
   let inputRef;
 
   //프로필 수정 모달
@@ -41,9 +46,8 @@ const ProfileEdit = ({ setIsModal }) => {
       )
     }
   }
-
   // 이미지 data,file(formData) 전송
-  const profileEditSubmiy = async () => {
+  const profileEditSubmit = async () => {
     const passwordEdit = passwordRef.current.value;
     const confirmPasswordEdit = confirmPasswordRef.current.value;
     if (passwordEdit !== confirmPasswordEdit) {
@@ -61,23 +65,26 @@ const ProfileEdit = ({ setIsModal }) => {
       const formData = new FormData()
       formData.enctype = "multipart/form-data"
       const profileFormData = {
-        "password": passwordEdit,
-        "sectorId": 1,
-        "service": ["RESERVATION"]
+        "email": "",
+        "password": newPassword,
+        "service": ["reservation", "keep"],
+        "profileImg": "profile-img-url",
+        "phone": "",
+        "name": newName
       }
       formData.append('file', image.image_file)
       formData.append("data",
         new Blob([JSON.stringify(profileFormData)], { type: "application/json" }));
       console.log(formData.get('file'));
-      const profileData = await axios.post(
-        'http://localhost:8080/api/v1/members/profile',
-        formData,
-        {
-          headers: {
-            Authorization: "Bearer ",
-            "Content-Type": "multipart/form-data"
-          }
-        });
+      const profileData = await axiosInstance({
+        url: "/api/v1/members/profile",
+        method: "POST",
+        data: formData,
+        headers: {
+          Authorization: "Bearer ",
+          "Content-Type": "multipart/form-data"
+        }
+      })
       console.log(profileData);
       alert("프로필 수정 완료!");
       setImage({
@@ -88,7 +95,6 @@ const ProfileEdit = ({ setIsModal }) => {
       window.location.reload();
     }
   }
-
   return (
     <div>
       <h1 className={styles.title}>프로필 수정</h1>
@@ -104,11 +110,9 @@ const ProfileEdit = ({ setIsModal }) => {
           style={{ display: "none" }}
         />
         <div>
-        <img src={noneProfile} />
-        {/* 데이터에 프로필 이미지 있는지 없는지 */}
-          {/* {data.profile === null? 
+          {profileImg === null? 
           <img src={noneProfile} /> : 
-          <img src={image.preview_URL} />  */}
+          <img src={image.preview_URL} />}
         </div>
         <div>
           <button onClick={() => inputRef.click()}>
@@ -117,7 +121,15 @@ const ProfileEdit = ({ setIsModal }) => {
         </div>
         <div>
           <div>
-            <span>새 비밀번호</span>
+            <span>관리자 명 </span>
+            <input
+              type={"text"}
+              onChange={(e) => setNewName(e.target.value)}
+              ref={nameRef}
+            />
+          </div>
+          <div>
+            <span>새 비밀번호 </span>
             <input
               type={"password"}
               onChange={(e) => setNewPassword(e.target.value)}
@@ -125,7 +137,7 @@ const ProfileEdit = ({ setIsModal }) => {
             />
           </div>
           <div>
-            <span>새 비밀번호 확인</span>
+            <span>새 비밀번호 확인 </span>
             <input
               type={"password"}
               onChange={(e) => setPassword(e.target.value)}
@@ -145,7 +157,7 @@ const ProfileEdit = ({ setIsModal }) => {
         ) : (
           ''
         )}
-        <button type='submit' onClick={profileEditSubmiy}>Edit</button>
+        <button type='submit' onClick={profileEditSubmit}>Edit</button>
         <button type='submit' onClick={modalClose}>Close</button>
       </form>
     </div>
