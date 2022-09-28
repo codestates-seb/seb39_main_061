@@ -1,17 +1,18 @@
 import Styles from "./StoreInfo.module.css";
 import { useRef, useState } from "react";
-import MapModal from "../MapModal";
 import { useSelector } from "react-redux";
 import { getBusinessInfo, postBusinessInfo } from "../../api/services/store";
 import Modal from "react-modal"; // 추가
 import MapContainer from "../MapContainer/MapContainer";
+import { useEffect } from "react";
+import axios from "axios";
 
 const StoreInfo = () => {
+  const profile = useSelector((state) => state.user.userProfile);
+  console.log(profile);
   const address = useSelector((state) => state.map.address);
   const lat = useSelector((state) => state.map.lat);
   const lon = useSelector((state) => state.map.lon);
-  console.log("위도경도?", lat, lon);
-
   const [btn, setBtn] = useState(false);
   const [name, setName] = useState("");
   const [openTime, setOpenTime] = useState(0);
@@ -19,31 +20,34 @@ const StoreInfo = () => {
   const [phone, setPhone] = useState(0);
   const [introduction, setIntroduction] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [memberId, setMemberId] = useState(null);
+
+  useEffect(() => {
+    getBusinessInfo().then((res) => {
+      setMemberId(res.data.data.businessId);
+      console.log("멤버 id", res.data.data.businessId);
+      console.log("매장정보 조회", res);
+    });
+  }, []);
 
   const storeSubmitHanlder = (event) => {
     event.preventDefault();
 
     // const form = new FormData();
-    // form.append("introduction", introduction);
-    // form.append("openTime", openTime);
-    // form.append("holiday", holiday);
-    // form.append("address", address);
-    // form.append("phone", phone);
-    // form.append("lon", lon);
-    // form.append("lat", lat);
-    // 매장 정보 수정 axios
-    postBusinessInfo(
-      introduction,
-      openTime,
-      holiday,
-      address,
-      phone,
-      lon,
-      lat
-    ).then((res) => {
-      console.log(res);
-    });
+    // form.append("data", {
+    //   memberId,
+    //   name,
+    //   introduction,
+    //   openTime,
+    //   holiday,
+    //   address,
+    //   phone,
+    //   lon,
+    //   lat,
+    // });
 
+    // 매장 정보 수정 axios
+    postBusinessInfo();
     // 매장 정보 가져오기
   };
 

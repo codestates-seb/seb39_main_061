@@ -2,36 +2,16 @@ import axios from "axios";
 import { baseURL } from "../axios";
 import { getAuthorizationHeader } from "../axios";
 
-export const postBusinessInfo = (
-  introduction,
-  openTime,
-  holiday,
-  address,
-  phone,
-  lon,
-  lat
-) => {
-  return axios.patch(
-    `${baseURL}/api/v1/business`,
-    {
-      introduction,
-      openTime,
-      holiday,
-      address,
-      phone,
-      lon,
-      lat,
+export const postBusinessInfo = (form) => {
+  return axios.patch(`${baseURL}/api/v1/business`, form, {
+    headers: {
+      Authorization: getAuthorizationHeader(),
     },
-    {
-      headers: {
-        Authorization: getAuthorizationHeader(),
-      },
-    }
-  );
+  });
 };
 
 export const getBusinessInfo = () => {
-  return axios.get(`${baseURL}/api/v1/getBusinessInfo`, {
+  return axios.get(`${baseURL}/api/v1/business`, {
     headers: {
       Authorization: getAuthorizationHeader(),
     },
