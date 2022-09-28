@@ -15,7 +15,7 @@ const data = {
 }
 
 const WeekApexChart = () => {
-  const chartData = useSelector(state => state.barCharts.value)
+  const chartData = useSelector(state => state.barCharts)
   console.log(chartData)
   // 그래프 하단 요일 출력
   const beforeWeek = () => {

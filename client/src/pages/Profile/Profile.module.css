@@ -15,6 +15,42 @@
   margin-left: 40px;
 }
 
+.profile_container {
+  margin: auto 0;
+}
+
 .title {
   margin: 60px 0 20px 15px;
+}
+
+.contents_container {
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.contents_info {
+  margin-left: 120px;
+}
+
+.contents_text {
+  margin : 20px 0;
+}
+
+.btn{
+  width: 80px;
+  height: 34px;
+  border: 0;
+  outline: 0;
+  border-radius: 10px;
+  color: white;
+  background-color: #256D86;
+  font-size: 1.2rem;
+  box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
+}
+.btn:hover {
+  transform:scale(1.03);
+}
+.btn:active {
+  transform: scale(.98);
 }
