@@ -5,7 +5,6 @@ import MonthApexChart from "../../components/BarChart/MonthApexChart";
 import Piechart from "../../components/PieChart/PieChart"
 import DashboardCalendar from "../../components/Calendar/Calendar";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import styles from "./Dashboard.module.css";
 import { getStatisticsChart } from "../../library/axios"
 import { useSelector } from "react-redux";
