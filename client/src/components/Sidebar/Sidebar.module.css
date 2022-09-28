@@ -4,8 +4,9 @@
   align-items: center;
   min-width: 310px;
   height: 100vh;
-  background-color: #256D85;  
-  padding-top: 60px;
+  background: rgb(43,72,101);
+  background: linear-gradient(180deg, rgba(43,72,101,1) 0%, rgba(37,109,133,1) 35%, rgba(143,227,207,1) 100%);  padding-top: 60px;
+  border-radius: 30px;
 }
 
 .logo {
@@ -21,18 +22,23 @@
   justify-content: space-between;
 }
 
+.sidebarBtn {
+  display: block;
+}
+
 .componentsBtn {
   padding: 10px 30px;
   border: 0;
-  /* border-radius: 30px; */
   font-size: 1.4rem;
   color: white;
-  background-color: #256D85;
+  background-color:transparent;
   cursor: pointer;
 }
+
 .componentsBtn:hover,
 .componentsBtn:focus {
   border-radius: 20px;
+  position:relative;
   background-color: white;
   color: #256D85;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;

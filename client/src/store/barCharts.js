@@ -33,4 +33,4 @@ const barChartsSlice = createSlice({
 // export const {barCharts, extraReducers} = barChartsSlice.actions;
 export const barChartsAction = barChartsSlice.actions;
 
-export default barChartsSlice.reducer;
+export default barChartsSlice;

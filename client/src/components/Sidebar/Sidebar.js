@@ -28,13 +28,15 @@ const Sidebar = () => {
 
   return (
     <div className={styles.sidebar_container}>
-      <img src={logo} className={styles.logo}/>
+      <img src={logo} className={styles.logo} />
       <Link to="/profile">
         <img src="" className={styles.profile} />
       </Link>
       <div className={styles.btnContainer}>
         <Link to="/dashboard">
-          <button className={styles.componentsBtn}>대시보드</button>
+          <div className={styles.sidebarBtn}>
+            <button className={styles.componentsBtn}>대시보드</button>
+          </div>
         </Link>
         <Link to="/create-Code">
           <button className={styles.componentsBtn}>QR 코드 만들기</button>
