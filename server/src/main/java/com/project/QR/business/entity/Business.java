@@ -40,6 +40,7 @@ public class Business {
 
   private double lat;
 
+  @MapsId
   @OneToOne
   @JoinColumn(name = "MEMBER_ID") //FK one-to-one
   private Member member;

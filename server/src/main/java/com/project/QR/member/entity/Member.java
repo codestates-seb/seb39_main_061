@@ -55,7 +55,7 @@ public class Member extends Auditable {
     }
     return new ArrayList<>();
   }
-  @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+  @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
   private Business business;
 
   @Builder
