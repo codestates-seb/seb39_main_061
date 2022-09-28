@@ -10,7 +10,6 @@ import MainPage from "./pages/MainPage/MainPage";
 import CreateCode from "./pages/CreateCode/CreateCode.js";
 import FindPassword from "./pages/FindPassword/FindPassword.js";
 import Qrcode from "./pages/qrcode/qrcode.js";
-import Info from "./pages/qrcode/info.js";
 import Test from "./pages/qrcode/test"
 
 function App() {
@@ -27,7 +26,6 @@ function App() {
           <Route path="/create-code" element={<CreateCode />}></Route>
           <Route path="/management" element={<Management />}></Route>
           <Route path="/qrcode" element={<Qrcode />}></Route>
-          <Route path="/info" element={<Info />}></Route>
           <Route path="/test" element={<Test />}></Route>
           <Route
             path="/management-Detail"
