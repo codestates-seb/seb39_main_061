@@ -49,14 +49,12 @@ public class KeepService {
    * 자재 정보 변경
    */
   public Keep updateKeep(Keep keep) {
-    qrCodeService.getQrCode(
-            keep.getQrCode().getQrCodeId(),
-            keep.getQrCode().getBusiness().getBusinessId(),
-            keep.getQrCode().getBusiness().getMember().getMemberId());
-    Keep findKeep = findVerifiedKeep(
-            keep.getKeepId(), keep.getQrCode().getQrCodeId(),
-            keep.getQrCode().getBusiness().getBusinessId(),
-            keep.getQrCode().getBusiness().getMember().getMemberId());
+    qrCodeService.getQrCode(keep.getQrCode().getQrCodeId(),
+                            keep.getQrCode().getBusiness().getBusinessId(),
+                            keep.getQrCode().getBusiness().getMember().getMemberId());
+    businessService.getBusiness(keep.getQrCode().getBusiness().getBusinessId(),
+                                keep.getQrCode().getBusiness().getMember().getMemberId());
+    Keep findKeep = findVerifiedKeep(keep.getKeepId(), keep.getQrCode().getQrCodeId());
     Keep updatingKeep = beanUtils.copyNonNullProperties(keep, findKeep);
     return keepRepository.save(updatingKeep);
   }
@@ -64,7 +62,7 @@ public class KeepService {
   /**
    * 자재 조회
    */
-  public Keep findVerifiedKeep(long keepId, long qrCodeId, long businessId, long MemberId) {
+  public Keep findVerifiedKeep(long keepId, long qrCodeId) {
     Optional<Keep> optionalKeep = keepRepository.findByIdAndQrCodeId(keepId, qrCodeId);
     return optionalKeep.orElseThrow(() -> new BusinessLogicException(ExceptionCode.KEEP_NOT_FOUND));
   }
@@ -77,11 +75,9 @@ public class KeepService {
             keep.getQrCode().getQrCodeId(),
             keep.getQrCode().getBusiness().getBusinessId(),
             keep.getQrCode().getBusiness().getMember().getMemberId());
-    Keep findKeep = findVerifiedKeep(
-            keep.getKeepId(),
-            keep.getQrCode().getQrCodeId(),
-            keep.getQrCode().getBusiness().getBusinessId(),
+    businessService.getBusiness(keep.getQrCode().getBusiness().getBusinessId(),
             keep.getQrCode().getBusiness().getMember().getMemberId());
+    Keep findKeep = findVerifiedKeep(keep.getKeepId(), keep.getQrCode().getQrCodeId());
     if(findKeep.getTarget() != null)
     keepRepository.delete(findKeep);
   }
