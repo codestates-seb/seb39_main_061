@@ -6,7 +6,6 @@ import Piechart from "../../components/PieChart/PieChart"
 import DashboardCalendar from "../../components/Calendar/Calendar";
 import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
-import { getStatisticsChart } from "../../library/axios"
 import { useSelector } from "react-redux";
 
 const Dashboard = () => {
@@ -23,7 +22,6 @@ const Dashboard = () => {
   }
 
   useEffect(() => {
-    getStatisticsChart()
   }, [])
 
   return (

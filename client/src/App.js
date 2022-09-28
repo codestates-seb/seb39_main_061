@@ -14,9 +14,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./store/auth.js";
 import EmailValidation from "./pages/EmailValidation/EmailValidation.js";
 import Register from "./pages/Register/Register.js";
-import { getProfile } from "./library/axios.js";
 import { useEffect } from "react";
 import { userAction } from "./store/user.js";
+import "./app.css";
+import { getProfile } from "./api/services/user.js";
 
 function App() {
   const url = process.env.REACT_APP_BASE_URL;
