@@ -18,10 +18,10 @@ public class Keep extends Auditable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long keepId;
-
   @Column
+  private String target;
+  @Column(columnDefinition = "TEXT")
   private String info;
-
   @Column(nullable = false)
   @ColumnDefault("1")
   private int count;
@@ -31,7 +31,8 @@ public class Keep extends Auditable {
   private QrCode qrCode;
 
   @Builder
-  public Keep(String info, int count, QrCode qrCode) {
+  public Keep(String target, String info, int count, QrCode qrCode) {
+    this.target = target;
     this.info = info;
     this.count = count;
     this.qrCode = qrCode;
