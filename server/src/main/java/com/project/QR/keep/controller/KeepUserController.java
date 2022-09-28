@@ -17,7 +17,7 @@ import java.util.List;
 
 @Validated
 @RestController
-@RequestMapping("/business/{business-id}/type/keep/qr-code/{qr-code-id}")
+@RequestMapping("/business/{business-id}/keep/qr-code/{qr-code-id}")
 @AllArgsConstructor
 public class KeepUserController {
   private final KeepService keepService;
