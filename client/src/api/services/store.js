@@ -2,17 +2,36 @@ import axios from "axios";
 import { baseURL } from "../axios";
 import { getAuthorizationHeader } from "../axios";
 
-export const PostBusinessInfo = (
+export const postBusinessInfo = (
   introduction,
   openTime,
   holiday,
   address,
-  name,
+  phone,
   lon,
-  lat,
-  phone
+  lat
 ) => {
-  return axios.post(`${baseURL}/api/v1/business`, {
+  return axios.patch(
+    `${baseURL}/api/v1/business`,
+    {
+      introduction,
+      openTime,
+      holiday,
+      address,
+      phone,
+      lon,
+      lat,
+    },
+    {
+      headers: {
+        Authorization: getAuthorizationHeader(),
+      },
+    }
+  );
+};
+
+export const getBusinessInfo = () => {
+  return axios.get(`${baseURL}/api/v1/getBusinessInfo`, {
     headers: {
       Authorization: getAuthorizationHeader(),
     },

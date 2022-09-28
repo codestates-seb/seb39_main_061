@@ -3,8 +3,7 @@ import Modal from "react-modal"; // 추가
 import MapContainer from "./MapContainer/MapContainer";
 import { useSelector } from "react-redux";
 
-const MapModal = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const MapModal = ({ toggle, isOpen, setIsOpen }) => {
   const address = useSelector((state) => state.map.address);
 
   console.log("select address", address);
@@ -23,13 +22,8 @@ const MapModal = () => {
     },
   };
 
-  const toggle = () => {
-    setIsOpen(!isOpen);
-  };
-
   return (
     <div>
-      <button onClick={toggle}>주소검색</button>
       <Modal
         onClick={console.log("click")}
         isOpen={isOpen}

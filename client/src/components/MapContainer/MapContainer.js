@@ -142,6 +142,8 @@ const MapContainer = ({ toggle }) => {
                         : item.address_name
                     )
                   );
+                  dispatch(mapActions.setlat(Number(item.x)));
+                  dispatch(mapActions.setlon(Number(item.y)));
                   toggle();
                 }}
               >

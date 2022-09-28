@@ -3,6 +3,8 @@ import { PURGE } from "redux-persist";
 
 const initialState = {
   address: "",
+  lat: 0,
+  lon: 0,
 };
 const mapSlice = createSlice({
   name: "location",
@@ -10,6 +12,12 @@ const mapSlice = createSlice({
   reducers: {
     setAddress(state, action) {
       state.address = action.payload;
+    },
+    setlat(state, action) {
+      state.lat = action.payload;
+    },
+    setlon(state, action) {
+      state.lon = action.payload;
     },
   },
   extraReducers: (builder) => {

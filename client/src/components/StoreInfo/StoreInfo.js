@@ -2,28 +2,86 @@ import Styles from "./StoreInfo.module.css";
 import { useRef, useState } from "react";
 import MapModal from "../MapModal";
 import { useSelector } from "react-redux";
-import { getBusinessInfo } from "../../api/services/store";
+import { getBusinessInfo, postBusinessInfo } from "../../api/services/store";
+import Modal from "react-modal"; // 추가
+import MapContainer from "../MapContainer/MapContainer";
 
 const StoreInfo = () => {
   const address = useSelector((state) => state.map.address);
-  const nameRef = useRef();
-  const openTimeRef = useRef();
-  const holidayRef = useRef();
-  const phoneRef = useRef();
-  const introductionRef = useRef();
-  const detailAddress = useRef();
+  const lat = useSelector((state) => state.map.lat);
+  const lon = useSelector((state) => state.map.lon);
+  console.log("위도경도?", lat, lon);
 
-  const storeSubmitHanlder = async (e) => {
-    e.preventDefault();
-    const name = nameRef.current.value;
-    const openTime = openTimeRef.current.value;
-    const holiday = holidayRef.current.value;
-    const phone = phoneRef.current.value;
-    const introduction = introductionRef.current.value;
+  const [btn, setBtn] = useState(false);
+  const [name, setName] = useState("");
+  const [openTime, setOpenTime] = useState(0);
+  const [holiday, setHoliday] = useState("");
+  const [phone, setPhone] = useState(0);
+  const [introduction, setIntroduction] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
 
-    // 매장 정보 post
+  const storeSubmitHanlder = (event) => {
+    event.preventDefault();
+
+    // const form = new FormData();
+    // form.append("introduction", introduction);
+    // form.append("openTime", openTime);
+    // form.append("holiday", holiday);
+    // form.append("address", address);
+    // form.append("phone", phone);
+    // form.append("lon", lon);
+    // form.append("lat", lat);
+    // 매장 정보 수정 axios
+    postBusinessInfo(
+      introduction,
+      openTime,
+      holiday,
+      address,
+      phone,
+      lon,
+      lat
+    ).then((res) => {
+      console.log(res);
+    });
 
     // 매장 정보 가져오기
+  };
+
+  const editSubmitHandler = () => {
+    // 수정, 완료 버튼 체인지
+    setBtn(!btn);
+  };
+  const nameHandler = (e) => {
+    setName(e.target.value);
+  };
+  const openTimeHandler = (e) => {
+    setOpenTime(e.target.value);
+  };
+  const holidayHandler = (e) => {
+    setHoliday(e.target.value);
+  };
+  const phoneHandler = (e) => {
+    setPhone(e.target.value);
+  };
+  const introHandler = (e) => {
+    setIntroduction(e.target.value);
+  };
+  const toggle = (e) => {
+    setIsOpen(!isOpen);
+  };
+
+  // Modal 스타일
+  const customStyles = {
+    overlay: {
+      backgroundColor: "rgba(0,0,0,0.5)",
+    },
+    content: {
+      left: "0",
+      margin: "auto",
+      width: "1000px",
+      height: "700px",
+      padding: "0",
+    },
   };
 
   return (
@@ -37,21 +95,37 @@ const StoreInfo = () => {
             <div className={Styles.StoreInfo__input__wrap1__info1}>
               <div className={Styles.time}>
                 <span>매장 이름</span>
-                <input ref={nameRef} placeholder="ex:덕이네 곱창" />
+                <input
+                  value={name}
+                  onChange={nameHandler}
+                  placeholder="ex:덕이네 곱창"
+                />
               </div>
               <div>
                 <span>영업 시간</span>
-                <input ref={openTimeRef} placeholder="ex:10:00 ~ 21:00" />
+                <input
+                  value={openTime === 0 ? "" : openTime}
+                  onChange={openTimeHandler}
+                  placeholder="ex:10:00 ~ 21:00"
+                />
               </div>
             </div>
             <div className={Styles.StoreInfo__input__wrap1__info2}>
               <div>
                 <span>휴무일</span>
-                <input ref={holidayRef} placeholder="ex:매주 월요일" />
+                <input
+                  value={holiday}
+                  onChange={holidayHandler}
+                  placeholder="ex:매주 월요일"
+                />
               </div>
               <div>
                 <span>매장 전화번호</span>
-                <input ref={phoneRef} placeholder="ex:031-947-3334" />
+                <input
+                  value={phone === 0 ? "" : phone}
+                  onChange={phoneHandler}
+                  placeholder="ex:031-947-3334"
+                />
               </div>
             </div>
           </div>
@@ -59,7 +133,8 @@ const StoreInfo = () => {
             <div className={Styles.StoreInfo__input__wrap2__info1}>
               <span>소개글</span>
               <textarea
-                ref={introductionRef}
+                value={introduction}
+                onChange={introHandler}
                 placeholder="ex: 우리집 맛집이에요 ! 많이들 드시러 오세요"
               ></textarea>
             </div>
@@ -73,14 +148,25 @@ const StoreInfo = () => {
                   disabled
                   placeholder="ex: 서울특별시 동작구 밤리단길 369 B1"
                 />
-                <MapModal />
+                <button onClick={toggle}>주소검색</button>
+                <Modal
+                  onClick={console.log("click")}
+                  isOpen={isOpen}
+                  ariaHideApp={false}
+                  style={customStyles}
+                  onRequestClose={toggle}
+                >
+                  <MapContainer toggle={toggle} />
+                </Modal>
               </div>
-              <input ref={detailAddress} placeholder="상세주소" />
             </div>
           </div>
         </div>
         <div className={Styles.StoreInfo__input__btn}>
-          <button>수정</button>
+          <button onClick={editSubmitHandler}>
+            {btn && "완료"}
+            {!btn && "수정"}
+          </button>
           <button>취소</button>
         </div>
       </form>
