@@ -52,8 +52,6 @@ public class KeepService {
     qrCodeService.getQrCode(keep.getQrCode().getQrCodeId(),
                             keep.getQrCode().getBusiness().getBusinessId(),
                             keep.getQrCode().getBusiness().getMember().getMemberId());
-    businessService.getBusiness(keep.getQrCode().getBusiness().getBusinessId(),
-                                keep.getQrCode().getBusiness().getMember().getMemberId());
     Keep findKeep = findVerifiedKeep(keep.getKeepId(), keep.getQrCode().getQrCodeId());
     Keep updatingKeep = beanUtils.copyNonNullProperties(keep, findKeep);
     return keepRepository.save(updatingKeep);
@@ -74,8 +72,6 @@ public class KeepService {
     qrCodeService.getQrCode(
             keep.getQrCode().getQrCodeId(),
             keep.getQrCode().getBusiness().getBusinessId(),
-            keep.getQrCode().getBusiness().getMember().getMemberId());
-    businessService.getBusiness(keep.getQrCode().getBusiness().getBusinessId(),
             keep.getQrCode().getBusiness().getMember().getMemberId());
     Keep findKeep = findVerifiedKeep(keep.getKeepId(), keep.getQrCode().getQrCodeId());
     if(findKeep.getTarget() != null)
