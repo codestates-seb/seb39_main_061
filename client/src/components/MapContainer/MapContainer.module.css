@@ -1,0 +1,73 @@
+.mapContainer {
+  margin: 1rem;
+}
+.mapContainer {
+  width: 1000px;
+
+  display: flex;
+}
+
+.mapContainer .inputForm {
+  margin: 2rem;
+}
+
+.mapContainer > div {
+  display: flex;
+  margin: 20px;
+}
+.myMap {
+  width: 500px;
+  height: 500px;
+}
+
+.pagination {
+  margin-top: 3rem;
+}
+
+.pagination a {
+  color: black;
+  font-size: 20px;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.pagination a.on {
+  color: lightblue;
+  font-weight: bold;
+}
+.resultList {
+  width: 400px;
+}
+.resultList input {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  width: 250px;
+  height: 35px;
+  border-radius: 5px;
+  text-indent: 10px;
+  font-size: 17px;
+  margin-bottom: 20px;
+}
+
+.location {
+  display: flex;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+.location div {
+  width: 300px;
+}
+
+.location button {
+  width: 50px;
+  height: 30px;
+}
+.location h5 {
+  font-size: 18px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.location span {
+  font-size: 12px;
+  opacity: 0.7;
+}

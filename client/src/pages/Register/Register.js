@@ -38,8 +38,8 @@ const Register = () => {
     if (oauthValidation === true) {
       setPage("login");
       localStorage.setItem("token", token);
-      const userData = await getProfile();
-      dispatch(userAction.setUser(userData));
+      // const userData = await getProfile();
+      // dispatch(userAction.setUser(userData));
       setModalOpen(true);
       setTimeout(() => {
         navigate("/dashboard");
@@ -47,6 +47,7 @@ const Register = () => {
       }, 3000);
     }
   };
+
   useEffect(() => {
     localStorage.setItem("token", token);
     checkValidation();
@@ -89,11 +90,10 @@ const Register = () => {
       setValidationMSG("");
       console.log("추가전송");
       localStorage.setItem("token", res.data.data.accessToken);
-      const userData = await getProfile();
-      dispatch(userAction.setUser(userData));
       setModalOpen(true);
       setTimeout(() => {
-        navigate("/login");
+        dispatch(authActions.login());
+        navigate("/dashboard");
       }, 3000);
     }
   };
