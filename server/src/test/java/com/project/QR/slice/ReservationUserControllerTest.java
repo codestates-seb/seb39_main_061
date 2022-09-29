@@ -1,6 +1,7 @@
 package com.project.QR.slice;
 
 import com.google.gson.Gson;
+import com.project.QR.helper.page.RestPage;
 import com.project.QR.reservation.controller.ReservationUserController;
 import com.project.QR.reservation.dto.ReservationRequestDto;
 import com.project.QR.reservation.dto.ReservationResponseDto;
@@ -127,7 +128,7 @@ public class ReservationUserControllerTest {
     int page = 1;
     int size = 10;
 
-    Page<Reservation> pageOfReservation = ReservationStubData.getReservationPage(page - 1, size);
+    RestPage<Reservation> pageOfReservation = ReservationStubData.getReservationPage(page - 1, size);
     List<Reservation> reservationList = pageOfReservation.getContent();
     List<ReservationResponseDto.ReservationInfoDto> reservationInfoDtoList
       = ReservationStubData.reservationInfoDtoList(reservationList);

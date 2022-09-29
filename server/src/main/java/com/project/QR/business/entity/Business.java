@@ -1,5 +1,6 @@
 package com.project.QR.business.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.project.QR.member.entity.Member;
 import com.project.QR.memu.entity.Menu;
 import com.project.QR.qrcode.entity.QrCode;
@@ -40,7 +41,9 @@ public class Business {
 
   private double lat;
 
+
   @OneToOne
+  @JsonBackReference
   @JoinColumn(name = "MEMBER_ID") //FK one-to-one
   private Member member;
 
