@@ -93,7 +93,7 @@ public class BusinessService {
    * Business 존재 여부 확인
    */
   @Transactional(readOnly = true)
-  @Cacheable(key = "#businessId", value = "existBusiness")
+//  @Cacheable(key = "#businessId", value = "existBusiness")
   public boolean existBusiness(long businessId, long memberId) {
     findVerifiedBusiness(businessId, memberId);
     return true;
