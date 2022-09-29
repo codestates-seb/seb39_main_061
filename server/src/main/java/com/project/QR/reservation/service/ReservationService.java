@@ -4,6 +4,7 @@ import com.project.QR.business.service.BusinessService;
 import com.project.QR.exception.BusinessLogicException;
 import com.project.QR.exception.ExceptionCode;
 import com.project.QR.helper.page.RestPage;
+import com.project.QR.helper.sms.Sms;
 import com.project.QR.qrcode.entity.QrCode;
 import com.project.QR.qrcode.entity.QrType;
 import com.project.QR.qrcode.service.QrCodeService;
@@ -35,6 +36,7 @@ public class ReservationService {
   private CustomBeanUtils<Reservation> beanUtils;
   private QrCodeService qrCodeService;
   private BusinessService businessService;
+  private Sms sms;
 
   /**
    * 예약 등록
@@ -183,7 +185,8 @@ public class ReservationService {
   public void enterReservation(long reservationId, long qrCodeId, long businessId, Long memberId) {
     businessService.existBusiness(businessId, memberId);
     Reservation findReservation = findVerifiedReservation(reservationId, qrCodeId);
-    // TO-DO : SMS 발송 기능
+    // 테스트시 주석
+    // sms.send(findReservation.getName(), findReservation.getPhone(), "enter");
     findReservation.setCompleted(Check.Y);
     reservationRepository.save(findReservation);
   }
@@ -195,7 +198,8 @@ public class ReservationService {
   public void cancelReservation(long reservationId, long qrCodeId, long businessId, Long memberId) {
     businessService.existBusiness(businessId, memberId);
     Reservation findReservation = findVerifiedReservation(reservationId, qrCodeId);
-    // TO-DO : SMS 발송 기능
+    // 테스트시 주석
+    // sms.send(findReservation.getName(), findReservation.getPhone(), "cancel");
     findReservation.setDeleted(Check.Y);
     reservationRepository.save(findReservation);
   }
