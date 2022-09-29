@@ -1,12 +1,13 @@
 import Styles from "./StoreInfo.module.css";
 import { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getBusinessInfo, postBusinessInfo } from "../../api/services/store";
 import Modal from "react-modal"; // 추가
 import MapContainer from "../MapContainer/MapContainer";
 import { useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { mapActions } from "../../store/map";
 
 const StoreInfo = () => {
   const profile = useSelector((state) => state.user.userProfile);
@@ -23,12 +24,21 @@ const StoreInfo = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [memberId, setMemberId] = useState(null);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getBusinessInfo().then((res) => {
       setMemberId(res.data.data.businessId);
-      console.log("멤버 id", res);
-      console.log("매장정보 조회", res);
+      setName(res.data.data.name);
+      setOpenTime(res.data.data.openTime);
+      setHoliday(res.data.data.holiday);
+      setPhone(res.data.data.phone);
+      setIntroduction(res.data.data.introduction);
+      setIntroduction(res.data.data.introduction);
+      setIntroduction(res.data.data.introduction);
+      dispatch(mapActions.setlat(res.data.data.lat));
+      dispatch(mapActions.setlon(res.data.data.lon));
+      dispatch(mapActions.setAddress(res.data.data.address));
     });
   }, []);
 
@@ -61,17 +71,7 @@ const StoreInfo = () => {
     // 1. 완료버튼을 누르면 유효성검사하고
     // 2. Axios patch로 수정 전송!
     // 3. 수정전송이 완료되고 200ok면 버튼을 수정으로 바꾸고 새로고침 되게 만들기
-    console.log(
-      "입력 확인",
-      name,
-      introduction,
-      openTime,
-      holiday,
-      address,
-      phone,
-      lon,
-      lat
-    );
+
     const res = await postBusinessInfo(
       name,
       introduction,
@@ -188,10 +188,9 @@ const StoreInfo = () => {
                 <input
                   readOnly={canEdit === false}
                   value={address}
-                  disabled
                   placeholder="ex: 서울특별시 동작구 밤리단길 369 B1"
                 />
-                <button onClick={toggle}>주소검색</button>
+                {canEdit && <button onClick={toggle}>주소검색</button>}
                 <Modal
                   // onClick={console.log("click")}
                   isOpen={isOpen}
@@ -207,7 +206,7 @@ const StoreInfo = () => {
         </div>
         <div className={Styles.StoreInfo__input__btn}>
           {!canEdit && <button onClick={changeBtnHandler}>수정</button>}
-          {canEdit && <button onClick={editSubmitHandler}>완료</button>}
+          {canEdit && <button onClick={editSubmitHandler}>저장</button>}
           {canEdit && <button onClick={cancelHandler}>취소</button>}
         </div>
       </form>
