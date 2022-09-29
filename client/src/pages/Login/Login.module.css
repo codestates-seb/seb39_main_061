@@ -16,8 +16,8 @@
   height: 20%;
 }
 .login__form__title img {
-  width: 270px;
-  height: 130px;
+  width: 200px;
+  height: auto;
   object-fit: cover;
 }
 
