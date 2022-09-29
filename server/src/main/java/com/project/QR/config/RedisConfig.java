@@ -69,7 +69,7 @@ public class RedisConfig {
     jackson2JsonRedisSerializer.setObjectMapper(om);
 
     RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-      .entryTtl(Duration.ofDays(1))
+      .entryTtl(Duration.ofMinutes(3L))
       .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
       .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
       .disableCachingNullValues();
