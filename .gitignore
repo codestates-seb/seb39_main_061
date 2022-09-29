@@ -4,4 +4,4 @@ build
 # module
 node_modules
 # etc
-DS_store
+.DS_store

@@ -1,0 +1,7 @@
+app:
+  sms:
+    api_key: NCS4APNHSH7A3ZO8
+    api_secret: XJBYCYAMNKLPKPDFQV7FNF0VOBITAPSY
+    enter: "님 입장해주세요"
+    cancel: "님 예약이 취소되었습니다\n 죄송합니다."
+    from: 01052653540
