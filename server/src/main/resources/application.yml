@@ -3,7 +3,7 @@ server:
 
 spring:
   profiles:
-    include: app, security, mail, file
+    include: app, security, mail, file, sms
   batch:
     jdbc:
       initialize-schema: always
