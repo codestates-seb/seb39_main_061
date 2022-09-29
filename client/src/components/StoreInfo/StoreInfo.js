@@ -13,11 +13,12 @@ const StoreInfo = () => {
   const address = useSelector((state) => state.map.address);
   const lat = useSelector((state) => state.map.lat);
   const lon = useSelector((state) => state.map.lon);
+  console.log("위도,경도? ", lat, lon);
   const [canEdit, setCanEdit] = useState(false);
   const [name, setName] = useState("");
-  const [openTime, setOpenTime] = useState(0);
+  const [openTime, setOpenTime] = useState("");
   const [holiday, setHoliday] = useState("");
-  const [phone, setPhone] = useState(0);
+  const [phone, setPhone] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [memberId, setMemberId] = useState(null);
@@ -26,7 +27,7 @@ const StoreInfo = () => {
   useEffect(() => {
     getBusinessInfo().then((res) => {
       setMemberId(res.data.data.businessId);
-      console.log("멤버 id", res.data.data.businessId);
+      console.log("멤버 id", res);
       console.log("매장정보 조회", res);
     });
   }, []);
@@ -56,11 +57,32 @@ const StoreInfo = () => {
     setCanEdit(true);
   };
 
-  const editSubmitHandler = () => {
+  const editSubmitHandler = async () => {
     // 1. 완료버튼을 누르면 유효성검사하고
     // 2. Axios patch로 수정 전송!
     // 3. 수정전송이 완료되고 200ok면 버튼을 수정으로 바꾸고 새로고침 되게 만들기
-    postBusinessInfo();
+    console.log(
+      "입력 확인",
+      name,
+      introduction,
+      openTime,
+      holiday,
+      address,
+      phone,
+      lon,
+      lat
+    );
+    const res = await postBusinessInfo(
+      name,
+      introduction,
+      openTime,
+      holiday,
+      address,
+      phone,
+      lon,
+      lat
+    );
+    console.log("매장정보 수정?", res);
     setCanEdit(false);
   };
   const nameHandler = (e) => {

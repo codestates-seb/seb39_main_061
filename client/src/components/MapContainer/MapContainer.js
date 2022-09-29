@@ -3,7 +3,6 @@ import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { mapActions } from "../../store/map";
 import styles from "./MapContainer.module.css";
-
 const { kakao } = window;
 
 const MapContainer = ({ toggle }) => {

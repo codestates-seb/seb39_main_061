@@ -60,7 +60,7 @@
   outline: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   font-size: 15px;
-  padding-bottom: 15px;
+  /* padding-bottom: 15px; */
 }
 .register__form__input input::placeholder {
   opacity: 0.6;
@@ -136,7 +136,7 @@
 
 @media all and (min-width: 844px) {
   .register__form {
-    height: 700px;
+    height: 750px;
     width: 420px;
     border-radius: 20px;
     justify-content: center;
@@ -163,7 +163,9 @@
   }
 
   .register__form__input input {
-    height: 15px;
+    height: 30px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
   }
 }
 

@@ -13,7 +13,7 @@ export const postBusinessInfo = (
   lat
 ) => {
   return axios.patch(
-    `${baseURL}/api/v1/business`,
+    `${baseURL}/api/v1/business/1`,
     { name, introduction, openTime, holiday, address, phone, lon, lat },
     {
       headers: {
