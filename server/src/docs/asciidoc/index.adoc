@@ -811,6 +811,9 @@ include::{snippets}/business-update/http-request.adoc[]
 .request-headers
 include::{snippets}/business-update/request-headers.adoc[]
 
+.path-parameters
+include::{snippets}/business-update/path-parameters.adoc[]
+
 .request-body
 include::{snippets}/business-update/request-body.adoc[]
 
