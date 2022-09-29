@@ -4,9 +4,7 @@ import React, { useState, useRef } from 'react';
 import styles from "./profileEditModal.module.css";
 import noneProfile from "../../Img/Asset_5.png";
 import imgPlusBtn from "../../Img/imgPlusBtn.png";
-import axiosInstance from "../../api/axios";
-import { getAuthorizationHeader } from "../../api/axios";
-import { baseURL } from "../../api/axios";
+import { postProfileEdit } from "../../api/services/profileEdit";
 import { useSelector } from "react-redux";
 
 const ProfileEdit = ({ setIsModal }) => {
@@ -67,7 +65,7 @@ const ProfileEdit = ({ setIsModal }) => {
       formData.enctype = "multipart/form-data"
       const profileFormData = {
         "password": newPassword,
-        "service": [],
+        "service": ["reservation"],
         "name": newName,
         "phone": phone,
       }
@@ -75,16 +73,7 @@ const ProfileEdit = ({ setIsModal }) => {
       formData.append("data",
         new Blob([JSON.stringify(profileFormData)], { type: "application/json" }));
       console.log(formData.getAll('data'));
-      const profileData = await axiosInstance({
-        url: baseURL + "/api/v1/members/profile",
-        method: "POST",
-        data: formData,
-        headers: {
-          Authorization: getAuthorizationHeader(),
-          "Content-Type": "multipart/form-data",
-          "Accept": "application/json, multipart/form-data"
-        }
-      })
+      const profileData = await postProfileEdit(formData)
       console.log(profileData);
       alert("프로필 수정 완료!");
       setImage({
@@ -92,7 +81,6 @@ const ProfileEdit = ({ setIsModal }) => {
         preview_URL: "img/default_image.png",
       });
       navigate('/profile')
-      window.location.reload();
     }
   }
 

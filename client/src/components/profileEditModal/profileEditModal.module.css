@@ -60,7 +60,7 @@
   width: 100%;
 }
 .imgPlus:active {
-  transform: scale(.98);
+  transform: scale(.9);
 }
 
 .contents_info {
