@@ -21,8 +21,8 @@
   flex-direction: column;
   height: 100vh;
   width: 100vw;
-  padding-top: 70px;
-  padding-bottom: 50px;
+  /* padding-top: 70px;
+  padding-bottom: 50px; */
 }
 
 .signUp__form__title {
@@ -43,7 +43,7 @@
 }
 .signUp__form__input input {
   width: 170px;
-  height: 20px;
+  /* height: 20px; */
   border-style: none;
   outline: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
@@ -111,6 +111,9 @@
 }
 
 .signUp__form__validation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 14px;
   color: #256d85;
   font-weight: 400;
@@ -150,7 +153,7 @@
 
 @media all and (min-width: 844px) {
   .signUp__form {
-    height: 600px;
+    height: 750px;
     width: 420px;
     border-radius: 20px;
     justify-content: center;
