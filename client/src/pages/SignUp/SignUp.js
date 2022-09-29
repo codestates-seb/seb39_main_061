@@ -76,10 +76,7 @@ const SignUp = () => {
         setValidationMSG("상호명을 입력해주세요");
         return false;
       }
-      if (kor_check.test(businessName)) {
-        setValidationMSG("상호명은 한글로 입력해주세요");
-        return false;
-      }
+
       if (phone.length === 0) {
         setValidationMSG("휴대폰 번호를 입력해주세요");
         return false;
@@ -168,7 +165,7 @@ const SignUp = () => {
             <input
               maxLength={10}
               ref={businessNameRef}
-              placeholder="예: 덕이네곱창(한글)"
+              placeholder="예:덕이네곱창"
             />
           </div>
           <div className={styles.signUp__form__input__phone}>

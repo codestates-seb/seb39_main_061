@@ -2,19 +2,21 @@ import axios from "axios";
 import { getAuthorizationHeader } from "../axios";
 import { baseURL } from "../axios";
 
-export const getProfile = () => {
+export const postProfileEdit = (formData) => {
   return axios
-    .get(`${baseURL}/api/v1/members/profile`, {
+    .post(`${baseURL}/api/v1/members/profile`, 
+    formData,
+    {
       headers: {
         Authorization: getAuthorizationHeader(),
+        "Content-Type": "multipart/form-data",
+        "Accept": "application/json, multipart/form-data"
       },
     })
     .then((res) => {
-      console.log("겟프로필");
       return res.data.data;
     })
     .catch((err) => {
-      console.log("겟프로필");
       console.log(err.response);
     });
 };

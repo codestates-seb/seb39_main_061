@@ -3,41 +3,38 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import WeekApexChart from "../../components/BarChart/WeekApexChart";
 import MonthApexChart from "../../components/BarChart/MonthApexChart";
 import Piechart from "../../components/PieChart/PieChart"
-import DashboardCalendar from "../../components/Calendar/Calendar";
+import DashboardCalendar from "../../components/Calendar/Calendar";
 import { useState, useEffect } from "react";
-import axios from "axios";
 import styles from "./Dashboard.module.css";
+import { useSelector } from "react-redux";
+import { getDashboard } from "./../../api/services/dashboard"
+import moment from 'moment';
 
 const Dashboard = () => {
   const [isBarChart, setIsBarChart] = useState(true);
+  // const chartData = useSelector(state => { return state.barCharts})
+  // console.log(chartData)
 
   const weekBtnHandler = () => {
     setIsBarChart(true);
-  }
+  };
 
   const monthBtnHandler = () => {
     setIsBarChart(false);
-  }
+  };
 
-  const token = ""
+  let today = moment().format("YYYYMMDD")
 
   useEffect(() => {
-    axios.get("http://localhost:8080/api/v1/members/profile",
-      {
-        headers: { Authorization: "Bearer " + token }
-      }
-    )
-      .then(userData => {
-        console.log(userData.data.data)
-
-      })
+    getDashboard(today)
+    .then(res => console.log(res))
   }, [])
 
   return (
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.main_container}>
-      <h1 className={styles.title}>Dashboard</h1>
+        <h1 className={styles.title}>Dashboard</h1>
         <div className={styles.container}>
           <div className={styles.component}>
             <div>
@@ -47,7 +44,11 @@ const Dashboard = () => {
                 <button onClick={monthBtnHandler}>Month</button>
               </div>
               <div>
-                {isBarChart ? <WeekApexChart className={styles.barChart} /> : <MonthApexChart className={styles.barChart} />}
+                {isBarChart ? (
+                  <WeekApexChart className={styles.barChart} />
+                ) : (
+                  <MonthApexChart className={styles.barChart} />
+                )}
               </div>
             </div>
           </div>
