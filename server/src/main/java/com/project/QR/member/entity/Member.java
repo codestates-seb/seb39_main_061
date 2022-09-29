@@ -3,6 +3,7 @@ package com.project.QR.member.entity;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.QR.audit.Auditable;
 import com.project.QR.business.entity.Business;
 import lombok.*;
@@ -55,7 +56,9 @@ public class Member extends Auditable {
     }
     return new ArrayList<>();
   }
-  @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, optional = false, cascade = CascadeType.ALL)
+
+  @JsonManagedReference
+  @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
   private Business business;
 
   @Builder
