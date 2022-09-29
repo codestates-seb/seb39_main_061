@@ -4,7 +4,7 @@ import { baseURL } from "../axios";
 
 export const getDashboard = (today) => {
   return axios
-    .get(`${baseURL}http://localhost:8080/api/v1/business/1/reservation/qr-code/1/statistics?date=${today}`, {
+    .get(`${baseURL}/api/v1/business/1/reservation/qr-code/1/statistics?date=${today}`, {
       headers: {
         Authorization: getAuthorizationHeader(),
       },

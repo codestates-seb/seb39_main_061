@@ -7,6 +7,8 @@ import DashboardCalendar from "../../components/Calendar/Calendar";
 import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
 import { useSelector } from "react-redux";
+import { getDashboard } from "./../../api/services/dashboard"
+import moment from 'moment';
 
 const Dashboard = () => {
   const [isBarChart, setIsBarChart] = useState(true);
@@ -21,7 +23,11 @@ const Dashboard = () => {
     setIsBarChart(false);
   }
 
+  let today = moment().format("YYYYMMDD")
+
   useEffect(() => {
+    getDashboard(today)
+    .then(res => console.log(res))
   }, [])
 
   return (
