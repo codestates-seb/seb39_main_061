@@ -52,7 +52,9 @@ const Sidebar = () => {
       </Link>
       <div className={styles.btnContainer}>
         <Link to="/dashboard">
-          <button className={styles.componentsBtn}>대시보드</button>
+          <div className={styles.sidebarBtn}>
+            <button className={styles.componentsBtn}>대시보드</button>
+          </div>
         </Link>
         <Link to="/create-Code">
           <button className={styles.componentsBtn}>QR 코드 만들기</button>

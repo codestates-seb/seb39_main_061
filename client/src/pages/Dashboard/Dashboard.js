@@ -2,13 +2,18 @@
 import Sidebar from "../../components/Sidebar/Sidebar";
 import WeekApexChart from "../../components/BarChart/WeekApexChart";
 import MonthApexChart from "../../components/BarChart/MonthApexChart";
-import Piechart from "../../components/PieChart/PieChart";
-import DashboardCalendar from "../../components/Calendar/Calendar";
+import Piechart from "../../components/PieChart/PieChart"
+import DashboardCalendar from "../../components/Calendar/Calendar";
 import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
+import { useSelector } from "react-redux";
+import { getDashboard } from "./../../api/services/dashboard"
+import moment from 'moment';
 
 const Dashboard = () => {
   const [isBarChart, setIsBarChart] = useState(true);
+  // const chartData = useSelector(state => { return state.barCharts})
+  // console.log(chartData)
 
   const weekBtnHandler = () => {
     setIsBarChart(true);
@@ -18,7 +23,12 @@ const Dashboard = () => {
     setIsBarChart(false);
   };
 
-  const token = "";
+  let today = moment().format("YYYYMMDD")
+
+  useEffect(() => {
+    getDashboard(today)
+    .then(res => console.log(res))
+  }, [])
 
   return (
     <div className={styles.container}>
