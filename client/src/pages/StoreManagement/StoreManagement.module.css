@@ -1,0 +1,15 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  display: flex;
+  justify-content: flex-start;
+}
+.StoreManagement {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+}

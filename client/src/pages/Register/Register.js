@@ -1,14 +1,12 @@
-import { useEffect, useState, useHistory } from "react";
+import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import styles from "./Register.module.css";
-import { userAction } from "../../store/user";
 import Modal from "../../components/Modal/Modal";
 import Login from "../Login/Login";
 import { oauthReq } from "../../api/services/auth";
-import { getProfile } from "../../api/services/user";
 
 const Register = () => {
   const businessNameRef = useRef();
