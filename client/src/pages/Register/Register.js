@@ -90,8 +90,7 @@ const Register = () => {
       localStorage.setItem("token", res.data.data.accessToken);
       setModalOpen(true);
       setTimeout(() => {
-        dispatch(authActions.login());
-        navigate("/dashboard");
+        navigate("/login");
       }, 3000);
     }
   };

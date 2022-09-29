@@ -163,7 +163,7 @@ const StoreInfo = () => {
               </div>
               <textarea
                 defaultChecked
-                maxLength={80}
+                maxLength={90}
                 readOnly={canEdit === false}
                 value={introduction === null ? "" : introduction}
                 onChange={introHandler}
@@ -211,7 +211,7 @@ const StoreInfo = () => {
               isOpen={isOpen}
               ariaHideApp={false}
               style={customStyles}
-              // onRequestClose={toggle}
+              onRequestClose={toggle}
             >
               <MapContainer toggle={toggle} />
             </Modal>

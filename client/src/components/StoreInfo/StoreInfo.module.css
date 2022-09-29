@@ -1,3 +1,7 @@
+button {
+  cursor: pointer;
+}
+
 .storeInfo {
   display: flex;
   justify-content: center;
@@ -23,7 +27,6 @@
   display: grid;
   height: auto;
   width: 100%;
-  border: 1px solid tomato;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
@@ -66,6 +69,7 @@
     width: 200px;
   }
 }
+
 @media all and (min-width: 850px) {
   .StoreInfo {
     margin: 70px 120px 70px 120px;
@@ -77,8 +81,8 @@
     grid-row-gap: 20px;
     padding-left: 70px;
     padding-right: 50px;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    padding-top: 0px;
+    padding-bottom: 0px;
   }
   .storeInfo__input__grid3 {
     order: 3;
@@ -103,7 +107,7 @@
     justify-content: flex-end;
   }
   .storeInfo__input input {
-    width: 220px;
+    width: 240px;
     height: 60px;
     border-radius: 15px;
     border: 2px solid rgba(0, 0, 0, 0.2);
@@ -135,6 +139,10 @@
     width: 450px;
     margin-bottom: 15px;
   }
+  .storeInfo__input__grid6 {
+    padding-top: 15px;
+  }
+
   .grid6__div2 {
     display: flex;
   }
@@ -153,23 +161,44 @@
     width: 450px;
     height: 100px;
     resize: none;
-    border-radius: 10px;
+    border-radius: 15px;
     background-color: #f5f5f5;
     outline: none;
     border: 2px solid rgba(0, 0, 0, 0.2);
-    text-align: center;
-    align-items: center;
+    text-align: start;
+
     margin-left: auto;
     margin-right: auto;
+    font-size: 10px;
     font-size: 15px;
-  }
-  .storeInfo__input__grid3 textarea {
-    padding-top: 25px;
-    font-size: 18px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding: 23px 15px 15px 15px;
+    overflow: auto;
   }
 
   .storeInfo__input span {
     opacity: 0.7;
     font-size: 18px;
   }
+}
+
+.storeInfo__input__btn {
+  display: flex;
+  justify-content: end;
+  margin-right: 120px;
+  margin-top: 15px;
+}
+
+.storeInfo__input__btn button {
+  width: 80px;
+  height: 40px;
+  outline: none;
+  border-radius: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-color: #256d85;
+  margin-left: 15px;
+  color: white;
+  font-size: 15px;
+  border: 0px;
 }
