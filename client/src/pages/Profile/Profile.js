@@ -29,7 +29,6 @@ const Profile = () => {
   useEffect(() => {
     getProfile()
       .then(userData => {
-        console.log(userData.profileImg)
         setUserInfo(userData);
         setEmail(userData.email);
         setService(userData.service[0])
@@ -45,10 +44,10 @@ const Profile = () => {
         <div className={styles.profile_container}>
           <h1 className={styles.title}>프로필</h1>
           <div className={styles.contents_container}>
-            <div>
+            <div className={styles.imgWrapper}>
               {userInfo.profileImg === null || userInfo.profileImg === undefined ?
                 <img src={noneProfile} /> :
-                <img src={userInfo.profileImg} />}
+                <img src={"http://localhost:8080" + userInfo.profileImg} className={styles.imgPreview} />}
             </div>
             <div className={styles.contents_info}>
               <div>
