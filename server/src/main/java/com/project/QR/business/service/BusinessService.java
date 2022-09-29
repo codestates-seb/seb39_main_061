@@ -7,6 +7,7 @@ import com.project.QR.exception.ExceptionCode;
 import com.project.QR.file.service.StorageService;
 import com.project.QR.util.CustomBeanUtils;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,6 +26,7 @@ public class BusinessService {
    * Business 조회
    */
   @Transactional(readOnly = true)
+  @Cacheable(key = "#memberId", value = "getBusiness")
   public Business getBusiness(long businessId, long memberId) {
     return findVerifiedBusiness(businessId, memberId);
   }

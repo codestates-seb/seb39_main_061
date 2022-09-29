@@ -1,5 +1,6 @@
 package com.project.QR.stub;
 
+import com.project.QR.helper.page.RestPage;
 import com.project.QR.qrcode.entity.QrCode;
 import com.project.QR.reservation.dto.ReservationRequestDto;
 import com.project.QR.reservation.dto.ReservationResponseDto;
@@ -78,12 +79,12 @@ public class ReservationStubData {
       .build();
   }
 
-  public static Page<Reservation> getReservationPage(int page, int size) {
-    return new PageImpl<>(List.of(
+  public static RestPage<Reservation> getReservationPage(int page, int size) {
+    return new RestPage<>(new PageImpl<>(List.of(
       reservation(1L, "000-0000-0000", "홍길동", 3),
       reservation(2L, "000-1234-0000", "이순신", 2),
       reservation(3L, "000-0000-5678", "세종대왕", 1)
-    ), PageRequest.of(page, size, Sort.by("RESERVATION_ID").descending()), 3);
+    ), PageRequest.of(page, size, Sort.by("RESERVATION_ID").descending()), 3));
   }
 
   public static List<ReservationResponseDto.ReservationInfoDto> reservationInfoDtoList(List<Reservation> reservationList) {

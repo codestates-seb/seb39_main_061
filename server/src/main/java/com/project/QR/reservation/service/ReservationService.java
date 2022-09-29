@@ -3,6 +3,7 @@ package com.project.QR.reservation.service;
 import com.project.QR.business.service.BusinessService;
 import com.project.QR.exception.BusinessLogicException;
 import com.project.QR.exception.ExceptionCode;
+import com.project.QR.helper.page.RestPage;
 import com.project.QR.qrcode.entity.QrCode;
 import com.project.QR.qrcode.entity.QrType;
 import com.project.QR.qrcode.service.QrCodeService;
@@ -13,6 +14,8 @@ import com.project.QR.reservation.entity.Reservation;
 import com.project.QR.reservation.repository.ReservationRepository;
 import com.project.QR.util.CustomBeanUtils;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -36,6 +39,7 @@ public class ReservationService {
   /**
    * 예약 등록
    */
+  @CacheEvict(cacheNames = {"getReservationList"}, allEntries = true)
   public Reservation createReservation(Reservation reservation) {
     if(findExistReservation(reservation.getQrCode().getQrCodeId(), reservation.getPhone()) != 0)
       throw new BusinessLogicException(ExceptionCode.RESERVATION_ALREADY_EXISTS);
@@ -45,10 +49,11 @@ public class ReservationService {
   /**
    * 예약 리스트 조회(사용자 입장)
    */
+  @Cacheable(key = "{#businessId, #page}", value = "getReservationList")
   @Transactional(readOnly = true)
-  public Page<Reservation> getUserReservationList(long businessId, long qrCodeId, int page, int size) {
-    return reservationRepository.findAllByToday(businessId, qrCodeId,
-      PageRequest.of(page, size, Sort.by("CREATED_AT").descending()));
+  public RestPage<Reservation> getUserReservationList(long businessId, long qrCodeId, int page, int size) {
+    return new RestPage<>(reservationRepository.findAllByToday(businessId, qrCodeId,
+      PageRequest.of(page, size, Sort.by("CREATED_AT").descending())));
   }
 
   /**
@@ -62,6 +67,7 @@ public class ReservationService {
   /**
    * 예약 변경
    */
+  @CacheEvict(cacheNames = {"getReservationList"}, allEntries = true)
   public Reservation updateReservation(Reservation reservation) {
     Reservation findReservation = findVerifiedReservation(reservation.getReservationId(), reservation.getQrCode().getQrCodeId());
     if(!findReservation.getName().equals(reservation.getName()) || !findReservation.getPhone().equals(reservation.getPhone())) {
@@ -82,6 +88,7 @@ public class ReservationService {
   /**
    * 예약 취소, delete column 변경
    */
+  @CacheEvict(cacheNames = {"getReservationList"}, allEntries = true)
   public void deleteReservation(Reservation reservation) {
     Reservation findReservation = findVerifiedReservation(reservation.getReservationId(), reservation.getQrCode().getQrCodeId());
     if(!findReservation.getName().equals(reservation.getName()) || !findReservation.getPhone().equals(reservation.getPhone())) {
@@ -162,15 +169,17 @@ public class ReservationService {
   /**
    * 예약 리스트 조회(업주 입장)
    */
-  public Page<Reservation> getAdminReservationList(long businessId, long qrCodeId, Long memberId, int page, int size) {
+  @Cacheable(key = "{#businessId, #page}", value = "getReservationList")
+  public RestPage<Reservation> getAdminReservationList(long businessId, long qrCodeId, Long memberId, int page, int size) {
     businessService.getBusiness(businessId, memberId);
-    return reservationRepository.findAllByToday(businessId, qrCodeId,
-      PageRequest.of(page, size, Sort.by("CREATED_AT").descending()));
+    return new RestPage<>(reservationRepository.findAllByToday(businessId, qrCodeId,
+      PageRequest.of(page, size, Sort.by("CREATED_AT").descending())));
   }
 
   /**
    * 예약 입장
    */
+  @CacheEvict(cacheNames = {"getReservationList"}, allEntries = true)
   public void enterReservation(long reservationId, long qrCodeId, long businessId, Long memberId) {
     businessService.getBusiness(businessId, memberId);
     Reservation findReservation = findVerifiedReservation(reservationId, qrCodeId);
@@ -182,6 +191,7 @@ public class ReservationService {
   /**
    * 예약 취소
    */
+  @CacheEvict(cacheNames = {"getReservationList"}, allEntries = true)
   public void cancelReservation(long reservationId, long qrCodeId, long businessId, Long memberId) {
     businessService.getBusiness(businessId, memberId);
     Reservation findReservation = findVerifiedReservation(reservationId, qrCodeId);
