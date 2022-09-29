@@ -1,5 +1,6 @@
 package com.project.QR.reservation.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.project.QR.audit.CreatedAuditable;
 import com.project.QR.qrcode.entity.QrCode;
 import lombok.Getter;
@@ -38,5 +39,6 @@ public class Reservation extends CreatedAuditable {
 
   @ManyToOne
   @JoinColumn(name = "QR_CODE_ID") //FK one-to-one
+  @JsonBackReference
   private QrCode qrCode;
 }

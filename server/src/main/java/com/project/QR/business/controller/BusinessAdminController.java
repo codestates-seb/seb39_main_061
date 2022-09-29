@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/api/v1/business")
@@ -26,9 +27,11 @@ public class BusinessAdminController {
   /**
    * 매장 정보 변경 API
    */
-  @PatchMapping
+  @PatchMapping("/{business-id}")
   public ResponseEntity updateBusiness(@AuthenticationPrincipal MemberDetails memberDetails,
-                                       @Valid @RequestBody BusinessRequestDto.UpdateBusinessDto updateBusinessDto) {
+                                       @Valid @RequestBody BusinessRequestDto.UpdateBusinessDto updateBusinessDto,
+                                       @Positive @PathVariable("business-id") long businessId) {
+    updateBusinessDto.setBusinessId(businessId);
     updateBusinessDto.setMemberId(memberDetails.getMember().getMemberId());
     Business business = businessService.updateBusiness(mapper.updateBusinessDtoToBusiness(updateBusinessDto));
 

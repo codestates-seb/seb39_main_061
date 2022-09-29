@@ -23,7 +23,7 @@ public class Menu {
   @Column(nullable = false)
   private int price;
 
-  @Column(nullable = false, length = 200)
+  @Column(length = 200)
   private String img;
 
   @ManyToOne

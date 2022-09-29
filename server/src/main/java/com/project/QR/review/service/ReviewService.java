@@ -33,7 +33,7 @@ public class ReviewService {
    */
   @Transactional(readOnly = true)
   public Page<Review> getAdminReviewList(long businessId, long memberId, int page, int size) {
-    businessService.getBusiness(businessId, memberId);
+    businessService.existBusiness(businessId, memberId);
     return reviewRepository.findAllByBusinessId(businessId,
       PageRequest.of(page, size, Sort.by("CREATED_AT").descending()));
   }
@@ -52,7 +52,7 @@ public class ReviewService {
    */
   @Transactional(readOnly = true)
   public Review getAdminReview(long reviewId, long businessId, long memberId) {
-    businessService.getBusiness(businessId, memberId);
+    businessService.existBusiness(businessId, memberId);
     return findVerifiedReview(reviewId);
   }
 
