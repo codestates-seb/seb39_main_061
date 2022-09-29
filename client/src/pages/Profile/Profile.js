@@ -45,11 +45,11 @@ const Profile = () => {
         <div className={styles.profile_container}>
           <h1 className={styles.title}>프로필</h1>
           <div className={styles.contents_container}>
-            {/* <div>
-              {profile.profileImg === null || profile.profileImg === undefined ?
+            <div>
+              {userInfo.profileImg === null || userInfo.profileImg === undefined ?
                 <img src={noneProfile} /> :
-                <img src={profile.profileImg} />}
-            </div> */}
+                <img src={userInfo.profileImg} />}
+            </div>
             <div className={styles.contents_info}>
               <div>
                 <div className={styles.contents_text}>관리자 명: {userInfo.name}</div>
@@ -65,8 +65,8 @@ const Profile = () => {
           </div>
         </div>
         {/* } */}
-      </div>
       <ProfileEditModal />
+      </div>
     </div>
   );
 };
