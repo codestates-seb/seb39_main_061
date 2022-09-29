@@ -30,7 +30,7 @@ public class MenuService {
    * 메뉴 등록
    */
   public Menu createMenu(Menu menu, MultipartFile multipartFile) {
-    businessService.getBusiness(menu.getBusiness().getBusinessId(), menu.getBusiness().getMember().getMemberId());
+    businessService.existBusiness(menu.getBusiness().getBusinessId(), menu.getBusiness().getMember().getMemberId());
 
     if(!multipartFile.isEmpty()) {
       menu.setImg(fileSystemStorageService.store(multipartFile,
@@ -43,7 +43,7 @@ public class MenuService {
    * 메뉴 변경
    */
   public Menu updateMenu(Menu menu, MultipartFile multipartFile) {
-    businessService.getBusiness(menu.getBusiness().getBusinessId(), menu.getBusiness().getMember().getMemberId());
+    businessService.existBusiness(menu.getBusiness().getBusinessId(), menu.getBusiness().getMember().getMemberId());
     Menu findMenu = findVerifiedMenu(menu.getMenuId(), menu.getBusiness().getBusinessId());
     if(!multipartFile.isEmpty()) {
       if(findMenu.getImg() != null) {
@@ -60,7 +60,7 @@ public class MenuService {
    * 메뉴 리스트 조회(관리자)
    */
   public Page<Menu> getAdminMenuList(long businessId, long memberId, int page, int size) {
-    businessService.getBusiness(businessId, memberId);
+    businessService.existBusiness(businessId, memberId);
     return menuRepository.findAllByBusinessId(businessId,
       PageRequest.of(page, size, Sort.by("MENU_ID").descending()));
   }
@@ -78,7 +78,7 @@ public class MenuService {
    */
   @Transactional
   public Menu findMenu(long menuId, long businessId, Long memberId) {
-    businessService.getBusiness(businessId, memberId);
+    businessService.existBusiness(businessId, memberId);
     return findVerifiedMenu(menuId, businessId);
   }
 
@@ -86,7 +86,7 @@ public class MenuService {
    * 메뉴 삭제
    */
   public void deleteMenu(long menuId, long businessId, Long memberId) {
-    businessService.getBusiness(businessId, memberId);
+    businessService.existBusiness(businessId, memberId);
     Menu menu = findVerifiedMenu(menuId, businessId);
     if(menu.getImg() != null)
       fileSystemStorageService.remove(menu.getImg());

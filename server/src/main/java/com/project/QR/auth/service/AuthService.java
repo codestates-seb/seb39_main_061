@@ -10,6 +10,7 @@ import com.project.QR.helper.event.MemberRegistrationApplicationEvent;
 import com.project.QR.member.entity.EmailVerified;
 import com.project.QR.member.entity.Member;
 import com.project.QR.member.repository.MemberRepository;
+import com.project.QR.member.service.MemberService;
 import com.project.QR.security.MemberDetails;
 import com.project.QR.security.jwt.TokenProvider;
 import com.project.QR.util.CustomBeanUtils;
@@ -38,8 +39,8 @@ public class AuthService {
   private final RedisTemplate<String, Object> redisTemplate;
   private final ApplicationEventPublisher publisher;
   private final CustomBeanUtils<Member> memberBeanUtils;
-  private final CustomBeanUtils<Business> businessBeanUtils;
   private final BusinessService businessService;
+  private final MemberService memberService;
 
   /**
    * 회원가입
@@ -60,7 +61,7 @@ public class AuthService {
    * 로그인
    */
   public TokenDto.TokenInfoDto loginMember(Member member, HttpServletResponse response) {
-    Member findMember = findVerifiedMember(member.getEmail());
+    Member findMember = memberService.getMember(member.getEmail());
     if(!passwordEncoder.matches(member.getPassword(), findMember.getPassword())) {
       throw new BusinessLogicException(ExceptionCode.MEMBER_INFO_INCORRECT);
     }
@@ -88,14 +89,7 @@ public class AuthService {
     }
   }
 
-  /**
-   * 이메일로 회원 찾기
-   */
-  @Transactional(readOnly = true)
-  public Member findVerifiedMember(String email) {
-    Optional<Member> optionalMember = memberRepository.findByEmail(email);
-    return optionalMember.orElseThrow(() -> new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
-  }
+
 
   /**
    * 토큰 재발급
@@ -128,7 +122,7 @@ public class AuthService {
    * 이메일 인증
    */
   public void validation(String email, String code) {
-    Member findMember = findVerifiedMember(email);
+    Member findMember = memberService.getMember(email);
     if(!findMember.getVerifiedCode().equals(code)) {
       throw new BusinessLogicException(ExceptionCode.VALIDATION_CODE_INCORRECT);
     }
@@ -141,7 +135,7 @@ public class AuthService {
    * oauth2 로그인 이후 추가 정보 기입
    */
   public TokenDto.TokenInfoDto updateMember(Member member, HttpServletResponse response) {
-    Member findMember = findVerifiedMember(member.getEmail());
+    Member findMember = memberService.getMember(member.getEmail());
     Member updatingMember = memberBeanUtils.copyNonNullProperties(member, findMember);
     updatingMember.setEmailVerified(EmailVerified.Y);
     updatingMember.setMemberId(findMember.getMemberId());
@@ -155,7 +149,7 @@ public class AuthService {
    * 비밀번호 재발급
    */
   public void reIssuePassword(String email) {
-    Member member = findVerifiedMember(email);
+    Member member = memberService.getMember(email);
     String password = UUID.randomUUID().toString().substring(0,10);
     member.setPassword(passwordEncoder.encode(password));
     memberRepository.save(member);

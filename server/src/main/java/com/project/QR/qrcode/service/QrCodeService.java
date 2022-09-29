@@ -32,7 +32,7 @@ public class QrCodeService {
    * QrCode 등록
    */
   public QrCode createQrCode(QrCode qrCode) {
-    businessService.getBusiness(qrCode.getBusiness().getBusinessId(), qrCode.getBusiness().getMember().getMemberId());
+    businessService.existBusiness(qrCode.getBusiness().getBusinessId(), qrCode.getBusiness().getMember().getMemberId());
     return qrCodeRepository.save(qrCode);
   }
 

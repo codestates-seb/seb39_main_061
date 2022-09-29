@@ -13,6 +13,7 @@ public class BusinessRequestDto {
   @AllArgsConstructor
   @Builder
   public static class UpdateBusinessDto {
+    private long businessId;
     private long memberId;
     private String name;
     private String introduction;

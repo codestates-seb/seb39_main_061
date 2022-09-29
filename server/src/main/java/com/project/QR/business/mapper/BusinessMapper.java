@@ -12,6 +12,7 @@ public interface BusinessMapper {
     Member member = new Member();
     member.setMemberId(updateBusinessDto.getMemberId());
     Business business = new Business();
+    business.setBusinessId(updateBusinessDto.getBusinessId());
     business.setMember(member);
     business.setName(updateBusinessDto.getName());
     business.setIntroduction(updateBusinessDto.getIntroduction());

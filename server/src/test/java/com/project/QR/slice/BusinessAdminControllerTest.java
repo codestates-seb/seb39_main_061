@@ -46,8 +46,7 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.requestHe
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
-import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
+import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -73,6 +72,7 @@ public class BusinessAdminControllerTest {
   @DisplayName("매장 정보 변경 테스트")
   public void updateBusinessTest() throws Exception {
     // given
+    long businessId = 1L;
     Business business = BusinessStubData.business(1L, "business", "introduction",
       "매주 월요일", "11:00 ~ 22:00", "서울", 37.5, 128.7,
       "000-0000-0000");
@@ -87,7 +87,7 @@ public class BusinessAdminControllerTest {
 
     // when
     ResultActions actions = mockMvc.perform(
-      patch("/api/v1/business")
+      patch("/api/v1/business/{business-id}", businessId)
         .accept(MediaType.APPLICATION_JSON)
         .contentType(MediaType.APPLICATION_JSON)
         .header("Authorization", "Bearer {ACCESS_TOKEN}")
@@ -113,8 +113,12 @@ public class BusinessAdminControllerTest {
           getRequestPreProcessor(),
           getResponsePreProcessor(),
           requestHeaders(headerWithName("Authorization").description("Bearer AccessToken")),
+          pathParameters(
+            parameterWithName("business-id").description("매장 식별자")
+          ),
           requestFields(
             List.of(
+              fieldWithPath("businessId").description("매장 식별자").ignored(),
               fieldWithPath("memberId").description("회원 식별자").ignored(),
               fieldWithPath("introduction").description("매장 소개글").optional(),
               fieldWithPath("openTime").description("영업 시간").optional(),

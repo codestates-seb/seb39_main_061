@@ -7,6 +7,7 @@ import com.project.QR.exception.ExceptionCode;
 import com.project.QR.file.service.StorageService;
 import com.project.QR.util.CustomBeanUtils;
 import lombok.AllArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,15 +20,15 @@ import java.util.Optional;
 public class BusinessService {
   private final BusinessRepository businessRepository;
   private final CustomBeanUtils<Business> beanUtils;
-  private final StorageService storageService;
 
-  /**
-   * Business 조회
-   */
-  @Transactional(readOnly = true)
-  public Business getBusiness(long businessId, long memberId) {
-    return findVerifiedBusiness(businessId, memberId);
-  }
+//  /**
+//   * Business 조회
+//   */
+//  @Cacheable(key = "#businessId", value = "getBusiness")
+//  @Transactional(readOnly = true)
+//  public Business getBusiness(long businessId, long memberId) {
+//    return findVerifiedBusiness(businessId, memberId);
+//  }
 
   /**
    * 회원 식별자로 매장 조회
@@ -85,5 +86,15 @@ public class BusinessService {
     Business findBusiness = findVerifiedBusiness(business.getBusinessId(), business.getMember().getMemberId());
     Business updatingBusiness = beanUtils.copyNonNullProperties(business, findBusiness);
     return businessRepository.save(updatingBusiness);
+  }
+
+  /**
+   * Business 존재 여부 확인
+   */
+  @Transactional(readOnly = true)
+  @Cacheable(key = "#businessId", value = "existBusiness")
+  public boolean existBusiness(long businessId, long memberId) {
+    findVerifiedBusiness(businessId, memberId);
+    return true;
   }
 }

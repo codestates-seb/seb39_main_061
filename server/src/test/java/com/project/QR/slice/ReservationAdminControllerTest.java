@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.project.QR.dto.MessageResponseDto;
 import com.project.QR.dto.MultiResponseWithPageInfoDto;
 import com.project.QR.helper.WithMockCustomUser;
+import com.project.QR.helper.page.RestPage;
 import com.project.QR.reservation.controller.ReservationAdminController;
 import com.project.QR.reservation.dto.ReservationResponseDto;
 import com.project.QR.reservation.entity.Reservation;
@@ -138,7 +139,7 @@ public class ReservationAdminControllerTest {
     int page = 1;
     int size = 10;
 
-    Page<Reservation> pageOfReservation = ReservationStubData.getReservationPage(page - 1, size);
+    RestPage<Reservation> pageOfReservation = ReservationStubData.getReservationPage(page - 1, size);
     List<Reservation> reservationList = pageOfReservation.getContent();
     List<ReservationResponseDto.ReservationInfoDto> reservationInfoDtoList
       = ReservationStubData.reservationInfoDtoList(reservationList);
