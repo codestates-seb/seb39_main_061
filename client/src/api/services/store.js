@@ -24,9 +24,16 @@ export const postBusinessInfo = (
 };
 
 export const getBusinessInfo = () => {
-  return axios.get(`${baseURL}/api/v1/business`, {
-    headers: {
-      Authorization: getAuthorizationHeader(),
-    },
-  });
+  return axios
+    .get(`${baseURL}/api/v1/business`, {
+      headers: {
+        Authorization: getAuthorizationHeader(),
+      },
+    })
+    .then((res) => {
+      console.log("매장정보 조회 성공", res);
+    })
+    .catch((err) => {
+      console.log("매장정보 조회 실패", err);
+    });
 };

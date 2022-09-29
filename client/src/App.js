@@ -21,25 +21,11 @@ import { getProfile } from "./api/services/user.js";
 
 function App() {
   const url = process.env.REACT_APP_BASE_URL;
-  console.log("베이스유알엘", url);
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const profile = useSelector((state) => state.user.userProfile);
-  console.log("프로필?", profile);
 
   // 유저 정보로 새로고침해도 로그인 유지
-  useEffect(() => {
-    if (localStorage.getItem("token") && isLogin === true) {
-      getProfile()
-        .then((res) => {
-          console.log("로그인 유지 성공!");
-          dispatch(userAction.setUser(res));
-        })
-        .catch((err) => {
-          console.log("로그인 유지 실패");
-        });
-    }
-  }, []);
 
   return (
     <div className="App">

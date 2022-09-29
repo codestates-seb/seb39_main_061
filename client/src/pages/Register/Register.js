@@ -47,6 +47,7 @@ const Register = () => {
       }, 3000);
     }
   };
+
   useEffect(() => {
     localStorage.setItem("token", token);
     checkValidation();
@@ -89,11 +90,9 @@ const Register = () => {
       setValidationMSG("");
       console.log("추가전송");
       localStorage.setItem("token", res.data.data.accessToken);
-      const userData = await getProfile();
-      dispatch(userAction.setUser(userData));
       setModalOpen(true);
       setTimeout(() => {
-        navigate("/login");
+        navigate("/dahboard");
       }, 3000);
     }
   };

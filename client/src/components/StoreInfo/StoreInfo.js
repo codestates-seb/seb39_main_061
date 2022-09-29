@@ -134,7 +134,7 @@ const StoreInfo = () => {
                 <span>매장 이름</span>
                 <input
                   readOnly={canEdit === false}
-                  value={name}
+                  value={name === null ? "" : name}
                   onChange={nameHandler}
                   placeholder="ex:덕이네 곱창"
                 />
@@ -143,7 +143,7 @@ const StoreInfo = () => {
                 <span>영업 시간</span>
                 <input
                   readOnly={canEdit === false}
-                  value={openTime === 0 ? "" : openTime}
+                  value={openTime === null ? "" : openTime}
                   onChange={openTimeHandler}
                   placeholder="ex:10:00 ~ 21:00"
                 />
@@ -154,7 +154,7 @@ const StoreInfo = () => {
                 <span>휴무일</span>
                 <input
                   readOnly={canEdit === false}
-                  value={holiday}
+                  value={holiday === null ? "" : holiday}
                   onChange={holidayHandler}
                   placeholder="ex:매주 월요일"
                 />
@@ -163,7 +163,7 @@ const StoreInfo = () => {
                 <span>매장 전화번호</span>
                 <input
                   readOnly={canEdit === false}
-                  value={phone === 0 ? "" : phone}
+                  value={phone === null ? "" : phone}
                   onChange={phoneHandler}
                   placeholder="ex:031-947-3334"
                 />
@@ -175,7 +175,7 @@ const StoreInfo = () => {
               <span>소개글</span>
               <textarea
                 readOnly={canEdit === false}
-                value={introduction}
+                value={introduction === null ? "" : introduction}
                 onChange={introHandler}
                 placeholder="ex: 우리집 맛집이에요 ! 많이들 드시러 오세요"
               ></textarea>
@@ -187,7 +187,7 @@ const StoreInfo = () => {
               <div className={Styles.StoreInfo__input__wrap2__info2__address}>
                 <input
                   readOnly={canEdit === false}
-                  value={address}
+                  value={address === null ? "" : address}
                   placeholder="ex: 서울특별시 동작구 밤리단길 369 B1"
                 />
                 {canEdit && <button onClick={toggle}>주소검색</button>}
