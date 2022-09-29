@@ -1,0 +1,175 @@
+.storeInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 90%;
+  max-width: 1240px;
+  height: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.storeInfo__title {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  font-size: 20px;
+}
+.storeInfo__input__grid3 {
+  order: 5;
+}
+
+.storeInfo__input {
+  display: grid;
+  height: auto;
+  width: 100%;
+  border: 1px solid tomato;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+@media all and (min-width: 500px) {
+  .storeInfo__input {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
+  }
+  .storeInfo__input div:last-child input {
+    width: 270px;
+  }
+
+  .storeInfo__input__grid3 {
+    order: 5;
+  }
+  .storeInfo__input__grid4 {
+    order: 3;
+  }
+  .storeInfo__input__grid5 {
+    order: 4;
+  }
+  .storeInfo__input__grid6 {
+    order: 6;
+  }
+
+  .storeInfo__input__grid1 div,
+  .storeInfo__input__grid2 div,
+  .storeInfo__input__grid4 div,
+  .storeInfo__input__grid5 div {
+    display: flex;
+    width: 120px;
+    justify-content: flex-start;
+  }
+  .storeInfo__input__grid3 textarea {
+    width: 200px;
+  }
+  .storeInfo__input__grid3 div,
+  .storeInfo__input__grid6 div {
+    width: 200px;
+  }
+}
+@media all and (min-width: 850px) {
+  .StoreInfo {
+    margin: 70px 120px 70px 120px;
+  }
+  .storeInfo__input {
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    padding-left: 70px;
+    padding-right: 50px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+  .storeInfo__input__grid3 {
+    order: 3;
+  }
+  .storeInfo__input__grid4 {
+    order: 3;
+  }
+  .storeInfo__input__grid5 {
+    order: 4;
+  }
+  .storeInfo__input__grid6 {
+    order: 6;
+  }
+  .storeInfo__input > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 160px;
+  }
+  .storeInfo__input div:nth-child(3) {
+    justify-content: flex-end;
+  }
+  .storeInfo__input input {
+    width: 220px;
+    height: 60px;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: #f5f5f5;
+    outline: none;
+    text-align: center;
+    font-size: 17px;
+  }
+
+  .storeInfo__input div:last-child input {
+    width: 370px;
+  }
+
+  .storeInfo__input__grid1 div,
+  .storeInfo__input__grid2 div,
+  .storeInfo__input__grid4 div,
+  .storeInfo__input__grid5 div {
+    display: flex;
+    width: 220px;
+    justify-content: flex-start;
+    margin-bottom: 15px;
+  }
+
+  .storeInfo__input__grid3 div {
+    width: 450px;
+    margin-bottom: 15px;
+  }
+  .storeInfo__input__grid6 div {
+    width: 450px;
+    margin-bottom: 15px;
+  }
+  .grid6__div2 {
+    display: flex;
+  }
+  .grid6__div2 button {
+    width: 80px;
+    outline: none;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: #256d85;
+    margin-left: 15px;
+    color: white;
+    font-size: 15px;
+  }
+
+  .storeInfo__input__grid3 textarea {
+    width: 450px;
+    height: 100px;
+    resize: none;
+    border-radius: 10px;
+    background-color: #f5f5f5;
+    outline: none;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    text-align: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 15px;
+  }
+  .storeInfo__input__grid3 textarea {
+    padding-top: 25px;
+    font-size: 18px;
+  }
+
+  .storeInfo__input span {
+    opacity: 0.7;
+    font-size: 18px;
+  }
+}

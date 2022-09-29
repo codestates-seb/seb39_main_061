@@ -8,7 +8,7 @@ import googleLogo from "../../assets/google-logo.png";
 import naverLogo from "../../assets/naver-logo.png";
 import kakaoLogo from "../../assets/kakao-logo.png";
 import { useState } from "react";
-import mainLogo from "../../assets/logo1.png";
+import mainLogo from "../../assets/logo2.png";
 import Modal from "../../components/Modal/Modal";
 import { useEffect } from "react";
 import { getProfile } from "../../api/services/user";

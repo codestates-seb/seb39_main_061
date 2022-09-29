@@ -1,14 +1,12 @@
-import { useEffect, useState, useHistory } from "react";
+import { useEffect, useState } from "react";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate, Link } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import styles from "./Register.module.css";
-import { userAction } from "../../store/user";
 import Modal from "../../components/Modal/Modal";
 import Login from "../Login/Login";
 import { oauthReq } from "../../api/services/auth";
-import { getProfile } from "../../api/services/user";
 
 const Register = () => {
   const businessNameRef = useRef();
@@ -38,8 +36,8 @@ const Register = () => {
     if (oauthValidation === true) {
       setPage("login");
       localStorage.setItem("token", token);
-      const userData = await getProfile();
-      dispatch(userAction.setUser(userData));
+      // const userData = await getProfile();
+      // dispatch(userAction.setUser(userData));
       setModalOpen(true);
       setTimeout(() => {
         navigate("/dashboard");
@@ -47,6 +45,7 @@ const Register = () => {
       }, 3000);
     }
   };
+
   useEffect(() => {
     localStorage.setItem("token", token);
     checkValidation();
@@ -89,11 +88,10 @@ const Register = () => {
       setValidationMSG("");
       console.log("추가전송");
       localStorage.setItem("token", res.data.data.accessToken);
-      const userData = await getProfile();
-      dispatch(userAction.setUser(userData));
       setModalOpen(true);
       setTimeout(() => {
-        navigate("/login");
+        dispatch(authActions.login());
+        navigate("/dashboard");
       }, 3000);
     }
   };

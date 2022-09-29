@@ -17,11 +17,11 @@ const Dashboard = () => {
 
   const weekBtnHandler = () => {
     setIsBarChart(true);
-  }
+  };
 
   const monthBtnHandler = () => {
     setIsBarChart(false);
-  }
+  };
 
   let today = moment().format("YYYYMMDD")
 
@@ -44,7 +44,11 @@ const Dashboard = () => {
                 <button onClick={monthBtnHandler}>Month</button>
               </div>
               <div>
-                {isBarChart ? <WeekApexChart className={styles.barChart} /> : <MonthApexChart className={styles.barChart} />}
+                {isBarChart ? (
+                  <WeekApexChart className={styles.barChart} />
+                ) : (
+                  <MonthApexChart className={styles.barChart} />
+                )}
               </div>
             </div>
           </div>
