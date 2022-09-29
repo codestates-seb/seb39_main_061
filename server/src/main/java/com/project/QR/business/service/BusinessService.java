@@ -83,6 +83,7 @@ public class BusinessService {
    * Business 정보 변경
    */
   public Business updateBusiness(Business business) {
+    System.out.println(business.getBusinessId()+ " " + business.getMember().getMemberId());
     Business findBusiness = findVerifiedBusiness(business.getBusinessId(), business.getMember().getMemberId());
     Business updatingBusiness = beanUtils.copyNonNullProperties(business, findBusiness);
     return businessRepository.save(updatingBusiness);
@@ -92,7 +93,7 @@ public class BusinessService {
    * Business 존재 여부 확인
    */
   @Transactional(readOnly = true)
-  @Cacheable(key = "#businessId", value = "existBusiness")
+//  @Cacheable(key = "#businessId", value = "existBusiness")
   public boolean existBusiness(long businessId, long memberId) {
     findVerifiedBusiness(businessId, memberId);
     return true;
