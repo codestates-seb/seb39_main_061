@@ -171,7 +171,7 @@ public class ReservationService {
    */
   @Cacheable(key = "{#businessId, #page}", value = "getReservationList")
   public RestPage<Reservation> getAdminReservationList(long businessId, long qrCodeId, Long memberId, int page, int size) {
-    businessService.getBusiness(businessId, memberId);
+    businessService.existBusiness(businessId, memberId);
     return new RestPage<>(reservationRepository.findAllByToday(businessId, qrCodeId,
       PageRequest.of(page, size, Sort.by("CREATED_AT").descending())));
   }
@@ -181,7 +181,7 @@ public class ReservationService {
    */
   @CacheEvict(cacheNames = {"getReservationList"}, allEntries = true)
   public void enterReservation(long reservationId, long qrCodeId, long businessId, Long memberId) {
-    businessService.getBusiness(businessId, memberId);
+    businessService.existBusiness(businessId, memberId);
     Reservation findReservation = findVerifiedReservation(reservationId, qrCodeId);
     // TO-DO : SMS 발송 기능
     findReservation.setCompleted(Check.Y);
@@ -193,7 +193,7 @@ public class ReservationService {
    */
   @CacheEvict(cacheNames = {"getReservationList"}, allEntries = true)
   public void cancelReservation(long reservationId, long qrCodeId, long businessId, Long memberId) {
-    businessService.getBusiness(businessId, memberId);
+    businessService.existBusiness(businessId, memberId);
     Reservation findReservation = findVerifiedReservation(reservationId, qrCodeId);
     // TO-DO : SMS 발송 기능
     findReservation.setDeleted(Check.Y);

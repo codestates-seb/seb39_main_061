@@ -40,7 +40,7 @@ public class KeepService {
    * 자재 리스트 조회(업주 입장)
    */
   public Page<Keep> getAdminKeepList(long businessId, long qrCodeId, long memberId, int page, int size) {
-    businessService.getBusiness(businessId, memberId);
+    businessService.existBusiness(businessId, memberId);
     return keepRepository.findAllByBusinessIdAndQrCodeId(businessId, qrCodeId,
             PageRequest.of(page, size, Sort.by("CREATED_AT").descending()));
   }
