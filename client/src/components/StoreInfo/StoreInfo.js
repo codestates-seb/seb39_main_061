@@ -162,6 +162,8 @@ const StoreInfo = () => {
                 <span>소개글</span>
               </div>
               <textarea
+                spellcheck="false"
+                maxLength={80}
                 readOnly={canEdit === false}
                 value={introduction === null ? "" : introduction}
                 onChange={introHandler}
@@ -195,12 +197,14 @@ const StoreInfo = () => {
               <div>
                 <span>매장 위치</span>
               </div>
-              <input
-                readOnly={canEdit === false}
-                value={address === null ? "" : address}
-                placeholder="ex: 서울특별시 동작구 밤리단길 369 B1"
-              />
-              {canEdit && <button onClick={toggle}>주소검색</button>}
+              <div className={styles.grid6__div2}>
+                <input
+                  readOnly={canEdit === false}
+                  value={address === null ? "" : address}
+                  placeholder="ex: 서울특별시 동작구 밤리단길 369 B1"
+                />
+                {canEdit && <button onClick={toggle}>주소검색</button>}
+              </div>
             </div>
             <Modal
               // onClick={console.log("click")}

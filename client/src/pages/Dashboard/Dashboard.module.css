@@ -2,12 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
- }
+}
 
- .container {
+.container {
   display: flex;
   justify-content: flex-start;
- }
+}
 
 .main_container {
   width: 1130px;
@@ -22,7 +22,7 @@
 .container {
   display: flex;
   flex-direction: row;
-  justify-content:stretch;
+  justify-content: stretch;
   height: 470px;
 }
 
@@ -36,7 +36,7 @@
 }
 
 .barChartsBtn {
-padding-left: 15px;
+  padding-left: 15px;
 }
 
 .barChartsBtn > button {
@@ -46,16 +46,16 @@ padding-left: 15px;
   border-radius: 5px;
   background-color: #dedddd;
   /* background-color: #e69166; */
-  color: #256D85;
+  color: #256d85;
   font: 11px arial;
   font-size: 0.7rem;
   cursor: pointer;
-  box-shadow: 1px 2px 0 rgb(0,0,0,0.5);
+  box-shadow: 1px 2px 0 rgb(0, 0, 0, 0.5);
 }
 .barChartsBtn > button:active {
-  background-color: #256D85;
+  background-color: #256d85;
   color: white;
-  box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
+  box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);
 }
 
 .h3 {
