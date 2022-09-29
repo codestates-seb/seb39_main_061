@@ -35,7 +35,7 @@ public class ReservationUserController {
                                           @Positive @PathVariable("qr-code-id") long qrCodeId) {
     createReservationDto.setBusinessId(businessId);
     createReservationDto.setQrCodeId(qrCodeId);
-    Reservation reservation =  reservationService.createReservation(mapper.createReservationToReservation(createReservationDto));
+    Reservation reservation = reservationService.createReservation(mapper.createReservationToReservation(createReservationDto));
     return new ResponseEntity<>(new SingleResponseWithMessageDto<>(mapper.reservationToReservationInfoDto(reservation),
       "CREATED"),
       HttpStatus.CREATED);

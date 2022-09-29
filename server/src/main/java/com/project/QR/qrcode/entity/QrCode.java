@@ -1,5 +1,7 @@
 package com.project.QR.qrcode.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.project.QR.audit.Auditable;
 import com.project.QR.business.entity.Business;
 import com.project.QR.keep.entity.Keep;
@@ -35,11 +37,13 @@ public class QrCode extends Auditable{
 
   @ManyToOne
   @JoinColumn(name = "BUSINESS_ID") //FK
+  @JsonBackReference
   private Business business;
 
   @OneToMany(mappedBy = "qrCode", cascade = CascadeType.ALL)
   private List<Keep> keep = new ArrayList<>();
 
+  @JsonManagedReference
   @OneToMany(mappedBy = "qrCode", cascade = CascadeType.ALL)
   private List<Reservation> reservations = new ArrayList<>();
 

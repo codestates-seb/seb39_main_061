@@ -20,16 +20,15 @@ import java.util.Optional;
 public class BusinessService {
   private final BusinessRepository businessRepository;
   private final CustomBeanUtils<Business> beanUtils;
-  private final StorageService storageService;
 
-  /**
-   * Business 조회
-   */
-  @Transactional(readOnly = true)
-  @Cacheable(key = "#memberId", value = "getBusiness")
-  public Business getBusiness(long businessId, long memberId) {
-    return findVerifiedBusiness(businessId, memberId);
-  }
+//  /**
+//   * Business 조회
+//   */
+//  @Cacheable(key = "#businessId", value = "getBusiness")
+//  @Transactional(readOnly = true)
+//  public Business getBusiness(long businessId, long memberId) {
+//    return findVerifiedBusiness(businessId, memberId);
+//  }
 
   /**
    * 회원 식별자로 매장 조회
@@ -87,5 +86,15 @@ public class BusinessService {
     Business findBusiness = findVerifiedBusiness(business.getBusinessId(), business.getMember().getMemberId());
     Business updatingBusiness = beanUtils.copyNonNullProperties(business, findBusiness);
     return businessRepository.save(updatingBusiness);
+  }
+
+  /**
+   * Business 존재 여부 확인
+   */
+  @Transactional(readOnly = true)
+  @Cacheable(key = "#businessId", value = "existBusiness")
+  public boolean existBusiness(long businessId, long memberId) {
+    findVerifiedBusiness(businessId, memberId);
+    return true;
   }
 }
