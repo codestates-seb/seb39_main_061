@@ -3,6 +3,7 @@ import Login from "./pages/Login/Login.js";
 import SignUp from "./pages/SignUp/SignUp";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Profile from "./pages/Profile/Profile";
+// import ProfileEdit from "./pages/Profile/ProfileEdit";
 import Management from "./pages/Management/Management";
 import ManagementDetail from "./pages/ManagementDetail/ManagementDetail";
 import UserPage from "./pages/UserPage/UserPage";
