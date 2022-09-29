@@ -47,13 +47,20 @@ const StoreInfo = () => {
     // });
 
     // 매장 정보 수정 axios
-    postBusinessInfo();
+
     // 매장 정보 가져오기
+  };
+  const changeBtnHandler = () => {
+    // 수정하기 버튼누르면 버튼이름을 "완료"로 바꾸는 함수
+    setBtn(true);
   };
 
   const editSubmitHandler = () => {
-    // 수정, 완료 버튼 체인지
-    setBtn(!btn);
+    // 1. 완료버튼을 누르면 유효성검사하고
+    // 2. Axios patch로 수정 전송!
+    // 3. 수정전송이 완료되고 200ok면 버튼을 수정으로 바꾸고 새로고침 되게 만들기
+    postBusinessInfo();
+    setBtn(false);
   };
   const nameHandler = (e) => {
     setName(e.target.value);
@@ -154,11 +161,11 @@ const StoreInfo = () => {
                 />
                 <button onClick={toggle}>주소검색</button>
                 <Modal
-                  onClick={console.log("click")}
+                  // onClick={console.log("click")}
                   isOpen={isOpen}
                   ariaHideApp={false}
                   style={customStyles}
-                  onRequestClose={toggle}
+                  // onRequestClose={toggle}
                 >
                   <MapContainer toggle={toggle} />
                 </Modal>
@@ -167,11 +174,9 @@ const StoreInfo = () => {
           </div>
         </div>
         <div className={Styles.StoreInfo__input__btn}>
-          <button onClick={editSubmitHandler}>
-            {btn && "완료"}
-            {!btn && "수정"}
-          </button>
-          <button>취소</button>
+          {!btn && <button onClick={changeBtnHandler}>수정</button>}
+          {btn && <button onClick={editSubmitHandler}>완료</button>}
+          {btn && <button>취소</button>}
         </div>
       </form>
     </div>
