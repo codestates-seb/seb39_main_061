@@ -38,8 +38,8 @@ const Register = () => {
     if (oauthValidation === true) {
       setPage("login");
       localStorage.setItem("token", token);
-      const userData = await getProfile();
-      dispatch(userAction.setUser(userData));
+      // const userData = await getProfile();
+      // dispatch(userAction.setUser(userData));
       setModalOpen(true);
       setTimeout(() => {
         navigate("/dashboard");
@@ -92,7 +92,8 @@ const Register = () => {
       localStorage.setItem("token", res.data.data.accessToken);
       setModalOpen(true);
       setTimeout(() => {
-        navigate("/dahboard");
+        dispatch(authActions.login());
+        navigate("/dashboard");
       }, 3000);
     }
   };

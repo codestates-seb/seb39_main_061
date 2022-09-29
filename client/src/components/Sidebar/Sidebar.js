@@ -6,12 +6,13 @@ import { persistor } from "../../index";
 import { useEffect } from "react";
 import { getProfile } from "../../api/services/user";
 import { userAction } from "../../store/user";
-import StoreManagement from "../../pages/StoreManagement/StoreManagement";
+import { useCookies } from "react-cookie";
 
 const Sidebar = () => {
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [cookies, setCookie, removeCookie] = useCookies();
 
   useEffect(() => {
     if (localStorage.getItem("token") && isLogin === true) {
@@ -30,6 +31,7 @@ const Sidebar = () => {
     // deleteToken("token");
     localStorage.removeItem("token");
     dispatch(authActions.logout());
+    removeCookie("refresh");
     console.log("로그아웃");
     navigate("/");
   };

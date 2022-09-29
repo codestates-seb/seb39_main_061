@@ -3,6 +3,7 @@ import { baseURL } from "../axios";
 import { getAuthorizationHeader } from "../axios";
 
 export const postBusinessInfo = (
+  businessId,
   name,
   introduction,
   openTime,
@@ -13,7 +14,7 @@ export const postBusinessInfo = (
   lat
 ) => {
   return axios.patch(
-    `${baseURL}/api/v1/business/1`,
+    `${baseURL}/api/v1/business/${businessId}`,
     { name, introduction, openTime, holiday, address, phone, lon, lat },
     {
       headers: {
@@ -24,16 +25,9 @@ export const postBusinessInfo = (
 };
 
 export const getBusinessInfo = () => {
-  return axios
-    .get(`${baseURL}/api/v1/business`, {
-      headers: {
-        Authorization: getAuthorizationHeader(),
-      },
-    })
-    .then((res) => {
-      console.log("매장정보 조회 성공", res);
-    })
-    .catch((err) => {
-      console.log("매장정보 조회 실패", err);
-    });
+  return axios.get(`${baseURL}/api/v1/business`, {
+    headers: {
+      Authorization: getAuthorizationHeader(),
+    },
+  });
 };

@@ -1,20 +1,18 @@
-import Styles from "./StoreInfo.module.css";
-import { useRef, useState } from "react";
+import styles from "./StoreInfo.module.css";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBusinessInfo, postBusinessInfo } from "../../api/services/store";
 import Modal from "react-modal"; // 추가
 import MapContainer from "../MapContainer/MapContainer";
 import { useEffect } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { mapActions } from "../../store/map";
+import { authActions } from "../../store/auth";
 
 const StoreInfo = () => {
-  const profile = useSelector((state) => state.user.userProfile);
   const address = useSelector((state) => state.map.address);
   const lat = useSelector((state) => state.map.lat);
   const lon = useSelector((state) => state.map.lon);
-  console.log("위도,경도? ", lat, lon);
+
   const [canEdit, setCanEdit] = useState(false);
   const [name, setName] = useState("");
   const [openTime, setOpenTime] = useState("");
@@ -22,24 +20,30 @@ const StoreInfo = () => {
   const [phone, setPhone] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [memberId, setMemberId] = useState(null);
-  const navigate = useNavigate();
+  const [businessId, setBusinessId] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getBusinessInfo().then((res) => {
-      setMemberId(res.data.data.businessId);
-      setName(res.data.data.name);
-      setOpenTime(res.data.data.openTime);
-      setHoliday(res.data.data.holiday);
-      setPhone(res.data.data.phone);
-      setIntroduction(res.data.data.introduction);
-      setIntroduction(res.data.data.introduction);
-      setIntroduction(res.data.data.introduction);
-      dispatch(mapActions.setlat(res.data.data.lat));
-      dispatch(mapActions.setlon(res.data.data.lon));
-      dispatch(mapActions.setAddress(res.data.data.address));
-    });
+    getBusinessInfo()
+      .then((res) => {
+        setBusinessId(res.data.data.businessId);
+        setName(res.data.data.name);
+        setOpenTime(res.data.data.openTime);
+        setHoliday(res.data.data.holiday);
+        setPhone(res.data.data.phone);
+        setIntroduction(res.data.data.introduction);
+        setIntroduction(res.data.data.introduction);
+        setIntroduction(res.data.data.introduction);
+        dispatch(mapActions.setlat(res.data.data.lat));
+        dispatch(mapActions.setlon(res.data.data.lon));
+        dispatch(mapActions.setAddress(res.data.data.address));
+        setIsLoading(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatch(authActions.logout());
+      });
   }, []);
 
   const storeSubmitHanlder = (event) => {
@@ -73,6 +77,7 @@ const StoreInfo = () => {
     // 3. 수정전송이 완료되고 200ok면 버튼을 수정으로 바꾸고 새로고침 되게 만들기
 
     const res = await postBusinessInfo(
+      businessId,
       name,
       introduction,
       openTime,
@@ -123,56 +128,39 @@ const StoreInfo = () => {
 
   return (
     <div>
-      <form onSubmit={storeSubmitHanlder} className={Styles.StoreInfo}>
-        <div className={Styles.StoreInfo__title}>
-          <h1>매장 정보</h1>
-        </div>
-        <div className={Styles.StoreInfo__input}>
-          <div className={Styles.StoreInfo__input__wrap1}>
-            <div className={Styles.StoreInfo__input__wrap1__info1}>
-              <div className={Styles.time}>
+      {isLoading && (
+        <form onSubmit={storeSubmitHanlder} className={styles.StoreInfo}>
+          <div className={styles.storeInfo__title}>
+            <h1>매장 정보</h1>
+          </div>
+          <div className={styles.storeInfo__input}>
+            <div className={styles.storeInfo__input__grid1}>
+              <div>
                 <span>매장 이름</span>
-                <input
-                  readOnly={canEdit === false}
-                  value={name === null ? "" : name}
-                  onChange={nameHandler}
-                  placeholder="ex:덕이네 곱창"
-                />
               </div>
+
+              <input
+                readOnly={canEdit === false}
+                value={name === null ? "" : name}
+                onChange={nameHandler}
+                placeholder="ex:덕이네 곱창"
+              />
+            </div>
+            <div className={styles.storeInfo__input__grid2}>
               <div>
                 <span>영업 시간</span>
-                <input
-                  readOnly={canEdit === false}
-                  value={openTime === null ? "" : openTime}
-                  onChange={openTimeHandler}
-                  placeholder="ex:10:00 ~ 21:00"
-                />
               </div>
+              <input
+                readOnly={canEdit === false}
+                value={openTime === null ? "" : openTime}
+                onChange={openTimeHandler}
+                placeholder="ex:10:00 ~ 21:00"
+              />
             </div>
-            <div className={Styles.StoreInfo__input__wrap1__info2}>
+            <div className={styles.storeInfo__input__grid3}>
               <div>
-                <span>휴무일</span>
-                <input
-                  readOnly={canEdit === false}
-                  value={holiday === null ? "" : holiday}
-                  onChange={holidayHandler}
-                  placeholder="ex:매주 월요일"
-                />
+                <span>소개글</span>
               </div>
-              <div>
-                <span>매장 전화번호</span>
-                <input
-                  readOnly={canEdit === false}
-                  value={phone === null ? "" : phone}
-                  onChange={phoneHandler}
-                  placeholder="ex:031-947-3334"
-                />
-              </div>
-            </div>
-          </div>
-          <div className={Styles.StoreInfo__input__wrap2}>
-            <div className={Styles.StoreInfo__input__wrap2__info1}>
-              <span>소개글</span>
               <textarea
                 readOnly={canEdit === false}
                 value={introduction === null ? "" : introduction}
@@ -180,36 +168,57 @@ const StoreInfo = () => {
                 placeholder="ex: 우리집 맛집이에요 ! 많이들 드시러 오세요"
               ></textarea>
             </div>
-            <div className={Styles.StoreInfo__input__wrap2__info2}>
-              <div className={Styles.StoreInfo__input__wrap2__info2__title}>
+
+            <div className={styles.storeInfo__input__grid4}>
+              <div>
+                <span>휴무일</span>
+              </div>
+              <input
+                readOnly={canEdit === false}
+                value={holiday === null ? "" : holiday}
+                onChange={holidayHandler}
+                placeholder="ex:매주 월요일"
+              />
+            </div>
+            <div className={styles.storeInfo__input__grid5}>
+              <div>
+                <span>매장 전화번호</span>
+              </div>
+              <input
+                readOnly={canEdit === false}
+                value={phone === null ? "" : phone}
+                onChange={phoneHandler}
+                placeholder="ex:031-947-3334"
+              />
+            </div>
+            <div className={styles.storeInfo__input__grid6}>
+              <div>
                 <span>매장 위치</span>
               </div>
-              <div className={Styles.StoreInfo__input__wrap2__info2__address}>
-                <input
-                  readOnly={canEdit === false}
-                  value={address === null ? "" : address}
-                  placeholder="ex: 서울특별시 동작구 밤리단길 369 B1"
-                />
-                {canEdit && <button onClick={toggle}>주소검색</button>}
-                <Modal
-                  // onClick={console.log("click")}
-                  isOpen={isOpen}
-                  ariaHideApp={false}
-                  style={customStyles}
-                  // onRequestClose={toggle}
-                >
-                  <MapContainer toggle={toggle} />
-                </Modal>
-              </div>
+              <input
+                readOnly={canEdit === false}
+                value={address === null ? "" : address}
+                placeholder="ex: 서울특별시 동작구 밤리단길 369 B1"
+              />
+              {canEdit && <button onClick={toggle}>주소검색</button>}
             </div>
+            <Modal
+              // onClick={console.log("click")}
+              isOpen={isOpen}
+              ariaHideApp={false}
+              style={customStyles}
+              // onRequestClose={toggle}
+            >
+              <MapContainer toggle={toggle} />
+            </Modal>
           </div>
-        </div>
-        <div className={Styles.StoreInfo__input__btn}>
-          {!canEdit && <button onClick={changeBtnHandler}>수정</button>}
-          {canEdit && <button onClick={editSubmitHandler}>저장</button>}
-          {canEdit && <button onClick={cancelHandler}>취소</button>}
-        </div>
-      </form>
+          <div className={styles.storeInfo__input__btn}>
+            {!canEdit && <button onClick={changeBtnHandler}>수정</button>}
+            {canEdit && <button onClick={editSubmitHandler}>저장</button>}
+            {canEdit && <button onClick={cancelHandler}>취소</button>}
+          </div>
+        </form>
+      )}
     </div>
   );
 };
