@@ -162,7 +162,7 @@ const StoreInfo = () => {
                 <span>소개글</span>
               </div>
               <textarea
-                spellcheck="false"
+                defaultChecked
                 maxLength={80}
                 readOnly={canEdit === false}
                 value={introduction === null ? "" : introduction}
