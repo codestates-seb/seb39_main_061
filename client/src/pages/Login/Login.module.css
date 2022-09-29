@@ -174,8 +174,8 @@
     margin-bottom: 30px;
   }
   .login__form__title img {
-    width: 330px;
-    height: 145px;
+    width: 230px;
+    height: auto;
     object-fit: cover;
   }
   .validationMSG {

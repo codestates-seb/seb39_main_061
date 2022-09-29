@@ -13,6 +13,7 @@ import Modal from "../../components/Modal/Modal";
 import { useEffect } from "react";
 import { getProfile } from "../../api/services/user";
 import { login } from "../../api/services/auth";
+import logo from "../../Img/Asset_4.png";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -91,7 +92,7 @@ const Login = () => {
     <div className={styles.login}>
       <form onSubmit={loginSubmitHandler} className={styles.login__form}>
         <div className={styles.login__form__title}>
-          <img src={mainLogo} alt="React" />
+          <img src={logo} alt="React" />
           {/* <h1>Login</h1> */}
         </div>
         <div className={styles.register__form__validation}>
