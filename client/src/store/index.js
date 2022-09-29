@@ -10,14 +10,14 @@ import logger from "redux-logger";
 const reducers = combineReducers({
   user: userReducer,
   auth: authReducer,
-  profileImg : profileImgSlice.reducer,
+  // profileImg : profileImgSlice.reducer,
 });
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: [],
+  blacklist: ["user"],
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 

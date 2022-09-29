@@ -5,7 +5,8 @@ import styles from "./profileEditModal.module.css";
 import noneProfile from "../../Img/Asset_5.png";
 import imgPlusBtn from "../../Img/imgPlusBtn.png";
 import { postProfileEdit } from "../../api/services/profileEdit";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { userAction } from "../../store/user";
 
 const ProfileEdit = ({ setIsModal }) => {
   const [password, setPassword] = useState("");
@@ -20,8 +21,9 @@ const ProfileEdit = ({ setIsModal }) => {
   const passwordRef = useRef()
   const nameRef = useRef()
   const confirmPasswordRef = useRef()
-  const profileImg = useSelector(state => state.profileImg.value)
+  // const profileImg = useSelector(state => state.profileImg.value)
   let inputRef;
+  const dispatch = useDispatch();
 
   //프로필 수정 모달-------------------------------------------------------
   const modalClose = () => {
@@ -73,14 +75,16 @@ const ProfileEdit = ({ setIsModal }) => {
       formData.append("data",
         new Blob([JSON.stringify(profileFormData)], { type: "application/json" }));
       console.log(formData.getAll('data'));
+
       const profileData = await postProfileEdit(formData)
-      console.log(profileData);
+      console.log(profileData)
+      // dispatch(userAction(profileData))
       alert("프로필 수정 완료!");
-      setImage({
-        image_file: "",
-        preview_URL: "img/default_image.png",
-      });
-      navigate('/profile')
+      // setIsModal(false);      
+      // setImage({
+      //   image_file: "",
+      //   preview_URL: "",
+      // });
     }
   }
 
