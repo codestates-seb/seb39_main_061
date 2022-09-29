@@ -24,6 +24,8 @@ function App() {
   console.log("베이스유알엘", url);
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
+  const profile = useSelector((state) => state.user.userProfile);
+  console.log("프로필?", profile);
 
   // 유저 정보로 새로고침해도 로그인 유지
   useEffect(() => {
@@ -43,7 +45,7 @@ function App() {
     <div className="App">
       <Routes>
         {!isLogin && <Route path="/" element={<MainPage />}></Route>}
-        {!isLogin && <Route path="/signup" element={<SignUp />}></Route>}
+        {!isLogin && <Route path="/signup" element={<SignUp />}></Route>}ㅗㅍ
         {!isLogin && <Route path="/login" element={<Login />}></Route>}
         {!isLogin && (
           <Route path="/find-password" element={<FindPassword />}></Route>
