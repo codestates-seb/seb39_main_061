@@ -2,14 +2,17 @@ import styles from "./StoreInfo.module.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBusinessInfo, postBusinessInfo } from "../../api/services/store";
-import Modal from "react-modal"; // 추가
 import MapContainer from "../MapContainer/MapContainer";
 import { useEffect } from "react";
+import Modal from "react-modal";
 import { mapActions } from "../../store/map";
 import { authActions } from "../../store/auth";
-import TimePicker from "../TimePicker/TimePicker";
 import TimeModal from "../TimeModal/TimeModal";
 import { businessActions } from "../../store/business";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
+import ConfirmModal from "../Modal/Modal";
+import { modalActions } from "../../store/modal";
 
 const StoreInfo = () => {
   const address = useSelector((state) => state.map.address);
@@ -18,7 +21,9 @@ const StoreInfo = () => {
   const startTime = useSelector((state) => state.business.startTime);
   const endTime = useSelector((state) => state.business.endTime);
   const startOrEnd = useSelector((state) => state.business.startOrEnd);
+  const isModalOpen = useSelector((state) => state.modal.isModalOpen);
   console.log(startTime, endTime);
+  console.log(isModalOpen, "오픈모달 상태");
 
   const [canEdit, setCanEdit] = useState(false);
   const [name, setName] = useState("");
@@ -29,18 +34,20 @@ const StoreInfo = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [businessId, setBusinessId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [timePickerOpen, setTimePickerOpen] = useState(false);
+  const [startPickerOpen, setStartPickerOpen] = useState(false);
+  const [endPickerOpen, setEndPickerOpen] = useState(false);
   const dispatch = useDispatch();
-
+  const checkOpenTime = useSelector((state) => state.business.checkOpenTime);
+  console.log("오픈타임 체크?", checkOpenTime);
   const timePickerToggle = (num) => {
     if (num === 1 && canEdit) {
       dispatch(businessActions.setStartOrEnd(1));
+      setStartPickerOpen(!startPickerOpen);
     }
     if (num === 2 && canEdit) {
       dispatch(businessActions.setStartOrEnd(2));
-    }
-    if (canEdit) {
-      setTimePickerOpen(!timePickerOpen);
+
+      setEndPickerOpen(!endPickerOpen);
     }
   };
 
@@ -50,7 +57,7 @@ const StoreInfo = () => {
         console.log(res.data.data);
         setBusinessId(res.data.data.businessId);
         setName(res.data.data.name);
-        // setOpenTime(res.data.data.openTime);
+        dispatch(businessActions.setCheckOpenTime(res.data.data.openTime));
         setHoliday(res.data.data.holiday);
         setPhone(res.data.data.phone);
         setIntroduction(res.data.data.introduction);
@@ -62,10 +69,11 @@ const StoreInfo = () => {
         setIsLoading(true);
         if (res.data.data.openTime !== null) {
           const splitTime = res.data.data.openTime.split("~");
-          const startTime = splitTime[0].substr(0, 5);
-          const endTime = splitTime[1].substr(0, 5);
+          const startTime = splitTime[0].substr(0, 6);
+          const endTime = splitTime[1].substr(0, 6);
           dispatch(businessActions.setStartTime(startTime));
           dispatch(businessActions.setEndTime(endTime));
+          console.log("endTime?????", endTime);
         }
       })
       .catch((err) => {
@@ -115,9 +123,18 @@ const StoreInfo = () => {
       phone,
       lon,
       lat
-    );
-    console.log("매장정보 수정?", res);
-    setCanEdit(false);
+    ).catch((err) => {
+      alert("수정에 실패하였습니다 잠시후 다시 시도해주세요");
+      window.location.reload();
+    });
+    if (res) {
+      console.log("매장정보 수정?", res);
+      setCanEdit(true);
+      dispatch(modalActions.setIsModalOpen(true));
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000);
+    }
   };
   const nameHandler = (e) => {
     setName(e.target.value);
@@ -166,6 +183,11 @@ const StoreInfo = () => {
                 <span>매장 이름</span>
               </div>
               <input
+                className={
+                  canEdit
+                    ? (styles.grid1__input, styles.canEdit)
+                    : styles.grid1__input
+                }
                 readOnly={canEdit === false}
                 value={name === null ? "" : name}
                 onChange={nameHandler}
@@ -177,41 +199,73 @@ const StoreInfo = () => {
                 <span>영업 시간</span>
               </div>
               <>
-                {timePickerOpen === true && canEdit ? (
-                  <TimeModal setTimePickerOpen={setTimePickerOpen}></TimeModal>
+                {startPickerOpen === true && canEdit ? (
+                  <TimeModal setTimePickerOpen={setStartPickerOpen}></TimeModal>
                 ) : null}
-                {}
+                {endPickerOpen === true && canEdit ? (
+                  <TimeModal setTimePickerOpen={setEndPickerOpen}></TimeModal>
+                ) : null}
               </>
               <input
                 readOnly
-                value={"~"}
+                spellCheck="false"
+                value={checkOpenTime !== null ? "~" : ""}
                 draggable={false}
-                // onChange={openTimeHandler}
-                // placeholder="ex:10:00 ~ 21:00"
+                className={
+                  canEdit
+                    ? (styles.grid2__input, styles.canEdit)
+                    : styles.grid2__input
+                }
+                placeholder={checkOpenTime === null ? "ex:10:00 ~ 21:00" : ""}
               />
-              <button
-                onClick={() => {
-                  timePickerToggle(1);
-                }}
-                className={styles.startTimeBtn}
-              >
-                {startTime}
-              </button>
-              <button
-                onClick={() => {
-                  timePickerToggle(2);
-                }}
-                className={styles.endTimeBtn}
-              >
-                {endTime}
-              </button>
+              {canEdit && (
+                <span
+                  onClick={() => {
+                    timePickerToggle(1);
+                  }}
+                  className={styles.startIcon}
+                >
+                  {startPickerOpen === true ? (
+                    <FontAwesomeIcon icon={faCaretUp} />
+                  ) : (
+                    <FontAwesomeIcon icon={faCaretDown} />
+                  )}
+                </span>
+              )}
+
+              {checkOpenTime !== null && (
+                <button className={styles.startTimeBtn}>{startTime}</button>
+              )}
+              {canEdit && (
+                <span
+                  onClick={() => {
+                    timePickerToggle(2);
+                  }}
+                  className={styles.endIcon}
+                >
+                  {endPickerOpen === true ? (
+                    <FontAwesomeIcon icon={faCaretUp} />
+                  ) : (
+                    <FontAwesomeIcon icon={faCaretDown} />
+                  )}
+                </span>
+              )}
+
+              {checkOpenTime !== null && (
+                <button className={styles.endTimeBtn}>{endTime}</button>
+              )}
             </div>
             <div className={styles.storeInfo__input__grid3}>
               <div>
                 <span>소개글</span>
               </div>
               <textarea
-                defaultChecked
+                className={
+                  canEdit
+                    ? (styles.grid3__textArea, styles.grid3__canEdit)
+                    : styles.grid3__textArea
+                }
+                spellCheck="false"
                 maxLength={90}
                 readOnly={canEdit === false}
                 value={introduction === null ? "" : introduction}
@@ -226,9 +280,15 @@ const StoreInfo = () => {
               </div>
               <input
                 readOnly={canEdit === false}
+                spellCheck="false"
                 value={holiday === null ? "" : holiday}
                 onChange={holidayHandler}
                 placeholder="ex:매주 월요일"
+                className={
+                  canEdit
+                    ? (styles.grid4__input, styles.canEdit)
+                    : styles.grid4__input
+                }
               />
             </div>
             <div className={styles.storeInfo__input__grid5}>
@@ -237,9 +297,15 @@ const StoreInfo = () => {
               </div>
               <input
                 readOnly={canEdit === false}
+                spellCheck="false"
                 value={phone === null ? "" : phone}
                 onChange={phoneHandler}
                 placeholder="ex:031-947-3334"
+                className={
+                  canEdit
+                    ? (styles.grid5__input, styles.canEdit)
+                    : styles.grid5__input
+                }
               />
             </div>
             <div className={styles.storeInfo__input__grid6}>
@@ -248,7 +314,9 @@ const StoreInfo = () => {
               </div>
               <div className={styles.grid6__div2}>
                 <input
-                  readOnly={canEdit === false}
+                  className={styles.grid6__input}
+                  spellCheck="false"
+                  readOnly
                   value={address === null ? "" : address}
                   placeholder="ex: 서울특별시 동작구 밤리단길 369 B1"
                 />
@@ -257,6 +325,7 @@ const StoreInfo = () => {
             </div>
             <Modal
               // onClick={console.log("click")}
+
               isOpen={isOpen}
               ariaHideApp={false}
               style={customStyles}
@@ -270,6 +339,7 @@ const StoreInfo = () => {
             {canEdit && <button onClick={editSubmitHandler}>저장</button>}
             {canEdit && <button onClick={cancelHandler}>취소</button>}
           </div>
+          {isModalOpen && <ConfirmModal num={5} />}
         </form>
       )}
     </div>

@@ -85,10 +85,12 @@ const TimePicker = ({ setTimePickerOpen }) => {
     console.log("시작 분", minute);
     if (startOrEnd === 1) {
       dispatch(businessActions.setStartTime(`${h}:${m}`));
+      dispatch(businessActions.setCheckOpenTime(1));
       setTimePickerOpen(false);
     }
     if (startOrEnd === 2) {
       dispatch(businessActions.setEndTime(`${h}:${m}`));
+      dispatch(businessActions.setCheckOpenTime(2));
       setTimePickerOpen(false);
     }
   };
@@ -96,7 +98,7 @@ const TimePicker = ({ setTimePickerOpen }) => {
   return (
     <div className={styles.timePicker}>
       <div className={styles.timePicker__title}>
-        <div>{startOrEnd === 1 ? "시작시간" : "마감시간"}</div>
+        <div>{startOrEnd === 1 ? "오픈시간" : "마감시간"}</div>
         <span
           onClick={() => {
             setTimePickerOpen(false);

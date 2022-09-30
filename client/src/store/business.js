@@ -5,6 +5,7 @@ const initialState = {
   startTime: "10:30",
   endTime: "21:00",
   startOrEnd: 1,
+  checkOpenTime: null,
 };
 const businessSlice = createSlice({
   name: "business",
@@ -18,6 +19,9 @@ const businessSlice = createSlice({
     },
     setStartOrEnd(state, action) {
       state.startOrEnd = action.payload;
+    },
+    setCheckOpenTime(state, action) {
+      state.checkOpenTime = action.payload;
     },
   },
   extraReducers: (builder) => {

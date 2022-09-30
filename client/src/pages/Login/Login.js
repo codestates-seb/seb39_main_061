@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import { userAction } from "../../store/user";
@@ -13,6 +13,7 @@ import Modal from "../../components/Modal/Modal";
 import { useEffect } from "react";
 import { getProfile } from "../../api/services/user";
 import { login } from "../../api/services/auth";
+import { modalActions } from "../../store/modal";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const Login = () => {
   const emailRef = useRef();
   const PWRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
+  const modalOpen = useSelector((state) => state.modal.isModalOpen);
   const key = 0;
   const [changeCSS, setChangeCSS] = useState(false);
   useEffect(() => {
@@ -74,7 +75,7 @@ const Login = () => {
       setValidationMSG("");
       console.log(token);
       localStorage.setItem("token", token);
-      setModalOpen(true);
+      dispatch(modalActions.setIsModalOpen(true));
 
       //getProfile
       const userData = await getProfile();
@@ -142,7 +143,7 @@ const Login = () => {
           </Link>
         </div>
       </form>
-      {modalOpen && <Modal num={key} setOpenModal={setModalOpen} />}
+      {modalOpen && <Modal num={key} />}
     </div>
   );
 };

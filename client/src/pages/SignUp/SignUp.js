@@ -1,13 +1,14 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
-import axios from "axios";
-import mainLogo from "../../assets/logo1.png";
 import naverLogo from "../../assets/naver-logo.png";
 import kakaoLogo from "../../assets/kakao-logo.png";
 import googleLogo from "../../assets/google-logo.png";
 import Modal from "../../components/Modal/Modal";
 import { emailCheck, signUpReq } from "../../api/services/auth";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { modalActions } from "../../store/modal";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -19,8 +20,9 @@ const SignUp = () => {
   const phoneNumRef = useRef();
   const businessNameRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
+  const isModalOpen = useSelector((state) => state.modal.isModalOpen);
   const [changeCSS, setChangeCSS] = useState(false);
+  const dispatch = useDispatch();
   useEffect(() => {
     setChangeCSS(true);
   }, [changeCSS]);
@@ -96,7 +98,7 @@ const SignUp = () => {
       try {
         signUpReq(email, password, name, businessName, phone);
         setIsLoading(false);
-        setModalOpen(true);
+        dispatch(modalActions.setIsModalOpen(true));
         setTimeout(() => {
           navigate("/login");
         }, 3000);
@@ -200,7 +202,7 @@ const SignUp = () => {
             <button>취소</button>
           </Link>
         </div>
-        {modalOpen && <Modal num={1} setOpenModal={setModalOpen} />}
+        {isModalOpen && <Modal num={1} />}
       </form>
     </div>
   );

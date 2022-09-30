@@ -17,7 +17,7 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [validationMSG, setValidationMSG] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setIsModalOpen] = useState(false);
   const [page, setPage] = useState("register");
   const [changeCSS, setChangeCSS] = useState(false);
   useEffect(() => {
@@ -38,7 +38,7 @@ const Register = () => {
       localStorage.setItem("token", token);
       // const userData = await getProfile();
       // dispatch(userAction.setUser(userData));
-      setModalOpen(true);
+      setIsModalOpen(true);
       setTimeout(() => {
         navigate("/dashboard");
         dispatch(authActions.login());
@@ -88,7 +88,7 @@ const Register = () => {
       setValidationMSG("");
       console.log("추가전송");
       localStorage.setItem("token", res.data.data.accessToken);
-      setModalOpen(true);
+      setIsModalOpen(true);
       setTimeout(() => {
         navigate("/login");
       }, 3000);
@@ -142,7 +142,7 @@ const Register = () => {
           </div>
         </div>
       )}
-      {modalOpen && <Modal num={2} setOpenModal={setModalOpen} />}
+      {modalOpen && <Modal num={2} setIsModalOpen={setIsModalOpen} />}
     </div>
   );
 };

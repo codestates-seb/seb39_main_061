@@ -6,19 +6,21 @@ import { persistReducer, PERSIST, PURGE } from "redux-persist";
 import userReducer from "./user";
 import mapReducer from "./map";
 import businessReducer from "./business";
+import modalReducer from "./modal";
 
 const reducers = combineReducers({
   user: userReducer,
   auth: authReducer,
   map: mapReducer,
   business: businessReducer,
+  modal: modalReducer,
 });
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["map", "business"],
+  blacklist: ["map", "business", "modal"],
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 
