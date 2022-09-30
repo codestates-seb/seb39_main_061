@@ -66,9 +66,12 @@ const StoreInfo = () => {
         setBusinessId(res.data.data.businessId);
         setName(res.data.data.name);
         dispatch(businessActions.setCheckOpenTime(res.data.data.openTime));
-        const splitHoliday = res.data.data.holiday.split(",");
-        console.log("스플릿 할리데이", splitHoliday);
-        dispatch(businessActions.setHolidayList([...splitHoliday]));
+        if (res.data.data.holiday !== null) {
+          const splitHoliday = res.data.data.holiday.split(",");
+          console.log("스플릿 할리데이", splitHoliday);
+          dispatch(businessActions.setHolidayList([...splitHoliday]));
+        }
+
         setPhone(res.data.data.phone);
         setIntroduction(res.data.data.introduction);
         setIntroduction(res.data.data.introduction);
@@ -232,7 +235,7 @@ const StoreInfo = () => {
                     ? (styles.grid2__input, styles.canEdit)
                     : styles.grid2__input
                 }
-                placeholder={checkOpenTime === null ? "ex:10:00 ~ 21:00" : ""}
+                placeholder={checkOpenTime === null ? "10:00 ~ 21:00" : ""}
               />
               {canEdit && (
                 <span

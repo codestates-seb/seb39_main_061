@@ -52,4 +52,5 @@
 .dayPicker__sat:hover,
 .dayPicker__mon:hover {
   background-color: tomato;
+  opacity: 0.8;
 }
