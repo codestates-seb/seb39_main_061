@@ -8,7 +8,7 @@ import { postProfileEdit } from "../../api/services/profileEdit";
 import { useSelector, useDispatch } from "react-redux";
 import { userAction } from "../../store/user";
 
-const ProfileEdit = ({ setIsModal }) => {
+const ProfileEdit = ({ setIsModal, isModal }) => {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newName, setNewName] = useState("");
@@ -27,7 +27,7 @@ const ProfileEdit = ({ setIsModal }) => {
 
   //프로필 수정 모달-------------------------------------------------------
   const modalClose = () => {
-    setIsModal(false);
+    setIsModal(!isModal);
   };
 
   // 이미지 preview------------------------------------------------------
@@ -55,7 +55,6 @@ const ProfileEdit = ({ setIsModal }) => {
       setErrMessage("비밀번호가 일치하지 않습니다.");
       return;
     }
-    // setIsLoading(true);
     if (!password) {
       setErrMessage('빈칸을 채워주세요');
       return;
@@ -80,12 +79,7 @@ const ProfileEdit = ({ setIsModal }) => {
       console.log(profileData)
       // dispatch(userAction(profileData))
       alert("프로필 수정 완료!");
-      // window.location.reload();
-      // setIsModal(false);      
-      // setImage({
-      //   image_file: "",
-      //   preview_URL: "",
-      // });
+      window.location.reload();
     }
   }
 
