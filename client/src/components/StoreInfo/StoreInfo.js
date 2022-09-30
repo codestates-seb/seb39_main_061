@@ -30,6 +30,7 @@ const StoreInfo = () => {
   const openTime = `${startTime}~${endTime}`;
   // const [holiday, setHoliday] = useState("");
   const holidayList = useSelector((state) => state.business.holidayList);
+  console.log("홀리데이 리스트 처음", holidayList);
 
   const [phone, setPhone] = useState("");
   const [introduction, setIntroduction] = useState("");
@@ -69,6 +70,7 @@ const StoreInfo = () => {
         if (res.data.data.holiday !== null) {
           const splitHoliday = res.data.data.holiday.split(",");
           console.log("스플릿 할리데이", splitHoliday);
+
           dispatch(businessActions.setHolidayList([...splitHoliday]));
         }
 
@@ -125,8 +127,18 @@ const StoreInfo = () => {
     // 1. 완료버튼을 누르면 유효성검사하고
     // 2. Axios patch로 수정 전송!
     // 3. 수정전송이 완료되고 200ok면 버튼을 수정으로 바꾸고 새로고침 되게 만들기
+    setDayPickerOpen(false);
+
     //holiday 다시 string으로 바꾸고 전송
-    const holiday = `${holidayList[0]},${holidayList[1]}`;
+
+    let holiday = "";
+    if (holidayList.length === 2) {
+      holiday = `${holidayList[0]},${holidayList[1]}`;
+    }
+    if (holidayList.length === 1) {
+      holiday = `${holidayList[0]}`;
+    }
+
     console.log("휴무일은?", holiday);
     const res = await postBusinessInfo(
       businessId,
@@ -215,11 +227,13 @@ const StoreInfo = () => {
                 {startPickerOpen === true && canEdit ? (
                   <SlideModal
                     modalNum={1}
+                    open={startPickerOpen}
                     setOpen={setStartPickerOpen}
                   ></SlideModal>
                 ) : null}
                 {endPickerOpen === true && canEdit ? (
                   <SlideModal
+                    open={endPickerOpen}
                     modalNum={1}
                     setOpen={setEndPickerOpen}
                   ></SlideModal>
@@ -312,6 +326,7 @@ const StoreInfo = () => {
                 {dayPickerOpen === true && canEdit ? (
                   <SlideModal
                     modalNum={2}
+                    open={dayPickerOpen}
                     setOpen={setDayPickerOpen}
                   ></SlideModal>
                 ) : null}

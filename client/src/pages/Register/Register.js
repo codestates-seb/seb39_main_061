@@ -142,7 +142,12 @@ const Register = () => {
           </div>
         </div>
       )}
-      {modalOpen && <Modal num={2} setIsModalOpen={setIsModalOpen} />}
+      {modalOpen && (
+        <Modal
+          num={oauthValidation === true ? 0 : 2}
+          setIsModalOpen={setIsModalOpen}
+        />
+      )}
     </div>
   );
 };
