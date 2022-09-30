@@ -14,10 +14,11 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface KeepMapper {
   default Keep createKeepDtoToKeep(KeepRequestDto.CreateKeepDto createKeepDto) {
-    Business business = new Business();
-    business.setBusinessId(createKeepDto.getBusinessId());
     Member member = new Member();
+    member.setMemberId(createKeepDto.getMemberId());
+    Business business = new Business();
     business.setMember(member);
+    business.setBusinessId(createKeepDto.getBusinessId());
     QrCode qrCode = new QrCode();
     qrCode.setBusiness(business);
     qrCode.setQrCodeId(createKeepDto.getQrCodeId());
@@ -30,10 +31,11 @@ public interface KeepMapper {
   }
 
   default Keep updateKeepDtoToKeep(KeepRequestDto.UpdateKeepDto updateKeepDto) {
-    Business business = new Business();
-    business.setBusinessId(updateKeepDto.getBusinessId());
     Member member = new Member();
+    member.setMemberId(updateKeepDto.getMemberId());
+    Business business = new Business();
     business.setMember(member);
+    business.setBusinessId(updateKeepDto.getBusinessId());
     QrCode qrCode = new QrCode();
     qrCode.setBusiness(business);
     qrCode.setQrCodeId(updateKeepDto.getQrCodeId());
