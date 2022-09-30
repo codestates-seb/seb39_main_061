@@ -7,8 +7,8 @@
   background: rgba(0, 0, 0, 0);
   z-index: 1;
   width: 100%;
-  margin-left: 815px;
-  margin-top: 236px;
+  margin-left: 400px;
+  margin-top: 405px;
 }
 
 .modalContainer {
@@ -45,17 +45,17 @@
 }
 @media all and (min-width: 1438px) {
   .modalBackground {
-    margin-left: 760px;
+    margin-left: 500px;
   }
 }
 
 @media all and (min-width: 1843px) {
   .modalBackground {
-    margin-left: 860px;
+    margin-left: 530px;
   }
 }
 @media all and (min-width: 2000px) {
   .modalBackground {
-    margin-left: 898px;
+    margin-left: 562px;
   }
 }

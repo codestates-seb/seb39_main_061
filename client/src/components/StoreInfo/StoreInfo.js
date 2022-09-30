@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import ConfirmModal from "../Modal/Modal";
 import { modalActions } from "../../store/modal";
+import DayModal from "../DayModal/DayModal";
 
 const StoreInfo = () => {
   const address = useSelector((state) => state.map.address);
@@ -36,9 +37,11 @@ const StoreInfo = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [startPickerOpen, setStartPickerOpen] = useState(false);
   const [endPickerOpen, setEndPickerOpen] = useState(false);
+  const [dayPickerOpen, setDayPickerOpen] = useState(false);
   const dispatch = useDispatch();
   const checkOpenTime = useSelector((state) => state.business.checkOpenTime);
   console.log("오픈타임 체크?", checkOpenTime);
+  //
   const timePickerToggle = (num) => {
     if (num === 1 && canEdit) {
       dispatch(businessActions.setStartOrEnd(1));
@@ -49,6 +52,10 @@ const StoreInfo = () => {
 
       setEndPickerOpen(!endPickerOpen);
     }
+  };
+  //
+  const dayPickerToggle = () => {
+    setDayPickerOpen(!dayPickerOpen);
   };
 
   useEffect(() => {
@@ -290,6 +297,23 @@ const StoreInfo = () => {
                     : styles.grid4__input
                 }
               />
+              <>
+                {dayPickerOpen === true && canEdit ? (
+                  <DayModal setTimePickerOpen={setDayPickerOpen}></DayModal>
+                ) : null}
+              </>
+              <span
+                onClick={() => {
+                  dayPickerToggle();
+                }}
+                className={styles.endIcon}
+              >
+                {dayPickerOpen === true ? (
+                  <FontAwesomeIcon icon={faCaretUp} />
+                ) : (
+                  <FontAwesomeIcon icon={faCaretDown} />
+                )}
+              </span>
             </div>
             <div className={styles.storeInfo__input__grid5}>
               <div>

@@ -262,8 +262,8 @@ button {
   }
   .startIcon {
     position: absolute;
-    margin-top: 40px;
-    margin-right: 195px;
+    margin-top: 35px;
+    margin-right: 183px;
     cursor: pointer;
   }
   .startIcon svg {
@@ -272,8 +272,8 @@ button {
   }
   .endIcon {
     position: absolute;
-    margin-top: 40px;
-    margin-left: 195px;
+    margin-top: 35px;
+    margin-left: 183px;
     cursor: pointer;
   }
   .endIcon svg {
