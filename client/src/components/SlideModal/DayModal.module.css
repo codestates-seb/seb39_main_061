@@ -14,19 +14,18 @@
 .modalContainer {
   top: calc(50vh - 230px);
   left: calc(50vw - 147px);
-  width: 220px;
-  height: 280px;
-  border-radius: 12px;
+  width: 180px;
+  height: 289px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   display: flex;
   flex-direction: column;
-  padding: 25px;
-
   animation: openModal 0.3s ease-in-out;
+  border-radius: 15px;
 }
 @keyframes openModal {
   0% {
+    opacity: 0;
     transform: translateY(-20px);
     -webkit-transform: translateY(-20%);
     -moz-transform: translateY(-20%);
@@ -35,6 +34,7 @@
     transform: translateY(-20%);
   }
   100% {
+    opacity: 1;
     transform: translateY(0px);
     -webkit-transform: translateY(0%);
     -moz-transform: translateY(0%);
@@ -45,13 +45,13 @@
 }
 @media all and (min-width: 1438px) {
   .modalBackground {
-    margin-left: 500px;
+    margin-left: 520px;
   }
 }
 
 @media all and (min-width: 1843px) {
   .modalBackground {
-    margin-left: 530px;
+    margin-left: 550px;
   }
 }
 @media all and (min-width: 2000px) {

@@ -28,7 +28,9 @@ const StoreInfo = () => {
   const [canEdit, setCanEdit] = useState(false);
   const [name, setName] = useState("");
   const openTime = `${startTime}~${endTime}`;
-  const [holiday, setHoliday] = useState("");
+  // const [holiday, setHoliday] = useState("");
+  const holidayList = useSelector((state) => state.business.holidayList);
+
   const [phone, setPhone] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -64,7 +66,9 @@ const StoreInfo = () => {
         setBusinessId(res.data.data.businessId);
         setName(res.data.data.name);
         dispatch(businessActions.setCheckOpenTime(res.data.data.openTime));
-        setHoliday(res.data.data.holiday);
+        const splitHoliday = res.data.data.holiday.split(",");
+        console.log("스플릿 할리데이", splitHoliday);
+        dispatch(businessActions.setHolidayList([...splitHoliday]));
         setPhone(res.data.data.phone);
         setIntroduction(res.data.data.introduction);
         setIntroduction(res.data.data.introduction);
@@ -118,7 +122,9 @@ const StoreInfo = () => {
     // 1. 완료버튼을 누르면 유효성검사하고
     // 2. Axios patch로 수정 전송!
     // 3. 수정전송이 완료되고 200ok면 버튼을 수정으로 바꾸고 새로고침 되게 만들기
-
+    //holiday 다시 string으로 바꾸고 전송
+    const holiday = `${holidayList[0]},${holidayList[1]}`;
+    console.log("휴무일은?", holiday);
     const res = await postBusinessInfo(
       businessId,
       name,
@@ -146,9 +152,6 @@ const StoreInfo = () => {
     setName(e.target.value);
   };
 
-  const holidayHandler = (e) => {
-    setHoliday(e.target.value);
-  };
   const phoneHandler = (e) => {
     setPhone(e.target.value);
   };
@@ -198,6 +201,7 @@ const StoreInfo = () => {
                 value={name === null ? "" : name}
                 onChange={nameHandler}
                 placeholder="ex:덕이네 곱창"
+                spellCheck={false}
               />
             </div>
             <div className={styles.storeInfo__input__grid2}>
@@ -220,7 +224,7 @@ const StoreInfo = () => {
               </>
               <input
                 readOnly
-                spellCheck="false"
+                spellCheck={false}
                 value={checkOpenTime !== null ? "~" : ""}
                 draggable={false}
                 className={
@@ -293,8 +297,7 @@ const StoreInfo = () => {
               <input
                 readOnly={canEdit === false}
                 spellCheck="false"
-                value={holiday === null ? "" : holiday}
-                onChange={holidayHandler}
+                value={holidayList === null ? "" : holidayList}
                 placeholder="ex:매주 월요일"
                 className={
                   canEdit
