@@ -7,29 +7,50 @@ import MapContainer from "../MapContainer/MapContainer";
 import { useEffect } from "react";
 import { mapActions } from "../../store/map";
 import { authActions } from "../../store/auth";
+import TimePicker from "../TimePicker/TimePicker";
+import TimeModal from "../TimeModal/TimeModal";
+import { businessActions } from "../../store/business";
 
 const StoreInfo = () => {
   const address = useSelector((state) => state.map.address);
   const lat = useSelector((state) => state.map.lat);
   const lon = useSelector((state) => state.map.lon);
+  const startTime = useSelector((state) => state.business.startTime);
+  const endTime = useSelector((state) => state.business.endTime);
+  const startOrEnd = useSelector((state) => state.business.startOrEnd);
+  console.log(startTime, endTime);
 
   const [canEdit, setCanEdit] = useState(false);
   const [name, setName] = useState("");
-  const [openTime, setOpenTime] = useState("");
+  const openTime = `${startTime}~${endTime}`;
   const [holiday, setHoliday] = useState("");
   const [phone, setPhone] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [businessId, setBusinessId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [timePickerOpen, setTimePickerOpen] = useState(false);
   const dispatch = useDispatch();
+
+  const timePickerToggle = (num) => {
+    if (num === 1 && canEdit) {
+      dispatch(businessActions.setStartOrEnd(1));
+    }
+    if (num === 2 && canEdit) {
+      dispatch(businessActions.setStartOrEnd(2));
+    }
+    if (canEdit) {
+      setTimePickerOpen(!timePickerOpen);
+    }
+  };
 
   useEffect(() => {
     getBusinessInfo()
       .then((res) => {
+        console.log(res.data.data);
         setBusinessId(res.data.data.businessId);
         setName(res.data.data.name);
-        setOpenTime(res.data.data.openTime);
+        // setOpenTime(res.data.data.openTime);
         setHoliday(res.data.data.holiday);
         setPhone(res.data.data.phone);
         setIntroduction(res.data.data.introduction);
@@ -39,6 +60,13 @@ const StoreInfo = () => {
         dispatch(mapActions.setlon(res.data.data.lon));
         dispatch(mapActions.setAddress(res.data.data.address));
         setIsLoading(true);
+        if (res.data.data.openTime !== null) {
+          const splitTime = res.data.data.openTime.split("~");
+          const startTime = splitTime[0].substr(0, 5);
+          const endTime = splitTime[1].substr(0, 5);
+          dispatch(businessActions.setStartTime(startTime));
+          dispatch(businessActions.setEndTime(endTime));
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -72,6 +100,7 @@ const StoreInfo = () => {
   };
 
   const editSubmitHandler = async () => {
+    console.log("매장정보 수정 요청!");
     // 1. 완료버튼을 누르면 유효성검사하고
     // 2. Axios patch로 수정 전송!
     // 3. 수정전송이 완료되고 200ok면 버튼을 수정으로 바꾸고 새로고침 되게 만들기
@@ -93,9 +122,7 @@ const StoreInfo = () => {
   const nameHandler = (e) => {
     setName(e.target.value);
   };
-  const openTimeHandler = (e) => {
-    setOpenTime(e.target.value);
-  };
+
   const holidayHandler = (e) => {
     setHoliday(e.target.value);
   };
@@ -138,7 +165,6 @@ const StoreInfo = () => {
               <div>
                 <span>매장 이름</span>
               </div>
-
               <input
                 readOnly={canEdit === false}
                 value={name === null ? "" : name}
@@ -150,12 +176,35 @@ const StoreInfo = () => {
               <div>
                 <span>영업 시간</span>
               </div>
+              <>
+                {timePickerOpen === true && canEdit ? (
+                  <TimeModal setTimePickerOpen={setTimePickerOpen}></TimeModal>
+                ) : null}
+                {}
+              </>
               <input
-                readOnly={canEdit === false}
-                value={openTime === null ? "" : openTime}
-                onChange={openTimeHandler}
-                placeholder="ex:10:00 ~ 21:00"
+                readOnly
+                value={"~"}
+                draggable={false}
+                // onChange={openTimeHandler}
+                // placeholder="ex:10:00 ~ 21:00"
               />
+              <button
+                onClick={() => {
+                  timePickerToggle(1);
+                }}
+                className={styles.startTimeBtn}
+              >
+                {startTime}
+              </button>
+              <button
+                onClick={() => {
+                  timePickerToggle(2);
+                }}
+                className={styles.endTimeBtn}
+              >
+                {endTime}
+              </button>
             </div>
             <div className={styles.storeInfo__input__grid3}>
               <div>

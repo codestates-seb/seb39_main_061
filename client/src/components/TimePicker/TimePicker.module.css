@@ -1,0 +1,92 @@
+.timePicker {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+.timePicker__title {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 22px;
+}
+.timePicker__title > div {
+  position: absolute;
+  margin-right: 51px;
+  font-size: 18px;
+  color: tomato;
+  opacity: 0.7;
+  font-weight: 600;
+}
+.timePicker__title svg {
+  opacity: 0.5;
+  cursor: pointer;
+}
+.timePicker__title svg:hover {
+  opacity: 1;
+}
+.timePicker__title svg:active {
+  transform: scale(0.85);
+}
+
+.timePicker__time {
+  font-size: 30px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-bottom: 30px;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+}
+.timePicker__time div {
+  margin: 3px 3px 0px 7px;
+}
+.firstTime > div:first-child,
+.thirdTime > div:first-child,
+.firstTime > div:last-child,
+.thirdTime > div:last-child {
+  opacity: 0.4;
+}
+.firstTime > div:first-child:hover,
+.thirdTime > div:first-child:hover,
+.firstTime > div:last-child:hover,
+.thirdTime > div:last-child:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.firstTime,
+.thirdTime {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: column;
+  height: 111px;
+}
+
+.secondTime {
+  font-size: 30px;
+  font-weight: 600;
+}
+.timePicker__btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+}
+.timePicker__btn button {
+  width: 80px;
+  height: 40px;
+  outline: none;
+  border-radius: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-color: #256d85;
+  color: white;
+  font-size: 15px;
+  border: 0px;
+}

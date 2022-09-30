@@ -31,61 +31,48 @@ button {
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 
-@media all and (min-width: 500px) {
+@media all and (min-width: 850px) {
+  .StoreInfo {
+    margin: 70px 50px 70px 50px;
+    max-width: 1000px;
+  }
   .storeInfo__input {
+    display: grid;
+    height: auto;
+    width: 100%;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
   }
-  .storeInfo__input div:last-child input {
-    width: 270px;
+  .endTimeBtn {
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 100px;
+    width: 70px;
+    height: 30px;
+    outline: none;
+    border-style: none;
+    background-color: transparent;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
   }
 
-  .storeInfo__input__grid3 {
-    order: 5;
-  }
-  .storeInfo__input__grid4 {
-    order: 3;
-  }
-  .storeInfo__input__grid5 {
-    order: 4;
-  }
-  .storeInfo__input__grid6 {
-    order: 6;
-  }
-
-  .storeInfo__input__grid1 div,
-  .storeInfo__input__grid2 div,
-  .storeInfo__input__grid4 div,
-  .storeInfo__input__grid5 div {
-    display: flex;
-    width: 120px;
-    justify-content: flex-start;
-  }
-  .storeInfo__input__grid3 textarea {
-    width: 200px;
-  }
-  .storeInfo__input__grid3 div,
-  .storeInfo__input__grid6 div {
-    width: 200px;
-  }
-}
-
-@media all and (min-width: 850px) {
-  .StoreInfo {
-    margin: 70px 120px 70px 120px;
-  }
   .storeInfo__input {
-    grid-template-columns: 1fr 1fr 2fr;
-    grid-template-rows: 1fr 1fr;
     grid-column-gap: 20px;
     grid-row-gap: 20px;
     padding-left: 70px;
     padding-right: 50px;
     padding-top: 0px;
     padding-bottom: 0px;
+    outline: none;
   }
+
   .storeInfo__input__grid3 {
-    order: 3;
+    order: 6;
   }
   .storeInfo__input__grid4 {
     order: 3;
@@ -94,7 +81,7 @@ button {
     order: 4;
   }
   .storeInfo__input__grid6 {
-    order: 6;
+    order: 5;
   }
   .storeInfo__input > div {
     display: flex;
@@ -103,32 +90,35 @@ button {
     flex-direction: column;
     height: 160px;
   }
-  .storeInfo__input div:nth-child(3) {
+  .storeInfo__input > div:nth-child(3) {
     justify-content: flex-end;
   }
   .storeInfo__input input {
-    width: 240px;
-    height: 60px;
+    width: 270px;
+    height: 70px;
     border-radius: 15px;
     border: 2px solid rgba(0, 0, 0, 0.2);
     background-color: #f5f5f5;
     outline: none;
     text-align: center;
-    font-size: 17px;
+    padding-top: 0px;
+    font-size: 18px;
+    word-spacing: 4px;
+    letter-spacing: 1.2px;
+    outline: none;
   }
-
   .storeInfo__input div:last-child input {
     width: 450px;
   }
 
-  .storeInfo__input__grid1 div,
-  .storeInfo__input__grid2 div,
-  .storeInfo__input__grid4 div,
-  .storeInfo__input__grid5 div {
+  .storeInfo__input__grid1 > div,
+  .storeInfo__input__grid2 > div,
+  .storeInfo__input__grid4 > div,
+  .storeInfo__input__grid5 > div {
     display: flex;
     width: 220px;
     justify-content: flex-start;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
   }
 
   .storeInfo__input__grid3 div {
@@ -141,6 +131,14 @@ button {
   }
   .storeInfo__input__grid6 {
     padding-top: 15px;
+  }
+  .storeInfo__input__grid2 > input {
+    letter-spacing: 1.5px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   .grid6__div2 {
@@ -166,7 +164,6 @@ button {
     outline: none;
     border: 2px solid rgba(0, 0, 0, 0.2);
     text-align: start;
-
     margin-left: auto;
     margin-right: auto;
     font-size: 10px;
@@ -174,6 +171,7 @@ button {
     padding-left: 15px;
     padding-right: 15px;
     padding: 23px 15px 15px 15px;
+
     overflow: auto;
   }
 
@@ -202,3 +200,198 @@ button {
   font-size: 15px;
   border: 0px;
 }
+
+@media all and (min-width: 1300px) {
+  .StoreInfo {
+    margin: 70px 100px 70px 100px;
+    max-width: 1720px;
+  }
+  .startTimeBtn {
+    position: absolute;
+    margin-top: 40px;
+    margin-right: 100px;
+    width: 70px;
+    height: 30px;
+    outline: none;
+    border-style: none;
+    background-color: transparent;
+    font-size: 18px;
+    outline: none;
+    letter-spacing: 1.5px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .endTimeBtn {
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 100px;
+    width: 70px;
+    height: 30px;
+    outline: none;
+    border-style: none;
+    background-color: transparent;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .storeInfo__input {
+    grid-template-columns: 1fr 1fr 2fr;
+    grid-template-rows: 1fr 1fr;
+    grid-column-gap: 20px;
+    grid-row-gap: 20px;
+    padding-left: 70px;
+    padding-right: 50px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    outline: none;
+  }
+
+  .storeInfo__input__grid3 {
+    order: 3;
+  }
+  .storeInfo__input__grid4 {
+    order: 3;
+  }
+  .storeInfo__input__grid5 {
+    order: 4;
+  }
+  .storeInfo__input__grid6 {
+    order: 6;
+  }
+  .storeInfo__input > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 160px;
+  }
+  .storeInfo__input > div:nth-child(3) {
+    justify-content: flex-end;
+  }
+  .storeInfo__input input {
+    width: 250px;
+    height: 60px;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: #f5f5f5;
+    outline: none;
+    text-align: center;
+    padding-top: 0px;
+    font-size: 18px;
+    word-spacing: 4px;
+    letter-spacing: 1.2px;
+    outline: none;
+  }
+
+  .storeInfo__input div:last-child input {
+    width: 450px;
+  }
+
+  .storeInfo__input__grid1 > div,
+  .storeInfo__input__grid2 > div,
+  .storeInfo__input__grid4 > div,
+  .storeInfo__input__grid5 > div {
+    display: flex;
+    width: 220px;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .storeInfo__input__grid3 div {
+    width: 450px;
+    margin-bottom: 15px;
+  }
+  .storeInfo__input__grid6 div {
+    width: 450px;
+    margin-bottom: 15px;
+  }
+  .storeInfo__input__grid6 {
+    padding-top: 15px;
+  }
+  .storeInfo__input__grid2 > input {
+    letter-spacing: 1.5px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .grid6__div2 {
+    display: flex;
+  }
+  .grid6__div2 button {
+    width: 80px;
+    outline: none;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: #256d85;
+    margin-left: 15px;
+    color: white;
+    font-size: 15px;
+  }
+
+  .storeInfo__input__grid3 textarea {
+    width: 450px;
+    height: 100px;
+    resize: none;
+    border-radius: 15px;
+    background-color: #f5f5f5;
+    outline: none;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    text-align: start;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 10px;
+    font-size: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding: 23px 15px 15px 15px;
+
+    overflow: auto;
+  }
+
+  .storeInfo__input span {
+    opacity: 0.7;
+    font-size: 18px;
+  }
+}
+
+.storeInfo__input__btn {
+  display: flex;
+  justify-content: end;
+  margin-right: 120px;
+  margin-top: 15px;
+}
+
+.storeInfo__input__btn button {
+  width: 80px;
+  height: 40px;
+  outline: none;
+  border-radius: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-color: #256d85;
+  margin-left: 15px;
+  color: white;
+  font-size: 15px;
+  border: 0px;
+}
+
+/* @media all and (min-width: 1670px) {
+  .modal {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    position: fixed;
+    margin-left: 600px;
+  }
+} */

@@ -6,7 +6,6 @@ function Modal({ num }) {
     <div className="modalBackground">
       <div className="modalContainer">
         <div className="body">
-         
           <div className="success-checkmark">
             <div className="check-icon">
               <span className="icon-line line-tip"></span>
@@ -26,7 +25,6 @@ function Modal({ num }) {
             {num === 2 && <p>잠시후 대시보드로 이동합니다</p>}
           </div>
         </div>
-       
       </div>
     </div>
   );

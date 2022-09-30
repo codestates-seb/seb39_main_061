@@ -10,6 +10,11 @@ import styles from "./Dashboard.module.css";
 const Dashboard = () => {
   const [isBarChart, setIsBarChart] = useState(true);
 
+  console.log("파라미터는?", window.location.pathname);
+  if (window.location.pathname === "/oauth2") {
+    window.history.pushState("", "페이지타이틀", `/dashboard`);
+  }
+
   const weekBtnHandler = () => {
     setIsBarChart(true);
   };

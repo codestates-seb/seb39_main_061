@@ -5,18 +5,20 @@ import { combineReducers } from "redux";
 import { persistReducer, PERSIST, PURGE } from "redux-persist";
 import userReducer from "./user";
 import mapReducer from "./map";
+import businessReducer from "./business";
 
 const reducers = combineReducers({
   user: userReducer,
   auth: authReducer,
   map: mapReducer,
+  business: businessReducer,
 });
 
 const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["map"],
+  blacklist: ["map", "business"],
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 
