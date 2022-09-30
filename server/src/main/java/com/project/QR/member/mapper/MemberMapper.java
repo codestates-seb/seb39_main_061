@@ -37,7 +37,7 @@ public interface MemberMapper {
       .password(updateMemberDto.getPassword())
       .phone(updateMemberDto.getPhone())
       .role(updateMemberDto.getService().stream()
-        .map(role -> "ROLE_"+role)
+        .map(role -> "ROLE_"+role.toUpperCase())
         .collect(Collectors.joining(","))
       )
       .build();

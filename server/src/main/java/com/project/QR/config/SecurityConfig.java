@@ -188,9 +188,9 @@ public class SecurityConfig {
       .failureHandler(oAuth2AuthenticationFailureHandler);
 
 
-    http.exceptionHandling()
-      .authenticationEntryPoint(jwtAuthenticationEntryPoint)	// 401
-      .accessDeniedHandler(jwtAccessDeniedHandler);		// 403
+//    http.exceptionHandling()
+//      .authenticationEntryPoint(jwtAuthenticationEntryPoint)	// 401
+//      .accessDeniedHandler(jwtAccessDeniedHandler);		// 403
     return http.build();
   }
 
