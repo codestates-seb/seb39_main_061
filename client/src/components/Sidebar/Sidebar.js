@@ -47,9 +47,6 @@ const Sidebar = () => {
       <Link to="/profile">
         <img src="" className={styles.profile} />
       </Link>
-      <Link to="/store-management">
-        <button>StoreManagement</button>
-      </Link>
       <div className={styles.btnContainer}>
         <Link to="/dashboard">
           <div className={styles.sidebarBtn}>
@@ -57,10 +54,10 @@ const Sidebar = () => {
           </div>
         </Link>
         <Link to="/create-Code">
-          <button className={styles.componentsBtn}>QR 코드 만들기</button>
+          <button className={styles.componentsBtn}>QR 코드</button>
         </Link>
-        <Link to="/management">
-          <button className={styles.componentsBtn}>QR 코드 관리</button>
+        <Link to="/store-management">
+          <button className={styles.componentsBtn}>매장 관리</button>
         </Link>
         <Link to="/">
           <button className={styles.componentsBtn}>예약 관리</button>
@@ -79,7 +76,7 @@ const Sidebar = () => {
               await setTimeout(() => purge(), 200);
             }}
           >
-            로그아웃
+            LOGOUT
           </button>
         )}
       </div>

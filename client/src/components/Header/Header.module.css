@@ -1,4 +1,12 @@
 .header_container {
+  display: flex;
+  /* padding-left: 70px; */
+  padding-top: 60px;
+  justify-content:space-between;
   width: 1254px;
   height: 111px;
+}
+
+h2 {
+  font-size: 2.7rem;
 }

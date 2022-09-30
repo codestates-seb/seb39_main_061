@@ -5,6 +5,7 @@ import styles from "./Profile.module.css";
 import noneProfile from "../../Img/Asset_5.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../../src/api/services/user";
+import Header from "../../components/Header/Header";
 // import { profileImgActions } from "../../store/profileImg";
 // import user from "../../store/user";
 
@@ -17,7 +18,6 @@ const Profile = () => {
   const dispatch = useDispatch();
 
   const openModal = () => {
-    console.log(isModal)
     setIsModal(!isModal);
   }
 
@@ -33,9 +33,9 @@ const Profile = () => {
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.main_container}>
+        <Header />
         {isModal ?
           <div className={styles.profile_container}>
-            <h1 className={styles.title}>프로필</h1>
             <div className={styles.contents_container}>
               <div className={styles.imgWrapper}>
                 {userInfo.profileImg === null || userInfo.profileImg === undefined ?
