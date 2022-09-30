@@ -89,8 +89,6 @@ public class AuthService {
     }
   }
 
-
-
   /**
    * 토큰 재발급
    * redis에 저장되어 있는 refresh 토큰과 쿠키로 받은 refresh 토큰 비교
@@ -126,7 +124,7 @@ public class AuthService {
     if(!findMember.getVerifiedCode().equals(code)) {
       throw new BusinessLogicException(ExceptionCode.VALIDATION_CODE_INCORRECT);
     }
-    findMember.setRole(findMember.getJoinRole());
+    findMember.setRole("ROLE_RESERVATION");
     findMember.setEmailVerified(EmailVerified.Y);
     memberRepository.save(findMember);
   }

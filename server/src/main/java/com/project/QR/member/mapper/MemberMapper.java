@@ -24,7 +24,6 @@ public interface MemberMapper {
       .provider(AuthProvider.local)
       .business(business)
       .role("ROLE_GUEST")
-      .joinRole("ROLE_"+createMemberDto.getRole().toUpperCase())
       .build();
   }
 
@@ -36,10 +35,6 @@ public interface MemberMapper {
       .name(updateMemberDto.getName())
       .password(updateMemberDto.getPassword())
       .phone(updateMemberDto.getPhone())
-      .role(updateMemberDto.getService().stream()
-        .map(role -> "ROLE_"+role.toUpperCase())
-        .collect(Collectors.joining(","))
-      )
       .build();
   }
 
@@ -52,7 +47,7 @@ public interface MemberMapper {
       .name(oAuthUpdateDto.getName())
       .business(business)
       .phone(oAuthUpdateDto.getPhone())
-      .role("ROLE_"+oAuthUpdateDto.getService().toUpperCase())
+      .role("ROLE_RESERVATION")
       .build();
   }
 
@@ -63,10 +58,6 @@ public interface MemberMapper {
       .profileImg(member.getProfileImg())
       .name(member.getName())
       .phone(member.getPhone())
-      .service(member.getRoleList().stream()
-        .map(role -> role.substring(5))
-        .collect(Collectors.toList())
-      )
       .build();
   }
 }
