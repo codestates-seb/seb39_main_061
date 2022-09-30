@@ -1,6 +1,11 @@
 package com.project.QR.security.jwt;
 
 import com.project.QR.dto.TokenDto;
+<<<<<<< HEAD
+=======
+import com.project.QR.exception.BusinessLogicException;
+import com.project.QR.exception.ExceptionCode;
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
 import com.project.QR.member.entity.Member;
 import com.project.QR.security.MemberDetails;
 import io.jsonwebtoken.*;
@@ -12,6 +17,11 @@ import org.springframework.http.ResponseCookie;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+<<<<<<< HEAD
+=======
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -33,6 +43,10 @@ public class TokenProvider {
   private final Long REFRESH_TOKEN_EXPIRE_LENGTH = 1000L * 60 * 60 * 24 * 7;	// 1week
   private final String AUTHORITIES_KEY = "role";
   private final RedisTemplate<String, Object> redisTemplate;
+<<<<<<< HEAD
+=======
+  private final UserDetailsService userDetailsService;
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
 
   @PostConstruct
   protected void init() {
@@ -40,6 +54,7 @@ public class TokenProvider {
   }
 
   public TokenDto.TokenInfoDto createToken(Member member, HttpServletResponse response) {
+<<<<<<< HEAD
     Date now = new Date();
     Date validity = new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_LENGTH);
 
@@ -50,6 +65,16 @@ public class TokenProvider {
       .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
       .setSubject(email)
       .claim(AUTHORITIES_KEY, role)
+=======
+    Claims claims = Jwts.claims().setSubject(member.getEmail());
+    claims.put(AUTHORITIES_KEY, member.getRole());
+    Date now = new Date();
+    Date validity = new Date(now.getTime() + ACCESS_TOKEN_EXPIRE_LENGTH);
+
+    String accessToken = Jwts.builder()
+      .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+      .setClaims(claims)
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
       .setIssuedAt(now)
       .setExpiration(validity)
       .compact();
@@ -74,7 +99,10 @@ public class TokenProvider {
 
     return TokenDto.TokenInfoDto.builder()
       .accessToken(accessToken)
+<<<<<<< HEAD
       .accessTokenExpiredAt(ACCESS_TOKEN_EXPIRE_LENGTH)
+=======
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
       .grantType("Bearer")
       .build();
   }
@@ -86,6 +114,7 @@ public class TokenProvider {
     MemberDetails member = (MemberDetails) authentication.getPrincipal();
 
     String email = member.getUsername();
+<<<<<<< HEAD
     String role = authentication.getAuthorities().stream()
       .map(GrantedAuthority::getAuthority)
       .collect(Collectors.joining(","));
@@ -94,12 +123,24 @@ public class TokenProvider {
       .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
       .setSubject(email)
       .claim(AUTHORITIES_KEY, role)
+=======
+    String role = member.getRole();
+    Claims claims = Jwts.claims().setSubject(email);
+    claims.put(AUTHORITIES_KEY, role);
+
+    String accessToken = Jwts.builder()
+      .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
+      .setClaims(claims)
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
       .setIssuedAt(now)
       .setExpiration(validity)
       .compact();
     return TokenDto.TokenInfoDto.builder()
       .accessToken(accessToken)
+<<<<<<< HEAD
       .accessTokenExpiredAt(ACCESS_TOKEN_EXPIRE_LENGTH)
+=======
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
       .grantType("Bearer")
       .build();
   }
@@ -112,10 +153,19 @@ public class TokenProvider {
 
   public Authentication getAuthentication(String accessToken) {
     Claims claims = parseClaims(accessToken);
+<<<<<<< HEAD
     String role = claims.get(AUTHORITIES_KEY).toString();
     MemberDetails principal = new MemberDetails(claims.getSubject(), role);
 
     return new UsernamePasswordAuthenticationToken(principal, "", principal.getAuthorities());
+=======
+
+    if(claims.get(AUTHORITIES_KEY) == null)
+      throw new BusinessLogicException(ExceptionCode.ROLE_IS_NOT_EXISTS);
+    UserDetails userDetails = userDetailsService.loadUserByUsername(claims.getSubject());
+
+    return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
   }
 
   public Boolean validateToken(String token) {

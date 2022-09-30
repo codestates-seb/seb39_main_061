@@ -41,4 +41,10 @@ out/
 application-app.yml
 application-security.yml
 application-mail.yml
+<<<<<<< HEAD
 application-file.yml
+=======
+application-file.yml
+application-sms.yml
+application.yml
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d

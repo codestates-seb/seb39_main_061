@@ -3,6 +3,10 @@ package com.project.QR.member.controller;
 import com.project.QR.dto.SingleResponseDto;
 import com.project.QR.dto.SingleResponseWithMessageDto;
 import com.project.QR.member.dto.MemberRequestDto;
+<<<<<<< HEAD
+=======
+import com.project.QR.member.dto.MemberResponseDto;
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
 import com.project.QR.member.entity.Member;
 import com.project.QR.member.mapper.MemberMapper;
 import com.project.QR.member.service.MemberService;
@@ -17,7 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 
+<<<<<<< HEAD
 @Valid
+=======
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/v1/members")
@@ -31,7 +38,12 @@ public class MemberController {
   @GetMapping("/profile")
   public ResponseEntity getMember(@AuthenticationPrincipal MemberDetails memberDetails) {
     Member member = memberService.getMember(memberDetails.getUsername());
+<<<<<<< HEAD
     return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.memberToMemberInfoDto(member),
+=======
+
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(mapper.memberToMemberInfoDto(member),
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
       "SUCCESS"),
       HttpStatus.OK);
   }
@@ -45,7 +57,13 @@ public class MemberController {
                                      @RequestPart(name = "file", required = false) MultipartFile multipartFile) {
     updateMemberDto.setEmail(memberDetails.getUsername());
     Member member = memberService.updateMember(mapper.updateMemberDtoToMember(updateMemberDto), multipartFile);
+<<<<<<< HEAD
     return new ResponseEntity(new SingleResponseWithMessageDto<>(mapper.memberToMemberInfoDto(member),
+=======
+    MemberResponseDto.MemberInfoDto response = mapper.memberToMemberInfoDto(member);
+
+    return new ResponseEntity<>(new SingleResponseWithMessageDto<>(response,
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
       "SUCCESS"),
       HttpStatus.OK);
   }
@@ -53,8 +71,16 @@ public class MemberController {
   /**
    * 로그아웃 api
    */
+<<<<<<< HEAD
   public ResponseEntity logout(@AuthenticationPrincipal MemberDetails memberDetails) {
     memberService.logout(memberDetails.getUsername());
     return new ResponseEntity(new SingleResponseDto<>("BYE"), HttpStatus.OK);
+=======
+  @DeleteMapping("/logout")
+  public ResponseEntity logout(@AuthenticationPrincipal MemberDetails memberDetails) {
+    memberService.logout(memberDetails.getUsername());
+
+    return new ResponseEntity<>(new SingleResponseDto<>("BYE"), HttpStatus.OK);
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
   }
 }

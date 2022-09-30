@@ -1,0 +1,184 @@
+.login__form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.login__form__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 20%;
+}
+.login__form__title img {
+  width: 200px;
+  height: auto;
+  object-fit: cover;
+}
+
+.login__form__input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+.login__form__input input {
+  height: 50px;
+  border-style: none;
+  outline: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-bottom: 18px;
+  padding-left: 8px;
+  font-size: 18px;
+  width: 200px;
+  margin: 20px;
+}
+.login__form__input input::placeholder {
+  font-size: 15px;
+  opacity: 0.6;
+}
+
+.shake {
+  animation: gelatine 0.5s ease-out;
+}
+
+@keyframes gelatine {
+  from,
+  to {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(0.9, 1.1);
+  }
+  50% {
+    transform: scale(1.1, 0.9);
+  }
+  75% {
+    transform: scale(0.95, 1.05);
+  }
+}
+
+.login__form__oauth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+.login__form__oauth > div {
+  margin: 15px;
+}
+.login__form__oauth img {
+  height: 40px;
+  width: 40px;
+}
+
+.register__form__validation {
+  font-size: 14px;
+  color: #2b4865;
+  font-weight: 400;
+  height: 20px;
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login__form__loginBtn button {
+  width: 220px;
+  height: 50px;
+  border-style: none;
+  background-color: #256d85;
+  border-radius: 25px;
+  color: white;
+  font-size: 18px;
+  margin-bottom: 30px;
+  cursor: pointer;
+}
+
+.login__form__loginBtn button:active {
+  box-shadow: 0 2px #666;
+  animation: press 0.2s 1 linear;
+}
+
+@keyframes press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.93);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.login__form__findPassword {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login__form__findPassword a {
+  text-decoration: none;
+}
+
+.login__form__findPassword p {
+  margin: 15px;
+  color: black;
+  font-size: 15px;
+}
+.validationMSG {
+  animation: gelatine 0.5s ease-out;
+}
+
+.login__form__findPassword a:last-child p {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 13px;
+}
+
+@media all and (min-width: 844px) {
+  .login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(
+      90deg,
+      rgba(143, 227, 207, 1) 0%,
+      rgba(37, 109, 133, 1) 50%,
+      rgba(43, 72, 101, 1) 100%
+    );
+    margin: auto;
+  }
+  .login__form {
+    height: 750px;
+    width: 420px;
+    border-radius: 20px;
+    justify-content: center;
+  }
+  .login__form__title {
+    margin-top: 0px;
+    margin-bottom: 13px;
+  }
+  .login__form__oauth {
+    margin-bottom: 30px;
+  }
+  .login__form__loginBtn {
+    margin-bottom: 30px;
+  }
+  .login__form__title img {
+    width: 230px;
+    height: auto;
+    object-fit: cover;
+  }
+  .validationMSG {
+    animation: gelatine 0.5s ease-out;
+  }
+}

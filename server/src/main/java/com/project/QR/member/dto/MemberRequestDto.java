@@ -31,12 +31,19 @@ public class MemberRequestDto {
     private String password;
     @NotBlank
     private String name;
+<<<<<<< HEAD
     @NotBlank
     private String phone;
     @NotBlank
     private String businessName;
     @NotNull
     private long sectorId;
+=======
+    @Pattern(regexp = "\\d{3}-\\d{4}-\\d{4}", message = "휴대전화 양식이 아닙니다.")
+    private String phone;
+    @NotBlank
+    private String businessName;
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
     @NotBlank
     private String role;
   }
@@ -61,12 +68,19 @@ public class MemberRequestDto {
     private String email;
     @NotBlank
     private String service;
+<<<<<<< HEAD
     @Min(1)
     @Max(15)
     private long sectorId;
     @NotBlank
     private String businessName;
     @NotBlank
+=======
+    @NotBlank
+    private String businessName;
+    private String businessIntroduction;
+    @Pattern(regexp = "\\d{3}-\\d{4}-\\d{4}", message = "휴대전화 양식이 아닙니다.")
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
     private String phone;
     @NotBlank
     private String name;
@@ -82,10 +96,14 @@ public class MemberRequestDto {
     @NotEmpty
     private List<String> service;
     private String profileImg;
+<<<<<<< HEAD
     @Min(1)
     @Max(15)
     private long sectorId;
     private String businessName;
+=======
+    @Pattern(regexp = "\\d{3}-\\d{4}-\\d{4}", message = "휴대전화 양식이 아닙니다.")
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
     private String phone;
     private String name;
   }

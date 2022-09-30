@@ -3,7 +3,16 @@ server:
 
 spring:
   profiles:
+<<<<<<< HEAD
     include: app, security, mail, file
+=======
+    include: app, security, mail, file, sms
+  batch:
+    jdbc:
+      initialize-schema: always
+    job:
+      enabled: false
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
 
   redis:
     host: localhost
@@ -14,6 +23,7 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+<<<<<<< HEAD
     show-sql: true
   h2:
     console:
@@ -25,4 +35,18 @@ spring:
     init:
       data-locations: classpath*:db/h2/data.sql
       schema-locations: classpath*:db/h2/schema.sql
+=======
+      naming-strategy: org.hibernate.cfg.EJB3NamingStrategy
+      format_sql: true
+      naming:
+        implicit-strategy: org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy
+        physical-strategy: com.project.QR.config.NamingStrategy
+    show-sql: true
+  datasource:
+    dialect: org.hibernate.dialect.MySQL8Dialect
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/qr?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: qr_service_app
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
 

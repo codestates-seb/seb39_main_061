@@ -33,8 +33,15 @@ public class LogAop {
     Object[] args = joinPoint.getArgs();
     if (args.length <= 0) log.info("no parameter");
     for (Object arg : args) {
+<<<<<<< HEAD
       log.info("parameter type = {}", arg.getClass().getSimpleName());
       log.info("parameter value = {}", arg);
+=======
+      if(arg != null) {
+        log.info("parameter type = {}", arg.getClass().getSimpleName());
+        log.info("parameter value = {}", arg);
+      }
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
     }
   }
 

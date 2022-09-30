@@ -1,0 +1,28 @@
+version: "3"
+
+services:
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+  db:
+    image: mysql:8
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=qr_service_app
+      - MYSQL_DATABASE=qr
+      - MYSQL_ROOT_HOST=%
+    ports:
+      - "3306:3306"
+  backend:
+    container_name: backend
+    build: .
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/qr?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+      SPRING_DATASOURCE_DIALECT: org.hibernate.dialect.MySQL8Dialect
+      SPRING_REDIS_HOST: redis
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    restart: unless-stopped
