@@ -81,7 +81,6 @@ public class MemberControllerTest {
     actions
       .andExpect(status().isOk())
       .andExpect(jsonPath("$.data.email").value(memberInfoDto.getEmail()))
-      .andExpect(jsonPath("$.data.service").value(memberInfoDto.getService()))
       .andExpect(jsonPath("$.data.profileImg").value(memberInfoDto.getProfileImg()))
       .andExpect(jsonPath("$.data.phone").value(memberInfoDto.getPhone()))
       .andExpect(jsonPath("$.data.name").value(memberInfoDto.getName()))
@@ -97,7 +96,6 @@ public class MemberControllerTest {
               fieldWithPath("data").type(JsonFieldType.OBJECT).description("결과 데이터"),
               fieldWithPath("data.email").type(JsonFieldType.STRING).description("이메일"),
               fieldWithPath("data.profileImg").type(JsonFieldType.STRING).description("프로필 이미지 URL").optional(),
-              fieldWithPath("data.service").type(JsonFieldType.ARRAY).description("가입한 서비스"),
               fieldWithPath("data.phone").type(JsonFieldType.STRING).description("연락처"),
               fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
               fieldWithPath("message").type(JsonFieldType.STRING).description("결과 메시지")
@@ -153,7 +151,6 @@ public class MemberControllerTest {
         requestPartFields("data", List.of(
           fieldWithPath("email").description("이메일").ignored(),
           fieldWithPath("password").description("비밀번호").optional(),
-          fieldWithPath("service").description("가입한 서비스").optional(),
           fieldWithPath("name").description("이름").optional(),
           fieldWithPath("profileImg").description("프로필 이미지 URL").ignored(),
           fieldWithPath("phone").description("연락처").optional()
@@ -162,7 +159,6 @@ public class MemberControllerTest {
           List.of(
             fieldWithPath("data").type(JsonFieldType.OBJECT).description("결과 데이터"),
             fieldWithPath("data.email").type(JsonFieldType.STRING).description("이메일"),
-            fieldWithPath("data.service[]").type(JsonFieldType.ARRAY).description("가입한 서비스"),
             fieldWithPath("data.profileImg").type(JsonFieldType.STRING).description("프로필 이미지 URL"),
             fieldWithPath("data.phone").type(JsonFieldType.STRING).description("연락처"),
             fieldWithPath("data.name").type(JsonFieldType.STRING).description("이름"),
