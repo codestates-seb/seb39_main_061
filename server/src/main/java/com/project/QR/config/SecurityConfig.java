@@ -150,20 +150,20 @@ public class SecurityConfig {
 
     http
       .cors()
-        .and()
+      .and()
       .apply(new CustomDsl())
-        .and()
+      .and()
       .sessionManagement()
       .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-        .and()
+      .and()
       .csrf().disable()
       .headers().frameOptions().disable()
-        .and()
+      .and()
       .formLogin().disable()
       .httpBasic().disable()
       .exceptionHandling()
       .authenticationEntryPoint(new RestAuthenticationEntryPoint())
-        .and()
+      .and()
       .authorizeRequests()
       .antMatchers("/auth/**", "/oauth2/**")
       .permitAll()
@@ -171,26 +171,26 @@ public class SecurityConfig {
       .access("hasRole('ROLE_KEEP') or hasRole('ROLE_RESERVATION')")
       .anyRequest()
       .permitAll()
-        .and()
+      .and()
       .authenticationManager(authenticationManager)
       .oauth2Login()
       .authorizationEndpoint()
       .baseUri("/login/oauth2/authorize")
       .authorizationRequestRepository(cookieAuthorizationRequestRepository())
-        .and()
+      .and()
       .redirectionEndpoint()
       .baseUri("/login/oauth2/callback/*")
-        .and()
+      .and()
       .userInfoEndpoint()
       .userService(customOAuth2UserService)
-        .and()
+      .and()
       .successHandler(oAuth2AuthenticationSuccessHandler)
       .failureHandler(oAuth2AuthenticationFailureHandler);
 
 
-//    http.exceptionHandling()
-//      .authenticationEntryPoint(jwtAuthenticationEntryPoint)	// 401
-//      .accessDeniedHandler(jwtAccessDeniedHandler);		// 403
+    http.exceptionHandling()
+      .authenticationEntryPoint(jwtAuthenticationEntryPoint)	// 401
+      .accessDeniedHandler(jwtAccessDeniedHandler);		// 403
     return http.build();
   }
 
