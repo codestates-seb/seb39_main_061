@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { businessActions } from "../../store/business";
 import { useEffect } from "react";
 
-const TimePicker = ({ setTimePickerOpen }) => {
+const TimePicker = ({ setOpen }) => {
   const startTime = useSelector((state) => state.business.startTime);
   const endTime = useSelector((state) => state.business.endTime);
   const startOrEnd = useSelector((state) => state.business.startOrEnd);
@@ -86,12 +86,12 @@ const TimePicker = ({ setTimePickerOpen }) => {
     if (startOrEnd === 1) {
       dispatch(businessActions.setStartTime(`${h}:${m}`));
       dispatch(businessActions.setCheckOpenTime(1));
-      setTimePickerOpen(false);
+      setOpen(false);
     }
     if (startOrEnd === 2) {
       dispatch(businessActions.setEndTime(`${h}:${m}`));
       dispatch(businessActions.setCheckOpenTime(2));
-      setTimePickerOpen(false);
+      setOpen(false);
     }
   };
 
@@ -101,7 +101,7 @@ const TimePicker = ({ setTimePickerOpen }) => {
         <div>{startOrEnd === 1 ? "오픈시간" : "마감시간"}</div>
         <span
           onClick={() => {
-            setTimePickerOpen(false);
+            setOpen(false);
           }}
         >
           <FontAwesomeIcon icon={faXmark} />

@@ -7,13 +7,12 @@ import { useEffect } from "react";
 import Modal from "react-modal";
 import { mapActions } from "../../store/map";
 import { authActions } from "../../store/auth";
-import TimeModal from "../TimeModal/TimeModal";
 import { businessActions } from "../../store/business";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import ConfirmModal from "../Modal/Modal";
 import { modalActions } from "../../store/modal";
-import DayModal from "../DayModal/DayModal";
+import SlideModal from "../SlideModal/SlideModal";
 
 const StoreInfo = () => {
   const address = useSelector((state) => state.map.address);
@@ -207,10 +206,16 @@ const StoreInfo = () => {
               </div>
               <>
                 {startPickerOpen === true && canEdit ? (
-                  <TimeModal setTimePickerOpen={setStartPickerOpen}></TimeModal>
+                  <SlideModal
+                    modalNum={1}
+                    setOpen={setStartPickerOpen}
+                  ></SlideModal>
                 ) : null}
                 {endPickerOpen === true && canEdit ? (
-                  <TimeModal setTimePickerOpen={setEndPickerOpen}></TimeModal>
+                  <SlideModal
+                    modalNum={1}
+                    setOpen={setEndPickerOpen}
+                  ></SlideModal>
                 ) : null}
               </>
               <input
@@ -299,21 +304,26 @@ const StoreInfo = () => {
               />
               <>
                 {dayPickerOpen === true && canEdit ? (
-                  <DayModal setTimePickerOpen={setDayPickerOpen}></DayModal>
+                  <SlideModal
+                    modalNum={2}
+                    setOpen={setDayPickerOpen}
+                  ></SlideModal>
                 ) : null}
               </>
-              <span
-                onClick={() => {
-                  dayPickerToggle();
-                }}
-                className={styles.endIcon}
-              >
-                {dayPickerOpen === true ? (
-                  <FontAwesomeIcon icon={faCaretUp} />
-                ) : (
-                  <FontAwesomeIcon icon={faCaretDown} />
-                )}
-              </span>
+              {canEdit && (
+                <span
+                  onClick={() => {
+                    dayPickerToggle();
+                  }}
+                  className={styles.endIcon}
+                >
+                  {dayPickerOpen === true ? (
+                    <FontAwesomeIcon icon={faCaretUp} />
+                  ) : (
+                    <FontAwesomeIcon icon={faCaretDown} />
+                  )}
+                </span>
+              )}
             </div>
             <div className={styles.storeInfo__input__grid5}>
               <div>
