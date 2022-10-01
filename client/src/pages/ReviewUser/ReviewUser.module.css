@@ -1,0 +1,146 @@
+.pages{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 844px;
+    width: 390px;
+    flex-direction: column;
+}
+
+.table {
+    
+    
+    border-collapse: collapse;
+    margin: 7px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  
+
+  
+}
+
+.thead {
+    background-color: #256D85;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+    text-align: center;
+}
+
+.tr {
+    border-bottom: 1px solid #dddddd;
+    text-align: center;
+}
+
+.tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+  }
+
+  /* .tr:last-of-type {
+    border-bottom: 2px solid #256D85;
+  }   */
+
+
+.th {
+    padding: 20px;
+}
+.tbody {
+    border: 2px solid lightgray;
+    margin: 20px;
+}
+
+.td {
+    padding: 12px 15px;
+    
+}
+
+
+.upform {
+    
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form {
+    display: flex;
+    width: 390px;
+    height: 115px;
+    
+    justify-content: flex-start;
+    box-shadow: 0 10px 25px rgba(92,99,105,.2);
+}
+
+
+.div {
+    
+    height: 24px;
+    margin-bottom: 1.5rem;
+}
+
+.input {
+    position: absolute;
+    justify-content: flex-start;
+    width: 286px;
+    height: 48px;
+    font-size: 1rem;
+    border: 1px solid #DADCE0;
+    border-radius: .5rem;
+    outline: none;
+    margin-left: 0.5rem;
+    margin-top: 0.5rem;
+    background: none;
+    z-index: 1;
+    display: flex;
+    
+}
+
+
+/* .label {
+    position: absolute;
+  left: 0.75rem;
+  top: 1.25rem;
+  padding: 0 .25rem;
+  background-color: #fff;
+  color: #80868B;
+  font-size: 1rem;
+  transition: .3s;
+  display: flex;
+} */
+
+
+
+  .button_res{
+    display: flex;
+    padding: ;
+    color: #fff;
+    background-color: #256D85;
+    border-radius: 5px;
+    font-size: 13px;
+    font-weight: 500;
+    align-items: center;
+    margin-top: 1rem;
+    margin-left: 20rem;
+    width: 56px;
+    height: 36px;
+    align-items: center;
+    padding-left: 0.8rem;
+    padding-bottom: 0.2rem;
+    
+    border-color: #256D85;
+  }   
+
+  .food {
+    width: 390px;
+  }
+  
+  .logo {
+    display: flex;
+    width: 85px;
+    height: ;
+    margin-left: 9rem;
+    justify-content: flex-start;
+  }

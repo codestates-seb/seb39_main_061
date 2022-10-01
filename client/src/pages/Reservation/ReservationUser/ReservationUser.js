@@ -90,7 +90,7 @@ const onSubmitHandler = (e) => {
                     <div>덕이네 불족발</div>
                     <div>서울시 강동구 새파람길 34</div>
                 </div>
-            <Link to ="/review" className={styles.link}>리뷰쓰기</Link>
+            <Link to ="/review-user" className={styles.link}>리뷰쓰기</Link>
              </div>
        <table className={styles.table}>
             <thead className={styles.thead}>

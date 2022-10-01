@@ -4,7 +4,7 @@ import Modal from "../../../components/Reservation/Modal/Modal.js";
 import styles from "./ReservationAdmin.module.css";
 import Sidebar from "../../../components/Sidebar/Sidebar.js";
 import { getAuthorizationHeader } from "../../../api/axios.js";
-import { HiTrash } from "react-icons/hi";
+
 
 
 
@@ -63,29 +63,47 @@ useEffect(() => {
         
 }, []);
 
+// axios.patch(
+//   url2, {
+//     headers: {
+//       Authorization: getAuthorizationHeader(),
+//     },
+//   }
+// )
 
 
-const url2 = `http://localhost:8080/api/v1/business/1/reservation/qr-code/1/info/${reservation-id}/cancel`
+
 
 function deleteUser(reservationId, name, phone){
-     if(modalInput === res.phone ) {
-      axios.patch(url2, {headers: {
-        Authorization: getAuthorizationHeader(),
-      }})
-      .then(function(response) {
-      })
-      .then (() => axiosData())    
-      .catch(function(error) {
-          })
+  const url2 = `http://localhost:8080/api/v1/business/1/reservation/qr-code/1/info/${reservationId}/cancel`   
   
-      alert(`${name}님의 예약이 삭제되었습니다.`)
-      closeModal()
-      setModalInput('')}
-      
+  if(modalInput === phone ) {
+    axios.patch(
+      `${url2}`,
+      { reservationId, name, phone},
+      {
+        headers: {
+          Authorization: getAuthorizationHeader(),
+        },
+      }
+    )
+    .then (() => axiosData())    
+    .catch(function(error) {
+        })
+
+    alert(`${name}님의 예약이 삭제되었습니다.`)
+    closeModal()
+    setModalInput('')}
     else(window.confirm('연락처가 일치하지 않습니다.'))  
-    console.log(phone)
+    
     setModalInput('')
       }
+  
+     
+     
+      
+   
+    
 
      
     
@@ -120,7 +138,7 @@ function deleteUser(reservationId, name, phone){
         <td className={styles.td}>{re.phone}</td>
         <td className={styles.td}>{re.count}</td>
         <td className={styles.td4}>
-        <button onClick={openModal}><HiTrash/></button>
+        <button onClick={openModal}>삭제</button>
         <Modal open={modalOpen} close={closeModal} header="예약 연락처를 입력하세요">
           <main>
           <input key={re.id} type="tel" name="modal_input" required="required" value={modalInput} onChange={onModal} className={styles.input_modal} placeholder="연락처 입력 -제외"/>
