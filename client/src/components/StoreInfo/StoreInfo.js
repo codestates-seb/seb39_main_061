@@ -2,7 +2,7 @@ import styles from "./StoreInfo.module.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getBusinessInfo, postBusinessInfo } from "../../api/services/store";
-import MapContainer from "../MapContainer/MapContainer";
+import FindAddress from "../FindAddress/FindAddress";
 import { useEffect } from "react";
 import Modal from "react-modal";
 import { mapActions } from "../../store/map";
@@ -183,19 +183,22 @@ const StoreInfo = () => {
   // Modal 스타일
   const customStyles = {
     overlay: {
-      backgroundColor: "rgba(0,0,0,0.5)",
+      backgroundColor: "rgba(0,0,0,0.2)",
     },
     content: {
+      marginLeft: "690px",
       left: "0",
       margin: "auto",
-      width: "1000px",
-      height: "700px",
+      width: "750px",
+      height: "600px",
       padding: "0",
+      borderRadius: "20px",
+      paddingLeft: "20px",
     },
   };
 
   return (
-    <div>
+    <div className={styles.storeInfo__container}>
       {isLoading && (
         <form onSubmit={storeSubmitHanlder} className={styles.StoreInfo}>
           <div className={styles.storeInfo__title}>
@@ -375,7 +378,7 @@ const StoreInfo = () => {
                   value={address === null ? "" : address}
                   placeholder="ex: 서울특별시 동작구 밤리단길 369 B1"
                 />
-                {canEdit && <button onClick={toggle}>주소검색</button>}
+                {canEdit && <button onClick={toggle}>검색</button>}
               </div>
             </div>
             <Modal
@@ -386,14 +389,17 @@ const StoreInfo = () => {
               style={customStyles}
               onRequestClose={toggle}
             >
-              <MapContainer toggle={toggle} />
+              <FindAddress toggle={toggle} />
             </Modal>
+            <div className={styles.storeInfo__input__btn}>
+              <div>
+                {!canEdit && <button onClick={changeBtnHandler}>수정</button>}
+                {canEdit && <button onClick={editSubmitHandler}>저장</button>}
+                {canEdit && <button onClick={cancelHandler}>취소</button>}
+              </div>
+            </div>
           </div>
-          <div className={styles.storeInfo__input__btn}>
-            {!canEdit && <button onClick={changeBtnHandler}>수정</button>}
-            {canEdit && <button onClick={editSubmitHandler}>저장</button>}
-            {canEdit && <button onClick={cancelHandler}>취소</button>}
-          </div>
+
           {isModalOpen && <ConfirmModal num={5} />}
         </form>
       )}

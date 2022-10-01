@@ -9,7 +9,15 @@
   justify-content: flex-start;
 }
 .StoreManagement {
-  display: flex;
   flex-direction: column;
-  width: 100vw;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  align-items: center;
+}
+
+.menuInfo {
+  height: 50%;
 }

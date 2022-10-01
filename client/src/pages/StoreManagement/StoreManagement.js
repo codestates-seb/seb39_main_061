@@ -9,9 +9,13 @@ const StoreManagement = () => {
   return (
     <main className={styles.container}>
       <SideBar />
+
       <div className={styles.StoreManagement}>
         <h1>매장관리</h1>
         <StoreInfo />
+        <div className={styles.menuInfo}>
+          <h1>메뉴정보</h1>
+        </div>
       </div>
     </main>
   );
