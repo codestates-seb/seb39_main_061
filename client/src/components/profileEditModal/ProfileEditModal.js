@@ -1,10 +1,10 @@
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from "./profileEditModal.module.css";
 import noneProfile from "../../Img/Asset_5.png";
 import imgPlusBtn from "../../Img/imgPlusBtn.png";
 import { postProfileEdit } from "../../api/services/profileEdit";
+import { getProfile } from "../../../src/api/services/user";
+
 import { useSelector, useDispatch } from "react-redux";
 import { userAction } from "../../store/user";
 
@@ -16,14 +16,14 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errMessage, setErrMessage] = useState('');
   const [image, setImage] = useState({});
+  const [profile, setProfile] = useState({});
 
-  const navigate = useNavigate()
   const passwordRef = useRef()
-  const nameRef = useRef()
   const confirmPasswordRef = useRef()
+  // const nameRef = useRef()
   // const profileImg = useSelector(state => state.profileImg.value)
-  let inputRef;
   const dispatch = useDispatch();
+  let inputRef;
 
   //프로필 수정 모달-------------------------------------------------------
   const modalClose = () => {
@@ -34,6 +34,7 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
   const saveImage = (e) => {
     e.preventDefault();
     const fileReader = new FileReader();
+    console.log(fileReader)
     if (e.target.files[0]) {
       fileReader.readAsDataURL(e.target.files[0])
     }
@@ -54,14 +55,12 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
     if (passwordEdit !== confirmPasswordEdit) {
       setErrMessage("비밀번호가 일치하지 않습니다.");
       return;
-    }
-    if (!password) {
+    } else if (!password) {
       setErrMessage('빈칸을 채워주세요');
       return;
     } else if (!image.image_file) {
       alert("사진을 등록하세요!")
-    }
-    else {
+    } else {
       const formData = new FormData()
       formData.enctype = "multipart/form-data"
       const profileFormData = {
@@ -79,14 +78,41 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
       console.log(profileData)
       // dispatch(userAction(profileData))
       alert("프로필 수정 완료!");
-      window.location.reload();
+      // window.location.reload();
+    }
+  }
+  // 프로필 수정 이미지 불러오기 분기 처리------------------------------------
+  const profileImgRender = () => {
+    if (image.preview_URL) {
+      return <img
+        src={image.preview_URL}
+        className={styles.imgPreview}
+        alt="profileImg"
+      />
+    }
+    if (profile.profileImg) {
+      return <img
+        src={"http://localhost:8080" + profile.profileImg}
+        alt="ProfileImg"
+        className={styles.imgPreview}
+      />
     }
   }
 
+  // getProfile()로 proifle 불러와서 input에 띄워주기-----------------------
+  useEffect(() => {
+    getProfile()
+      .then(profileData => {
+        setProfile(profileData)
+        console.log(profileData)
+      })
+  }, [])
+
   return (
-    <div>
-      <h1 className={styles.title}>프로필 수정</h1>
-      <form className={styles.contents_container} onSubmit={(e) => e.preventDefault()}>
+    <div className={styles.profile_container}>
+      <form
+        className={styles.contents_container}
+        onSubmit={(e) => e.preventDefault()}>
         <div>
           <input
             type="file"
@@ -97,13 +123,22 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
             style={{ display: "none" }}
           />
           <div className={styles.imgWrapper}>
-            {image.preview_URL === undefined ?
-              <img src={noneProfile} /> :
-              <img src={image.preview_URL} className={styles.imgPreview} />}
+            {image.preview_URL === null ?
+              <img
+                src={noneProfile}
+                alt="None profileImg"
+              /> :
+              profileImgRender()}
           </div>
           <div>
-            <button className={styles.imgPlusBtn} onClick={() => inputRef.click()}>
-              <img src={imgPlusBtn} className={styles.imgPlus} />
+            <button
+              className={styles.imgPlusBtn}
+              onClick={() => inputRef.click()}>
+              <img
+                src={imgPlusBtn}
+                className={styles.imgPlus}
+                alt="button"
+              />
             </button>
           </div>
         </div>
@@ -113,9 +148,21 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
               <input
                 className={styles.input}
                 type={"text"}
-                onChange={(e) => setNewName(e.target.value)}
-                ref={nameRef}
-                placeholder="관리자 명"
+                onChange={(e) => {
+                  // console.log(nameRef.current.value)
+                  // console.log(profile.name)
+                  // if (nameRef.current.value === "") {
+                  //   return profile.name
+                  // } 
+                  // else {
+                  //   console.log(profile.name)
+                  //   return setNewName(e.target.value)
+                  // }
+                  //   e.target.value ? setNewName(e.target.value) : profile.name
+                  // }
+                  // ref={nameRef}
+                }}
+                placeholder={profile.name}
               />
             </div>
 
@@ -123,9 +170,12 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
               <input
                 className={styles.input}
                 type={"tel"}
-                onChange={(e) => setPhone(e.target.value)}
-                ref={nameRef}
-                placeholder="연락처"
+                // onChange={(e) => setPhone(e.target.value)}
+                onChange={(e) => {
+                  return setPhone(e.target.value === "" ? profile.phone :
+                    e.target.value)
+                }}
+                placeholder={profile.phone}
               />
             </div>
             <div className={styles.contents_text}>
@@ -154,8 +204,10 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
           ) : (
             ''
           )}
-          <button type='submit' onClick={profileEditSubmit} className={styles.btn}>완 료</button>
-          <button type='submit' onClick={modalClose} className={styles.btn}>닫 기</button>
+          <div className={styles.bottomBtn}>
+            <button type='submit' onClick={profileEditSubmit} className={styles.btn}>완 료</button>
+            <button type='submit' onClick={modalClose} className={styles.btn}>닫 기</button>
+          </div>
         </div>
       </form>
     </div>

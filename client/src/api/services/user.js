@@ -13,8 +13,4 @@ export const getProfile = () => {
       // console.log("겟프로필");
       return res.data.data;
     })
-    .catch((err) => {
-      // console.log("겟프로필");
-      console.log(err.response);
-    });
 };

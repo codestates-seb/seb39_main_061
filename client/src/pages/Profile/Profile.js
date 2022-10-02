@@ -6,14 +6,17 @@ import noneProfile from "../../Img/Asset_5.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../../src/api/services/user";
 import Header from "../../components/Header/Header";
+import { useNavigate } from "react-router-dom";
 // import { profileImgActions } from "../../store/profileImg";
 // import user from "../../store/user";
 
 
 const Profile = () => {
-  const profile = useSelector(state => state.user.userProfile)
+  // const profile = useSelector(state => state.user.userProfile)
   const [userInfo, setUserInfo] = useState({})
   const [isModal, setIsModal] = useState(true);
+  const navigate = useNavigate();
+  const title = "프로필"
 
   const dispatch = useDispatch();
 
@@ -24,7 +27,14 @@ const Profile = () => {
   useEffect(() => {
     getProfile()
       .then(userData => {
+        console.log(userData)
         setUserInfo(userData);
+      })
+      .catch(err => {
+        if (err.response.data.status === 401) {
+          alert("로그인 해주세요!")
+        }
+        navigate("/login")
       })
   }, [])
   // dispatch(profileImgActions.ImgSubmit(userInfo.profileImg))
@@ -33,7 +43,7 @@ const Profile = () => {
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.main_container}>
-        <Header />
+        <Header title={title} />
         {isModal ?
           <div className={styles.profile_container}>
             <div className={styles.contents_container}>
@@ -54,7 +64,7 @@ const Profile = () => {
               </div>
             </div>
           </div>
-          : <ProfileEditModal setIsModal={setIsModal} isModal={isModal}/>
+          : <ProfileEditModal setIsModal={setIsModal} isModal={isModal} />
         }
       </div>
     </div>

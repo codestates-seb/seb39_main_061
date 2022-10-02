@@ -4,13 +4,17 @@ import WeekApexChart from "../../components/BarChart/WeekApexChart";
 import MonthApexChart from "../../components/BarChart/MonthApexChart";
 import Piechart from "../../components/PieChart/PieChart"
 import DashboardCalendar from "../../components/Calendar/Calendar";
+import Header from "../../components/Header/Header";
 import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { getDashboard } from "./../../api/services/dashboard"
 import moment from 'moment';
 
 const Dashboard = () => {
+  const title="대시보드"
+  const navigate = useNavigate();
   const [isBarChart, setIsBarChart] = useState(true);
   // const chartData = useSelector(state => { return state.barCharts})
   // console.log(chartData)
@@ -28,13 +32,19 @@ const Dashboard = () => {
   useEffect(() => {
     getDashboard(today)
     .then(res => console.log(res))
+    .catch(err => {
+      if (err.response.data.status === 401) {
+        alert("로그인 해주세요!")
+      }
+      // navigate("/login")
+    })
   }, [])
 
   return (
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.main_container}>
-        <h1 className={styles.title}>Dashboard</h1>
+        <Header title={title}/>
         <div className={styles.container}>
           <div className={styles.component}>
             <div>

@@ -4,12 +4,12 @@
   align-items: center;
   min-width: 310px;
   width: 310px;
-  height: 100vh;
-  /* background: rgb(43,72,101);
-  background: linear-gradient(180deg, rgba(43,72,101,1) 0%, rgba(37,109,133,1) 35%, rgba(143,227,207,1) 100%);  padding-top: 60px;
-  border-radius: 30px; */
-  background-color: #256d85;
+  height:100vw;
+  background: transparent;
+  background: linear-gradient(180deg, rgba(43,72,101,1) 0%, rgba(37,109,133,1) 35%, rgba(143,227,207,1) 100%);  
   padding-top: 60px;
+  padding-top: 60px;
+  border-radius: 30px;
 }
 
 .logo {
@@ -34,8 +34,7 @@
   border: 0;
   font-size: 1.4rem;
   color: white;
-  /* background-color:transparent; */
-  background-color: #256d85;
+  background-color:transparent;
   cursor: pointer;
 }
 
@@ -66,7 +65,7 @@
     /* border-radius: 30px; */
     font-size: 1.2rem;
     color: white;
-    background-color: #256d85;
+    background: transparent;
     cursor: pointer;
   }
 }
