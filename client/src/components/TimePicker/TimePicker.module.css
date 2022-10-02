@@ -15,7 +15,7 @@
   position: absolute;
   margin-right: 51px;
   font-size: 18px;
-  color: tomato;
+  color: #f9a825;
   opacity: 0.8;
   font-weight: 600;
 }
@@ -41,21 +41,26 @@
   -khtml-user-select: none;
   -webkit-user-select: none;
 }
+
 .timePicker__time div {
   margin: 3px 3px 0px 7px;
 }
-.firstTime > div:first-child,
-.thirdTime > div:first-child,
-.firstTime > div:last-child,
-.thirdTime > div:last-child {
-  opacity: 0.4;
-}
+
 .firstTime > div:first-child:hover,
 .thirdTime > div:first-child:hover,
 .firstTime > div:last-child:hover,
 .thirdTime > div:last-child:hover {
   opacity: 1;
   cursor: pointer;
+}
+.timePicker__time svg {
+  opacity: 0.7;
+  color: #f9a825;
+}
+.timePicker__time svg:active {
+  opacity: 0.7;
+  color: #f9a825;
+  transform: scale(0.8);
 }
 
 .firstTime,

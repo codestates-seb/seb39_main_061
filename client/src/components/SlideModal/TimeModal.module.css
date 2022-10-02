@@ -1,19 +1,13 @@
 .modalBackground {
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
   background: rgba(0, 0, 0, 0);
   z-index: 1;
   width: 100%;
-  margin-left: 815px;
-  margin-top: 236px;
+  margin-top: 400px;
+  margin-left: 30px;
 }
 
 .modalContainer {
-  top: calc(50vh - 230px);
-  left: calc(50vw - 147px);
   width: 220px;
   height: 280px;
   border-radius: 12px;
@@ -45,19 +39,21 @@
     transform: translateY(0%);
   }
 }
-@media all and (min-width: 1438px) {
+@media all and (min-width: 820px) {
   .modalBackground {
-    margin-left: 760px;
+    margin-left: 30px;
   }
 }
 
-@media all and (min-width: 1843px) {
+@media all and (min-width: 1438px) {
   .modalBackground {
-    margin-left: 860px;
+    margin-left: 0px;
   }
 }
+
 @media all and (min-width: 2000px) {
   .modalBackground {
-    margin-left: 898px;
+    margin-left: 0px;
+    margin-top: 400px;
   }
 }

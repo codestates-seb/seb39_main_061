@@ -1,19 +1,16 @@
 .modalBackground {
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+
   background: rgba(0, 0, 0, 0);
   z-index: 1;
   width: 100%;
-  margin-left: 400px;
   margin-top: 405px;
+  margin-left: 40px;
 }
 
 .modalContainer {
-  top: calc(50vh - 230px);
-  left: calc(50vw - 147px);
+  /* top: calc(50vh - 230px);
+  left: calc(50vw - 147px); */
   width: 180px;
   height: 289px;
   background-color: white;
@@ -45,17 +42,20 @@
 }
 @media all and (min-width: 1438px) {
   .modalBackground {
-    margin-left: 520px;
+    /* margin-left: 520px;
+    margin-top: 288px; */
   }
 }
 
 @media all and (min-width: 1843px) {
   .modalBackground {
-    margin-left: 550px;
+    /* margin-left: 130px;
+    margin-top: 288px; */
   }
 }
 @media all and (min-width: 2000px) {
   .modalBackground {
-    margin-left: 562px;
+    /* margin-left: 562px;
+    margin-top: 288px; */
   }
 }

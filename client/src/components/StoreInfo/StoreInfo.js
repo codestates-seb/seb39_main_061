@@ -184,6 +184,7 @@ const StoreInfo = () => {
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0,0,0,0.2)",
+      marginLeft: "310px",
     },
     content: {
       marginLeft: "690px",
@@ -381,6 +382,7 @@ const StoreInfo = () => {
                 {canEdit && <button onClick={toggle}>검색</button>}
               </div>
             </div>
+
             <Modal
               // onClick={console.log("click")}
 
@@ -391,15 +393,14 @@ const StoreInfo = () => {
             >
               <FindAddress toggle={toggle} />
             </Modal>
-            <div className={styles.storeInfo__input__btn}>
-              <div>
-                {!canEdit && <button onClick={changeBtnHandler}>수정</button>}
-                {canEdit && <button onClick={editSubmitHandler}>저장</button>}
-                {canEdit && <button onClick={cancelHandler}>취소</button>}
-              </div>
+          </div>
+          <div className={styles.storeInfo__input__btn}>
+            <div>
+              {!canEdit && <button onClick={changeBtnHandler}>수정</button>}
+              {canEdit && <button onClick={editSubmitHandler}>저장</button>}
+              {canEdit && <button onClick={cancelHandler}>취소</button>}
             </div>
           </div>
-
           {isModalOpen && <ConfirmModal num={5} />}
         </form>
       )}

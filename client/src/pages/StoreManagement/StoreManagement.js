@@ -11,7 +11,10 @@ const StoreManagement = () => {
       <SideBar />
 
       <div className={styles.StoreManagement}>
-        <h1>매장관리</h1>
+        <div className={styles.topNav}>
+          <h1>매장관리</h1>
+        </div>
+
         <StoreInfo />
         <div className={styles.menuInfo}>
           <h1>메뉴정보</h1>
