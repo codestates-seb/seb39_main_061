@@ -26,14 +26,16 @@
   display: flex;
   flex-direction: row;
   justify-content:stretch;
+  margin-bottom: 1rem;
 }
 
 .subtitle {
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 600;
   display: flex;
   flex-direction: row;
   justify-content:stretch;
+  margin-left: 1.6rem;
 }
 
 

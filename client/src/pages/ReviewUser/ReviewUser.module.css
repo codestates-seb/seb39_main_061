@@ -7,56 +7,70 @@
     flex-direction: column;
 }
 
+.title{
+  margin-top: 1rem;
+  margin-left: 0.7rem;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.tables {
+  overflow-y: scroll;
+  height: 1350px;
+  -ms-overflow-style: none;
+  
+}
+.tables::-webkit-scrollbar{
+  display:none;
+}
+
+
 .table {
-    
-    
-    border-collapse: collapse;
-    margin: 7px 0;
+  
+  
+    width: 370px;
+    margin-left: 0.3rem;
+    text-align: center;
     font-size: 0.9em;
-    min-width: 400px;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-  
-
-  
-}
-
-.thead {
-    background-color: #256D85;
-    color: #ffffff;
+    border-collapse: separate;
+    border-spacing: 1px;
     text-align: left;
-    font-weight: bold;
-    text-align: center;
+    line-height: 1.5;
+    border-collapse: separate;
+	  border-spacing: 0 10px;  
+    height: 1rem;  
+    margin-top: 0.5rem;
+     
 }
 
-.tr {
-    border-bottom: 1px solid #dddddd;
-    text-align: center;
-}
-
-.tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-  }
-
-  /* .tr:last-of-type {
-    border-bottom: 2px solid #256D85;
-  }   */
 
 
-.th {
-    padding: 20px;
-}
-.tbody {
-    border: 2px solid lightgray;
-    margin: 20px;
+TD {
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  
 }
 
 .td {
-    padding: 12px 15px;
-    
+  padding-left: 0.5rem;  
+  vertical-align: top;
+  text-align: left;
+  border-bottom: 2px solid #EDEDED;
+  border-top: 2px solid #EDEDED;
+  border-bottom: 2px solid #EDEDED;
+  border-left: 2px solid #EDEDED;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-top: 2px solid #EDEDED;
+  border-bottom: 2px solid #EDEDED;
+  border-right: 2px solid #EDEDED;
 }
 
+.reviewid {
+margin-bottom: 20px
+}
 
 .upform {
     
@@ -68,30 +82,31 @@
 .form {
     display: flex;
     width: 390px;
-    height: 115px;
+    height: 70px;
     
     justify-content: flex-start;
-    box-shadow: 0 10px 25px rgba(92,99,105,.2);
+   
 }
 
 
 .div {
     
-    height: 24px;
+    height: 20px;
     margin-bottom: 1.5rem;
 }
 
 .input {
-    position: absolute;
+    
+  position: absolute;
     justify-content: flex-start;
     width: 286px;
-    height: 48px;
+    height: 38px;
     font-size: 1rem;
     border: 1px solid #DADCE0;
     border-radius: .5rem;
     outline: none;
-    margin-left: 0.5rem;
-    margin-top: 0.5rem;
+    margin-left: 0.8rem;
+    margin-top: 0.9rem;
     background: none;
     z-index: 1;
     display: flex;
@@ -140,7 +155,6 @@
   .logo {
     display: flex;
     width: 85px;
-    height: ;
     margin-left: 9rem;
     justify-content: flex-start;
   }
