@@ -3,22 +3,15 @@ import ProfileEditModal from "../../components/profileEditModal/ProfileEditModal
 import React, { useEffect, useState } from 'react';
 import styles from "./Profile.module.css";
 import noneProfile from "../../Img/Asset_5.png";
-import { useDispatch, useSelector } from "react-redux";
 import { getProfile } from "../../../src/api/services/user";
 import Header from "../../components/Header/Header";
 import { useNavigate } from "react-router-dom";
-// import { profileImgActions } from "../../store/profileImg";
-// import user from "../../store/user";
-
 
 const Profile = () => {
-  // const profile = useSelector(state => state.user.userProfile)
   const [userInfo, setUserInfo] = useState({})
   const [isModal, setIsModal] = useState(true);
   const navigate = useNavigate();
   const title = "프로필"
-
-  const dispatch = useDispatch();
 
   const openModal = () => {
     setIsModal(!isModal);
@@ -37,7 +30,6 @@ const Profile = () => {
         navigate("/login")
       })
   }, [])
-  // dispatch(profileImgActions.ImgSubmit(userInfo.profileImg))
 
   return (
     <div className={styles.container}>

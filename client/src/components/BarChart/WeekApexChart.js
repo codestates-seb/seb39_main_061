@@ -1,23 +1,51 @@
 import Chart from "react-apexcharts";
 import moment from 'moment';
 import styles from "./WeekApexChart.module.css";
-import { useSelector, useDispatch } from "react-redux";
-// import { useEffect } from "react";
-// import { getStatisticsChart } from "../../library/axios";
-// import barCharts, { barChartsAction } from "../../store/barCharts";
+import { useSelector } from "react-redux";
 
-const data = {
-  series:
-  {
-    week: [23, 30, 60, 37, 50, 20, 50],
-    cancelData: [5, 10, 3, 6, 7, 8, 5]
-  }
-}
+// 더미데이터
+// const data = {
+//   series:
+//   {
+//     week: [23, 30, 60, 37, 50, 20, 50],
+//     cancelData: [5, 10, 3, 6, 7, 8, 5]
+//   }
+// }
 
 const WeekApexChart = () => {
-  const chartData = useSelector(state => state.barCharts)
-  console.log(chartData)
-  // 그래프 하단 요일 출력
+  const weekData = useSelector(state => state.dashboard.week)
+
+  // 주간 예약자 통계
+  const weekBook = () => {
+    const Nweek = weekData.filter(day => day.deleted === "N")
+    const arr = []
+    for (let i = 0; i < 7; i++) {
+      if (Nweek[i] === undefined) {
+        arr.unshift(0)
+      } else {
+        arr.unshift(Nweek[i].count)
+      }
+    }
+    return arr
+  }
+  console.log(weekBook())
+
+  // 주간 취소자 통계
+  const weekCancel = () => {
+    const Yweek = weekData.filter(day => day.deleted === "Y")
+    const arr = []
+    for (let i = 0; i < 7; i++) {
+      if (Yweek[i] === undefined) {
+        arr.unshift(0)
+      } else {
+        arr.unshift(Yweek[i].count)
+      }
+    }
+    return arr
+  }
+  console.log(weekCancel())
+
+  // 그래프 X 축 일자 출력
   const beforeWeek = () => {
     const today = moment(new Date()).format("MM/DD")
     let rendering = [today];
@@ -30,11 +58,11 @@ const WeekApexChart = () => {
   const series = [
     {
       name: "주간 예약자 수",
-      data: data.series.week
+      data: weekBook()
     },
     {
       name: "주간 예약 취소자 수",
-      data: data.series.cancelData
+      data: weekCancel(),
     }
   ];
   const options = {
@@ -44,7 +72,7 @@ const WeekApexChart = () => {
     xaxis: {
       categories: beforeWeek()
     },
-    colors: [ '#e69166', '#669DB5', '#94A74A', '#256D85', '#e6ce66', '#e69166']
+    colors: ['#e69166', '#669DB5', '#94A74A', '#256D85', '#e6ce66', '#e69166']
   };
   return (
     <div>

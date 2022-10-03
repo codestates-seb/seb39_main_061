@@ -5,13 +5,13 @@ import { combineReducers } from "redux";
 import { persistReducer, PERSIST, PURGE } from "redux-persist";
 import userReducer from "./user";
 import mapReducer from "./map";
-import profileReducer from "./profile";
+import dashboardReducer from "./dashboard";
 
 const reducers = combineReducers({
   user: userReducer,
   auth: authReducer,
   map: mapReducer,
-  profile: profileReducer,
+  dashboard: dashboardReducer,
 });
 
 const persistConfig = {

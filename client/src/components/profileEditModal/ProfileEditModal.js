@@ -4,9 +4,6 @@ import noneProfile from "../../Img/Asset_5.png";
 import imgPlusBtn from "../../Img/imgPlusBtn.png";
 import { postProfileEdit } from "../../api/services/profileEdit";
 import { getProfile } from "../../../src/api/services/user";
-import { profileAction } from "../../store/profile"
-import { useSelector, useDispatch } from "react-redux";
-import { userAction } from "../../store/user";
 
 const ProfileEdit = ({ setIsModal, isModal }) => {
   const [password, setPassword] = useState("");
@@ -20,10 +17,6 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
 
   const passwordRef = useRef()
   const confirmPasswordRef = useRef()
-  // const nameRef = useRef()
-  const profileName = useSelector(state => state.profile)
-  console.log(profileName)
-  const dispatch = useDispatch();
   let inputRef;
 
   //프로필 수정 모달-------------------------------------------------------
@@ -78,7 +71,6 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
 
       const profileData = await postProfileEdit(formData)
       console.log(profileData)
-      // dispatch(userAction(profileData))
       alert("프로필 수정 완료!");
       window.location.reload();
     }
@@ -113,8 +105,6 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
     getProfile()
       .then(profileData => {
         setProfile(profileData)
-        dispatch(profileAction.changeName(profile.name))
-        console.log(profileData)
       })
   }, [])
 

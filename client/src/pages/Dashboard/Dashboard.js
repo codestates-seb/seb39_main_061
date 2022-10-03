@@ -7,7 +7,8 @@ import DashboardCalendar from "../../components/Calendar/Calendar";
 import Header from "../../components/Header/Header";
 import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { dashboardActions } from "../../store/dashboard";
 import { useNavigate } from "react-router-dom";
 import { getDashboard } from "./../../api/services/dashboard"
 import moment from 'moment';
@@ -15,9 +16,8 @@ import moment from 'moment';
 const Dashboard = () => {
   const title="대시보드"
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isBarChart, setIsBarChart] = useState(true);
-  // const chartData = useSelector(state => { return state.barCharts})
-  // console.log(chartData)
 
   const weekBtnHandler = () => {
     setIsBarChart(true);
@@ -31,7 +31,12 @@ const Dashboard = () => {
 
   useEffect(() => {
     getDashboard(today)
-    .then(res => console.log(res))
+    .then(res => {
+      console.log(res)
+      dispatch(dashboardActions.setMonth(res.month))
+      dispatch(dashboardActions.setWeek(res.week))
+      dispatch(dashboardActions.setTime(res.time))
+    })
     .catch(err => {
       if (err.response.data.status === 401) {
         alert("로그인 해주세요!")
