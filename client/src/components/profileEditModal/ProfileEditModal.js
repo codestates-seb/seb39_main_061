@@ -4,7 +4,7 @@ import noneProfile from "../../Img/Asset_5.png";
 import imgPlusBtn from "../../Img/imgPlusBtn.png";
 import { postProfileEdit } from "../../api/services/profileEdit";
 import { getProfile } from "../../../src/api/services/user";
-
+import { profileAction } from "../../store/profile"
 import { useSelector, useDispatch } from "react-redux";
 import { userAction } from "../../store/user";
 
@@ -21,7 +21,8 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
   const passwordRef = useRef()
   const confirmPasswordRef = useRef()
   // const nameRef = useRef()
-  // const profileImg = useSelector(state => state.profileImg.value)
+  const profileName = useSelector(state => state.profile)
+  console.log(profileName)
   const dispatch = useDispatch();
   let inputRef;
 
@@ -32,9 +33,10 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
 
   // 이미지 preview------------------------------------------------------
   const saveImage = (e) => {
+    console.log(image.preview_URL)
     e.preventDefault();
     const fileReader = new FileReader();
-    console.log(fileReader)
+    // console.log(fileReader)
     if (e.target.files[0]) {
       fileReader.readAsDataURL(e.target.files[0])
     }
@@ -78,19 +80,26 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
       console.log(profileData)
       // dispatch(userAction(profileData))
       alert("프로필 수정 완료!");
-      // window.location.reload();
+      window.location.reload();
     }
   }
+
   // 프로필 수정 이미지 불러오기 분기 처리------------------------------------
   const profileImgRender = () => {
+    if (image.preview_URL === undefined &&
+      profile.profileImg === null) {
+      return <img
+        src={noneProfile}
+        alt="None profileImg"
+      />
+    }
     if (image.preview_URL) {
       return <img
         src={image.preview_URL}
         className={styles.imgPreview}
         alt="profileImg"
       />
-    }
-    if (profile.profileImg) {
+    } else if (profile.profileImg) {
       return <img
         src={"http://localhost:8080" + profile.profileImg}
         alt="ProfileImg"
@@ -104,6 +113,7 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
     getProfile()
       .then(profileData => {
         setProfile(profileData)
+        dispatch(profileAction.changeName(profile.name))
         console.log(profileData)
       })
   }, [])
@@ -123,12 +133,7 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
             style={{ display: "none" }}
           />
           <div className={styles.imgWrapper}>
-            {image.preview_URL === null ?
-              <img
-                src={noneProfile}
-                alt="None profileImg"
-              /> :
-              profileImgRender()}
+            {profileImgRender()}
           </div>
           <div>
             <button
@@ -149,11 +154,10 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
                 className={styles.input}
                 type={"text"}
                 onChange={(e) => {
-                  // console.log(nameRef.current.value)
-                  // console.log(profile.name)
-                  // if (nameRef.current.value === "") {
-                  //   return profile.name
-                  // } 
+                  setNewName(e.target.value)
+                  // if (e.target.value === "") {
+                  //   return profileName.name
+                  // }
                   // else {
                   //   console.log(profile.name)
                   //   return setNewName(e.target.value)
