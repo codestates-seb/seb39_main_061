@@ -7,9 +7,11 @@ import com.project.QR.security.MemberDetails;
 import com.project.QR.security.jwt.TokenProvider;
 import com.project.QR.util.CookieUtil;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.ServletException;
@@ -31,6 +33,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
   private final AppProperties appProperties;
 
   private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
+
+  private final RedisTemplate<String, Object> redisTemplate;
 
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
@@ -57,10 +61,14 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     MemberDetails memberDetails = (MemberDetails) authentication.getPrincipal();
     TokenDto.TokenInfoDto tokenInfoDto = tokenProvider.createToken(memberDetails.getMember(), response);
 
+    String key = String.format("loadUserByUsername::%s", memberDetails.getMember().getEmail());
+    if(redisTemplate.opsForValue().get(key) != null) {
+      redisTemplate.delete(key);
+    }
+
     return UriComponentsBuilder.fromUriString(targetUrl)
       .queryParam("accessToken", tokenInfoDto.getAccessToken())
-      .queryParam("accessTokenExpiredAt", tokenInfoDto.getAccessTokenExpiredAt())
-      .queryParam("emailVerified", memberDetails.getMember().getEmailVerified())
+      .queryParam("emailVerified", !memberDetails.getRole().equals("ROLE_GUEST"))
       .build().toUriString();
   }
 

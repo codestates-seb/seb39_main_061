@@ -1,0 +1,151 @@
+.signUp {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  flex-direction: column;
+
+  background: linear-gradient(
+    90deg,
+    rgba(0, 43, 91, 1) 0%,
+    rgba(43, 72, 101, 1) 35%,
+    rgba(37, 109, 133, 1) 100%
+  );
+}
+.signUp__form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  flex-direction: column;
+  height: 100vh;
+  width: 100vw;
+}
+
+.signUp__form__title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #256d85;
+  font-size: 20px;
+  height: 50px;
+}
+
+.signUp__form__input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 375px;
+  margin-bottom: 20px;
+}
+.signUp__form__input input {
+  width: 200px;
+  height: 20px;
+  border-style: none;
+  outline: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  font-size: 15px;
+  padding-bottom: 10px;
+}
+.signUp__form__input input::placeholder {
+  opacity: 0.6;
+  font-size: 12px;
+}
+.signUp__form__title img {
+  width: 320px;
+  height: 200px;
+  object-fit: cover;
+}
+.signUp__form__title h1 {
+  margin: 0px;
+  padding: 0px;
+}
+
+.signUp__form__input span {
+  font-size: 15px;
+  opacity: 0.7;
+}
+.signUp__form__input__email,
+.signUp__form__input__password,
+.signUp__form__input__passwordCheck,
+.signUp__form__input__name,
+.signUp__form__input__bussnissName,
+.signUp__form__input__phone {
+  width: 300px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.signUp__form__input div {
+  margin: 15px;
+}
+
+.signUp__form__oauth {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.signUp__form__oauth > div {
+  margin: 10px;
+}
+
+.signUp__form__oauth img {
+  height: 40px;
+  width: 40px;
+}
+
+.signUp__form__validation {
+  font-size: 15px;
+  color: #8ff3cf;
+  font-weight: 400;
+  height: 40px;
+}
+
+.signUp__form__btn button {
+  width: 150px;
+  height: 50px;
+  border-style: none;
+  background-color: #256d85;
+  border-radius: 25px;
+  color: white;
+  font-size: 18px;
+  margin-bottom: 25px;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+.signUp__form__Btn button:active {
+  box-shadow: 0 2px #666;
+  animation: press 0.2s 1 linear;
+}
+@keyframes press {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.93);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@media all and (min-width: 844px) {
+  .signUp__form {
+    height: 800px;
+    width: 450px;
+    border-radius: 20px;
+    justify-content: center;
+  }
+}
+
+@media all and (max-width: 375px) {
+  .signUp__form__title {
+    margin-top: 60px;
+  }
+}

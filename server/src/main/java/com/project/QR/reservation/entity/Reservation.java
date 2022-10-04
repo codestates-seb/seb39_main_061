@@ -1,7 +1,8 @@
 package com.project.QR.reservation.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.project.QR.audit.CreatedAuditable;
 import com.project.QR.qrcode.entity.QrCode;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @Entity
-public class Reservation {
+public class Reservation extends CreatedAuditable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long reservationId;
@@ -25,25 +26,19 @@ public class Reservation {
   private String phone;
 
   @Column(nullable = false)
-  private boolean complete;
+  @Enumerated(EnumType.STRING)
+  private Check completed;
+
+  @Column(nullable = false)
+  @Enumerated(EnumType.STRING)
+  private Check deleted;
 
   @Column(nullable = false)
   @ColumnDefault("1")
   private int count;
 
-  @OneToOne
-  @JoinColumn(nullable = false, name = "QR_CODE_ID") //FK one-to-one
+  @ManyToOne
+  @JoinColumn(name = "QR_CODE_ID") //FK one-to-one
+  @JsonBackReference
   private QrCode qrCode;
-
-  @Builder
-  public Reservation(long reservationId, String name, String phone,
-                     boolean complete, int count, QrCode qrCode) {
-    this.reservationId = reservationId;
-    this.name = name;
-    this.phone = phone;
-    this.complete = complete;
-    this.count = count;
-    this.qrCode = qrCode;
-  }
 }
-

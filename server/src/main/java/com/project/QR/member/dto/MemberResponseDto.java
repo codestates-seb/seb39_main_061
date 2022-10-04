@@ -1,6 +1,6 @@
 package com.project.QR.member.dto;
 
-import com.project.QR.sector.entity.Sector;
+import com.project.QR.business.dto.BusinessResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,10 +15,7 @@ public class MemberResponseDto {
   @Builder
   public static class MemberInfoDto {
     private String email;
-    private List<String> service;
     private String profileImg;
-    private Sector sector;
-    private String businessName;
     private String phone;
     private String name;
   }

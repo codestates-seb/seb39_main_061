@@ -1,7 +1,9 @@
 package com.project.QR.security.oauth;
 
+import com.project.QR.business.entity.Business;
 import com.project.QR.exception.OAuthProcessingException;
 import com.project.QR.member.entity.AuthProvider;
+import com.project.QR.member.entity.EmailVerified;
 import com.project.QR.member.entity.Member;
 import com.project.QR.member.repository.MemberRepository;
 import com.project.QR.security.MemberDetails;
@@ -15,6 +17,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -40,15 +43,26 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     Optional<Member> optionalMember = memberRepository.findByEmail(userInfo.getEmail());
     Member member;
 
-    if (optionalMember.isPresent()) {		// 이미 가입된 경우
+    if (optionalMember.isPresent()) {
       member = optionalMember.get();
       if (authProvider != member.getProvider()) {
-        throw new OAuthProcessingException("Wrong Match Auth Provider");
+        if(member.getEmailVerified().equals(EmailVerified.Y))
+          member = updateMember(member, authProvider);
+        else
+          member = updateInvalidMember(member, userInfo, authProvider);
       }
-    } else {			// 가입되지 않은 경우
+    } else {
       member = createMember(userInfo, authProvider);
     }
     return MemberDetails.create(member, oAuth2User.getAttributes());
+  }
+
+  private Member updateInvalidMember(Member member, OAuth2UserInfo userInfo, AuthProvider authProvider) {
+    member.setEmailVerified(EmailVerified.Y);
+    member.setProvider(authProvider);
+    member.setRole("ROLE_RESERVATION");
+    member.setProfileImg(userInfo.getImageUrl());
+    return member;
   }
 
   private Member createMember(OAuth2UserInfo userInfo, AuthProvider authProvider) {
@@ -57,7 +71,15 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
       .profileImg(userInfo.getImageUrl())
       .role("ROLE_GUEST")
       .provider(authProvider)
+      .emailVerified(EmailVerified.N)
       .build();
+    return memberRepository.save(member);
+  }
+
+  private Member updateMember(Member member, AuthProvider authProvider) {
+    member.setProvider(authProvider);
+    Business business = member.getBusiness();
+    member.setBusiness(business);
     return memberRepository.save(member);
   }
 }

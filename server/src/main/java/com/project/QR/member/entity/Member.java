@@ -3,11 +3,10 @@ package com.project.QR.member.entity;
 import javax.persistence.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.project.QR.sector.entity.Sector;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.project.QR.audit.Auditable;
+import com.project.QR.business.entity.Business;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -18,10 +17,11 @@ import java.util.List;
 @Getter
 @Entity
 @NoArgsConstructor
-public class Member {
+@ToString
+public class Member extends Auditable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private long memberId;
+  private Long memberId;
 
   @Column(unique = true)
   private String email;
@@ -38,22 +38,15 @@ public class Member {
   @Column(nullable = false)
   private AuthProvider provider;
 
+  @Enumerated(EnumType.STRING)
   @Column(nullable = false)
-  private Boolean emailVerified = false;
+  private EmailVerified emailVerified;
 
   private String profileImg;
 
   private String phone;
 
-  private String businessName;
-
   private String verifiedCode;
-
-  private String joinRole;
-
-  @ManyToOne
-  @JoinColumn(name = "SECTOR_ID")
-  private Sector sector;
 
   public List<String> getRoleList() {
     if(this.role.length() > 0) {
@@ -61,19 +54,24 @@ public class Member {
     }
     return new ArrayList<>();
   }
+
+  @JsonManagedReference
+  @OneToOne(mappedBy = "member", cascade = CascadeType.ALL)
+  private Business business;
+
   @Builder
-  public Member(String email, String name, String password, String role, String businessName,
-                AuthProvider provider, String profileImg, Sector sector, String phone, String joinRole) {
+  public Member(Long memberId, String email, String name, String password, String role, AuthProvider provider,
+                 String profileImg, String phone, EmailVerified emailVerified, Business business) {
+    this.memberId = memberId;
     this.email = email;
     this.name = name;
     this.password = password;
     this.role = role;
     this.provider = provider;
     this.profileImg = profileImg;
-    this.sector = sector;
     this.phone = phone;
-    this.businessName = businessName;
-    this.joinRole = joinRole;
+    this.emailVerified = emailVerified;
+    this.business = business;
   }
 }
 

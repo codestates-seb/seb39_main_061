@@ -31,12 +31,10 @@ public class MemberRequestDto {
     private String password;
     @NotBlank
     private String name;
-    @NotBlank
+    @Pattern(regexp = "\\d{3}-\\d{4}-\\d{4}", message = "휴대전화 양식이 아닙니다.")
     private String phone;
     @NotBlank
     private String businessName;
-    @NotNull
-    private long sectorId;
     @NotBlank
     private String role;
   }
@@ -60,13 +58,9 @@ public class MemberRequestDto {
   public static class OAuthUpdateDto {
     private String email;
     @NotBlank
-    private String service;
-    @Min(1)
-    @Max(15)
-    private long sectorId;
-    @NotBlank
     private String businessName;
-    @NotBlank
+    private String businessIntroduction;
+    @Pattern(regexp = "\\d{3}-\\d{4}-\\d{4}", message = "휴대전화 양식이 아닙니다.")
     private String phone;
     @NotBlank
     private String name;
@@ -79,13 +73,8 @@ public class MemberRequestDto {
   public static class UpdateMemberDto {
     private String email;
     private String password;
-    @NotEmpty
-    private List<String> service;
     private String profileImg;
-    @Min(1)
-    @Max(15)
-    private long sectorId;
-    private String businessName;
+    @Pattern(regexp = "\\d{3}-\\d{4}-\\d{4}", message = "휴대전화 양식이 아닙니다.")
     private String phone;
     private String name;
   }
