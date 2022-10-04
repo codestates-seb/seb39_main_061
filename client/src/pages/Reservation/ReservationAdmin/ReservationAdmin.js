@@ -5,9 +5,14 @@ import Sidebar from "../../../components/Sidebar/Sidebar.js";
 import {
   deleteAdminRes,
   getAdminResList,
+  getResNotification,
 } from "../../../api/services/reservation-admin.js";
+import { getBusInfo } from "../../../api/services/reservation-admin.js";
+import { HiTrash } from "react-icons/hi";
+import { BsFillPhoneVibrateFill } from "react-icons/bs";
 
 function ReservationAdmin() {
+  const [businessId, setBusinessId] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
@@ -18,31 +23,44 @@ function ReservationAdmin() {
   const [res, setRes] = useState([]);
   const [modalInput, setModalInput] = useState("");
 
+  useEffect(() => {
+    getBusInfo().then((res) => {
+      setBusinessId(res.data.data.businessId);
+    });
+    axiosData();
+    // eslint-disable-next-line
+  }, [businessId]);
+
   const onModal = (e) => {
+    e.preventDefault();
     setModalInput(e.target.value.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3"));
   };
 
   const axiosData = async () => {
     try {
-      getAdminResList(1, 1).then((res) => {
+      getAdminResList(businessId, 1).then((res) => {
         setRes(res.data);
+
+        console.log(businessId);
       });
     } catch (err) {
       console.log("Error >>", err);
     }
   };
 
-  useEffect(() => {
-    axiosData();
-
-    setInterval(() => {
-      axiosData();
-    }, 60000);
-  }, []);
+  function notification(reservationId, name) {
+    getResNotification(businessId, 1, reservationId)
+      .then((res) => {
+        console.log(reservationId);
+        return axiosData();
+      })
+      .catch((err) => {});
+    alert(`${name}님께 알림을 보냅니다.`);
+  }
 
   function deleteUser(reservationId, name, phone) {
     if (modalInput === phone) {
-      deleteAdminRes(1, 1, reservationId)
+      deleteAdminRes(businessId, 1, reservationId)
         .then((res) => {
           //console.log(res.message);
           return axiosData();
@@ -90,7 +108,21 @@ function ReservationAdmin() {
                         <td className={styles.td}>{re.phone}</td>
                         <td className={styles.td}>{re.count}</td>
                         <td className={styles.td4}>
-                          <button onClick={openModal}>삭제</button>
+                          <BsFillPhoneVibrateFill
+                            className={styles.phone}
+                            size="25"
+                            color="#256D85"
+                            onClick={() =>
+                              notification(re.reservationId, re.name)
+                            }
+                          ></BsFillPhoneVibrateFill>
+                          <HiTrash
+                            className={styles.trash}
+                            size="25"
+                            color="#256D85"
+                            onClick={openModal}
+                          ></HiTrash>
+
                           <Modal
                             open={modalOpen}
                             close={closeModal}

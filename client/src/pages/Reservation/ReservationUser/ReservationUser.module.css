@@ -217,6 +217,7 @@ TD {
     float: right;
     padding: 6px 12px;
     color: #fff;
+    height: 33px;
     background-color: #256D85;
     border-radius: 5px;
     font-size: 13px;
@@ -224,8 +225,8 @@ TD {
     align-items: flex-end;
     margin-top: 0.9rem; 
     margin-left: 21.5rem;
-   border: 0;
-   outline: 0;
+    border: 0;
+    outline: 0;
     text-decoration: none;
   }   
 

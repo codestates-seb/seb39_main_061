@@ -12,3 +12,14 @@ export const deleteAdminRes = (businessId, qrId, reservationId) => {
     url: `/business/${businessId}/reservation/qr-code/${qrId}/info/${reservationId}/cancel`,
   });
 };
+
+export const getBusInfo = () => {
+  return adminAxiosInstance.get(`/business`);
+};
+
+export const getResNotification = (businessId, qrId, reservationId) => {
+  return adminAxiosInstance({
+    method: "PATCH",
+    url: `/business/${businessId}/reservation/qr-code/${qrId}/info/${reservationId}/enter`,
+  });
+};

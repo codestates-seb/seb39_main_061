@@ -12,6 +12,7 @@
   margin-left: 0.7rem;
   font-weight: 500;
   font-size: 18px;
+  margin-bottom: 1rem;
 }
 
 .tables {
@@ -130,7 +131,6 @@ margin-bottom: 20px
 
   .button_res{
     display: flex;
-    padding: ;
     color: #fff;
     background-color: #256D85;
     border-radius: 5px;
@@ -142,10 +142,12 @@ margin-bottom: 20px
     width: 56px;
     height: 36px;
     align-items: center;
-    padding-left: 0.8rem;
+    padding-left: 0.9rem;
     padding-bottom: 0.2rem;
-    
     border-color: #256D85;
+    border: 0;
+    outline: 0;
+    text-decoration: none;
   }   
 
   .food {

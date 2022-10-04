@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
-import food from "../ReservationUser/food.png";
-import logo from "../ReservationUser/Asset_2.png";
+import food from "../../../Img/food.png";
+import logo from "../../../Img/Asset_2.png";
 import styles from "./ReservationUser.module.css";
 import { Link } from "react-router-dom";
 import {
@@ -17,7 +17,6 @@ function ReservationUser() {
     try {
       getUserResList(1, 1).then((res) => {
         setRes(res.data);
-        console.log(res.data);
       });
     } catch (err) {
       console.log("Error >>", err);
@@ -29,7 +28,7 @@ function ReservationUser() {
 
     setInterval(() => {
       axiosData();
-    }, 6000);
+    }, 60000);
   }, []);
 
   const handlePhone = (e) => {
@@ -37,6 +36,7 @@ function ReservationUser() {
   };
 
   const onSubmitHandler = (e) => {
+    e.preventDefault();
     const name = e.target.name.value;
     const phone = e.target.phone.value;
     const count = e.target.count.value;
@@ -53,7 +53,7 @@ function ReservationUser() {
     <>
       {/* const imgStr = get().respoonse[0].img // a.png
       <img className={styles.food} src={`${imgStr}`} /> */}
-      <img className={styles.food} src={food} />
+      <img className={styles.food} src={food} alt="대표음식" />
       <div className={styles.pages}>
         <div className={styles.userhaed}>
           <div className={styles.address}>
@@ -140,7 +140,7 @@ function ReservationUser() {
                 등록
               </button>
             </div>
-            <img className={styles.logo} src={logo} />
+            <img className={styles.logo} src={logo} alt="로고" />
           </form>
         </div>
       </div>

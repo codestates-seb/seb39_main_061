@@ -19,3 +19,7 @@ export const registerUserRes = (businessId, qrCodeId, name, phone, count) => {
     },
   });
 };
+
+export const getUserStoreInfo = (businessId) => {
+  return userAxiosInstance.get(`/business/${businessId}`);
+};

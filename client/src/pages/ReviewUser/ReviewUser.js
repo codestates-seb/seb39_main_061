@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import styles from "./ReviewUser.module.css";
-import food from "./food.png";
-import logo from "./Asset_2.png";
+import food from "../../Img/food.png";
+import logo from "../../Img/Asset_2.png";
 import { getRevUserList } from "../../api/services/review-user";
 import { registerUserRev } from "../../api/services/review-user";
 
@@ -47,7 +47,7 @@ function ReviewUser() {
 
   return (
     <>
-      <img className={styles.food} src={food} />
+      <img className={styles.food} src={food} alt="대표음식" />
       <div className={styles.title}>덕이네 불족발</div>
       <div className={styles.pages}>
         <div className={styles.tables}>
@@ -92,7 +92,7 @@ function ReviewUser() {
               등록
             </button>
           </form>
-          <img className={styles.logo} src={logo} />
+          <img className={styles.logo} src={logo} alt="로고" />
         </div>
       </div>
     </>
