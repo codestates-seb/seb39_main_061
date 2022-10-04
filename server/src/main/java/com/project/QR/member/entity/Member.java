@@ -48,8 +48,6 @@ public class Member extends Auditable {
 
   private String verifiedCode;
 
-  private String joinRole;
-
   public List<String> getRoleList() {
     if(this.role.length() > 0) {
       return Arrays.asList(this.role.split(","));
@@ -63,7 +61,7 @@ public class Member extends Auditable {
 
   @Builder
   public Member(Long memberId, String email, String name, String password, String role, AuthProvider provider,
-                 String profileImg, String phone, String joinRole, EmailVerified emailVerified, Business business) {
+                 String profileImg, String phone, EmailVerified emailVerified, Business business) {
     this.memberId = memberId;
     this.email = email;
     this.name = name;
@@ -72,7 +70,6 @@ public class Member extends Auditable {
     this.provider = provider;
     this.profileImg = profileImg;
     this.phone = phone;
-    this.joinRole = joinRole;
     this.emailVerified = emailVerified;
     this.business = business;
   }

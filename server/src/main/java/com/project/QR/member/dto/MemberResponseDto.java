@@ -15,7 +15,6 @@ public class MemberResponseDto {
   @Builder
   public static class MemberInfoDto {
     private String email;
-    private List<String> service;
     private String profileImg;
     private String phone;
     private String name;

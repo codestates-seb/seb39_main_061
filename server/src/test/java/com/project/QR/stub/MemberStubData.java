@@ -59,7 +59,6 @@ public class MemberStubData {
       .email(member.getEmail())
       .name(member.getName())
       .phone(member.getPhone())
-      .service("reservation")
       .build();
   }
 
@@ -67,10 +66,6 @@ public class MemberStubData {
     Member member = member();
     return MemberResponseDto.MemberInfoDto.builder()
       .profileImg(member.getProfileImg())
-      .service(member.getRoleList().stream()
-        .map(role -> role.substring(5))
-        .collect(Collectors.toList())
-      )
       .phone(member.getPhone())
       .name(member.getName())
       .email(member.getEmail())
@@ -80,10 +75,6 @@ public class MemberStubData {
   public static MemberResponseDto.MemberInfoDto memberInfoDto(Member member) {
     return MemberResponseDto.MemberInfoDto.builder()
       .profileImg(member.getProfileImg())
-      .service(member.getRoleList().stream()
-        .map(role -> role.substring(5))
-        .collect(Collectors.toList())
-      )
       .phone(member.getPhone())
       .name(member.getName())
       .email(member.getEmail())
@@ -101,7 +92,6 @@ public class MemberStubData {
       .name("changeName")
       .password("1234")
       .phone("010-8765-4321")
-      .service(service)
       .profileImg("profile-img-url")
       .build();
   }
@@ -114,9 +104,7 @@ public class MemberStubData {
     member.setPassword(updateMemberDto().getPassword());
     member.setName(updateMemberDto().getName());
     member.setPhone(updateMemberDto.getPhone());
-    member.setRole(updateMemberDto.getService().stream()
-      .map(r->"ROLE_"+r.toUpperCase())
-      .collect(Collectors.joining(",")));
+    member.setRole("ROLE_RESERVATION");
     member.setProfileImg(updateMemberDto.getProfileImg());
     return member;
   }
