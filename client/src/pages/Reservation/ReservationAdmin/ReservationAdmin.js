@@ -10,6 +10,7 @@ import {
 import { getBusInfo } from "../../../api/services/reservation-admin.js";
 import { HiTrash } from "react-icons/hi";
 import { BsFillPhoneVibrateFill } from "react-icons/bs";
+import { number } from "prop-types";
 
 function ReservationAdmin() {
   const [businessId, setBusinessId] = useState("");
@@ -24,11 +25,7 @@ function ReservationAdmin() {
   const [modalInput, setModalInput] = useState("");
 
   useEffect(() => {
-    getBusInfo().then((res) => {
-      setBusinessId(res.data.data.businessId);
-    });
     axiosData();
-    // eslint-disable-next-line
   }, [businessId]);
 
   const onModal = (e) => {
@@ -37,15 +34,22 @@ function ReservationAdmin() {
   };
 
   const axiosData = async () => {
-    try {
-      getAdminResList(businessId, 1).then((res) => {
-        setRes(res.data);
+    getBusInfo()
+      .then((res) => {
+        setBusinessId(res.data.data.businessId);
+      })
 
-        console.log(businessId);
+      .then(() => {
+        if (typeof businessId === "number") {
+          getAdminResList(businessId, 1).then((res) => {
+            return setRes(res.data);
+          });
+        }
+      })
+
+      .catch((err) => {
+        console.log("Error >>", err);
       });
-    } catch (err) {
-      console.log("Error >>", err);
-    }
   };
 
   function notification(reservationId, name) {
