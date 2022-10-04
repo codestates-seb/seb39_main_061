@@ -1063,7 +1063,7 @@ Content-Length: 330
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/auth/validation?email=hgd@gmail.com&amp;code=25c60e25-8a0a-4c4a-87b3-597ade596039' -i -X GET \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/auth/validation?email=hgd@gmail.com&amp;code=3c784bb7-ee69-455b-940c-62981f62d3ea' -i -X GET \
     -H 'Content-Type: application/json' \
     -H 'Accept: application/json'</code></pre>
 </div>
@@ -1071,7 +1071,7 @@ Content-Length: 330
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /auth/validation?email=hgd@gmail.com&amp;code=25c60e25-8a0a-4c4a-87b3-597ade596039 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /auth/validation?email=hgd@gmail.com&amp;code=3c784bb7-ee69-455b-940c-62981f62d3ea HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 Host: localhost:8080</code></pre>
@@ -1160,7 +1160,6 @@ Content-Length: 26
     -H 'Authorization: Bearer {ACCESS_TOKEN}' \
     -d '{
   "email" : "hgd@gmail.com",
-  "service" : "reservation",
   "businessName" : "business",
   "phone" : "010-1234-5678",
   "name" : "hgd"
@@ -1174,12 +1173,11 @@ Content-Length: 26
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {ACCESS_TOKEN}
-Content-Length: 144
+Content-Length: 114
 Host: localhost:8080
 
 {
   "email" : "hgd@gmail.com",
-  "service" : "reservation",
   "businessName" : "business",
   "phone" : "010-1234-5678",
   "name" : "hgd"
@@ -1191,7 +1189,6 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code>{
   "email" : "hgd@gmail.com",
-  "service" : "reservation",
   "businessName" : "business",
   "phone" : "010-1234-5678",
   "name" : "hgd"
@@ -1213,11 +1210,6 @@ Host: localhost:8080
 </tr>
 </thead>
 <tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>service</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">가입할 서비스</p></td>
-</tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>businessName</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
@@ -1457,12 +1449,11 @@ Host: localhost:8080</code></pre>
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 195
+Content-Length: 159
 
 {
   "data" : {
     "email" : "hgd@gmail.com",
-    "service" : [ "RESERVATION" ],
     "profileImg" : null,
     "phone" : "010-1234-5678",
     "name" : "hgd"
@@ -1477,7 +1468,6 @@ Content-Length: 195
 <pre class="prettyprint highlight nowrap"><code>{
   "data" : {
     "email" : "hgd@gmail.com",
-    "service" : [ "RESERVATION" ],
     "profileImg" : null,
     "phone" : "010-1234-5678",
     "name" : "hgd"
@@ -1517,11 +1507,6 @@ Content-Length: 195
 <td class="tableblock halign-left valign-top"><p class="tableblock">프로필 이미지 URL</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.service</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">가입한 서비스</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.phone</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">연락처</p></td>
@@ -1548,7 +1533,7 @@ Content-Length: 195
     -H 'Content-Type: multipart/form-data' \
     -H 'Accept: application/json, multipart/form-data' \
     -H 'Authorization: Bearer {ACCESS_TOKEN}' \
-    -F 'data={"email":"hgd@gmail.com","password":"1234","service":["reservation","keep"],"profileImg":"profile-img-url","phone":"010-8765-4321","name":"changeName"};type=application/json' \
+    -F 'data={"email":"hgd@gmail.com","password":"1234","profileImg":"profile-img-url","phone":"010-8765-4321","name":"changeName"};type=application/json' \
     -F 'file=@profile.jpg;type=image/jpeg'</code></pre>
 </div>
 </div>
@@ -1565,7 +1550,7 @@ Host: localhost:8080
 Content-Disposition: form-data; name=data
 Content-Type: application/json
 
-{"email":"hgd@gmail.com","password":"1234","service":["reservation","keep"],"profileImg":"profile-img-url","phone":"010-8765-4321","name":"changeName"}
+{"email":"hgd@gmail.com","password":"1234","profileImg":"profile-img-url","phone":"010-8765-4321","name":"changeName"}
 --6o2knFse3p53ty9dmcQvWAIx1zInP11uCfbm
 Content-Disposition: form-data; name=file; filename=profile.jpg
 Content-Type: image/jpeg
@@ -1637,11 +1622,6 @@ profile
 <td class="tableblock halign-left valign-top"><p class="tableblock">비밀번호</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>service</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">가입한 서비스</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">이름</p></td>
@@ -1658,12 +1638,11 @@ profile
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 223
+Content-Length: 179
 
 {
   "data" : {
     "email" : "hgd@gmail.com",
-    "service" : [ "RESERVATION", "KEEP" ],
     "profileImg" : "profile-img-url",
     "phone" : "010-8765-4321",
     "name" : "changeName"
@@ -1678,7 +1657,6 @@ Content-Length: 223
 <pre class="prettyprint highlight nowrap"><code>{
   "data" : {
     "email" : "hgd@gmail.com",
-    "service" : [ "RESERVATION", "KEEP" ],
     "profileImg" : "profile-img-url",
     "phone" : "010-8765-4321",
     "name" : "changeName"
@@ -1711,11 +1689,6 @@ Content-Length: 223
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.email</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">이메일</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.service[]</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Array</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">가입한 서비스</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>data.profileImg</code></p></td>
@@ -2737,21 +2710,21 @@ Host: localhost:8080</code></pre>
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-30T15:56:12.8860705",
+    "createdAt" : "2022-10-04T10:13:23.769867",
     "completed" : "Y",
     "count" : 3
   }, {
     "reservationId" : 1,
     "name" : "이*신",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-30T15:56:12.8860705",
+    "createdAt" : "2022-10-04T10:13:23.769867",
     "completed" : "Y",
     "count" : 2
   }, {
     "reservationId" : 1,
     "name" : "세*대왕",
     "phone" : "000-****-5678",
-    "createdAt" : "2022-09-30T15:56:12.8870781",
+    "createdAt" : "2022-10-04T10:13:23.769867",
     "completed" : "Y",
     "count" : 1
   } ],
@@ -2772,21 +2745,21 @@ Host: localhost:8080</code></pre>
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-30T15:56:12.8860705",
+    "createdAt" : "2022-10-04T10:13:23.769867",
     "completed" : "Y",
     "count" : 3
   }, {
     "reservationId" : 1,
     "name" : "이*신",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-30T15:56:12.8860705",
+    "createdAt" : "2022-10-04T10:13:23.769867",
     "completed" : "Y",
     "count" : 2
   }, {
     "reservationId" : 1,
     "name" : "세*대왕",
     "phone" : "000-****-5678",
-    "createdAt" : "2022-09-30T15:56:12.8870781",
+    "createdAt" : "2022-10-04T10:13:23.769867",
     "completed" : "Y",
     "count" : 1
   } ],
@@ -3421,7 +3394,7 @@ Content-Length: 223
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-30T15:56:14.3557918",
+    "createdAt" : "2022-10-04T10:13:24.8355648",
     "completed" : "Y",
     "count" : 4
   },
@@ -3437,7 +3410,7 @@ Content-Length: 223
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-30T15:56:14.3557918",
+    "createdAt" : "2022-10-04T10:13:24.8355648",
     "completed" : "Y",
     "count" : 4
   },
@@ -3580,21 +3553,21 @@ Content-Length: 675
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-30T15:56:14.4387946",
+    "createdAt" : "2022-10-04T10:13:24.9000375",
     "completed" : "Y",
     "count" : 3
   }, {
     "reservationId" : 1,
     "name" : "이*신",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-30T15:56:14.4387946",
+    "createdAt" : "2022-10-04T10:13:24.9000375",
     "completed" : "Y",
     "count" : 2
   }, {
     "reservationId" : 1,
     "name" : "세*대왕",
     "phone" : "000-****-5678",
-    "createdAt" : "2022-09-30T15:56:14.4387946",
+    "createdAt" : "2022-10-04T10:13:24.9000375",
     "completed" : "Y",
     "count" : 1
   } ],
@@ -3812,7 +3785,7 @@ Content-Length: 223
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-30T15:56:14.3977915",
+    "createdAt" : "2022-10-04T10:13:24.8725651",
     "completed" : "Y",
     "count" : 1
   },
@@ -3828,7 +3801,7 @@ Content-Length: 223
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-09-30T15:56:14.3977915",
+    "createdAt" : "2022-10-04T10:13:24.8725651",
     "completed" : "Y",
     "count" : 1
   },
