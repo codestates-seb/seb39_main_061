@@ -9,10 +9,6 @@ import { useEffect } from "react";
 import { getProfile } from "../../api/services/user";
 import { userAction } from "../../store/user";
 import { useCookies } from "react-cookie";
-import { getBusinessInfo } from "../../api/services/store";
-import { businessActions } from "../../store/business";
-import { getMenuList } from "../../api/services/menu";
-import { menuActions } from "../../store/menu";
 
 const Sidebar = () => {
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
@@ -54,7 +50,9 @@ const Sidebar = () => {
 
       <div className={styles.btnContainer}>
         <Link to="/dashboard">
-          <button className={styles.componentsBtn}>대시보드</button>
+          <div className={styles.sidebarBtn}>
+            <button className={styles.componentsBtn}>대시보드</button>
+          </div>
         </Link>
         <Link to="/create-Code">
           <button className={styles.componentsBtn}>QR 코드 만들기</button>

@@ -43,7 +43,6 @@ const SignUp = () => {
       let regEmail =
         /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
       const phoneCheck = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
-      const kor_check = /([^가-힣ㄱ-ㅎㅏ-ㅣ\x20])/i;
 
       if (email.length === 0) {
         setValidationMSG("이메일을 입력해주세요");

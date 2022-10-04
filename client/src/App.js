@@ -37,7 +37,7 @@ function App() {
         {!isLogin && (
           <Route path="/find-password" element={<FindPassword />}></Route>
         )}
-        {isLogin && <Route path="/dashboard" element={<Dashboard />}></Route>}
+        {isLogin && (<Route path="/dashboard" element={<Dashboard />}></Route>)}
         {isLogin && <Route path="/profile" element={<Profile />}></Route>}
         {isLogin && (
           <Route path="/create-code" element={<CreateCode />}></Route>

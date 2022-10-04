@@ -161,7 +161,6 @@ const MenuInfo = () => {
       console.log("비즈니스 받아옴", res.data.data.businessId);
       getMenuList(res.data.data.businessId, pageNum).then((res) => {
         setTotalPage(res.data.pageInfo.totalPages);
-
         console.log("메뉴 리스트 받아옴", res);
         dispatch(menuActions.setMenuList(res.data.data));
         setEmpthyEle(res.data.data.length !== 10);

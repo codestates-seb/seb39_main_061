@@ -6,7 +6,6 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { editMenu, getMenu, postMenu } from "../../api/services/menu";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { baseURL } from "../../api/axios";
 
 const RegisterMenuContainer = styled.div`
@@ -117,8 +116,6 @@ const RegisterMenu = ({
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const businessId = useSelector((state) => state.business.businessId);
-  const navigate = useNavigate();
-  const [imgBuf, setImgBuf] = useState(null);
 
   useEffect(() => {
     getMenu(businessId, menuId).then((res) => {
