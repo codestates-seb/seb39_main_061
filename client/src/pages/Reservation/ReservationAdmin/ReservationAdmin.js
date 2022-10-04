@@ -10,7 +10,6 @@ import {
 import { getBusInfo } from "../../../api/services/reservation-admin.js";
 import { HiTrash } from "react-icons/hi";
 import { BsFillPhoneVibrateFill } from "react-icons/bs";
-import { number } from "prop-types";
 
 function ReservationAdmin() {
   const [businessId, setBusinessId] = useState("");
@@ -26,6 +25,7 @@ function ReservationAdmin() {
 
   useEffect(() => {
     axiosData();
+    // eslint-disable-next-line
   }, [businessId]);
 
   const onModal = (e) => {

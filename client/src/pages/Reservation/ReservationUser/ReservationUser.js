@@ -29,6 +29,7 @@ function ReservationUser() {
     setInterval(() => {
       axiosData();
     }, 60000);
+    // eslint-disable-next-line
   }, []);
 
   const handlePhone = (e) => {
