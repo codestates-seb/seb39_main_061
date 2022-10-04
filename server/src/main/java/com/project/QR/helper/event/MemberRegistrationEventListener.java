@@ -35,6 +35,10 @@ public class MemberRegistrationEventListener {
     try {
       String[] to = new String[]{event.getMember().getEmail()};
       String message = "<h1>" + event.getMember().getName() + "님, 회원 가입이 성공적으로 완료되었습니다</h1>.\n" +
+<<<<<<< HEAD
+        "<div>아래 링크를 통해 이메일 인증을 완료해주세요</div>" +
+        "<div>"+ redirectUrl + "/email-validation?email=" + event.getMember().getEmail() + "&code=" + event.getMember().getVerifiedCode() +"</div>";
+=======
         "<div>아래 버튼을 통해 이메일 인증을 완료해주세요</div>" +
         "<div>" +
         "<a href=\"" + redirectUrl + "/email-validation?email=" + event.getMember().getEmail() + "&code=" + event.getMember().getVerifiedCode() +"\">" +
@@ -64,6 +68,7 @@ public class MemberRegistrationEventListener {
         "  -webkit-user-select: none;\n" +
         "  touch-action: manipulation;\n" +
         "  width: 100%;'>홈페이지로 이동</button></a></div>";
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
       emailSender.sendEmail(to, subject, message);
     } catch (MailSendException e) {
       e.printStackTrace();

@@ -35,8 +35,12 @@ public class AuthController {
   @PostMapping("/email-validation")
   public ResponseEntity emailValidation(@Valid @RequestBody MemberRequestDto.EmailDto emailDto) {
     boolean exist = authService.findExistsEmail(emailDto.getEmail());
+<<<<<<< HEAD
+    return new ResponseEntity(new SingleResponseWithMessageDto<>(new ExistDto(exist),
+=======
 
     return new ResponseEntity<>(new SingleResponseWithMessageDto<>(new ExistDto(exist),
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
       "SUCCESS"),
       HttpStatus.OK);
   }
@@ -47,8 +51,12 @@ public class AuthController {
   @PostMapping("/signup")
   public ResponseEntity signUp(@Valid @RequestBody MemberRequestDto.CreateMemberDto createMemberDto) {
     authService.createMember(mapper.createMemberDtoToMember(createMemberDto));
+<<<<<<< HEAD
+    return new ResponseEntity(new SingleResponseDto<>("WELCOME"), HttpStatus.CREATED);
+=======
 
     return new ResponseEntity<>(new SingleResponseDto<>("WELCOME"), HttpStatus.CREATED);
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
   }
 
   /**
@@ -58,8 +66,12 @@ public class AuthController {
   public ResponseEntity login(@Valid @RequestBody MemberRequestDto.LoginDto loginDto,
                               HttpServletResponse response) {
     TokenDto.TokenInfoDto tokenInfoDto = authService.loginMember(mapper.loginDtoToMember(loginDto), response);
+<<<<<<< HEAD
+    return new ResponseEntity(new SingleResponseWithMessageDto<>(tokenInfoDto,
+=======
 
     return new ResponseEntity<>(new SingleResponseWithMessageDto<>(tokenInfoDto,
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
       "WELCOME"),
       HttpStatus.OK);
   }
@@ -71,8 +83,12 @@ public class AuthController {
   public ResponseEntity reIssue(@Valid @RequestBody TokenDto.ReIssueDto reIssueDto,
                                 @CookieValue(name = "refresh", required = false) Cookie cookie) {
     TokenDto.TokenInfoDto tokenInfoDto = authService.reIssue(reIssueDto.getAccessToken(), cookie.getValue());
+<<<<<<< HEAD
+    return new ResponseEntity(new SingleResponseWithMessageDto<>(tokenInfoDto,
+=======
 
     return new ResponseEntity<>(new SingleResponseWithMessageDto<>(tokenInfoDto,
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
       "SUCCESS"),
       HttpStatus.OK);
   }
@@ -84,8 +100,12 @@ public class AuthController {
   public ResponseEntity validation(@NotBlank @PathParam("email") String email,
                                    @NotBlank @PathParam("code") String code) {
     authService.validation(email, code);
+<<<<<<< HEAD
+    return new ResponseEntity(new SingleResponseDto<>("SUCCESS"), HttpStatus.OK);
+=======
 
     return new ResponseEntity<>(new SingleResponseDto<>("SUCCESS"), HttpStatus.OK);
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
   }
 
   /**
@@ -93,6 +113,12 @@ public class AuthController {
    */
   @PatchMapping("/members")
   public ResponseEntity updateMember(@AuthenticationPrincipal MemberDetails memberDetails,
+<<<<<<< HEAD
+                                     @Valid @RequestBody MemberRequestDto.OAuthUpdateDto oAuthUpdateDto) {
+    oAuthUpdateDto.setEmail(memberDetails.getUsername());
+    Member member = authService.updateMember(mapper.oAuthUpdateDtoToMember(oAuthUpdateDto));
+    return new ResponseEntity(new SingleResponseDto<>("SUCCESS"), HttpStatus.OK);
+=======
                                      @Valid @RequestBody MemberRequestDto.OAuthUpdateDto oAuthUpdateDto,
                                      HttpServletResponse response) {
     oAuthUpdateDto.setEmail(memberDetails.getUsername());
@@ -102,6 +128,7 @@ public class AuthController {
     return new ResponseEntity<>(new SingleResponseWithMessageDto<>(tokenInfoDto,
       "SUCCESS"),
       HttpStatus.OK);
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
   }
 
   /**
@@ -110,7 +137,11 @@ public class AuthController {
   @PostMapping("/password")
   public ResponseEntity reIssuePassword(@Valid @RequestBody MemberRequestDto.EmailDto emailDto) {
     authService.reIssuePassword(emailDto.getEmail());
+<<<<<<< HEAD
+    return new ResponseEntity(new SingleResponseDto<>("SUCCESS"), HttpStatus.OK);
+=======
 
     return new ResponseEntity<>(new SingleResponseDto<>("SUCCESS"), HttpStatus.OK);
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
   }
 }
