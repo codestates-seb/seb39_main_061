@@ -7,6 +7,7 @@ const initialState = {
   startOrEnd: 1,
   checkOpenTime: null,
   holidayList: "",
+  businessId: null,
 };
 const businessSlice = createSlice({
   name: "business",
@@ -26,6 +27,9 @@ const businessSlice = createSlice({
     },
     setHolidayList(state, action) {
       state.holidayList = action.payload;
+    },
+    setBusinessId(state, action) {
+      state.businessId = action.payload;
     },
   },
   extraReducers: (builder) => {

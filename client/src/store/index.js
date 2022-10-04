@@ -7,6 +7,7 @@ import userReducer from "./user";
 import mapReducer from "./map";
 import businessReducer from "./business";
 import modalReducer from "./modal";
+import menuReducer from "./menu";
 
 const reducers = combineReducers({
   user: userReducer,
@@ -14,6 +15,7 @@ const reducers = combineReducers({
   map: mapReducer,
   business: businessReducer,
   modal: modalReducer,
+  menu: menuReducer,
 });
 
 const persistConfig = {

@@ -22,27 +22,25 @@ const StoreInfo = () => {
   const endTime = useSelector((state) => state.business.endTime);
   const startOrEnd = useSelector((state) => state.business.startOrEnd);
   const isModalOpen = useSelector((state) => state.modal.isModalOpen);
-  console.log(startTime, endTime);
-  console.log(isModalOpen, "오픈모달 상태");
 
   const [canEdit, setCanEdit] = useState(false);
   const [name, setName] = useState("");
   const openTime = `${startTime}~${endTime}`;
   // const [holiday, setHoliday] = useState("");
   const holidayList = useSelector((state) => state.business.holidayList);
-  console.log("홀리데이 리스트 처음", holidayList);
 
   const [phone, setPhone] = useState("");
   const [introduction, setIntroduction] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [businessId, setBusinessId] = useState(null);
+  const businessId = useSelector((state) => state.business.businessId);
+
   const [isLoading, setIsLoading] = useState(false);
   const [startPickerOpen, setStartPickerOpen] = useState(false);
   const [endPickerOpen, setEndPickerOpen] = useState(false);
   const [dayPickerOpen, setDayPickerOpen] = useState(false);
   const dispatch = useDispatch();
   const checkOpenTime = useSelector((state) => state.business.checkOpenTime);
-  console.log("오픈타임 체크?", checkOpenTime);
+
   //
   const timePickerToggle = (num) => {
     if (num === 1 && canEdit) {
@@ -63,13 +61,12 @@ const StoreInfo = () => {
   useEffect(() => {
     getBusinessInfo()
       .then((res) => {
-        console.log(res.data.data);
-        setBusinessId(res.data.data.businessId);
+        console.log("비즈니스인포 제일 처음?", res.data.data);
+        dispatch(businessActions.setBusinessId(res.data.data.businessId));
         setName(res.data.data.name);
         dispatch(businessActions.setCheckOpenTime(res.data.data.openTime));
         if (res.data.data.holiday !== null) {
           const splitHoliday = res.data.data.holiday.split(",");
-          console.log("스플릿 할리데이", splitHoliday);
 
           dispatch(businessActions.setHolidayList([...splitHoliday]));
         }
@@ -88,7 +85,6 @@ const StoreInfo = () => {
           const endTime = splitTime[1].substr(0, 6);
           dispatch(businessActions.setStartTime(startTime));
           dispatch(businessActions.setEndTime(endTime));
-          console.log("endTime?????", endTime);
         }
       })
       .catch((err) => {

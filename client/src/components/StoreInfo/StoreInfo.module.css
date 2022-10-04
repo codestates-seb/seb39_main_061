@@ -5,6 +5,7 @@ button {
   width: 100%;
   display: flex;
   justify-content: center;
+  height: 45%;
 }
 
 .StoreInfo {
@@ -253,11 +254,12 @@ button {
 @media all and (min-width: 800px) {
   .StoreInfo {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: column;
     width: 100%;
-    padding-right: 30px;
-    padding-left: 30px;
+    padding-right: 60px;
+    padding-left: 60px;
+    height: 100%;
   }
   .storeInfo__input {
     display: grid;
@@ -486,7 +488,6 @@ button {
     align-items: center;
     justify-content: flex-end;
     width: 80%;
-    margin-top: 15px;
   }
 
   .storeInfo__input__btn button {
@@ -578,11 +579,11 @@ button {
 @media all and (min-width: 1450px) {
   .storeInfo__container {
     width: 100%;
-    height: 50%;
-    max-width: 1400px;
+    height: 40%;
   }
   .StoreInfo {
     width: 100%;
+    height: 100%;
   }
   .startTimeBtn {
     position: absolute;
@@ -650,6 +651,7 @@ button {
     outline: none;
     position: relative;
     width: 100%;
+    height: 100%;
   }
 
   .storeInfo__input__grid3 {
@@ -755,6 +757,7 @@ button {
     justify-content: flex-end;
     padding-right: 100px;
     width: 100%;
+    height: 100%;
   }
 
   .storeInfo__input__btn > button {
