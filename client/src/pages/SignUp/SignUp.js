@@ -9,6 +9,7 @@ import { emailCheck, signUpReq } from "../../api/services/auth";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { modalActions } from "../../store/modal";
+import { baseURL } from "../../api/axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -178,19 +179,25 @@ const SignUp = () => {
 
         <div className={styles.signUp__form__oauth}>
           <div>
-            <a href="http://localhost:8080/login/oauth2/authorize/naver?redirect_uri=http://localhost:3000/oauth2/redirect">
+            <a
+              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=http://localhost:3000/oauth2/redirect`}
+            >
               <img src={naverLogo} alt="React" />
             </a>
           </div>
 
           <div>
-            <a href="http://localhost:8080/login/oauth2/authorize/kakao?redirect_uri=http://localhost:3000/oauth2/redirect">
+            <a
+              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=http://localhost:3000/oauth2/redirect`}
+            >
               <img src={kakaoLogo} alt="React" />
             </a>
           </div>
 
           <div>
-            <a href="http://localhost:8080/login/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect">
+            <a
+              href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect`}
+            >
               <img src={googleLogo} alt="React" />
             </a>
           </div>
@@ -202,7 +209,7 @@ const SignUp = () => {
             <button>취소</button>
           </Link>
         </div>
-        {isModalOpen && <Modal num={1} />}
+        {isModalOpen && <Modal num={2} />}
       </form>
     </div>
   );
