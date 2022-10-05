@@ -46,6 +46,23 @@ const SignUp = () => {
         /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
       const phoneCheck = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
 
+      function strCheck(str, type) {
+        const REGEX = {
+          EMAIL: /\S+@\S+\.\S+/,
+          PWD_RULE: /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/,
+          NAME_RULE: /^[가-힣a-zA-Z]+$/,
+        };
+        if (type === "email") {
+          return REGEX.EMAIL.test(str);
+        } else if (type === "pwd") {
+          return REGEX.PWD_RULE.test(str);
+        } else if (type === "name") {
+          return REGEX.NAME_RULE.test(str);
+        } else {
+          return false;
+        }
+      }
+
       if (email.length === 0) {
         setValidationMSG("이메일을 입력해주세요");
         return false;
@@ -64,6 +81,10 @@ const SignUp = () => {
 
       if (password.length === 0) {
         setValidationMSG("비밀번호를 입력해주세요");
+        return false;
+      }
+      if (strCheck(password, "pwd") === false) {
+        setValidationMSG("비밀번호는 8~16자 영문+숫자+특수문자로 입력해주세요");
         return false;
       }
       if (password !== confirmPassword) {

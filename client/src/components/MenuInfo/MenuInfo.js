@@ -24,7 +24,7 @@ const MenuContainer = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 0px 70px 0px 70px;
-  width: 100%;
+  width: 95%;
   height: 50%;
   position: relative;
 `;
@@ -37,7 +37,7 @@ const MenuTitle = styled.h1`
 
 const MenuItemContainer = styled.div`
   height: 100%;
-  width: 90%;
+  width: 98%;
   display: grid;
   place-items: center;
   grid-template-rows: 1fr 1fr;
@@ -107,8 +107,8 @@ const ImgButton = styled.button`
   display: none;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   outline: none;
   border-style: none;
   background-color: transparent;
@@ -120,7 +120,7 @@ const ImgButton = styled.button`
   margin-top: 55px;
 
   &:hover {
-    font-size: 45px;
+    font-size: 35px;
   }
 
   &:active {
@@ -178,7 +178,7 @@ const MenuInfo = () => {
   const modalStyles = {
     overlay: {
       backgroundColor: "rgba(0,0,0,0.2)",
-      marginLeft: "310px",
+      marginLeft: "270px",
     },
     content: {
       marginLeft: "690px",
@@ -208,13 +208,13 @@ const MenuInfo = () => {
           <MenuItem key={item.menuId}>
             <MenuImg
               opacity={
-                "linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8))"
+                "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2))"
               }
               src={`${baseURL}${item.img}`}
             />
             <ImgButton
               color={"tomato"}
-              fontSize={"40px"}
+              fontSize={"30px"}
               display={"none"}
               marginLeft={"40px"}
               onClick={() => {
@@ -225,7 +225,7 @@ const MenuInfo = () => {
             </ImgButton>
             <ImgButton
               color={"red"}
-              fontSize={"40px"}
+              fontSize={"30px"}
               marginLeft={"90px"}
               display={"none"}
               onClick={() => {
