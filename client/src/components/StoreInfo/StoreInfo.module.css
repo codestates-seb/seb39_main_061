@@ -1,13 +1,69 @@
-.storeInfo {
+button {
+  cursor: pointer;
+}
+.storeInfo__container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 45%;
+}
+
+.StoreInfo {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  width: 90%;
+}
+
+.startTimeBtn {
+  position: absolute;
+  margin-top: 20px;
+  margin-right: 80px;
+  width: 70px;
+  height: 30px;
+  outline: none;
+  border-style: none;
+  background-color: transparent;
+  font-size: 18px;
+  outline: none;
+  letter-spacing: 1.5px;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: auto;
+}
+.endTimeBtn {
+  position: absolute;
+  margin-top: 20px;
+  margin-left: 80px;
+  width: 70px;
+  height: 30px;
+  outline: none;
+  border-style: none;
+  background-color: transparent;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: auto;
+}
+
+.storeInfo {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
   max-width: 1240px;
-  height: auto;
   margin-top: 15px;
   margin-bottom: 15px;
+  height: 50%;
 }
 .storeInfo__title {
   width: 100%;
@@ -21,125 +77,422 @@
 
 .storeInfo__input {
   display: grid;
-  height: auto;
   width: 100%;
-  border: 1px solid tomato;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
 }
-
-@media all and (min-width: 500px) {
-  .storeInfo__input {
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr;
-  }
-  .storeInfo__input div:last-child input {
-    width: 270px;
-  }
-
-  .storeInfo__input__grid3 {
-    order: 5;
-  }
-  .storeInfo__input__grid4 {
-    order: 3;
-  }
-  .storeInfo__input__grid5 {
-    order: 4;
-  }
-  .storeInfo__input__grid6 {
-    order: 6;
-  }
-
-  .storeInfo__input__grid1 div,
-  .storeInfo__input__grid2 div,
-  .storeInfo__input__grid4 div,
-  .storeInfo__input__grid5 div {
-    display: flex;
-    width: 120px;
-    justify-content: flex-start;
-  }
-  .storeInfo__input__grid3 textarea {
-    width: 200px;
-  }
-  .storeInfo__input__grid3 div,
-  .storeInfo__input__grid6 div {
-    width: 200px;
-  }
+.storeInfo__input > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100%;
 }
-@media all and (min-width: 850px) {
+.storeInfo__input__btn {
+  display: flex;
+  justify-content: center;
+}
+.grid6__input {
+  width: 250px;
+}
+
+.startIcon {
+  position: absolute;
+  margin-top: 35px;
+  margin-right: 175px;
+  cursor: pointer;
+}
+.startIcon svg {
+  font-size: 30px;
+  color: #f9a825;
+}
+.endIcon {
+  position: absolute;
+  margin-top: 35px;
+  margin-left: 175px;
+  cursor: pointer;
+}
+.endIcon svg {
+  font-size: 30px;
+  color: #f9a825;
+}
+
+.storeInfo__input__btn button {
+  width: 80px;
+  height: 40px;
+  outline: none;
+  border-radius: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-color: #256d85;
+  color: white;
+  margin-left: 15px;
+  font-size: 15px;
+  border: 0px;
+}
+.grid1__input,
+.grid2__input,
+.grid4__input,
+.grid5__input {
+  width: 250px;
+  height: 60px;
+  border-radius: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-color: #f5f5f5;
+  outline: none;
+  text-align: center;
+  padding-top: 0px;
+  font-size: 18px;
+  word-spacing: 4px;
+  letter-spacing: 1.2px;
+  outline: none;
+}
+
+.grid6__input {
+  width: 250px;
+  height: 60px;
+  border-radius: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-color: #f5f5f5;
+  outline: none;
+  text-align: center;
+
+  padding-top: 0px;
+  font-size: 16px;
+
+  outline: none;
+}
+
+.storeInfo__input__grid1 > div,
+.storeInfo__input__grid2 > div,
+.storeInfo__input__grid3 > div,
+.storeInfo__input__grid4 > div,
+.storeInfo__input__grid5 > div,
+.storeInfo__input__grid6 > div {
+  display: flex;
+  width: 250px;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.storeInfo__input__grid3 > div,
+.storeInfo__input__grid6 > div {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.canEdit {
+  background-color: white;
+  width: 250px;
+  height: 60px;
+  border-radius: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  background-color: #f5f5f5;
+  outline: none;
+  text-align: center;
+  padding-top: 0px;
+  font-size: 18px;
+  word-spacing: 4px;
+  letter-spacing: 1.2px;
+  outline: none;
+}
+.grid3__textArea {
+  width: 250px;
+  height: 100px;
+  resize: none;
+  border-radius: 15px;
+  background-color: #f5f5f5;
+  outline: none;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  text-align: start;
+  font-size: 10px;
+  font-size: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding: 23px 15px 15px 15px;
+  overflow: auto;
+}
+
+.grid3__canEdit {
+  width: 250px;
+  height: 90px;
+  resize: none;
+  border-radius: 15px;
+  background-color: white;
+  outline: none;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  text-align: start;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 10px;
+  font-size: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding: 23px 15px 15px 15px;
+
+  overflow: auto;
+}
+
+.grid6__div2 {
+  display: flex;
+}
+.grid6__div2 button {
+  position: absolute;
+  margin-left: 190px;
+  width: 60px;
+  outline: none;
+  border-radius: 15px;
+  border: 2px solid rgba(0, 0, 0, 0.2);
+  color: #f9a825;
+  background-color: white;
+  font-size: 15px;
+}
+.storeInfo__input__btn {
+  order: 7;
+}
+
+@media all and (min-width: 800px) {
   .StoreInfo {
-    margin: 70px 120px 70px 120px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    padding-right: 60px;
+    padding-left: 60px;
+    height: 100%;
   }
   .storeInfo__input {
-    grid-template-columns: 1fr 1fr 2fr;
-    grid-template-rows: 1fr 1fr;
-    grid-column-gap: 20px;
-    grid-row-gap: 20px;
-    padding-left: 70px;
-    padding-right: 50px;
-    padding-top: 25px;
-    padding-bottom: 25px;
+    display: grid;
+    height: auto;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+  }
+  /* .storeInfo__input__grid1 {
+    grid-area: item1;
+  }
+  .storeInfo__input__grid2 {
+    grid-area: item2;
   }
   .storeInfo__input__grid3 {
-    order: 3;
+    grid-area: item3;
   }
   .storeInfo__input__grid4 {
-    order: 3;
+    grid-area: item4;
   }
   .storeInfo__input__grid5 {
-    order: 4;
+    grid-area: item5;
   }
   .storeInfo__input__grid6 {
-    order: 6;
-  }
-  .storeInfo__input > div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 160px;
-  }
-  .storeInfo__input div:nth-child(3) {
-    justify-content: flex-end;
-  }
-  .storeInfo__input input {
-    width: 220px;
+    grid-area: item6;
+  } */
+
+  .grid1__input,
+  .grid2__input,
+  .grid4__input,
+  .grid5__input {
+    width: 280px;
     height: 60px;
     border-radius: 15px;
     border: 2px solid rgba(0, 0, 0, 0.2);
     background-color: #f5f5f5;
     outline: none;
     text-align: center;
-    font-size: 17px;
+    font-size: 18px;
+    word-spacing: 4px;
+    letter-spacing: 1.2px;
+    outline: none;
   }
 
-  .storeInfo__input div:last-child input {
-    width: 370px;
+  .grid6__input {
+    width: 280px;
+    height: 60px;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: #f5f5f5;
+    outline: none;
+    text-align: center;
+
+    padding-bottom: 20px;
+    font-size: 16px;
+
+    outline: none;
+  }
+  .canEdit {
+    background-color: white;
+    width: 280px;
+    height: 60px;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: #f5f5f5;
+    outline: none;
+    text-align: center;
+    padding-top: 0px;
+    font-size: 18px;
+    word-spacing: 4px;
+    letter-spacing: 1.2px;
+    outline: none;
+  }
+  .grid3__textArea {
+    width: 280px;
+    height: 100px;
+    resize: none;
+    border-radius: 15px;
+    background-color: #f5f5f5;
+    outline: none;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    text-align: start;
+    font-size: 10px;
+    font-size: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding: 23px 15px 15px 15px;
+    overflow: auto;
   }
 
-  .storeInfo__input__grid1 div,
-  .storeInfo__input__grid2 div,
-  .storeInfo__input__grid4 div,
-  .storeInfo__input__grid5 div {
+  .grid3__canEdit {
+    width: 280px;
+  }
+
+  .grid6__input {
+    width: 280px;
+    padding-bottom: 20px;
+  }
+  .startTimeBtn {
+    position: absolute;
+    margin-top: 40px;
+    margin-right: 100px;
+    width: 70px;
+    height: 30px;
+    outline: none;
+    border-style: none;
+    background-color: transparent;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  .endTimeBtn {
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 100px;
+    width: 70px;
+    height: 30px;
+    outline: none;
+    border-style: none;
+    background-color: transparent;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  /* .storeInfo__input__grid3 {
+    order: 6;
+  }
+  .storeInfo__input__grid4 {
+    order: 3;
+  }
+  .storeInfo__input__grid5 {
+    order: 4;
+  }
+  .storeInfo__input__grid6 {
+    order: 5;
+  }
+  .storeInfo__input__btn {
+    order: 7;
+  } */
+
+  .storeInfo__input > div {
     display: flex;
-    width: 220px;
-    justify-content: flex-start;
-    margin-bottom: 15px;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 125px;
   }
 
-  .storeInfo__input__grid3 div {
-    width: 450px;
-    margin-bottom: 15px;
+  .storeInfo__input__grid6 {
+    display: flex;
+
+    justify-content: center;
   }
-  .storeInfo__input__grid6 div {
-    width: 450px;
-    margin-bottom: 15px;
+
+  .storeInfo__input__grid1 > div,
+  .storeInfo__input__grid2 > div,
+  .storeInfo__input__grid3 > div,
+  .storeInfo__input__grid4 > div,
+  .storeInfo__input__grid5 > div,
+  .storeInfo__input__grid6 > div {
+    display: flex;
+    width: 250px;
+    justify-content: flex-start;
+    margin-bottom: 20px;
   }
+
+  .storeInfo__input__grid3 > div,
+  .storeInfo__input__grid6 > div {
+    display: flex;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+  }
+  .storeInfo__input__grid6 div:nth-child(2) {
+    margin-bottom: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  .storeInfo__input__grid6 {
+    padding-top: 15px;
+  }
+  .storeInfo__input__grid2 > input {
+    letter-spacing: 1.5px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
   .grid6__div2 {
     display: flex;
   }
   .grid6__div2 button {
+    width: 60px;
+    outline: none;
+    border-radius: 15px;
+    margin-left: 15px;
+    margin-top: 35px;
+    color: white;
+    font-size: 15px;
+    color: #f9a825;
+  }
+
+  .grid3__canEdit {
+    width: 280px;
+  }
+
+  .storeInfo__input span {
+    opacity: 0.7;
+    font-size: 18px;
+  }
+  .storeInfo__input__btn {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 80%;
+  }
+
+  .storeInfo__input__btn button {
     width: 80px;
+    height: 40px;
     outline: none;
     border-radius: 15px;
     border: 2px solid rgba(0, 0, 0, 0.2);
@@ -147,29 +500,359 @@
     margin-left: 15px;
     color: white;
     font-size: 15px;
+    border: 0px;
   }
 
-  .storeInfo__input__grid3 textarea {
-    width: 450px;
-    height: 100px;
-    resize: none;
-    border-radius: 10px;
+  .canEdit {
+    width: 280px;
+    height: 60px;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: white;
+    outline: none;
+    text-align: center;
+    padding-top: 0px;
+    font-size: 18px;
+    word-spacing: 4px;
+    letter-spacing: 1.2px;
+    outline: none;
+  }
+  .startTimeBtn {
+    position: absolute;
+    margin-top: 40px;
+    margin-right: 80px;
+    width: 70px;
+    height: 30px;
+    outline: none;
+    border-style: none;
+    background-color: transparent;
+    font-size: 18px;
+    outline: none;
+    letter-spacing: 1.5px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: auto;
+  }
+  .endTimeBtn {
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 80px;
+    width: 70px;
+    height: 30px;
+    outline: none;
+    border-style: none;
+    background-color: transparent;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: auto;
+  }
+  .startIcon {
+    position: absolute;
+    margin-top: 35px;
+    margin-right: 175px;
+    cursor: pointer;
+  }
+  .startIcon svg {
+    font-size: 30px;
+    color: #f9a825;
+  }
+  .endIcon {
+    position: absolute;
+    margin-top: 35px;
+    margin-left: 175px;
+    cursor: pointer;
+  }
+  .endIcon svg {
+    font-size: 30px;
+    color: #f9a825;
+  }
+}
+
+@media all and (min-width: 1450px) {
+  .storeInfo__container {
+    width: 100%;
+    height: 40%;
+  }
+  .StoreInfo {
+    width: 100%;
+    height: 100%;
+  }
+  .startTimeBtn {
+    position: absolute;
+    margin-top: 40px;
+    margin-right: 80px;
+    width: 70px;
+    height: 30px;
+    outline: none;
+    border-style: none;
+    background-color: transparent;
+    font-size: 18px;
+    outline: none;
+    letter-spacing: 1.5px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: auto;
+  }
+  .endTimeBtn {
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 80px;
+    width: 70px;
+    height: 30px;
+    outline: none;
+    border-style: none;
+    background-color: transparent;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: auto;
+  }
+  .startIcon {
+    position: absolute;
+    margin-top: 35px;
+    margin-right: 175px;
+    cursor: pointer;
+  }
+  .startIcon svg {
+    font-size: 30px;
+    color: #f9a825;
+  }
+  .endIcon {
+    position: absolute;
+    margin-top: 35px;
+    margin-left: 175px;
+    cursor: pointer;
+  }
+  .endIcon svg {
+    font-size: 30px;
+    color: #f9a825;
+  }
+
+  .storeInfo__input {
+    grid-template-columns: 1fr 1fr 1.5fr;
+    grid-template-rows: 1fr 1fr;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    outline: none;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .storeInfo__input__grid3 {
+    order: 3;
+  }
+  .storeInfo__input__grid4 {
+    order: 3;
+  }
+
+  .storeInfo__input__grid5 {
+    order: 4;
+  }
+  .storeInfo__input__grid6 {
+    order: 6;
+  }
+
+  .storeInfo__input > div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 160px;
+  }
+  .storeInfo__input > div:nth-child(3) {
+    justify-content: flex-end;
+  }
+
+  /* .storeInfo__input input {
+    width: 250px;
+    height: 60px;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
     background-color: #f5f5f5;
     outline: none;
-    border: 2px solid rgba(0, 0, 0, 0.2);
     text-align: center;
-    align-items: center;
-    margin-left: auto;
-    margin-right: auto;
-    font-size: 15px;
-  }
-  .storeInfo__input__grid3 textarea {
-    padding-top: 25px;
+    padding-top: 0px;
     font-size: 18px;
+    word-spacing: 4px;
+    letter-spacing: 1.2px;
+    outline: none;
+  } */
+
+  .storeInfo__input__grid1 > div,
+  .storeInfo__input__grid2 > div,
+  .storeInfo__input__grid4 > div,
+  .storeInfo__input__grid5 > div {
+    display: flex;
+    width: 220px;
+    justify-content: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .storeInfo__input__grid3 div {
+    width: 470px;
+    margin-bottom: 15px;
+  }
+  .storeInfo__input__grid6 div {
+    width: 470px;
+    margin-bottom: 15px;
+  }
+  .storeInfo__input__grid6 {
+    padding-top: 17px;
+  }
+  .storeInfo__input__grid2 > input {
+    letter-spacing: 1.5px;
+    -ms-user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .grid6__div2 {
+    display: flex;
+  }
+  .grid6__div2 button {
+    z-index: 1;
+    margin-top: 10px;
+    position: absolute;
+    width: 80px;
+    height: 40px;
+    outline: none;
+    border-radius: 15px;
+    margin-left: 360px;
+    color: #f9a825;
+    background-color: white;
+
+    font-size: 15px;
   }
 
   .storeInfo__input span {
     opacity: 0.7;
     font-size: 18px;
   }
+  .storeInfo__input__btn {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+  }
+  .storeInfo__input__btn > div {
+    display: flex;
+    justify-content: flex-end;
+    padding-right: 100px;
+    width: 100%;
+    height: 100%;
+  }
+
+  .storeInfo__input__btn > button {
+    width: 80px;
+    height: 40px;
+    outline: none;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: #256d85;
+    margin-left: 15px;
+    color: white;
+    font-size: 15px;
+    border: 0px;
+  }
+  .grid1__input,
+  .grid2__input,
+  .grid4__input,
+  .grid5__input {
+    width: 250px;
+    height: 60px;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: #f5f5f5;
+    outline: none;
+    text-align: center;
+    padding-top: 0px;
+    font-size: 18px;
+    word-spacing: 4px;
+    letter-spacing: 1.2px;
+    outline: none;
+  }
+  .grid6__input {
+    width: 470px;
+    height: 60px;
+    border-radius: 15px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    background-color: #f5f5f5;
+    outline: none;
+    text-align: center;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    font-size: 16px;
+
+    outline: none;
+  }
+  .canEdit {
+    background-color: white;
+  }
+  .grid3__textArea {
+    width: 470px;
+    height: 100px;
+    resize: none;
+    border-radius: 15px;
+    background-color: #f5f5f5;
+    outline: none;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    text-align: start;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 10px;
+    font-size: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding: 23px 15px 15px 15px;
+    overflow: auto;
+  }
+
+  .grid3__canEdit {
+    width: 470px;
+    height: 100px;
+    resize: none;
+    border-radius: 15px;
+    background-color: white;
+    outline: none;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    text-align: start;
+    margin-left: auto;
+    margin-right: auto;
+    font-size: 10px;
+    font-size: 15px;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding: 23px 15px 15px 15px;
+
+    overflow: auto;
+  }
 }
+
+/* @media all and (min-width: 1670px) {
+  .modal {
+    display: flex;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0);
+    width: 100%;
+    position: fixed;
+    margin-left: 600px;
+  }
+} */

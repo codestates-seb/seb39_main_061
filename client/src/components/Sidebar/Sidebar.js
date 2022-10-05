@@ -47,9 +47,7 @@ const Sidebar = () => {
       <Link to="/profile">
         <img src="" className={styles.profile} />
       </Link>
-      <Link to="/store-management">
-        <button>StoreManagement</button>
-      </Link>
+
       <div className={styles.btnContainer}>
         <Link to="/dashboard">
           <div className={styles.sidebarBtn}>
@@ -67,6 +65,9 @@ const Sidebar = () => {
         </Link>
         <Link to="/">
           <button className={styles.componentsBtn}>메뉴 관리</button>
+        </Link>
+        <Link to="/store-management">
+          <button className={styles.componentsBtn}>매장 관리</button>
         </Link>
         <Link to="/">
           <button className={styles.componentsBtn}>리뷰 관리</button>

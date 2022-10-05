@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 310px;
+  min-width: 150px;
   width: 310px;
   height: 100vh;
   /* background: rgb(43,72,101);
@@ -10,6 +10,9 @@
   border-radius: 30px; */
   background-color: #256d85;
   padding-top: 60px;
+  overflow: auto;
+  position: fixed;
+  left: 0;
 }
 
 .logo {
@@ -21,7 +24,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 500px;
+  height: 60%;
   justify-content: space-between;
 }
 
@@ -51,10 +54,11 @@
 .profile {
   margin: 50px 0;
 }
-
-@media all and (max-width: 850px) {
+@media all and (max-width: 920px) {
   .sidebar_container {
-    min-width: 200px;
+    min-width: 140px;
+    width: 140px;
+    display: flex;
   }
   .logo {
     width: 130px;
@@ -68,5 +72,11 @@
     color: white;
     background-color: #256d85;
     cursor: pointer;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .sidebar_container {
+    display: none;
   }
 }

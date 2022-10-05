@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { mapActions } from "../../store/map";
-import styles from "./MapContainer.module.css";
+import styles from "./FindAddress.module.css";
 const { kakao } = window;
 
-const MapContainer = ({ toggle }) => {
+const FindAddress = ({ toggle }) => {
   // 검색결과 배열에 담아줌
   const [Places, setPlaces] = useState([]);
   const [address, setAddress] = useState("");
@@ -24,18 +24,20 @@ const MapContainer = ({ toggle }) => {
     const options = {
       center: new kakao.maps.LatLng(33.450701, 126.570667),
       level: 3,
+      size: 7,
     };
     const map = new kakao.maps.Map(container, options);
 
     if (address.length > 0) {
       const ps = new kakao.maps.services.Places();
-      ps.keywordSearch(address, placesSearchCB);
+
+      ps.keywordSearch(address, placesSearchCB, options);
     }
 
     function placesSearchCB(data, status, pagination) {
       if (status === kakao.maps.services.Status.OK) {
         let bounds = new kakao.maps.LatLngBounds();
-
+        console.log("데이터는?", data);
         for (let i = 0; i < data.length; i++) {
           displayMarker(data[i]);
           bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
@@ -99,13 +101,14 @@ const MapContainer = ({ toggle }) => {
   }, [address]);
 
   return (
-    <div className={styles.mapContainer}>
+    <div className={styles.FindAddress}>
       <div
         id="myMap"
         className={styles.myMap}
 
         // style={{ width: "80%", height: "80%" }}
       ></div>
+
       <div className={styles.resultList}>
         <div>
           <input
@@ -158,4 +161,4 @@ const MapContainer = ({ toggle }) => {
   );
 };
 
-export default MapContainer;
+export default FindAddress;
