@@ -139,7 +139,7 @@ public class BatchConfig {
     return new JpaPagingItemReaderBuilder <QrCode>()
       .pageSize(10)
       .entityManagerFactory(entityManagerFactory)
-      .queryString("SELECT q FROM QrCode q WHERE q.dueDate <= CURRENT_DATE")
+      .queryString("SELECT q FROM QrCode q WHERE q.dueDate BETWEEN CURRENT_DATE-1 AND CURRENT_DATE")
       .name("deleteQrReader")
       .build();
   }
