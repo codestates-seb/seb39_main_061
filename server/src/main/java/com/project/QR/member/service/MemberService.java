@@ -2,7 +2,7 @@ package com.project.QR.member.service;
 
 import com.project.QR.exception.BusinessLogicException;
 import com.project.QR.exception.ExceptionCode;
-import com.project.QR.file.service.FileSystemStorageService;
+import com.project.QR.file.service.StorageService;
 import com.project.QR.member.entity.Member;
 import com.project.QR.member.repository.MemberRepository;
 import com.project.QR.util.CustomBeanUtils;
@@ -22,7 +22,7 @@ public class MemberService {
   private final MemberRepository memberRepository;
   private final PasswordEncoder passwordEncoder;
   private final CustomBeanUtils<Member> memberBeanUtils;
-  private final FileSystemStorageService fileSystemStorageService;
+  private final StorageService storageService;
   private final RedisTemplate<String, Object> redisTemplate;
 
   /**
@@ -40,8 +40,8 @@ public class MemberService {
     member.setMemberId(findMember.getMemberId());
     if(!multipartFile.isEmpty()) {
       if(findMember.getProfileImg() != null)
-        fileSystemStorageService.remove(findMember.getProfileImg());
-      member.setProfileImg(fileSystemStorageService.store(multipartFile, String.format("%d/profile", member.getMemberId())));
+        storageService.remove(findMember.getProfileImg());
+      member.setProfileImg(storageService.store(multipartFile, String.format("%d/profile", member.getMemberId())));
     }
     if(member.getPassword() != null) {
       member.setPassword(passwordEncoder.encode(member.getPassword()));

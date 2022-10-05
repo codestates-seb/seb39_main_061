@@ -3,8 +3,7 @@ package com.project.QR.qrcode.service;
 import com.project.QR.business.service.BusinessService;
 import com.project.QR.exception.BusinessLogicException;
 import com.project.QR.exception.ExceptionCode;
-import com.project.QR.file.service.FileSystemStorageService;
-import com.project.QR.member.entity.Member;
+import com.project.QR.file.service.StorageService;
 import com.project.QR.qrcode.entity.QrCode;
 import com.project.QR.qrcode.repository.QrCodeRepository;
 import com.project.QR.util.CustomBeanUtils;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -24,7 +22,7 @@ import java.util.Optional;
 @AllArgsConstructor
 public class QrCodeService {
   private final QrCodeRepository qrCodeRepository;
-  private final FileSystemStorageService fileSystemStorageService;
+  private final StorageService storageService;
   private final CustomBeanUtils<QrCode> beanUtils;
   private final BusinessService businessService;
 
@@ -44,8 +42,8 @@ public class QrCodeService {
     QrCode findQrCode = findVerifiedQrCode(qrCode.getQrCodeId(), qrCode.getBusiness().getBusinessId());
     if (!multipartFile.isEmpty()) {
       if (findQrCode.getQrCodeImg() != null)
-        fileSystemStorageService.remove(findQrCode.getQrCodeImg());
-      qrCode.setQrCodeImg(fileSystemStorageService.store(multipartFile,
+        storageService.remove(findQrCode.getQrCodeImg());
+      qrCode.setQrCodeImg(storageService.store(multipartFile,
               String.format("%d/qr-code", qrCode.getBusiness().getMember().getMemberId())));
     }
     QrCode updatingQrCode = beanUtils.copyNonNullProperties(qrCode, findQrCode);
@@ -88,7 +86,7 @@ public class QrCodeService {
     if(qrCode.getBusiness().getMember().getMemberId() != memberId)
       throw new BusinessLogicException(ExceptionCode.QR_CODE_NOT_FOUND);
     if(qrCode.getQrCodeImg() != null)
-      fileSystemStorageService.remove(qrCode.getQrCodeImg());
+      storageService.remove(qrCode.getQrCodeImg());
     qrCodeRepository.delete(qrCode);
   }
 }
