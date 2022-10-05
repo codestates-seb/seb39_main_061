@@ -21,7 +21,7 @@ import "./app.css";
 import { getProfile } from "./api/services/user.js";
 import ReservationAdmin from "./pages/Reservation/ReservationAdmin/ReservationAdmin.js";
 import ReservationUser from "./pages/Reservation/ReservationUser/ReservationUser.js";
-import ReviewUser from "./pages/ReviewUser/ReviewUser.js";
+import ReviewUser from "./pages/Review/ReviewAdmin.js";
 import ReviewAdmin from "./pages/Review/ReviewAdmin.js";
 function App() {
   const url = process.env.REACT_APP_BASE_URL;
