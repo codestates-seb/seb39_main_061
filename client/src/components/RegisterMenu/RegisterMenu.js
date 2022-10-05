@@ -141,7 +141,6 @@ const RegisterMenu = ({
     setImageFile("");
   };
   const menuSubmitHandler = () => {
-    console.log(img, name, "이미지랑,네임 왜안들어가");
     const formData = new FormData();
     const value = {
       name: name,
@@ -155,7 +154,6 @@ const RegisterMenu = ({
 
     if (isEdit === true) {
       setModalNum(8);
-      formData.append("file", img);
       editMenu(businessId, menuId, formData).then((res) => {
         console.log("메뉴편집 성공", res);
         menuModalToggle();
