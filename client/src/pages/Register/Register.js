@@ -42,7 +42,7 @@ const Register = () => {
       setTimeout(() => {
         navigate("/dashboard");
         dispatch(authActions.login());
-      }, 3000);
+      }, 1500);
     }
   };
 

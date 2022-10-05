@@ -163,7 +163,11 @@ const StoreInfo = () => {
   };
 
   const phoneHandler = (e) => {
-    setPhone(e.target.value);
+    setPhone(
+      e.target.value
+        .replace(/[^0-9]/g, "")
+        .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`)
+    );
   };
   const introHandler = (e) => {
     setIntroduction(e.target.value);
@@ -203,7 +207,7 @@ const StoreInfo = () => {
           <div className={styles.storeInfo__input}>
             <div className={styles.storeInfo__input__grid1}>
               <div>
-                <span>매장 이름</span>
+                <span>이름</span>
               </div>
               <input
                 className={
@@ -216,6 +220,7 @@ const StoreInfo = () => {
                 onChange={nameHandler}
                 placeholder="ex:덕이네 곱창"
                 spellCheck={false}
+                maxLength={15}
               />
             </div>
             <div className={styles.storeInfo__input__grid2}>
@@ -347,14 +352,22 @@ const StoreInfo = () => {
             </div>
             <div className={styles.storeInfo__input__grid5}>
               <div>
-                <span>매장 전화번호</span>
+                <span>전화번호 (-제외)</span>
               </div>
               <input
+                onInput={(e) => {
+                  if (e.target.value.length > e.target.maxLength)
+                    e.target.value = e.target.value.slice(
+                      0,
+                      e.target.maxLength
+                    );
+                }}
+                maxLength={14}
                 readOnly={canEdit === false}
                 spellCheck="false"
                 value={phone === null ? "" : phone}
                 onChange={phoneHandler}
-                placeholder="ex:031-947-3334"
+                placeholder="ex:0319473334"
                 className={
                   canEdit
                     ? (styles.grid5__input, styles.canEdit)
@@ -364,7 +377,7 @@ const StoreInfo = () => {
             </div>
             <div className={styles.storeInfo__input__grid6}>
               <div>
-                <span>매장 위치</span>
+                <span>위치</span>
               </div>
               <div className={styles.grid6__div2}>
                 <input
