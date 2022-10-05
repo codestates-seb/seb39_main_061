@@ -584,7 +584,8 @@ input::-webkit-inner-spin-button {
 
 @media all and (min-width: 1450px) {
   .storeInfo__container {
-    width: 100%;
+    margin-top: 30px;
+    width: 95%;
     height: 40%;
   }
   .StoreInfo {

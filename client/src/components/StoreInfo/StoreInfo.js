@@ -183,7 +183,7 @@ const StoreInfo = () => {
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0,0,0,0.2)",
-      marginLeft: "310px",
+      marginLeft: "270px",
     },
     content: {
       marginLeft: "690px",
@@ -352,7 +352,7 @@ const StoreInfo = () => {
             </div>
             <div className={styles.storeInfo__input__grid5}>
               <div>
-                <span>전화번호 (-제외)</span>
+                <span>전화번호 </span>
               </div>
               <input
                 onInput={(e) => {
@@ -367,7 +367,7 @@ const StoreInfo = () => {
                 spellCheck="false"
                 value={phone === null ? "" : phone}
                 onChange={phoneHandler}
-                placeholder="ex:0319473334"
+                placeholder="ex:031-947-3334"
                 className={
                   canEdit
                     ? (styles.grid5__input, styles.canEdit)
