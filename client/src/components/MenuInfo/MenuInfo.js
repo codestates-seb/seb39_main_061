@@ -237,7 +237,7 @@ const MenuInfo = () => {
               <FontAwesomeIcon icon={faTrashCan} />
             </ImgButton>
             <MenuName>{item.name}</MenuName>
-            <MenuPrice>{item.price}</MenuPrice>
+            <MenuPrice>{item.price}원</MenuPrice>
           </MenuItem>
         ))}
         {empthyEle && (
