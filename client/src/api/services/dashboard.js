@@ -12,7 +12,4 @@ export const getDashboard = (today) => {
     .then((res) => {
       return res.data.data;
     })
-    .catch((err) => {
-      console.log(err.response);
-    });
 };

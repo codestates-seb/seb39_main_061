@@ -21,6 +21,9 @@
   font-size: 1.5rem;
 }
 
+.profile_container {
+  margin-top: 168px;
+}
 
 .title {
   margin: 60px 0 20px 15px;
@@ -52,8 +55,8 @@
   outline: 0;
   background-color: transparent;
   position: absolute;
-  left: 605px;
-  top: 350px;
+  left: 632px;
+  top: 530px;
 }
 
 .imgPlus {
@@ -65,6 +68,9 @@
 
 .contents_info {
   margin-left: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .contents_text {
@@ -104,4 +110,8 @@
   color: rgb(244, 101, 101);
   font-style: italic;
   font-size: 1rem;
+}
+
+.bottomBtn {
+  display: flex;
 }

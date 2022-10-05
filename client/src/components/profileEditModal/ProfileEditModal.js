@@ -1,14 +1,11 @@
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from "./profileEditModal.module.css";
 import noneProfile from "../../Img/Asset_5.png";
 import imgPlusBtn from "../../Img/imgPlusBtn.png";
 import { postProfileEdit } from "../../api/services/profileEdit";
-import { useSelector, useDispatch } from "react-redux";
-import { userAction } from "../../store/user";
+import { getProfile } from "../../../src/api/services/user";
 
-const ProfileEdit = ({ setIsModal }) => {
+const ProfileEdit = ({ setIsModal, isModal }) => {
   const [password, setPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newName, setNewName] = useState("");
@@ -16,27 +13,32 @@ const ProfileEdit = ({ setIsModal }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [errMessage, setErrMessage] = useState('');
   const [image, setImage] = useState({});
+  const [profile, setProfile] = useState({});
 
-  const navigate = useNavigate()
   const passwordRef = useRef()
-  const nameRef = useRef()
   const confirmPasswordRef = useRef()
-  // const profileImg = useSelector(state => state.profileImg.value)
   let inputRef;
-  const dispatch = useDispatch();
 
   //프로필 수정 모달-------------------------------------------------------
   const modalClose = () => {
-    setIsModal(false);
+    setIsModal(!isModal);
+  };
+
+  //번호 정규표현식-------------------------------------------------------
+  const handlePhone = (e) => {
+    setPhone(e.target.value.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3"));
   };
 
   // 이미지 preview------------------------------------------------------
   const saveImage = (e) => {
+    console.log(image.preview_URL)
     e.preventDefault();
     const fileReader = new FileReader();
+    // console.log(fileReader)
     if (e.target.files[0]) {
       fileReader.readAsDataURL(e.target.files[0])
     }
+    console.log(fileReader)
     fileReader.onload = () => {
       setImage(
         {
@@ -54,15 +56,12 @@ const ProfileEdit = ({ setIsModal }) => {
     if (passwordEdit !== confirmPasswordEdit) {
       setErrMessage("비밀번호가 일치하지 않습니다.");
       return;
-    }
-    // setIsLoading(true);
-    if (!password) {
+    } else if (!password) {
       setErrMessage('빈칸을 채워주세요');
       return;
     } else if (!image.image_file) {
       alert("사진을 등록하세요!")
-    }
-    else {
+    } else {
       const formData = new FormData()
       formData.enctype = "multipart/form-data"
       const profileFormData = {
@@ -78,21 +77,58 @@ const ProfileEdit = ({ setIsModal }) => {
 
       const profileData = await postProfileEdit(formData)
       console.log(profileData)
-      // dispatch(userAction(profileData))
       alert("프로필 수정 완료!");
-      // window.location.reload();
-      // setIsModal(false);      
-      // setImage({
-      //   image_file: "",
-      //   preview_URL: "",
-      // });
+      window.location.reload();
     }
   }
 
+  // 프로필 수정 이미지 불러오기 분기 처리------------------------------------
+  const profileImgRender = () => {
+    if (image.preview_URL === undefined &&
+      profile.profileImg === null) {
+      return <img
+        src={noneProfile}
+        alt="None profileImg"
+      />
+    }
+    if (image.preview_URL) {
+      return <img
+        src={image.preview_URL}
+        className={styles.imgPreview}
+        alt="profileImg"
+      />
+    } else if (profile.profileImg) {
+      return <img
+        src={"http://localhost:8080" + profile.profileImg}
+        alt="ProfileImg"
+        className={styles.imgPreview}
+      />
+    }
+  }
+
+  // getProfile()로 proifle 불러와서 input에 띄워주기-----------------------
+  useEffect(() => {
+    getProfile()
+      .then(profileData => {
+        setProfile(profileData)
+        setNewName(profileData.name)
+        setPhone(profileData.phone)
+      })
+  }, [])
+
+  // input value 핸들러 함수 ---------------------------------------------
+  const newNameHandler = (e) => {
+    setNewName(e.target.value);
+  };
+  const PhoneHandler = (e) => {
+    setPhone(e.target.value);
+  };
+
   return (
-    <div>
-      <h1 className={styles.title}>프로필 수정</h1>
-      <form className={styles.contents_container} onSubmit={(e) => e.preventDefault()}>
+    <div className={styles.profile_container}>
+      <form
+        className={styles.contents_container}
+        onSubmit={(e) => e.preventDefault()}>
         <div>
           <input
             type="file"
@@ -103,13 +139,17 @@ const ProfileEdit = ({ setIsModal }) => {
             style={{ display: "none" }}
           />
           <div className={styles.imgWrapper}>
-            {image.preview_URL === undefined ?
-              <img src={noneProfile} /> :
-              <img src={image.preview_URL} className={styles.imgPreview} />}
+            {profileImgRender()}
           </div>
           <div>
-            <button className={styles.imgPlusBtn} onClick={() => inputRef.click()}>
-              <img src={imgPlusBtn} className={styles.imgPlus} />
+            <button
+              className={styles.imgPlusBtn}
+              onClick={() => inputRef.click()}>
+              <img
+                src={imgPlusBtn}
+                className={styles.imgPlus}
+                alt="button"
+              />
             </button>
           </div>
         </div>
@@ -119,9 +159,9 @@ const ProfileEdit = ({ setIsModal }) => {
               <input
                 className={styles.input}
                 type={"text"}
-                onChange={(e) => setNewName(e.target.value)}
-                ref={nameRef}
-                placeholder="관리자 명"
+                value={newName === null ? "" : newName}
+                onChange={newNameHandler}
+                placeholder={profile.name}
               />
             </div>
 
@@ -129,9 +169,9 @@ const ProfileEdit = ({ setIsModal }) => {
               <input
                 className={styles.input}
                 type={"tel"}
-                onChange={(e) => setPhone(e.target.value)}
-                ref={nameRef}
-                placeholder="연락처"
+                value={phone === null ? "" : phone}
+                onChange={PhoneHandler}
+                placeholder={profile.phone}
               />
             </div>
             <div className={styles.contents_text}>
@@ -160,8 +200,10 @@ const ProfileEdit = ({ setIsModal }) => {
           ) : (
             ''
           )}
-          <button type='submit' onClick={profileEditSubmit} className={styles.btn}>완 료</button>
-          <button type='submit' onClick={modalClose} className={styles.btn}>닫 기</button>
+          <div className={styles.bottomBtn}>
+            <button type='submit' onClick={profileEditSubmit} className={styles.btn}>완 료</button>
+            <button type='submit' onClick={modalClose} className={styles.btn}>닫 기</button>
+          </div>
         </div>
       </form>
     </div>
