@@ -22,8 +22,7 @@ import { getProfile } from "./api/services/user.js";
 import ReservationAdmin from "./pages/Reservation/ReservationAdmin/ReservationAdmin.js";
 import ReservationUser from "./pages/Reservation/ReservationUser/ReservationUser.js";
 import ReviewUser from "./pages/ReviewUser/ReviewUser.js";
-
-
+import ReviewAdmin from "./pages/Review/ReviewAdmin.js";
 function App() {
   const url = process.env.REACT_APP_BASE_URL;
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
@@ -41,7 +40,7 @@ function App() {
         {!isLogin && (
           <Route path="/find-password" element={<FindPassword />}></Route>
         )}
-        {isLogin && (<Route path="/dashboard" element={<Dashboard />}></Route>)}
+        {isLogin && <Route path="/dashboard" element={<Dashboard />}></Route>}
         {isLogin && <Route path="/profile" element={<Profile />}></Route>}
         {isLogin && (
           <Route path="/create-code" element={<CreateCode />}></Route>
@@ -52,12 +51,18 @@ function App() {
             path="/management-Detail"
             element={<ManagementDetail />}
           ></Route>
-         
         )}
-         {isLogin && <Route path="/reservation-admin" element={<ReservationAdmin />}></Route>}
-         <Route path="/reservation-user" element={<ReservationUser />}></Route>
-         <Route path="/review-user" element={<ReviewUser />}></Route>
-
+        {isLogin && (
+          <Route
+            path="/reservation-admin"
+            element={<ReservationAdmin />}
+          ></Route>
+        )}
+        <Route path="/reservation-user" element={<ReservationUser />}></Route>
+        {isLogin && (
+          <Route path="/review-admin" element={<ReviewAdmin />}></Route>
+        )}
+        <Route path="/review-user" element={<ReviewUser />}></Route>
         {isLogin && <Route path="/userPage" element={<UserPage />}></Route>}
         {isLogin && (
           <Route path="store-management" element={<StoreManagement />}></Route>

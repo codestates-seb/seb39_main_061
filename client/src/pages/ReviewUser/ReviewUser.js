@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import styles from "./ReviewUser.module.css";
 import food from "../../Img/food.png";
 import logo from "../../Img/Asset_2.png";
-import { getRevUserList } from "../../api/services/review-user";
-import { registerUserRev } from "../../api/services/review-user";
+import { getRevUserList } from "../../api/services/review";
+import { registerUserRev } from "../../api/services/review";
 
 function ReviewUser() {
   const [review, setReview] = useState([]);

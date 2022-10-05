@@ -23,3 +23,9 @@ export const getResNotification = (businessId, qrId, reservationId) => {
     url: `/business/${businessId}/reservation/qr-code/${qrId}/info/${reservationId}/enter`,
   });
 };
+
+export const getAdminQrCodeInfo = (businessId, qrId) => {
+  return adminAxiosInstance.get(
+    `/business/${businessId}/type/reservation/qr-code?page=1&size=10`
+  );
+};

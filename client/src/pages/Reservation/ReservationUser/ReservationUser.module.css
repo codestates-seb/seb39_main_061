@@ -37,7 +37,7 @@
 .table {
   
     width: 390px;
-    
+    border-top: 2px solid #EDEDED;
     text-align: center;
     font-size: 0.9em;
     border-collapse: separate;
@@ -47,7 +47,7 @@
     border-collapse: separate;
 	  border-spacing: 0 10px;  
     height: 1rem;  
-    margin-top: 0.5rem;
+    margin-top: 1.0rem;
   
 
   
@@ -150,8 +150,8 @@ TD {
     display: fixed;
     width: 400px;
     height: 12rem;
-    border-radius: 1rem;
     
+    border-top: 2px solid #EDEDED;
 }
 
 
@@ -207,6 +207,7 @@ TD {
     font-size: 0.75rem;
     font-weight: 500;
     z-index: 10;
+    
   }
 
   .input:focus{
@@ -224,6 +225,7 @@ TD {
     font-weight: 500;
     align-items: flex-end;
     margin-top: 0.9rem; 
+    
     margin-left: 21.5rem;
     border: 0;
     outline: 0;

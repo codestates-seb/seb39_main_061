@@ -6,6 +6,7 @@ import {
   deleteAdminRes,
   getAdminResList,
   getResNotification,
+  getAdminQrCodeInfo,
 } from "../../../api/services/reservation-admin.js";
 import { getBusInfo } from "../../../api/services/reservation-admin.js";
 import { HiTrash } from "react-icons/hi";
@@ -13,6 +14,8 @@ import { BsFillPhoneVibrateFill } from "react-icons/bs";
 
 function ReservationAdmin() {
   const [businessId, setBusinessId] = useState("");
+  const [storeName, setStoreName] = useState("");
+  const [qrId, setQrId] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
@@ -37,8 +40,8 @@ function ReservationAdmin() {
     getBusInfo()
       .then((res) => {
         setBusinessId(res.data.data.businessId);
+        setStoreName(res.data.data.name);
       })
-
       .then(() => {
         if (typeof businessId === "number") {
           getAdminResList(businessId, 1).then((res) => {
@@ -84,7 +87,7 @@ function ReservationAdmin() {
 
       <div className={styles.pages}>
         <div className={styles.title}>예약 관리</div>
-        <div className={styles.subtitle}>매장 정보</div>
+        <div className={styles.subtitle}>{storeName}</div>
         <div className={styles.tables}>
           <table className={styles.table}>
             <thead className={styles.thead}>
