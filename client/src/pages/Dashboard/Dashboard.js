@@ -4,7 +4,7 @@ import WeekApexChart from "../../components/BarChart/WeekApexChart";
 import MonthApexChart from "../../components/BarChart/MonthApexChart";
 import Piechart from "../../components/PieChart/PieChart"
 import DashboardCalendar from "../../components/Calendar/Calendar";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
 import { useSelector } from "react-redux";
 import { getDashboard } from "./../../api/services/dashboard"

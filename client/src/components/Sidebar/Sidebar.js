@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
 import { persistor } from "../../index";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { getProfile } from "../../api/services/user";
 import { userAction } from "../../store/user";
 import { useCookies } from "react-cookie";

@@ -1,6 +1,7 @@
 import Chart from "react-apexcharts";
 import moment from 'moment';
 import styles from "./WeekApexChart.module.css";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 // import { useEffect } from "react";
 // import { getStatisticsChart } from "../../library/axios";
