@@ -7,7 +7,7 @@
 logs
 **/*.backup.*
 **/*.back.*
-.env
+.env.*
 
 
 bower_components

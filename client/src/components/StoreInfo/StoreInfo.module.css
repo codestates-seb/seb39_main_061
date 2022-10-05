@@ -1,6 +1,12 @@
 button {
   cursor: pointer;
 }
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
 .storeInfo__container {
   width: 100%;
   display: flex;

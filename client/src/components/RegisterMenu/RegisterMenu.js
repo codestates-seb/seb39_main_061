@@ -85,11 +85,19 @@ const Input = styled.input`
   border: 2px solid rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   outline: none;
-  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
-`;
 
+  box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
+
+  &::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+`;
 const ButtonContainer = styled.div`
   margin-top: 20px;
+  &:hover {
+    opacity: 1;
+  }
 `;
 const Btn = styled.button`
   background-color: #256d85;
@@ -102,6 +110,30 @@ const Btn = styled.button`
   box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.2);
   color: white;
   font-size: 15px;
+`;
+
+const ValidationMSG = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  height: 15px;
+  color: #2b4865;
+  animation: ${(props) => props.animation};
+  @keyframes gelatine {
+    from,
+    to {
+      transform: scale(1, 1);
+    }
+    25% {
+      transform: scale(0.9, 1.1);
+    }
+    50% {
+      transform: scale(1.1, 0.9);
+    }
+    75% {
+      transform: scale(0.95, 1.05);
+    }
+  }
 `;
 
 const RegisterMenu = ({
@@ -117,17 +149,25 @@ const RegisterMenu = ({
   const [name, setName] = useState("");
   const [price, setPrice] = useState("");
   const businessId = useSelector((state) => state.business.businessId);
+  const [changePhoto, setChangePhoto] = useState(false);
+  const [message, setMessage] = useState("");
+  const menuList = useSelector((state) => state.menu.menuList);
+  const [changeCSS, setChangeCSS] = useState(false);
+  useEffect(() => {
+    setChangeCSS(true);
+  }, [changeCSS]);
 
   useEffect(() => {
-    getMenu(businessId, menuId).then((res) => {
-      console.log("메뉴조회", res.data.data);
-      setImageFile(`${baseURL}${res.data.data.img}`);
-      setImg(res.data.data.img);
-
-      setName(res.data.data.name);
-      setPrice(res.data.data.price);
-      console.log("셋이미지", img);
-    });
+    if (menuList.length !== 0) {
+      getMenu(businessId, menuId).then((res) => {
+        console.log("메뉴조회", res.data.data);
+        setImageFile(`${baseURL}${res.data.data.img}`);
+        setImg(res.data.data.img);
+        setName(res.data.data.name);
+        setPrice(res.data.data.price);
+        console.log("셋이미지", img);
+      });
+    }
   }, []);
 
   //
@@ -139,9 +179,20 @@ const RegisterMenu = ({
   const deleteImageFile = () => {
     URL.revokeObjectURL(imageFile);
     setImageFile("");
+    setChangePhoto(true);
   };
   const menuSubmitHandler = () => {
-    console.log(img, name, "이미지랑,네임 왜안들어가");
+    setChangeCSS(false);
+    //유효성 검사
+    if (name.length === 0) {
+      setMessage("메뉴이름을 입력해주세요");
+      return;
+    }
+    if (price.length === 0) {
+      setMessage("가격을 입력해주세요");
+      return;
+    }
+
     const formData = new FormData();
     const value = {
       name: name,
@@ -154,8 +205,14 @@ const RegisterMenu = ({
     );
 
     if (isEdit === true) {
+      if (changePhoto === true) {
+        formData.append("file", img);
+      } else {
+        const newFile = new File([""], "");
+        formData.append("file", newFile);
+      }
+
       setModalNum(8);
-      formData.append("file", img);
       editMenu(businessId, menuId, formData).then((res) => {
         console.log("메뉴편집 성공", res);
         menuModalToggle();
@@ -165,6 +222,10 @@ const RegisterMenu = ({
         }, 1500);
       });
     } else {
+      if (!img) {
+        setMessage("메뉴사진을 첨부해주세요");
+        return;
+      }
       formData.append("file", img);
       postMenu(businessId, formData).then((res) => {
         console.log("메뉴등록 성공", res);
@@ -193,7 +254,6 @@ const RegisterMenu = ({
             ref={selectFile}
             onChange={saveImageFile}
           ></input>
-          {/* <img id="apply" src={`http://localhost:8080/${img}`} /> */}
           <ImgButton onClick={() => selectFile.current.click()}>+</ImgButton>
         </ImgBox>
       ) : (
@@ -218,13 +278,20 @@ const RegisterMenu = ({
         value={name}
         onChange={menuNameChange}
         placeholder="예: 토마토 파스타"
+        maxLength={10}
       ></Input>
       <Name>가격</Name>
       <Input
         value={price}
         onChange={menuPriceChange}
         placeholder="예: 5000"
+        type={"number"}
       ></Input>
+      <ValidationMSG
+        animation={changeCSS === true ? "gelatine 0.5s ease-out" : ""}
+      >
+        {message}
+      </ValidationMSG>
       <ButtonContainer>
         <Btn onClick={menuSubmitHandler}>
           {isEdit === true ? "저장" : "등록"}
