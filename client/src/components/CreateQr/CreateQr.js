@@ -3,6 +3,8 @@ import { useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import axios from "axios";
+import styles from "./CreateQr.module.css";
+
 function CreateQr() {
   const [url, setUrl] = useState("");
   const [qr, setQr] = useState("");
@@ -116,34 +118,37 @@ function CreateQr() {
   };
 
   return (
-    <div className="app">
-      <h1>QR 코드 생성</h1>
-      <img src={qr} />
-      <div>관리할 대상입니다.</div>
-      <input
-        type="text"
-        placeholder="대상명을 적어주세요"
-        value={body.target}
-        onChange={(e) =>
-          setBody((prevState) => {
-            return { ...prevState, target: e.target.value };
-          })
-        }
-      />
-      <div>만료 기간을 선택해주세요.</div>
-      <Calendar
-        onChange={(e) =>
-          setBody((prevState) => {
-            return {
-              ...prevState,
-              dueDate: new Date(e - new Date().getTimezoneOffset() * 60000),
-            };
-          })
-        }
-        value={body.dueDate}
-      />
-      <button onClick={saveQRCode}>생 성</button>
-      <button onClick={CancelQRCode}>취 소</button>
+    <div className={styles.QR__container}>
+      <div>
+        <img src={qr} alt="QRCode" />
+        <div>관리할 대상입니다.</div>
+        <input
+          type="text"
+          placeholder="대상명을 적어주세요"
+          value={body.target}
+          onChange={(e) =>
+            setBody((prevState) => {
+              return { ...prevState, target: e.target.value };
+            })
+          }
+        />
+      </div>
+      <div>
+        <div>만료 기간을 선택해주세요.</div>
+        <Calendar
+          onChange={(e) =>
+            setBody((prevState) => {
+              return {
+                ...prevState,
+                dueDate: new Date(e - new Date().getTimezoneOffset() * 60000),
+              };
+            })
+          }
+          value={body.dueDate}
+        />
+        <button onClick={saveQRCode}>생 성</button>
+        <button onClick={CancelQRCode}>취 소</button>
+      </div>
     </div>
   );
 }
