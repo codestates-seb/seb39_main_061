@@ -1,12 +1,9 @@
 package com.project.QR.config;
 
-import com.project.QR.file.service.FileSystemStorageService;
-import com.project.QR.helper.event.MemberRegistrationApplicationEvent;
+import com.project.QR.file.service.StorageService;
 import com.project.QR.helper.event.QrCodeExpiredApplicationEvent;
 import com.project.QR.helper.event.QrCodeRemoveApplicationEvent;
 import com.project.QR.qrcode.entity.QrCode;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
@@ -38,7 +35,7 @@ public class BatchConfig {
   @Autowired
   private EntityManagerFactory entityManagerFactory;
   @Autowired
-  private FileSystemStorageService fileSystemStorageService;
+  private StorageService storageService;
   @Value("${save-path}")
   private String rootPath;
   @Autowired
@@ -128,7 +125,7 @@ public class BatchConfig {
     log.info("==> processor value : {}", requestDate);
     return qrCode -> {
       if(StringUtils.hasText(qrCode.getQrCodeImg()))
-        fileSystemStorageService.remove(rootPath.substring(0,5) + qrCode.getQrCodeImg());
+        storageService.remove(qrCode.getQrCodeImg());
       qrCode.setQrCodeImg(null);
       publisher.publishEvent(new QrCodeRemoveApplicationEvent(this, qrCode));
       return qrCode;

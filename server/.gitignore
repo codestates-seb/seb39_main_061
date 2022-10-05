@@ -44,3 +44,4 @@ application-mail.yml
 application-file.yml
 application-sms.yml
 application.yml
+application-aws.yml
