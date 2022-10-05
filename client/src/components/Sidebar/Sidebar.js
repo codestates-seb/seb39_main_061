@@ -60,7 +60,7 @@ const Sidebar = () => {
         <Link to="/management">
           <button className={styles.componentsBtn}>QR 코드 관리</button>
         </Link>
-        <Link to="/">
+        <Link to="/reservation-admin">
           <button className={styles.componentsBtn}>예약 관리</button>
         </Link>
         <Link to="/">

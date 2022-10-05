@@ -1,15 +1,29 @@
 package com.project.QR.config;
 
+<<<<<<< HEAD
+=======
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+<<<<<<< HEAD
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.repository.configuration.EnableRedisRepositories;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
+
+@RequiredArgsConstructor
+@Configuration
+@EnableRedisRepositories
+=======
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -21,6 +35,7 @@ import java.time.Duration;
 
 @RequiredArgsConstructor
 @Configuration
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
 public class RedisConfig {
   @Value("${spring.redis.host}")
   private String redisHost;
@@ -34,6 +49,14 @@ public class RedisConfig {
   }
 
   @Bean
+<<<<<<< HEAD
+  public RedisTemplate<?, ?> redisTemplate() {
+    RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
+    redisTemplate.setConnectionFactory(redisConnectionFactory());
+    redisTemplate.setKeySerializer(new StringRedisSerializer());
+    redisTemplate.setValueSerializer(new StringRedisSerializer());
+    return redisTemplate;
+=======
   public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
 
     RedisTemplate<String, Object> template = new RedisTemplate<>();
@@ -102,5 +125,6 @@ public class RedisConfig {
   @Bean
   public ZSetOperations<String, Object> zSetOperations(RedisTemplate<String, Object> redisTemplate) {
     return redisTemplate.opsForZSet();
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
   }
 }

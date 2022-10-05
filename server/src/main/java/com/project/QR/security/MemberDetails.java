@@ -1,6 +1,37 @@
 package com.project.QR.security;
 
 
+<<<<<<< HEAD
+import com.project.QR.member.entity.Member;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Map;
+
+public class MemberDetails implements UserDetails, OAuth2User {
+  private Member member;
+  private Map<String, Object> attributes;
+
+  public MemberDetails(String email, String role) {
+    this.member = Member.builder()
+      .email(email)
+      .role(role)
+      .build();
+  }
+
+  public static MemberDetails create(Member member) {
+    return new MemberDetails(
+      member.getEmail(),
+      member.getRole()
+    );
+  }
+
+  public static MemberDetails create(Member member, Map<String, Object> attributes) {
+    MemberDetails memberDetails = MemberDetails.create(member);
+=======
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.QR.member.entity.Member;
 import lombok.NoArgsConstructor;
@@ -41,10 +72,31 @@ public class MemberDetails implements UserDetails, OAuth2User, Serializable {
   public static MemberDetails create(Member member, Map<String, Object> attributes) {
 
     MemberDetails memberDetails = new MemberDetails(member.getMemberId(), member.getEmail(), member.getName(), member.getRoleList());
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
     memberDetails.setAttributes(attributes);
     return memberDetails;
   }
 
+<<<<<<< HEAD
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    Collection<GrantedAuthority> authorities = new ArrayList<>();
+    this.member.getRoleList().forEach(n -> {
+      authorities.add(() -> n);
+    });
+    return authorities;
+  }
+
+  public Member getMember() {
+    return this.member;
+  }
+
+  @Override
+  public String getUsername() {
+    return this.member.getEmail();
+  }
+
+=======
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -59,35 +111,56 @@ public class MemberDetails implements UserDetails, OAuth2User, Serializable {
   }
 
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
   @Override
   public String getPassword() {
     return null;
   }
 
+<<<<<<< HEAD
+=======
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
   @Override
   public boolean isAccountNonExpired() {
     return true;
   }
 
+<<<<<<< HEAD
+=======
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
   @Override
   public boolean isAccountNonLocked() {
     return true;
   }
 
+<<<<<<< HEAD
+=======
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
   @Override
   public boolean isCredentialsNonExpired() {
     return true;
   }
 
+<<<<<<< HEAD
+=======
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
   @Override
   public boolean isEnabled() {
     return true;
   }
 
+<<<<<<< HEAD
+  // OAuth2User Override
+  @Override
+  public String getName() {
+    return member.getName();
+  }
+
+=======
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   // OAuth2User Override
   @Override
@@ -96,11 +169,19 @@ public class MemberDetails implements UserDetails, OAuth2User, Serializable {
   }
 
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
   @Override
   public Map<String, Object> getAttributes() {
     return attributes;
   }
 
+<<<<<<< HEAD
+  public void setAttributes(Map<String, Object> attributes) {
+    this.attributes = attributes;
+  }
+}
+
+=======
   @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
   public void setAttributes(Map<String, Object> attributes) {
     this.attributes = attributes;
@@ -121,3 +202,4 @@ public class MemberDetails implements UserDetails, OAuth2User, Serializable {
       .build();
   }
 }
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d

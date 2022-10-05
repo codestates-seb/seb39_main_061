@@ -1,7 +1,7 @@
-# Team 61
-## 💡Project : 예약/대기 서비스(feat.QR 태그)
-#### 우리 매장의 예약/대기를 QR 코드로 관리하고 기간별 예약 현황를 한눈에!
-#### 덤으로 재고 관리까지👌🏻
+# 핫식스🔥(team-61)
+## 💡Project : 퀵북(Qiuck book)
+#### 우리 매장의 예약/대기를 QR 코드로 관리하고 기간별 예약 현황을 한눈에!
+#### QR코드 찍고 예약대기와 메뉴선택까지 한번에! 👌🏻
 > Project Period: 2022.09.07 ~ 2022.10.12
 
 <br/>
@@ -13,6 +13,48 @@
 
 
 <br/>
+
+## FE Skills
+<div>
+  <p>
+    <img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Redux-764ABC?style=for-the-badge&logo=Redux&logoColor=white"/>  
+    <img src="https://img.shields.io/badge/Axios-5A29E4?style=for-the-badge&logo=Axios&logoColor=white"/> 
+    <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/>
+    <img src="https://img.shields.io/badge/.ENV-ECD53F?style=for-the-badge&logo=.ENV&logoColor=white"/>
+  </p>
+</div>
+
+<br/>
+
+## BE Skills
+<div>
+  <p>
+    <img src="https://img.shields.io/badge/Gradle (7.5)-02303A?style=for-the-badge&logo=Gradle&logoColor=white"/>  
+    <img src="https://img.shields.io/badge/Java (11)-007396?style=for-the-badge&logo=Java&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Spring Boot (2.7.3)-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Spring Security (2.7.3)-6DB33F?style=for-the-badge&logo=Spring Security&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Redis (7.0.0)-DC382D?style=for-the-badge&logo=Redis&logoColor=white"/>
+    <img src="https://img.shields.io/badge/MySQL (8.0.0)-4479A1?style=for-the-badge&logo=MySQL&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Docker (20.10.17)-2496ED?style=for-the-badge&logo=Docker&logoColor=white"/>
+  </p>
+</div>
+
+<!--
+<div>
+  사용예정
+  <p>
+    <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"/>
+  </p>
+</div>
+-->
+
+
+<br/>
+
 
 ## ✍🏻Git Commit Convention Rules
 ```

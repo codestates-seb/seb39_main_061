@@ -15,6 +15,10 @@ public class TokenDto {
   public static class TokenInfoDto {
     private String grantType;
     private String accessToken;
+<<<<<<< HEAD
+    private long accessTokenExpiredAt;
+=======
+>>>>>>> 4a643a9cd68a9baa8350400c74326bc2b6abe33d
   }
 
   @Data
