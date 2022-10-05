@@ -21,7 +21,7 @@ const StoreInfo = () => {
   const startTime = useSelector((state) => state.business.startTime);
   const endTime = useSelector((state) => state.business.endTime);
   const startOrEnd = useSelector((state) => state.business.startOrEnd);
-  const isModalOpen = useSelector((state) => state.modal.isModalOpen);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [canEdit, setCanEdit] = useState(false);
   const [name, setName] = useState("");
@@ -152,7 +152,7 @@ const StoreInfo = () => {
     if (res) {
       console.log("매장정보 수정?", res);
       setCanEdit(true);
-      dispatch(modalActions.setIsModalOpen(true));
+      setIsModalOpen(true);
       setTimeout(() => {
         window.location.reload();
       }, 1500);
