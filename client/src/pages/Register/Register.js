@@ -91,7 +91,7 @@ const Register = () => {
       setIsModalOpen(true);
       setTimeout(() => {
         navigate("/login");
-      }, 3000);
+      }, 1500);
     }
   };
 

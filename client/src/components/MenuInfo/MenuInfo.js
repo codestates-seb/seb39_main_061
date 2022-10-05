@@ -284,6 +284,7 @@ const MenuInfo = () => {
           confirmModalToggle={confirmModalToggle}
           menuModalToggle={menuModalToggle}
           setPageNum={setPageNum}
+          setModalNum={setModalNum}
           isEdit={isEdit === true ? true : false}
           menuId={menuId}
         />

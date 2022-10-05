@@ -67,7 +67,6 @@ const StoreInfo = () => {
         dispatch(businessActions.setCheckOpenTime(res.data.data.openTime));
         if (res.data.data.holiday !== null) {
           const splitHoliday = res.data.data.holiday.split(",");
-
           dispatch(businessActions.setHolidayList([...splitHoliday]));
         }
 
@@ -156,7 +155,7 @@ const StoreInfo = () => {
       dispatch(modalActions.setIsModalOpen(true));
       setTimeout(() => {
         window.location.reload();
-      }, 3000);
+      }, 1500);
     }
   };
   const nameHandler = (e) => {

@@ -17,7 +17,7 @@ function Modal({ num, setIsConfirmModalOpen, menuId }) {
       setIsClickDelete(true);
       setTimeout(() => {
         window.location.reload();
-      }, 2000);
+      }, 1000);
     });
   };
   return (
@@ -48,7 +48,11 @@ function Modal({ num, setIsConfirmModalOpen, menuId }) {
             {num === 2 && <p>회원가입이 완료되었습니다 </p>}
             {num === 2 && <p>로그인 화면으로 이동합니다</p>}
             {num === 5 && <p>변경사항이 저장 완료 되었습니다.</p>}
+            {num === 5 && <p></p>}
             {num === 6 && <p>메뉴등록이 완료 되었습니다</p>}
+            {num === 6 && <p></p>}
+            {num === 8 && <p>수정사항이 저장 되었습니다.</p>}
+            {num === 8 && <p></p>}
             {num === 7 && isClickDelete === false && (
               <p className="modal__deleteMSG">삭제 하시겠습니까?</p>
             )}

@@ -84,7 +84,7 @@ const Login = () => {
       setTimeout(() => {
         dispatch(authActions.login());
         navigate("/dashboard");
-      }, 3000);
+      }, 1500);
     }
   };
 

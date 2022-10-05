@@ -18,6 +18,7 @@
   bottom: 0;
   right: 0;
   background: rgba(0, 0, 0, 0.3);
+  z-index: 1;
 }
 
 .modalContainer {
@@ -124,7 +125,7 @@
   height: 20%;
   word-break: break-all;
   font-size: 20px;
-  animation: textOpacity 2s;
+  animation: textOpacity 1.5s;
 }
 .success-text p:first-child {
   margin-bottom: 20px;
@@ -192,7 +193,7 @@
 .modal__deleteSucessMSG {
   margin-top: 10px;
   font-size: 20px;
-  animation: opacity 2s;
+  animation: opacity 1s;
 }
 
 .check-icon::before {

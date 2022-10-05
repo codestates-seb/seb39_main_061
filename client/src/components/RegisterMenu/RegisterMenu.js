@@ -109,6 +109,7 @@ const RegisterMenu = ({
   isEdit,
   confirmModalToggle,
   menuModalToggle,
+  setModalNum,
 }) => {
   const selectFile = useRef("");
   const [imageFile, setImageFile] = useState(null);
@@ -153,6 +154,7 @@ const RegisterMenu = ({
     );
 
     if (isEdit === true) {
+      setModalNum(8);
       formData.append("file", img);
       editMenu(businessId, menuId, formData).then((res) => {
         console.log("메뉴편집 성공", res);
@@ -160,7 +162,7 @@ const RegisterMenu = ({
         confirmModalToggle();
         setTimeout(() => {
           window.location.reload();
-        }, 3000);
+        }, 1500);
       });
     } else {
       formData.append("file", img);
@@ -170,7 +172,7 @@ const RegisterMenu = ({
         confirmModalToggle();
         setTimeout(() => {
           window.location.reload();
-        }, 3000);
+        }, 1500);
       });
     }
   };

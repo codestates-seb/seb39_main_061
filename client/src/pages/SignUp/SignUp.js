@@ -101,7 +101,7 @@ const SignUp = () => {
         setTimeout(() => {
           navigate("/login");
           dispatch(modalActions.setIsModalOpen(false));
-        }, 3000);
+        }, 1500);
       } catch (err) {
         let errorMessage = err.error.message;
         alert(errorMessage);
