@@ -1,15 +1,20 @@
 import React, { useRef } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import { userAction } from "../../store/user";
 import styles from "./Login.module.css";
-import { getProfile, login } from "../../library/axios";
 import googleLogo from "../../assets/google-logo.png";
 import naverLogo from "../../assets/naver-logo.png";
 import kakaoLogo from "../../assets/kakao-logo.png";
 import { useState } from "react";
-import mainLogo from "../../assets/logo1.png";
+import mainLogo from "../../assets/logo2.png";
+import Modal from "../../components/Modal/Modal";
+import { useEffect } from "react";
+import { getProfile } from "../../api/services/user";
+import { login } from "../../api/services/auth";
+import { modalActions } from "../../store/modal";
+import { baseURL } from "../../api/axios";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -17,6 +22,12 @@ const Login = () => {
   const emailRef = useRef();
   const PWRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
+  const modalOpen = useSelector((state) => state.modal.isModalOpen);
+  const key = 0;
+  const [changeCSS, setChangeCSS] = useState(false);
+  useEffect(() => {
+    setChangeCSS(true);
+  }, [changeCSS]);
 
   const checkValidation = () => {
     const email = emailRef.current.value;
@@ -40,16 +51,13 @@ const Login = () => {
 
   const loginSubmitHandler = async (e) => {
     e.preventDefault();
+    setChangeCSS(false);
     const email = emailRef.current.value;
     const password = PWRef.current.value;
     checkValidation(email);
     if (checkValidation(email) === false) {
       return;
     }
-    // if (validationMSG.length === 0) {
-    //   return;
-    // }
-
     //login
 
     const token = await login(email, password).catch((err) => {
@@ -65,44 +73,67 @@ const Login = () => {
       }
     });
     if (token) {
+      setValidationMSG("");
       console.log(token);
       localStorage.setItem("token", token);
-      dispatch(authActions.login());
+      dispatch(modalActions.setIsModalOpen(true));
+
       //getProfile
       const userData = await getProfile();
       dispatch(userAction.setUser(userData));
-      navigate("/dashboard");
+
+      setTimeout(() => {
+        dispatch(authActions.login());
+        navigate("/dashboard");
+      }, 1500);
     }
   };
 
   return (
-    <section className={styles.login}>
+    <div className={styles.login}>
       <form onSubmit={loginSubmitHandler} className={styles.login__form}>
         <div className={styles.login__form__title}>
           <img src={mainLogo} alt="React" />
           {/* <h1>Login</h1> */}
-          <p>{validationMSG}</p>
+        </div>
+        <div className={styles.register__form__validation}>
+          {changeCSS === false ? (
+            <p>{validationMSG}</p>
+          ) : (
+            <p className={styles.shake}>{validationMSG}</p>
+          )}
         </div>
         <div className={styles.login__form__input}>
           <input ref={emailRef} placeholder="이메일" />
-          <input type="password" ref={PWRef} placeholder="비밀번호" />
+          <input
+            maxLength={16}
+            type="password"
+            ref={PWRef}
+            placeholder="비밀번호"
+          />
         </div>
 
         <div className={styles.login__form__oauth}>
           <div>
-            <a href="http://localhost:8080/login/oauth2/authorize/naver?redirect_uri=http://localhost:3000/oauth2/redirect">
+            <a
+              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=https://quickbook-bucket.s3.ap-northeast-2.amazonaws.com/oauth2/redirect`}
+            >
               <img src={naverLogo} alt="React" />
             </a>
           </div>
 
           <div>
-            <a href="http://localhost:8080/login/oauth2/authorize/kakao?redirect_uri=http://localhost:3000/oauth2/redirect">
+            <a
+              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=https://quickbook-bucket.s3.ap-northeast-2.amazonaws.com/oauth2/redirect`}
+            >
               <img src={kakaoLogo} alt="React" />
             </a>
           </div>
 
           <div>
-            <a href="http://localhost:8080/login/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect">
+            <a
+              href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=https://quickbook-bucket.s3.ap-northeast-2.amazonaws.com/oauth2/redirect`}
+            >
               <img src={googleLogo} alt="React" />
             </a>
           </div>
@@ -119,7 +150,8 @@ const Login = () => {
           </Link>
         </div>
       </form>
-    </section>
+      {modalOpen && <Modal num={key} />}
+    </div>
   );
 };
 export default Login;
