@@ -24,6 +24,11 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
     setIsModal(!isModal);
   };
 
+  //번호 정규표현식-------------------------------------------------------
+  const handlePhone = (e) => {
+    setPhone(e.target.value.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3"));
+  };
+
   // 이미지 preview------------------------------------------------------
   const saveImage = (e) => {
     console.log(image.preview_URL)
@@ -33,6 +38,7 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
     if (e.target.files[0]) {
       fileReader.readAsDataURL(e.target.files[0])
     }
+    console.log(fileReader)
     fileReader.onload = () => {
       setImage(
         {
@@ -105,8 +111,18 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
     getProfile()
       .then(profileData => {
         setProfile(profileData)
+        setNewName(profileData.name)
+        setPhone(profileData.phone)
       })
   }, [])
+
+  // input value 핸들러 함수 ---------------------------------------------
+  const newNameHandler = (e) => {
+    setNewName(e.target.value);
+  };
+  const PhoneHandler = (e) => {
+    setPhone(e.target.value);
+  };
 
   return (
     <div className={styles.profile_container}>
@@ -143,19 +159,8 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
               <input
                 className={styles.input}
                 type={"text"}
-                onChange={(e) => {
-                  setNewName(e.target.value)
-                  // if (e.target.value === "") {
-                  //   return profileName.name
-                  // }
-                  // else {
-                  //   console.log(profile.name)
-                  //   return setNewName(e.target.value)
-                  // }
-                  //   e.target.value ? setNewName(e.target.value) : profile.name
-                  // }
-                  // ref={nameRef}
-                }}
+                value={newName === null ? "" : newName}
+                onChange={newNameHandler}
                 placeholder={profile.name}
               />
             </div>
@@ -164,11 +169,8 @@ const ProfileEdit = ({ setIsModal, isModal }) => {
               <input
                 className={styles.input}
                 type={"tel"}
-                // onChange={(e) => setPhone(e.target.value)}
-                onChange={(e) => {
-                  return setPhone(e.target.value === "" ? profile.phone :
-                    e.target.value)
-                }}
+                value={phone === null ? "" : phone}
+                onChange={PhoneHandler}
                 placeholder={profile.phone}
               />
             </div>

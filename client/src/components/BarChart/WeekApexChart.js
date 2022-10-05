@@ -17,33 +17,37 @@ const WeekApexChart = () => {
 
   // 주간 예약자 통계
   const weekBook = () => {
-    const Nweek = weekData.filter(day => day.deleted === "N")
+    const nWeek = weekData.filter(day => day.deleted === "N")
+    const nWeekSort = nWeek.sort((a,b) => {return b - a})
+    // console.log("N:", nWeekSort)
     const arr = []
     for (let i = 0; i < 7; i++) {
-      if (Nweek[i] === undefined) {
+      if (nWeekSort[i] === undefined) {
         arr.unshift(0)
       } else {
-        arr.unshift(Nweek[i].count)
+        arr.unshift(nWeekSort[i].count)
       }
     }
     return arr
   }
-  console.log(weekBook())
+  // console.log(weekBook())
 
   // 주간 취소자 통계
   const weekCancel = () => {
-    const Yweek = weekData.filter(day => day.deleted === "Y")
+    const yWeek = weekData.filter(day => day.deleted === "Y")
+    const YweekSort = yWeek.sort((a,b) => {return b - a})
+    // console.log("Y:", YweekSort)
     const arr = []
     for (let i = 0; i < 7; i++) {
-      if (Yweek[i] === undefined) {
+      if (YweekSort[i] === undefined) {
         arr.unshift(0)
       } else {
-        arr.unshift(Yweek[i].count)
+        arr.unshift(YweekSort[i].count)
       }
     }
     return arr
   }
-  console.log(weekCancel())
+  // console.log(weekCancel())
 
   // 그래프 X 축 일자 출력
   const beforeWeek = () => {

@@ -20,7 +20,7 @@ const Sidebar = () => {
     if (localStorage.getItem("token") && isLogin === true) {
       getProfile()
         .then((res) => {
-          console.log("로그인 유지 성공!");
+          // console.log("로그인 유지 성공!");
           dispatch(userAction.setUser(res));
         })
         .catch((err) => {
@@ -43,7 +43,9 @@ const Sidebar = () => {
 
   return (
     <div className={styles.sidebar_container}>
-      <img src={logo} className={styles.logo} />
+      <Link to="/dashboard">
+        <img src={logo} className={styles.logo} />
+      </Link>
       <Link to="/profile">
         <img src="" className={styles.profile} />
       </Link>

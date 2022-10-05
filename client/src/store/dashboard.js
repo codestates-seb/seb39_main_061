@@ -4,7 +4,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     month: [{ deleted: 'N', date: '2022-09', count: 3 }],
     week: [{ deleted: 'N', date: '2022-09-26', count: 1 }],
-    time: [{ deleted: 'N', date: '8', count: 2 }],
+    time: [],
 };
 
 const dashboardSlice = createSlice({

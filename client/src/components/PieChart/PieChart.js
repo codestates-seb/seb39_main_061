@@ -1,9 +1,72 @@
 import Chart from "react-apexcharts";
+import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 const ApexChart = () => {
+  const timeData = useSelector(state => state.dashboard.time)
+  // console.log(timeData)
+  const [time, setTime] = useState([]);
 
+  useEffect(() => {
+    const nTime = timeData.filter(day => day.deleted === "N")
+    const nTimeSort = nTime.sort((a,b) => {return a - b})
+    console.log(nTimeSort)
+    const timeHandler = () => {
+      let hours = [];
+      for (let i = 0; i <= 7; i++) {
+        let date = nTimeSort[i].date
+        let count = nTimeSort[i].count
+        if (date > 21) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        if (date <= 21 && date > 18) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        if (date <= 18 && date > 15) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        if (date <= 15 && date > 12) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        if (date <= 12 && date > 9) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        if (date <= 9 && date > 6) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        if (date <= 6 && date > 3) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        if (date < 3) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        return setTime(hours)
+      }
+    }
+    console.log(timeHandler())
+    setTimeout(timeHandler, 500)
+  }, [])
+  console.log(time)
+  
   const donutData = {
-    series: [0, 0, 3, 6, 10, 2, 13, 1],
+    series: time,
+    // series: [0, 0, 3, 6, 10, 2, 13, 1],
     options: {
       chart: {
         type: 'donut',
