@@ -35,7 +35,6 @@
     "styled-components": "^5.3.6",
     "web-vitals": "^2.1.4"
   },
-  "proxy": "https://quick-book.cf",
   "scripts": {
     "start": "react-scripts start",
     "build": "env-cmd -f .env.production react-scripts build",
