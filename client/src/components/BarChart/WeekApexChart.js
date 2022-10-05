@@ -18,8 +18,7 @@ const WeekApexChart = () => {
   // 주간 예약자 통계
   const weekBook = () => {
     const nWeek = weekData.filter(day => day.deleted === "N")
-    const nWeekSort = nWeek.sort((a,b) => {return b - a})
-    // console.log("N:", nWeekSort)
+    const nWeekSort = nWeek.reverse()
     const arr = []
     for (let i = 0; i < 7; i++) {
       if (nWeekSort[i] === undefined) {

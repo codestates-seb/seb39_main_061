@@ -32,7 +32,7 @@ const Dashboard = () => {
   useEffect(() => {
     getDashboard(today)
     .then(res => {
-      // console.log(res)
+      console.log(res)
       dispatch(dashboardActions.setMonth(res.month))
       dispatch(dashboardActions.setWeek(res.week))
       dispatch(dashboardActions.setTime(res.time))

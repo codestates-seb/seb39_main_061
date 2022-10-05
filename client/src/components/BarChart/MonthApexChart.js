@@ -20,7 +20,7 @@ const MonthApexChart = () => {
   // 월간 예약자 통계
   const monthBook = () => {
     const nMonth = monthData.filter(month => month.deleted === "N")
-    const nMonthSort = nMonth.sort((a,b) => {return b - a})
+    const nMonthSort = nMonth.reverse()
     const arr = []
     for (let i = 0; i < 12; i++) {
       if (nMonthSort[i] === undefined) {

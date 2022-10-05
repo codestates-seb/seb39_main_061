@@ -4,18 +4,17 @@ import { useEffect, useState } from "react";
 
 const ApexChart = () => {
   const timeData = useSelector(state => state.dashboard.time)
-  // console.log(timeData)
+  console.log(timeData)
   const [time, setTime] = useState([]);
 
   useEffect(() => {
     const nTime = timeData.filter(day => day.deleted === "N")
-    const nTimeSort = nTime.sort((a,b) => {return a - b})
-    console.log(nTimeSort)
+    console.log(nTime)
     const timeHandler = () => {
       let hours = [];
       for (let i = 0; i <= 7; i++) {
-        let date = nTimeSort[i].date
-        let count = nTimeSort[i].count
+        let date = nTime[i].date
+        let count = nTime[i].count
         if (date > 21) {
           hours.unshift(count)
         } else {
@@ -61,7 +60,7 @@ const ApexChart = () => {
     }
     console.log(timeHandler())
     setTimeout(timeHandler, 500)
-  }, [])
+  }, [timeData])
   console.log(time)
   
   const donutData = {
