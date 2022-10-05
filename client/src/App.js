@@ -19,6 +19,10 @@ import { useEffect } from "react";
 import { userAction } from "./store/user.js";
 import "./app.css";
 import { getProfile } from "./api/services/user.js";
+import ReservationAdmin from "./pages/Reservation/ReservationAdmin/ReservationAdmin.js";
+import ReservationUser from "./pages/Reservation/ReservationUser/ReservationUser.js";
+import ReviewUser from "./pages/ReviewUser/ReviewUser.js";
+
 
 function App() {
   const url = process.env.REACT_APP_BASE_URL;
@@ -48,7 +52,12 @@ function App() {
             path="/management-Detail"
             element={<ManagementDetail />}
           ></Route>
+         
         )}
+         {isLogin && <Route path="/reservation-admin" element={<ReservationAdmin />}></Route>}
+         <Route path="/reservation-user" element={<ReservationUser />}></Route>
+         <Route path="/review-user" element={<ReviewUser />}></Route>
+
         {isLogin && <Route path="/userPage" element={<UserPage />}></Route>}
         {isLogin && (
           <Route path="store-management" element={<StoreManagement />}></Route>

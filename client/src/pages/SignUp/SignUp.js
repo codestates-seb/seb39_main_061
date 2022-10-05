@@ -1,13 +1,15 @@
 import { useRef, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
-import axios from "axios";
-import mainLogo from "../../assets/logo1.png";
 import naverLogo from "../../assets/naver-logo.png";
 import kakaoLogo from "../../assets/kakao-logo.png";
 import googleLogo from "../../assets/google-logo.png";
 import Modal from "../../components/Modal/Modal";
 import { emailCheck, signUpReq } from "../../api/services/auth";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { modalActions } from "../../store/modal";
+import { baseURL } from "../../api/axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -19,8 +21,9 @@ const SignUp = () => {
   const phoneNumRef = useRef();
   const businessNameRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
+  const isModalOpen = useSelector((state) => state.modal.isModalOpen);
   const [changeCSS, setChangeCSS] = useState(false);
+  const dispatch = useDispatch();
   useEffect(() => {
     setChangeCSS(true);
   }, [changeCSS]);
@@ -41,7 +44,6 @@ const SignUp = () => {
       let regEmail =
         /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
       const phoneCheck = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
-      const kor_check = /([^가-힣ㄱ-ㅎㅏ-ㅣ\x20])/i;
 
       if (email.length === 0) {
         setValidationMSG("이메일을 입력해주세요");
@@ -96,10 +98,11 @@ const SignUp = () => {
       try {
         signUpReq(email, password, name, businessName, phone);
         setIsLoading(false);
-        setModalOpen(true);
+        dispatch(modalActions.setIsModalOpen(true));
         setTimeout(() => {
           navigate("/login");
-        }, 3000);
+          dispatch(modalActions.setIsModalOpen(false));
+        }, 1500);
       } catch (err) {
         let errorMessage = err.error.message;
         alert(errorMessage);
@@ -176,19 +179,25 @@ const SignUp = () => {
 
         <div className={styles.signUp__form__oauth}>
           <div>
-            <a href="http://localhost:8080/login/oauth2/authorize/naver?redirect_uri=http://localhost:3000/oauth2/redirect">
+            <a
+              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=http://localhost:3000/oauth2/redirect`}
+            >
               <img src={naverLogo} alt="React" />
             </a>
           </div>
 
           <div>
-            <a href="http://localhost:8080/login/oauth2/authorize/kakao?redirect_uri=http://localhost:3000/oauth2/redirect">
+            <a
+              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=http://localhost:3000/oauth2/redirect`}
+            >
               <img src={kakaoLogo} alt="React" />
             </a>
           </div>
 
           <div>
-            <a href="http://localhost:8080/login/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect">
+            <a
+              href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect`}
+            >
               <img src={googleLogo} alt="React" />
             </a>
           </div>
@@ -200,7 +209,7 @@ const SignUp = () => {
             <button>취소</button>
           </Link>
         </div>
-        {modalOpen && <Modal num={1} setOpenModal={setModalOpen} />}
+        {isModalOpen && <Modal num={2} />}
       </form>
     </div>
   );

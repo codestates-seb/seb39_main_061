@@ -36,4 +36,12 @@ out/
 ### VS Code ###
 .vscode/
 
+### etc
 .DB_Store
+application-app.yml
+application-security.yml
+application-mail.yml
+application-file.yml
+application-sms.yml
+application.yml
+application-aws.yml

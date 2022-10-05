@@ -1,0 +1,59 @@
+.modalBackground {
+  position: absolute;
+  background: rgba(0, 0, 0, 0);
+  z-index: 1;
+  width: 100%;
+  margin-top: 400px;
+  margin-left: 30px;
+}
+
+.modalContainer {
+  width: 220px;
+  height: 280px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 25px;
+
+  animation: openModal 0.3s ease-in-out;
+}
+@keyframes openModal {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+    -webkit-transform: translateY(-20%);
+    -moz-transform: translateY(-20%);
+    -ms-transform: translateY(-20%);
+    -o-transform: translateY(-20%);
+    transform: translateY(-20%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+    -webkit-transform: translateY(0%);
+    -moz-transform: translateY(0%);
+    -ms-transform: translateY(0%);
+    -o-transform: translateY(0%);
+    transform: translateY(0%);
+  }
+}
+@media all and (min-width: 820px) {
+  .modalBackground {
+    margin-left: 30px;
+  }
+}
+
+@media all and (min-width: 1438px) {
+  .modalBackground {
+    margin-left: 0px;
+  }
+}
+
+@media all and (min-width: 2000px) {
+  .modalBackground {
+    margin-left: 0px;
+    margin-top: 400px;
+  }
+}

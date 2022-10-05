@@ -1,3 +1,4 @@
+import MenuInfo from "../../components/MenuInfo/MenuInfo.js";
 import React from "react";
 import SideBar from "../../components/Sidebar/Sidebar.js";
 import StoreInfo from "../../components/StoreInfo/StoreInfo.js";
@@ -9,9 +10,18 @@ const StoreManagement = () => {
   return (
     <main className={styles.container}>
       <SideBar />
+
       <div className={styles.StoreManagement}>
-        <h1>매장관리</h1>
+        <div className={styles.topNav}>
+          <h1>매장관리</h1>
+        </div>
+
         <StoreInfo />
+        <MenuInfo />
+
+        {/* {businessId && (
+         
+        )} */}
       </div>
     </main>
   );
