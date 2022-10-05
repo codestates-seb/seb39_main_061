@@ -64,8 +64,8 @@ const ApexChart = () => {
   // console.log(time)
   
   const donutData = {
-    series: time,
-    // series: [0, 0, 3, 6, 10, 2, 13, 1],
+    // series: time,
+    series: [0, 0, 3, 6, 10, 2, 13, 1],
     options: {
       chart: {
         type: 'donut',

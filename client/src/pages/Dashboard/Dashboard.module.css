@@ -1,0 +1,90 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.container {
+  display: flex;
+}
+
+.flex_container {
+  display: flex;
+  margin:77px 60px 0 60px;
+
+}
+
+.main_container {
+  /* flex-direction: column; */
+  /* display: flex; */
+  /* justify-content: space-between; */
+  /* width: 100%;
+  height: 100vh; */
+  /* align-items: center; */
+  margin-left: 270px;
+  grid-template-columns: 1fr 1fr 1.5fr;
+  grid-template-rows: 1fr 1fr;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  outline: none;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.componentSector {
+  width: 100%;
+  /* margin: 15px 15px;
+  padding: 20px 20px; */
+  border-radius: 10px;
+  align-items: stretch;
+}
+
+.component {
+  width: 100%;
+  
+}
+
+.componentEl{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+}
+
+.barChart {
+  width: 100%;
+  height: auto;
+}
+
+.barChartsBtn {
+  padding-left: 15px;
+  width: 100%;
+}
+
+.barChartsBtn > button {
+  padding: 6px 9px;
+  margin-right: 10px;
+  border: 0;
+  border-radius: 5px;
+  background-color: #dedddd;
+  /* background-color: #e69166; */
+  color: #256d85;
+  font: 11px arial;
+  font-size: 0.7rem;
+  cursor: pointer;
+  box-shadow: 1px 2px 0 rgb(0, 0, 0, 0.5);
+}
+.barChartsBtn > button:active {
+  background-color: #256d85;
+  color: white;
+  box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);
+}
+
+.h3 {
+  color: #2b4865;
+  margin-bottom: 20px;
+  width: 100%;
+  font-size: 20px;
+}
