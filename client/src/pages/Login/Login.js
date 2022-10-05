@@ -22,7 +22,7 @@ const Login = () => {
   const emailRef = useRef();
   const PWRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
-  const modalOpen = useSelector((state) => state.modal.isModalOpen);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const key = 0;
   const [changeCSS, setChangeCSS] = useState(false);
   useEffect(() => {
@@ -76,7 +76,7 @@ const Login = () => {
       setValidationMSG("");
       console.log(token);
       localStorage.setItem("token", token);
-      dispatch(modalActions.setIsModalOpen(true));
+      setIsModalOpen(true);
 
       //getProfile
       const userData = await getProfile();
@@ -129,7 +129,6 @@ const Login = () => {
               <img src={kakaoLogo} alt="React" />
             </a>
           </div>
-
           <div>
             <a
               href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=https://quickbook-bucket.s3.ap-northeast-2.amazonaws.com/oauth2/redirect`}
@@ -150,7 +149,7 @@ const Login = () => {
           </Link>
         </div>
       </form>
-      {modalOpen && <Modal num={key} />}
+      {isModalOpen && <Modal num={0} />}
     </div>
   );
 };

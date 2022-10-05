@@ -1,3 +1,4 @@
+import React from "react";
 import { useRef, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
@@ -180,15 +181,14 @@ const SignUp = () => {
         <div className={styles.signUp__form__oauth}>
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=http://localhost:3000/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=https://quickbook-bucket.s3.ap-northeast-2.amazonaws.com/oauth2/redirect`}
             >
               <img src={naverLogo} alt="React" />
             </a>
           </div>
-
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=http://localhost:3000/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=https://quickbook-bucket.s3.ap-northeast-2.amazonaws.com/oauth2/redirect`}
             >
               <img src={kakaoLogo} alt="React" />
             </a>
