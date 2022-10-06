@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
@@ -25,8 +25,8 @@ const MenuContainer = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 0px 70px 0px 70px;
-  width: 100%;
-  height: 50%;
+  width: 95%;
+  height: 600px;
   position: relative;
 `;
 const MenuTitle = styled.h1`
@@ -34,22 +34,42 @@ const MenuTitle = styled.h1`
   justify-content: flex-start;
   font-size: 20px;
   width: 100%;
+  color: #2b4865;
 `;
 
 const MenuItemContainer = styled.div`
   height: 100%;
-  width: 90%;
+  width: 98%;
   display: grid;
   place-items: center;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  animation: ${(props) => props.animation};
+  @keyframes slide-left {
+    from {
+      margin-left: 100%;
+    }
+
+    to {
+      margin-left: 0%;
+    }
+  }
+
+  @keyframes slide-right {
+    from {
+      margin-right: 100%;
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
 `;
 const MenuItem = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: 160px;
-  height: 190px;
+  width: 190px;
+  height: 220px;
   border-radius: 15px;
 `;
 
@@ -62,7 +82,7 @@ const MenuImg = styled.img`
   margin-bottom: 10px;
 
   ${MenuItem}:hover & {
-    opacity: 0.8;
+    opacity: 0.3;
   }
 `;
 const MenuName = styled.span`
@@ -108,8 +128,8 @@ const ImgButton = styled.button`
   display: none;
   justify-content: center;
   align-items: center;
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   outline: none;
   border-style: none;
   background-color: transparent;
@@ -118,10 +138,10 @@ const ImgButton = styled.button`
   color: ${(props) => props.color || "black"};
   position: absolute;
   margin-left: ${(props) => props.marginLeft};
-  margin-top: 55px;
+  margin-top: 65px;
 
   &:hover {
-    font-size: 45px;
+    font-size: 35px;
   }
 
   &:active {
@@ -155,6 +175,12 @@ const MenuInfo = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [menuId, setMenuId] = useState(0);
   const [modalNum, setModalNum] = useState(6);
+  const [changeCSS, setChangeCSS] = useState(true);
+  const [rightOrLeft, setRightOrLeft] = useState(false);
+
+  useEffect(() => {
+    setChangeCSS(true);
+  }, [changeCSS]);
 
   useEffect(() => {
     getBusinessInfo().then((res) => {
@@ -179,7 +205,7 @@ const MenuInfo = () => {
   const modalStyles = {
     overlay: {
       backgroundColor: "rgba(0,0,0,0.2)",
-      marginLeft: "310px",
+      marginLeft: "270px",
     },
     content: {
       marginLeft: "690px",
@@ -204,20 +230,26 @@ const MenuInfo = () => {
     <MenuContainer>
       <MenuTitle>메뉴 정보</MenuTitle>
 
-      <MenuItemContainer>
+      <MenuItemContainer
+        animation={
+          changeCSS && !rightOrLeft
+            ? "slide-left 1s ease-in-out"
+            : "slide-right 1s ease-in-out"
+        }
+      >
         {menuList.map((item, idx) => (
           <MenuItem key={item.menuId}>
             <MenuImg
               opacity={
-                "linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8))"
+                "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2))"
               }
               src={`${baseURL}${item.img}`}
             />
             <ImgButton
-              color={"tomato"}
-              fontSize={"40px"}
+              color={"#2b4865"}
+              fontSize={"30px"}
               display={"none"}
-              marginLeft={"40px"}
+              marginLeft={"55px"}
               onClick={() => {
                 editModalHandler(item.menuId);
               }}
@@ -226,8 +258,8 @@ const MenuInfo = () => {
             </ImgButton>
             <ImgButton
               color={"red"}
-              fontSize={"40px"}
-              marginLeft={"90px"}
+              fontSize={"30px"}
+              marginLeft={"110px"}
               display={"none"}
               onClick={() => {
                 setMenuId(item.menuId);
@@ -238,7 +270,7 @@ const MenuInfo = () => {
               <FontAwesomeIcon icon={faTrashCan} />
             </ImgButton>
             <MenuName>{item.name}</MenuName>
-            <MenuPrice>{item.price}</MenuPrice>
+            <MenuPrice>{item.price}원</MenuPrice>
           </MenuItem>
         ))}
         {empthyEle && (
@@ -253,6 +285,8 @@ const MenuInfo = () => {
             <MovePageBtn
               onClick={() => {
                 setPageNum(pageNum + 1);
+                setRightOrLeft(false);
+                setChangeCSS(false);
               }}
               marginRight={"80px"}
               right={"0px"}
@@ -264,6 +298,8 @@ const MenuInfo = () => {
           <MovePageBtn
             onClick={() => {
               setPageNum(pageNum + -1);
+              setRightOrLeft(true);
+              setChangeCSS(false);
             }}
             marginLeft={"80px"}
             left={"0px"}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import styles from "./StoreInfo.module.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,7 +12,6 @@ import { businessActions } from "../../store/business";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import ConfirmModal from "../Modal/Modal";
-import { modalActions } from "../../store/modal";
 import SlideModal from "../SlideModal/SlideModal";
 
 const StoreInfo = () => {
@@ -21,8 +20,7 @@ const StoreInfo = () => {
   const lon = useSelector((state) => state.map.lon);
   const startTime = useSelector((state) => state.business.startTime);
   const endTime = useSelector((state) => state.business.endTime);
-  const startOrEnd = useSelector((state) => state.business.startOrEnd);
-  const isModalOpen = useSelector((state) => state.modal.isModalOpen);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [canEdit, setCanEdit] = useState(false);
   const [name, setName] = useState("");
@@ -153,7 +151,7 @@ const StoreInfo = () => {
     if (res) {
       console.log("매장정보 수정?", res);
       setCanEdit(true);
-      dispatch(modalActions.setIsModalOpen(true));
+      setIsModalOpen(true);
       setTimeout(() => {
         window.location.reload();
       }, 1500);
@@ -184,7 +182,7 @@ const StoreInfo = () => {
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0,0,0,0.2)",
-      marginLeft: "310px",
+      marginLeft: "270px",
     },
     content: {
       marginLeft: "690px",
@@ -353,7 +351,7 @@ const StoreInfo = () => {
             </div>
             <div className={styles.storeInfo__input__grid5}>
               <div>
-                <span>전화번호 (-제외)</span>
+                <span>전화번호 () </span>
               </div>
               <input
                 onInput={(e) => {
@@ -368,7 +366,7 @@ const StoreInfo = () => {
                 spellCheck="false"
                 value={phone === null ? "" : phone}
                 onChange={phoneHandler}
-                placeholder="ex:0319473334"
+                placeholder="ex:031-947-3334"
                 className={
                   canEdit
                     ? (styles.grid5__input, styles.canEdit)

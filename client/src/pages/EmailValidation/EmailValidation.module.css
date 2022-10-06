@@ -5,3 +5,12 @@
   flex-direction: column;
   height: 100vh;
 }
+.EmailValidation p {
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.imageBox img {
+  margin-bottom: 40px;
+  width: 100%;
+}

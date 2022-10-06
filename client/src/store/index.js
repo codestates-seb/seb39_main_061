@@ -8,6 +8,7 @@ import mapReducer from "./map";
 import businessReducer from "./business";
 import modalReducer from "./modal";
 import menuReducer from "./menu";
+import dashboardReducer from "./dashboard";
 
 const reducers = combineReducers({
   user: userReducer,
@@ -16,6 +17,7 @@ const reducers = combineReducers({
   business: businessReducer,
   modal: modalReducer,
   menu: menuReducer,
+  dashboard: dashboardReducer,
 });
 
 const persistConfig = {

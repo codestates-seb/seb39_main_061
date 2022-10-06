@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useRef, useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
@@ -46,6 +46,23 @@ const SignUp = () => {
         /^([0-9a-zA-Z_\.-]+)@([0-9a-zA-Z_-]+)(\.[0-9a-zA-Z_-]+){1,2}$/;
       const phoneCheck = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
 
+      function strCheck(str, type) {
+        const REGEX = {
+          EMAIL: /\S+@\S+\.\S+/,
+          PWD_RULE: /^(?=.*[a-zA-Z])((?=.*\d)(?=.*\W)).{8,16}$/,
+          NAME_RULE: /^[가-힣a-zA-Z]+$/,
+        };
+        if (type === "email") {
+          return REGEX.EMAIL.test(str);
+        } else if (type === "pwd") {
+          return REGEX.PWD_RULE.test(str);
+        } else if (type === "name") {
+          return REGEX.NAME_RULE.test(str);
+        } else {
+          return false;
+        }
+      }
+
       if (email.length === 0) {
         setValidationMSG("이메일을 입력해주세요");
         return false;
@@ -64,6 +81,10 @@ const SignUp = () => {
 
       if (password.length === 0) {
         setValidationMSG("비밀번호를 입력해주세요");
+        return false;
+      }
+      if (strCheck(password, "pwd") === false) {
+        setValidationMSG("비밀번호는 8~16자 영문+숫자+특수문자로 입력해주세요");
         return false;
       }
       if (password !== confirmPassword) {
@@ -181,15 +202,14 @@ const SignUp = () => {
         <div className={styles.signUp__form__oauth}>
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=http://localhost:3000/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=https://quick-book.ml/oauth2/redirect`}
             >
               <img src={naverLogo} alt="React" />
             </a>
           </div>
-
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=http://localhost:3000/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=https://quick-book.ml/oauth2/redirect`}
             >
               <img src={kakaoLogo} alt="React" />
             </a>
@@ -197,7 +217,7 @@ const SignUp = () => {
 
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=https://quick-book.ml/oauth2/redirect`}
             >
               <img src={googleLogo} alt="React" />
             </a>
@@ -210,7 +230,7 @@ const SignUp = () => {
             <button>취소</button>
           </Link>
         </div>
-        {isModalOpen && <Modal num={2} />}
+        {isModalOpen && <Modal num={1} />}
       </form>
     </div>
   );

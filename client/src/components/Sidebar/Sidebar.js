@@ -20,7 +20,7 @@ const Sidebar = () => {
     if (localStorage.getItem("token") && isLogin === true) {
       getProfile()
         .then((res) => {
-          console.log("로그인 유지 성공!");
+          // console.log("로그인 유지 성공!");
           dispatch(userAction.setUser(res));
         })
         .catch((err) => {
@@ -29,25 +29,14 @@ const Sidebar = () => {
     }
   }, []);
 
-  const logoutHanlder = () => {
-    // deleteToken("token");
-    localStorage.removeItem("token");
-    dispatch(authActions.logout());
-    removeCookie("refresh");
-    console.log("로그아웃");
-    navigate("/login");
-  };
-  const purge = async () => {
-    await persistor.purge();
-  };
-
   return (
     <div className={styles.sidebar_container}>
-      <img src={logo} className={styles.logo} />
+      <Link to="/dashboard">
+        <img src={logo} className={styles.logo} />
+      </Link>
       <Link to="/profile">
         <img src="" className={styles.profile} />
       </Link>
-
       <div className={styles.btnContainer}>
         <Link to="/dashboard">
           <div className={styles.sidebarBtn}>
@@ -55,16 +44,10 @@ const Sidebar = () => {
           </div>
         </Link>
         <Link to="/create-Code">
-          <button className={styles.componentsBtn}>QR 코드 만들기</button>
-        </Link>
-        <Link to="/management">
           <button className={styles.componentsBtn}>QR 코드 관리</button>
         </Link>
         <Link to="/reservation-admin">
           <button className={styles.componentsBtn}>예약 관리</button>
-        </Link>
-        <Link to="/">
-          <button className={styles.componentsBtn}>메뉴 관리</button>
         </Link>
         <Link to="/store-management">
           <button className={styles.componentsBtn}>매장 관리</button>
@@ -72,7 +55,7 @@ const Sidebar = () => {
         <Link to="/">
           <button className={styles.componentsBtn}>리뷰 관리</button>
         </Link>
-        {isLogin && (
+        {/* {isLogin && (
           <button
             className={styles.componentsBtn}
             onClick={async () => {
@@ -80,9 +63,9 @@ const Sidebar = () => {
               await setTimeout(() => purge(), 200);
             }}
           >
-            로그아웃
+            LOGOUT
           </button>
-        )}
+        )} */}
       </div>
     </div>
   );
