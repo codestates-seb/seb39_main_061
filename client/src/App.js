@@ -28,7 +28,7 @@ function App() {
     <div className="App">
       <Routes>
         {!isLogin && <Route path="/" element={<MainPage />}></Route>}
-        {!isLogin && <Route path="/signup" element={<SignUp />}></Route>}ㅗㅍ
+        {!isLogin && <Route path="/signup" element={<SignUp />}></Route>}
         {!isLogin && <Route path="/login" element={<Login />}></Route>}
         {!isLogin && (
           <Route path="/find-password" element={<FindPassword />}></Route>
@@ -48,7 +48,10 @@ function App() {
             element={<ReservationAdmin />}
           ></Route>
         )}
-        <Route path="/reservation-user" element={<ReservationUser />}></Route>
+        <Route
+          path="/business/:id/qr-code/:id"
+          element={<ReservationUser />}
+        ></Route>
         <Route path="/review-user" element={<ReviewUser />}></Route>
         {isLogin && <Route path="/userPage" element={<UserPage />}></Route>}
         {isLogin && (

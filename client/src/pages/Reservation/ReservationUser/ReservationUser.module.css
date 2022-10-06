@@ -124,10 +124,11 @@ TD {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 350px;
+  height: 250px;
   position: fixed;
   width: 100%;
   bottom: 0px;
+  z-index: 1;
 }
 
 .form {
@@ -157,7 +158,7 @@ TD {
 }
 
 .submit label {
-  left: 1.7rem;
+  left: 2rem;
 }
 
 .input {
@@ -165,12 +166,14 @@ TD {
   height: 38px;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 0.5rem;
+  margin-left: 10px;
+  padding-left: 15px;
 }
 
 .label {
   position: absolute;
   left: 1.2rem;
-  top: 0.9rem;
+  top: 0.8rem;
   padding: 0 0.25rem;
   background-color: #fff;
   color: #80868b;
@@ -247,7 +250,7 @@ TD {
   width: 100%;
   height: auto;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 15px;
 }
 .logo img {
   width: 100px;
