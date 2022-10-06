@@ -12,6 +12,7 @@ services:
       - MYSQL_ROOT_PASSWORD=qr_service_app
       - MYSQL_DATABASE=qr
       - MYSQL_ROOT_HOST=%
+      - TZ=Asia/Seoul
     ports:
       - "3306:3306"
   backend:
