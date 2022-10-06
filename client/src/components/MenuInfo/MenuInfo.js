@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
@@ -174,7 +175,7 @@ const MenuInfo = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [menuId, setMenuId] = useState(0);
   const [modalNum, setModalNum] = useState(6);
-  const [changeCSS, setChangeCSS] = useState(false);
+  const [changeCSS, setChangeCSS] = useState(true);
   const [rightOrLeft, setRightOrLeft] = useState(false);
 
   useEffect(() => {

@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import { Link, Router } from "react-router-dom";
+import React from "react";
 
 const MainPage = () => {
   const isLogin = useSelector((state) => state.auth.isAuthenticated);

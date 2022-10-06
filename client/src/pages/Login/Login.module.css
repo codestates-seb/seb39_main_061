@@ -46,7 +46,6 @@
 
 .shake {
   animation: gelatine 0.5s ease-out;
-  
 }
 
 @keyframes gelatine {
@@ -135,6 +134,7 @@
 }
 .validationMSG {
   animation: gelatine 0.5s ease-out;
+  color: rgb(244, 101, 101);
 }
 
 .login__form__findPassword a:last-child p {
@@ -180,6 +180,7 @@
     object-fit: cover;
   }
   .validationMSG {
+    color: rgb(244, 101, 101);
     animation: gelatine 0.5s ease-out;
   }
 }

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
 import { useNavigate } from "react-router-dom";
 import { persistor } from "../../index";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { getProfile } from "../../api/services/user";
 import { userAction } from "../../store/user";
 import { useCookies } from "react-cookie";
@@ -28,18 +28,6 @@ const Sidebar = () => {
         });
     }
   }, []);
-
-  const logoutHanlder = () => {
-    // deleteToken("token");
-    localStorage.removeItem("token");
-    dispatch(authActions.logout());
-    removeCookie("refresh");
-    console.log("로그아웃");
-    navigate("/login");
-  };
-  const purge = async () => {
-    await persistor.purge();
-  };
 
   return (
     <div className={styles.sidebar_container}>
@@ -67,7 +55,7 @@ const Sidebar = () => {
         <Link to="/">
           <button className={styles.componentsBtn}>리뷰 관리</button>
         </Link>
-        {isLogin && (
+        {/* {isLogin && (
           <button
             className={styles.componentsBtn}
             onClick={async () => {
@@ -77,7 +65,7 @@ const Sidebar = () => {
           >
             LOGOUT
           </button>
-        )}
+        )} */}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import { userAction } from "../../store/user";
@@ -13,7 +13,6 @@ import Modal from "../../components/Modal/Modal";
 import { useEffect } from "react";
 import { getProfile } from "../../api/services/user";
 import { login } from "../../api/services/auth";
-import { modalActions } from "../../store/modal";
 import { baseURL } from "../../api/axios";
 
 const Login = () => {
@@ -23,7 +22,6 @@ const Login = () => {
   const PWRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const key = 0;
   const [changeCSS, setChangeCSS] = useState(false);
   useEffect(() => {
     setChangeCSS(true);

@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { businessActions } from "../../store/business";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 const TimePicker = ({ setOpen }) => {
   const startTime = useSelector((state) => state.business.startTime);
