@@ -1,6 +1,7 @@
+import React from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { findPassword } from "../../api/services/auth";
 import Modal from "../../components/Modal/Modal";
 

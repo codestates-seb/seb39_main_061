@@ -1,3 +1,4 @@
+import React from "react";
 import Chart from "react-apexcharts";
 import moment from 'moment';
 import styles from "./MonthApexChart.module.css";

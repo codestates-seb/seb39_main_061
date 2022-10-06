@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import React from "react";
+
 const Management = () => {
   return (
     <div>

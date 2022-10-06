@@ -10,7 +10,6 @@ const ProfileEdit = ({ setIsModal, isModal, setIsOkModalOpen }) => {
   const [newPassword, setNewPassword] = useState("");
   const [newName, setNewName] = useState("");
   const [phone, setPhone] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
   const [errMessage, setErrMessage] = useState("");
   const [image, setImage] = useState({});
   const [profile, setProfile] = useState({});

@@ -1,3 +1,4 @@
+import React from "react";
 import Chart from "react-apexcharts";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";

@@ -8,14 +8,13 @@ import Management from "./pages/Management/Management";
 import ManagementDetail from "./pages/ManagementDetail/ManagementDetail";
 import UserPage from "./pages/UserPage/UserPage";
 import MainPage from "./pages/MainPage/MainPage";
-import CreateCode from "./pages/CreateCode/CreateCode.js";
 import FindPassword from "./pages/FindPassword/FindPassword.js";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./store/auth.js";
 import EmailValidation from "./pages/EmailValidation/EmailValidation.js";
 import StoreManagement from "./pages/StoreManagement/StoreManagement";
 import Register from "./pages/Register/Register.js";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import { userAction } from "./store/user.js";
 import "./app.css";
 import { getProfile } from "./api/services/user.js";
@@ -43,9 +42,6 @@ function App() {
         )}
         {isLogin && (<Route path="/dashboard" element={<Dashboard />}></Route>)}
         {isLogin && <Route path="/profile" element={<Profile />}></Route>}
-        {isLogin && (
-          <Route path="/create-code" element={<CreateCode />}></Route>
-        )}
         {isLogin && <Route path="/management" element={<Management />}></Route>}
         {isLogin && (
           <Route
