@@ -8,7 +8,7 @@ import QRcodeManageDetail from "./../../components/QRmanageDetail/QRmanageDetail
 import { useDispatch, useSelector } from "react-redux";
 import { qrcodeActions } from "../../store/qrCode";
 import logo from "../../Img/logo.png";
-
+import Modal from "../../components/Modal/Modal"
 function CreateQr() {
   const [url, setUrl] = useState("");
   const [qr, setQr] = useState("");
@@ -22,6 +22,7 @@ function CreateQr() {
   const [dueDateErr, setDueDateErr] = useState();
   const [valueDate, onChange] = useState();
   const [errMessage, setErrMessage] = useState();
+  const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
   const qrcodeIdSelector = useSelector(state => state.qrcode.qrCodeId);
   const businessIdSelector = useSelector(state => state.qrcode.businessId);
@@ -120,10 +121,13 @@ function CreateQr() {
               return setErrMessage("QR 코드 명을 입력해주세요!")
             }
           })
+        setOpenModal(true)
+        setTimeout(() =>
+        window.location.reload(), 1500)
       }
-      
     );
   };
+  
 
   return (
     <div className={styles.qr__container}>
@@ -163,6 +167,7 @@ function CreateQr() {
       <h3 className={styles.subTitle}>QR Code 관리</h3>
       <div className={styles.qr__contents__container}>
         <QRcodeManageDetail />
+        {openModal && <Modal num={11} />}
       </div>
     </div>
   );

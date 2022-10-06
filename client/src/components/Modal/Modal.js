@@ -41,6 +41,8 @@ function Modal({ num, setIsConfirmModalOpen, menuId }) {
           )}
 
           <div className="success-text">
+            {num === 11 && <p>QR 코드가 생성되었습니다!</p>}
+            {num === 11 && <p></p>}
             {num === 9 && <p>재발급 메일이 발송되었습니다</p>}
             {num === 9 && <p>메일을 확인해주세요</p>}
             {num === 0 && <p>환영합니다</p>}
