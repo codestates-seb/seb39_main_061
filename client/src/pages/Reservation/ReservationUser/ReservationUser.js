@@ -126,7 +126,7 @@ function ReservationUser() {
                 연락처 -제외
               </label>
             </div>
-            <div className={styles.div}>
+            <div className={styles.submit}>
               <input
                 className={styles.input}
                 type="number"
@@ -141,7 +141,9 @@ function ReservationUser() {
                 등록
               </button>
             </div>
-            <img className={styles.logo} src={logo} alt="로고" />
+            <div className={styles.logo}>
+              <img src={logo} alt="로고" />
+            </div>
           </form>
         </div>
       </div>
