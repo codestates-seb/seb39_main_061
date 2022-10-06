@@ -116,24 +116,24 @@ const Login = () => {
         <div className={styles.login__form__oauth}>
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=https://quickbook-bucket.s3.ap-northeast-2.amazonaws.com/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=https://quick-book.ml/oauth2/redirect`}
             >
-              <img src={naverLogo} alt="React" />
+              <img src={naverLogo} alt="naverLogin" />
             </a>
           </div>
 
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=https://quickbook-bucket.s3.ap-northeast-2.amazonaws.com/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=https://quick-book.ml/redirect`}
             >
-              <img src={kakaoLogo} alt="React" />
+              <img src={kakaoLogo} alt="kakaoLogin" />
             </a>
           </div>
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=https://quickbook-bucket.s3.ap-northeast-2.amazonaws.com/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=https://quick-book.ml/oauth2/redirect`}
             >
-              <img src={googleLogo} alt="React" />
+              <img src={googleLogo} alt="googleLogin" />
             </a>
           </div>
         </div>
