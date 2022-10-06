@@ -60,7 +60,6 @@ const StoreInfo = () => {
   useEffect(() => {
     getBusinessInfo()
       .then((res) => {
-        console.log("비즈니스인포 제일 처음?", res.data.data);
         dispatch(businessActions.setBusinessId(res.data.data.businessId));
         setName(res.data.data.name);
         dispatch(businessActions.setCheckOpenTime(res.data.data.openTime));

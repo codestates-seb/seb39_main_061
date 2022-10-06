@@ -51,7 +51,7 @@ function ReservationUser() {
   };
 
   return (
-    <>
+    <div className={styles.reservationUser}>
       {/* const imgStr = get().respoonse[0].img // a.png
       <img className={styles.food} src={`${imgStr}`} /> */}
       <img className={styles.food} src={food} alt="대표음식" />
@@ -107,7 +107,7 @@ function ReservationUser() {
                 required="required"
                 placeholder=" "
               />
-              <label for="" className={styles.label}>
+              <label htmlFor="" className={styles.label}>
                 이름
               </label>
             </div>
@@ -122,7 +122,7 @@ function ReservationUser() {
                 placeholder=" "
                 onChange={handlePhone}
               />
-              <label for="" className={styles.label}>
+              <label htmlFor="" className={styles.label}>
                 연락처 -제외
               </label>
             </div>
@@ -134,7 +134,7 @@ function ReservationUser() {
                 required="required"
                 placeholder=" "
               />
-              <label for="" className={styles.label}>
+              <label htmlFor="" className={styles.label}>
                 인원 수
               </label>
               <button className={styles.button_res} type="submit">
@@ -145,7 +145,7 @@ function ReservationUser() {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
