@@ -25,7 +25,7 @@ const MenuContainer = styled.div`
   flex-direction: column;
   padding: 0px 70px 0px 70px;
   width: 95%;
-  height: 50%;
+  height: 600px;
   position: relative;
 `;
 const MenuTitle = styled.h1`
@@ -33,6 +33,7 @@ const MenuTitle = styled.h1`
   justify-content: flex-start;
   font-size: 20px;
   width: 100%;
+  color: #2b4865;
 `;
 
 const MenuItemContainer = styled.div`
@@ -42,13 +43,32 @@ const MenuItemContainer = styled.div`
   place-items: center;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  animation: ${(props) => props.animation};
+  @keyframes slide-left {
+    from {
+      margin-left: 100%;
+    }
+
+    to {
+      margin-left: 0%;
+    }
+  }
+
+  @keyframes slide-right {
+    from {
+      margin-right: 100%;
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
 `;
 const MenuItem = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: 160px;
-  height: 190px;
+  width: 190px;
+  height: 220px;
   border-radius: 15px;
 `;
 
@@ -61,7 +81,7 @@ const MenuImg = styled.img`
   margin-bottom: 10px;
 
   ${MenuItem}:hover & {
-    opacity: 0.8;
+    opacity: 0.3;
   }
 `;
 const MenuName = styled.span`
@@ -117,7 +137,7 @@ const ImgButton = styled.button`
   color: ${(props) => props.color || "black"};
   position: absolute;
   margin-left: ${(props) => props.marginLeft};
-  margin-top: 55px;
+  margin-top: 65px;
 
   &:hover {
     font-size: 35px;
@@ -154,6 +174,12 @@ const MenuInfo = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [menuId, setMenuId] = useState(0);
   const [modalNum, setModalNum] = useState(6);
+  const [changeCSS, setChangeCSS] = useState(false);
+  const [rightOrLeft, setRightOrLeft] = useState(false);
+
+  useEffect(() => {
+    setChangeCSS(true);
+  }, [changeCSS]);
 
   useEffect(() => {
     getBusinessInfo().then((res) => {
@@ -203,7 +229,13 @@ const MenuInfo = () => {
     <MenuContainer>
       <MenuTitle>메뉴 정보</MenuTitle>
 
-      <MenuItemContainer>
+      <MenuItemContainer
+        animation={
+          changeCSS && !rightOrLeft
+            ? "slide-left 1s ease-in-out"
+            : "slide-right 1s ease-in-out"
+        }
+      >
         {menuList.map((item, idx) => (
           <MenuItem key={item.menuId}>
             <MenuImg
@@ -213,10 +245,10 @@ const MenuInfo = () => {
               src={`${baseURL}${item.img}`}
             />
             <ImgButton
-              color={"tomato"}
+              color={"#2b4865"}
               fontSize={"30px"}
               display={"none"}
-              marginLeft={"40px"}
+              marginLeft={"55px"}
               onClick={() => {
                 editModalHandler(item.menuId);
               }}
@@ -226,7 +258,7 @@ const MenuInfo = () => {
             <ImgButton
               color={"red"}
               fontSize={"30px"}
-              marginLeft={"90px"}
+              marginLeft={"110px"}
               display={"none"}
               onClick={() => {
                 setMenuId(item.menuId);
@@ -252,6 +284,8 @@ const MenuInfo = () => {
             <MovePageBtn
               onClick={() => {
                 setPageNum(pageNum + 1);
+                setRightOrLeft(false);
+                setChangeCSS(false);
               }}
               marginRight={"80px"}
               right={"0px"}
@@ -263,6 +297,8 @@ const MenuInfo = () => {
           <MovePageBtn
             onClick={() => {
               setPageNum(pageNum + -1);
+              setRightOrLeft(true);
+              setChangeCSS(false);
             }}
             marginLeft={"80px"}
             left={"0px"}
