@@ -35,17 +35,19 @@
   display: flex;
   flex-direction: row;
   justify-content:stretch;
-  margin-left: 1.6rem;
+  margin-left: 0.5rem;
   margin-top: 2rem;
+  margin-bottom: 1rem;
 }
 
 
 .tables {
   min-height: 200px;
+ 
 }
 
 .table {
-    
+   
     width: 966px;
     text-align: center;
     font-size: 0.9em;
@@ -66,16 +68,6 @@
   
     
 }
-
-.tr {
-   
-  
-  
-    
-    
-}
-
-
 
 .th {
   

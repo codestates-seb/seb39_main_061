@@ -28,7 +28,7 @@ function ReservationUser() {
 
     setInterval(() => {
       axiosData();
-    }, 60000);
+    }, 180000);
     // eslint-disable-next-line
   }, []);
 

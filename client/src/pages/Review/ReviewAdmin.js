@@ -7,7 +7,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 function ReviewAdmin() {
   const [review, setReview] = useState([]);
   const [businessId, setBusinessId] = useState("");
-
+  const [storeName, setStoreName] = useState("");
   useEffect(() => {
     axiosData();
     // eslint-disable-next-line
@@ -17,6 +17,7 @@ function ReviewAdmin() {
     getBusInfo()
       .then((res) => {
         setBusinessId(res.data.data.businessId);
+        setStoreName(res.data.data.name);
       })
 
       .then(() => {
@@ -35,9 +36,9 @@ function ReviewAdmin() {
   return (
     <div className={styles.container}>
       <Sidebar />
-
       <div className={styles.pages}>
         <div className={styles.title}>리뷰 관리</div>
+        <div className={styles.subtitle}>{storeName}</div>
         <div className={styles.tables}>
           <table className={styles.table}>
             <tbody className={styles.tbody}>

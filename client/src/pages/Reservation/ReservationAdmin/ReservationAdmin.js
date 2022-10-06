@@ -66,19 +66,18 @@ function ReservationAdmin() {
   }
 
   function deleteUser(reservationId, name, phone) {
-    if (modalInput === phone) {
-      deleteAdminRes(businessId, 1, reservationId)
-        .then((res) => {
-          //console.log(res.message);
-          return axiosData();
-        })
-        .catch((err) => {});
-      alert(`${name}님의 예약이 삭제되었습니다.`);
-      closeModal();
-      setModalInput("");
-    } else window.confirm("연락처가 일치하지 않습니다.");
+    deleteAdminRes(businessId, 1, reservationId)
+      .then((res) => {
+        //console.log(res.message);
+        return axiosData();
+      })
+      .catch((err) => {});
+    alert(`${name}님의 예약이 삭제되었습니다.`);
+    // closeModal();
+    // setModalInput("");
+    // window.confirm("연락처가 일치하지 않습니다.");
 
-    setModalInput("");
+    // setModalInput("");
   }
 
   return (
@@ -127,39 +126,32 @@ function ReservationAdmin() {
                             className={styles.trash}
                             size="25"
                             color="#256D85"
-                            onClick={openModal}
-                          ></HiTrash>
+                            onClick={() =>
+                              deleteUser(re.reservationId, re.name, re.phone)
+                            }
+                          >
+                            확인
+                          </HiTrash>
 
-                          <Modal
+                          {/* <Modal
                             open={modalOpen}
                             close={closeModal}
                             header="예약 연락처를 입력하세요"
-                          >
-                            <main>
-                              <input
-                                key={re.id}
-                                type="tel"
-                                name="modal_input"
-                                required="required"
-                                value={modalInput}
-                                onChange={onModal}
-                                className={styles.input_modal}
-                                placeholder="연락처 입력 -제외"
-                              />
-                              <button
-                                onClick={() =>
-                                  deleteUser(
-                                    re.reservationId,
-                                    re.name,
-                                    re.phone
-                                  )
-                                }
-                                className={styles.button_confirm}
-                              >
-                                확인
-                              </button>
-                            </main>
-                          </Modal>
+                          > */}
+                          {/* <main>
+                            <input
+                              key={re.id}
+                              type="tel"
+                              name="modal_input"
+                              required="required"
+                              value={modalInput}
+                              onChange={onModal}
+                              className={styles.input_modal}
+                              placeholder="연락처 입력 -제외"
+                            />
+                           
+                          </main> */}
+                          {/* </Modal> */}
                         </td>
                       </tr>
                     );
