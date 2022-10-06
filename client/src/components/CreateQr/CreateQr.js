@@ -124,7 +124,6 @@ function CreateQr() {
       
     );
   };
-  console.log(body.dueDate)
 
   return (
     <div className={styles.qr__container}>
