@@ -10,14 +10,13 @@ import { getUserResList } from "../../api/services/reservation-user";
 
 function ReviewUser() {
   const [review, setReview] = useState([]);
-
-  const [lat, setLat] = useState(0);
-  const [lng, setLng] = useState(0);
+  const [lat, setLat] = useState(33.450701);
+  const [lng, setLng] = useState(126.570667);
   const [isLoading, setIsLoading] = useState(true);
 
   const axiosData = async () => {
     try {
-      getUserResList(7, 1).then((res) => {
+      getUserResList(1, 1).then((res) => {
         console.log(res.data);
         setReview(res.data);
       });
@@ -27,7 +26,7 @@ function ReviewUser() {
   };
 
   useEffect(() => {
-    getUserResList(7, 1).then((res) => {
+    getUserResList(1, 1).then((res) => {
       console.log("리스트", res);
     });
     console.log(businessId);
@@ -35,12 +34,13 @@ function ReviewUser() {
     let path = window.location.pathname;
     path = path.split("/");
     const businessId = path[3];
+    console.log("비즈니스", businessId);
     getBusinessInfoUser(businessId).then((res) => {
       console.log("매장정보", res.data.data);
+      setIsLoading(false);
       if (res.data.data.lat !== 0 && res.data.data.lng !== 0) {
         setLat(res.data.data.lon);
         setLng(res.data.data.lat);
-        setIsLoading(false);
       }
     });
 
