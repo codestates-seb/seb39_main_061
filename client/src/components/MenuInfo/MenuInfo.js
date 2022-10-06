@@ -8,8 +8,9 @@ import RegisterMenu from "../RegisterMenu/RegisterMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { getBusinessInfo } from "../../api/services/store";
 import { businessActions } from "../../store/business";
-import { baseURL } from "../../api/axios";
+import { imgURL } from "../../api/axios";
 import { menuActions } from "../../store/menu";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
@@ -239,7 +240,7 @@ const MenuInfo = () => {
               opacity={
                 "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2))"
               }
-              src={`${baseURL}${item.img}`}
+              src={`${imgURL}${item.img}`}
             />
             <ImgButton
               color={"#2b4865"}
