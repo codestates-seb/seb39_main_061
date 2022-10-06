@@ -29,7 +29,7 @@ const Sidebar = () => {
         <img src={logo} alt="logo" className={styles.logo} />
       </Link>
       <Link to="/profile">
-        <img src="" alt="logo" className={styles.profile} />
+        <img src="" className={styles.profile} />
       </Link>
       <div className={styles.btnContainer}>
         <Link to="/dashboard">
