@@ -78,3 +78,8 @@ export const emailCheck = (email) => {
       return console.log(err);
     });
 };
+export const findPassword = (email) => {
+  return axios.post(`${baseURL}/auth/password`, {
+    email,
+  });
+};

@@ -34,7 +34,7 @@ public class FileSystemStorageService implements StorageService {
       }
       if(multipartFile.getSize() != 0) {
         StringBuffer fileName = new StringBuffer(Objects.requireNonNull(multipartFile.getOriginalFilename()));
-        fileName.replace(0, fileName.indexOf("."), UUID.randomUUID().toString());
+        fileName.replace(0, fileName.lastIndexOf("."), UUID.randomUUID().toString());
         Path savePath = Paths.get(new File(uploadPath.toString()) + "/" + fileName);
         multipartFile.transferTo(savePath);
         return dbPath + path + "/" + fileName;

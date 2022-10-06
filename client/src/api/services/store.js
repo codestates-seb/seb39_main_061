@@ -31,3 +31,6 @@ export const getBusinessInfo = () => {
     },
   });
 };
+export const getBusinessInfoUser = (businessId) => {
+  return axios.get(`${baseURL}/business/${businessId}`);
+};

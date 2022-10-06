@@ -13,6 +13,7 @@ import Modal from "../../components/Modal/Modal";
 import { useEffect } from "react";
 import { getProfile } from "../../api/services/user";
 import { login } from "../../api/services/auth";
+import { baseURL } from "../../api/axios";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -20,8 +21,7 @@ const Login = () => {
   const emailRef = useRef();
   const PWRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
-  const key = 0;
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [changeCSS, setChangeCSS] = useState(false);
   useEffect(() => {
     setChangeCSS(true);
@@ -74,7 +74,7 @@ const Login = () => {
       setValidationMSG("");
       console.log(token);
       localStorage.setItem("token", token);
-      setModalOpen(true);
+      setIsModalOpen(true);
 
       //getProfile
       const userData = await getProfile();
@@ -83,7 +83,7 @@ const Login = () => {
       setTimeout(() => {
         dispatch(authActions.login());
         navigate("/dashboard");
-      }, 3000);
+      }, 1500);
     }
   };
 
@@ -113,20 +113,25 @@ const Login = () => {
 
         <div className={styles.login__form__oauth}>
           <div>
-            <a href="http://localhost:8080/login/oauth2/authorize/naver?redirect_uri=http://localhost:3000/oauth2/redirect">
-              <img src={naverLogo} alt="React" />
+            <a
+              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=https://quick-book.ml/oauth2/redirect`}
+            >
+              <img src={naverLogo} alt="naverLogin" />
             </a>
           </div>
 
           <div>
-            <a href="http://localhost:8080/login/oauth2/authorize/kakao?redirect_uri=http://localhost:3000/oauth2/redirect">
-              <img src={kakaoLogo} alt="React" />
+            <a
+              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=https://quick-book.ml/redirect`}
+            >
+              <img src={kakaoLogo} alt="kakaoLogin" />
             </a>
           </div>
-
           <div>
-            <a href="http://localhost:8080/login/oauth2/authorize/google?redirect_uri=http://localhost:3000/oauth2/redirect">
-              <img src={googleLogo} alt="React" />
+            <a
+              href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=https://quick-book.ml/oauth2/redirect`}
+            >
+              <img src={googleLogo} alt="googleLogin" />
             </a>
           </div>
         </div>
@@ -142,7 +147,7 @@ const Login = () => {
           </Link>
         </div>
       </form>
-      {modalOpen && <Modal num={key} setOpenModal={setModalOpen} />}
+      {isModalOpen && <Modal num={0} />}
     </div>
   );
 };

@@ -1,4 +1,45 @@
 .header_container {
-  width: 1254px;
-  height: 111px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  height: 112px;
+}
+
+.h2 {
+  font-size: 2.3rem;
+  text-shadow: 1px 1px 1px gray;
+  color: #2b4a66;
+}
+
+.imgPreview {
+  transform: translate(50, 50);
+  width: 70px;
+  height: auto;
+  border-radius: 100%;
+  cursor: pointer;
+  object-fit: cover;
+}
+
+.componentsBtn {
+  border: 0;
+  /* border-radius: 30px; */
+  padding-bottom: 5px;
+  margin: 5px 15px 0px 0;
+  font-size: 1.2rem;
+  color: tomato;
+  background: transparent;
+  cursor: pointer;
+  height: 27px;
+  
+}
+
+.componentsBtn:hover {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.header_imgLogoutWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

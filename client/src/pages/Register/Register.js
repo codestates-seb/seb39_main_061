@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate, Link } from "react-router-dom";
@@ -17,7 +17,7 @@ const Register = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [validationMSG, setValidationMSG] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
+  const [modalOpen, setIsModalOpen] = useState(false);
   const [page, setPage] = useState("register");
   const [changeCSS, setChangeCSS] = useState(false);
   useEffect(() => {
@@ -38,11 +38,11 @@ const Register = () => {
       localStorage.setItem("token", token);
       // const userData = await getProfile();
       // dispatch(userAction.setUser(userData));
-      setModalOpen(true);
+      setIsModalOpen(true);
       setTimeout(() => {
         navigate("/dashboard");
         dispatch(authActions.login());
-      }, 3000);
+      }, 1500);
     }
   };
 
@@ -88,11 +88,10 @@ const Register = () => {
       setValidationMSG("");
       console.log("추가전송");
       localStorage.setItem("token", res.data.data.accessToken);
-      setModalOpen(true);
+      setIsModalOpen(true);
       setTimeout(() => {
-        dispatch(authActions.login());
-        navigate("/dashboard");
-      }, 3000);
+        navigate("/login");
+      }, 1500);
     }
   };
 
@@ -143,7 +142,12 @@ const Register = () => {
           </div>
         </div>
       )}
-      {modalOpen && <Modal num={2} setOpenModal={setModalOpen} />}
+      {modalOpen && (
+        <Modal
+          num={oauthValidation === true ? 0 : 2}
+          setIsModalOpen={setIsModalOpen}
+        />
+      )}
     </div>
   );
 };

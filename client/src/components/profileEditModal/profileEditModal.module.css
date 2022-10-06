@@ -2,93 +2,94 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
- }
+}
 
- .container {
+.container {
   display: flex;
   justify-content: flex-start;
- }
+}
 
- .main_container {
+.main_container {
   width: 1130px;
   height: 100vh;
   margin-left: 40px;
 }
 
 .contents_container {
+  border: 2px solid rgba(0, 0, 0, 0.4);
+  border-radius: 30px;
+  padding: 50px;
+  height: 700px;
+  width: 550px;
   display: flex;
+  justify-content: center;
   align-items: center;
-  font-size: 1.5rem;
+  flex-direction: column;
 }
 
-
-.title {
-  margin: 60px 0 20px 15px;
+.profile_container {
+  margin-top: 50px;
 }
 
-.imgWrapper {
-  position: relative;
-  width: 330px;
-  height: 330px;
-}
-
-.imgPreview {
-  /* border-radius: 100%; */
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform: translate(50, 50);
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  margin: auto;
-  border-radius: 100%;
+.imgWrapper img {
+  width: 220px;
+  height: 220px;
+  margin-bottom: 40px;
+  border-radius: 50%;
 }
 
 .imgPlusBtn {
-  width:75px;
-  height:75px;
+  width: 60px;
+  height: 60px;
   border: 0;
   outline: 0;
   background-color: transparent;
   position: absolute;
-  left: 605px;
-  top: 350px;
+  left: 1140px;
+  top: 380px;
 }
 
 .imgPlus {
   width: 100%;
 }
 .imgPlus:active {
-  transform: scale(.9);
+  transform: scale(0.9);
 }
 
 .contents_info {
-  margin-left: 120px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
 }
 
 .contents_text {
-  margin : 16px 0;
+  margin-bottom: 25px;
+}
+.contents_text input {
+  border-radius: 15px;
 }
 
-.btn{
+.btn {
   width: 80px;
-  height: 34px;
+  height: 40px;
   border: 0;
   outline: 0;
-  border-radius: 10px;
+  border-radius: 15px;
   color: white;
-  background-color: #256D86;
+  background-color: #256d86;
   font-size: 1.2rem;
-  box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
+  box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);
   margin-right: 20px;
+  margin-left: 20px;
   margin-top: 20px;
 }
 .btn:hover {
-  transform:scale(1.03);
+  transform: scale(1.03);
 }
 .btn:active {
-  transform: scale(.98);
+  transform: scale(0.98);
 }
 
 .input {
@@ -101,7 +102,14 @@
 }
 
 .errMsg {
+  display: flex;
+  justify-content: center;
   color: rgb(244, 101, 101);
   font-style: italic;
   font-size: 1rem;
+  width: 100%;
+}
+
+.bottomBtn {
+  display: flex;
 }

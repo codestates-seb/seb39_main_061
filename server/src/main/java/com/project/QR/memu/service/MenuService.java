@@ -3,7 +3,7 @@ package com.project.QR.memu.service;
 import com.project.QR.business.service.BusinessService;
 import com.project.QR.exception.BusinessLogicException;
 import com.project.QR.exception.ExceptionCode;
-import com.project.QR.file.service.FileSystemStorageService;
+import com.project.QR.file.service.StorageService;
 import com.project.QR.memu.entity.Menu;
 import com.project.QR.memu.repository.MenuRepository;
 import com.project.QR.util.CustomBeanUtils;
@@ -23,7 +23,7 @@ import java.util.Optional;
 public class MenuService {
   private final MenuRepository menuRepository;
   private final BusinessService businessService;
-  private final FileSystemStorageService fileSystemStorageService;
+  private final StorageService storageService;
   private final CustomBeanUtils<Menu> beanUtils;
 
   /**
@@ -33,7 +33,7 @@ public class MenuService {
     businessService.existBusiness(menu.getBusiness().getBusinessId(), menu.getBusiness().getMember().getMemberId());
 
     if(!multipartFile.isEmpty()) {
-      menu.setImg(fileSystemStorageService.store(multipartFile,
+      menu.setImg(storageService.store(multipartFile,
         String.format("%d/menu", menu.getBusiness().getMember().getMemberId())));
     }
     return menuRepository.save(menu);
@@ -47,9 +47,9 @@ public class MenuService {
     Menu findMenu = findVerifiedMenu(menu.getMenuId(), menu.getBusiness().getBusinessId());
     if(!multipartFile.isEmpty()) {
       if(findMenu.getImg() != null) {
-        fileSystemStorageService.remove(findMenu.getImg());
+        storageService.remove(findMenu.getImg());
       }
-      menu.setImg(fileSystemStorageService.store(multipartFile,
+      menu.setImg(storageService.store(multipartFile,
         String.format("%d/menu", menu.getBusiness().getMember().getMemberId())));
     }
     Menu updatingMenu = beanUtils.copyNonNullProperties(menu, findMenu);
@@ -89,7 +89,7 @@ public class MenuService {
     businessService.existBusiness(businessId, memberId);
     Menu menu = findVerifiedMenu(menuId, businessId);
     if(menu.getImg() != null)
-      fileSystemStorageService.remove(menu.getImg());
+      storageService.remove(menu.getImg());
     menuRepository.delete(menu);
   }
 

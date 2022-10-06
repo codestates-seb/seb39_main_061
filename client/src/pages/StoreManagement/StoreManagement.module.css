@@ -6,10 +6,36 @@
 
 .container {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
+  width: 100vw;
 }
 .StoreManagement {
-  display: flex;
   flex-direction: column;
-  width: 100vw;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  align-items: center;
+  margin-left: 270px;
+}
+
+.menuInfo {
+  height: 50%;
+}
+.topNav {
+  height: 10%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media all and (max-width: 920px) {
+  .StoreManagement {
+    margin-left: 140px;
+  }
+}
+@media all and (max-width: 400px) {
+  .StoreManagement {
+    margin-left: 0px;
+  }
 }
