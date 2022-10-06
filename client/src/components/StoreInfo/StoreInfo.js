@@ -1,3 +1,4 @@
+import React from "react";
 import styles from "./StoreInfo.module.css";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +12,6 @@ import { businessActions } from "../../store/business";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import ConfirmModal from "../Modal/Modal";
-import { modalActions } from "../../store/modal";
 import SlideModal from "../SlideModal/SlideModal";
 
 const StoreInfo = () => {
@@ -20,7 +20,6 @@ const StoreInfo = () => {
   const lon = useSelector((state) => state.map.lon);
   const startTime = useSelector((state) => state.business.startTime);
   const endTime = useSelector((state) => state.business.endTime);
-  const startOrEnd = useSelector((state) => state.business.startOrEnd);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [canEdit, setCanEdit] = useState(false);
@@ -61,7 +60,6 @@ const StoreInfo = () => {
   useEffect(() => {
     getBusinessInfo()
       .then((res) => {
-        console.log("비즈니스인포 제일 처음?", res.data.data);
         dispatch(businessActions.setBusinessId(res.data.data.businessId));
         setName(res.data.data.name);
         dispatch(businessActions.setCheckOpenTime(res.data.data.openTime));
@@ -352,7 +350,7 @@ const StoreInfo = () => {
             </div>
             <div className={styles.storeInfo__input__grid5}>
               <div>
-                <span>전화번호 </span>
+                <span>전화번호 () </span>
               </div>
               <input
                 onInput={(e) => {

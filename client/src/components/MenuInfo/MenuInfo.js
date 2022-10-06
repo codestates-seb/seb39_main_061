@@ -1,3 +1,4 @@
+import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import styled from "styled-components";
@@ -7,8 +8,9 @@ import RegisterMenu from "../RegisterMenu/RegisterMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { getBusinessInfo } from "../../api/services/store";
 import { businessActions } from "../../store/business";
-import { baseURL } from "../../api/axios";
+import { imgURL } from "../../api/axios";
 import { menuActions } from "../../store/menu";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faArrowRight,
@@ -25,7 +27,7 @@ const MenuContainer = styled.div`
   flex-direction: column;
   padding: 0px 70px 0px 70px;
   width: 95%;
-  height: 50%;
+  height: 600px;
   position: relative;
 `;
 const MenuTitle = styled.h1`
@@ -33,6 +35,7 @@ const MenuTitle = styled.h1`
   justify-content: flex-start;
   font-size: 20px;
   width: 100%;
+  color: #2b4865;
 `;
 
 const MenuItemContainer = styled.div`
@@ -42,13 +45,32 @@ const MenuItemContainer = styled.div`
   place-items: center;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  animation: ${(props) => props.animation};
+  @keyframes slide-left {
+    from {
+      margin-left: 220%;
+    }
+
+    to {
+      margin-left: 0%;
+    }
+  }
+
+  @keyframes slide-right {
+    from {
+      margin-right: 220%;
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
 `;
 const MenuItem = styled.div`
   display: flex;
   flex-direction: column;
 
-  width: 160px;
-  height: 190px;
+  width: 190px;
+  height: 220px;
   border-radius: 15px;
 `;
 
@@ -61,7 +83,7 @@ const MenuImg = styled.img`
   margin-bottom: 10px;
 
   ${MenuItem}:hover & {
-    opacity: 0.8;
+    opacity: 0.3;
   }
 `;
 const MenuName = styled.span`
@@ -117,7 +139,7 @@ const ImgButton = styled.button`
   color: ${(props) => props.color || "black"};
   position: absolute;
   margin-left: ${(props) => props.marginLeft};
-  margin-top: 55px;
+  margin-top: 65px;
 
   &:hover {
     font-size: 35px;
@@ -154,14 +176,18 @@ const MenuInfo = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [menuId, setMenuId] = useState(0);
   const [modalNum, setModalNum] = useState(6);
+  const [changeCSS, setChangeCSS] = useState(true);
+  const [rightOrLeft, setRightOrLeft] = useState(false);
+
+  useEffect(() => {
+    setChangeCSS(true);
+  }, [changeCSS]);
 
   useEffect(() => {
     getBusinessInfo().then((res) => {
       dispatch(businessActions.setBusinessId(res.data.data.businessId));
-      console.log("비즈니스 받아옴", res.data.data.businessId);
       getMenuList(res.data.data.businessId, pageNum).then((res) => {
         setTotalPage(res.data.pageInfo.totalPages);
-        console.log("메뉴 리스트 받아옴", res);
         dispatch(menuActions.setMenuList(res.data.data));
         setEmpthyEle(res.data.data.length !== 10);
       });
@@ -174,7 +200,6 @@ const MenuInfo = () => {
   const confirmModalToggle = () => {
     setIsConfirmModalOpen(!isConfirmModalOpen);
   };
-  console.log("총 페이지수는?", totalPage);
   const modalStyles = {
     overlay: {
       backgroundColor: "rgba(0,0,0,0.2)",
@@ -197,26 +222,31 @@ const MenuInfo = () => {
     setModalNum(6);
     setIsModalOpen(!isModalOpen);
   };
-  console.log("에딧 상태", isEdit);
 
   return (
     <MenuContainer>
       <MenuTitle>메뉴 정보</MenuTitle>
 
-      <MenuItemContainer>
+      <MenuItemContainer
+        animation={
+          changeCSS && !rightOrLeft
+            ? "slide-left 1s ease-in-out"
+            : "slide-right 1s ease-in-out"
+        }
+      >
         {menuList.map((item, idx) => (
           <MenuItem key={item.menuId}>
             <MenuImg
               opacity={
                 "linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2))"
               }
-              src={`${baseURL}${item.img}`}
+              src={`${imgURL}${item.img}`}
             />
             <ImgButton
-              color={"tomato"}
+              color={"#2b4865"}
               fontSize={"30px"}
               display={"none"}
-              marginLeft={"40px"}
+              marginLeft={"55px"}
               onClick={() => {
                 editModalHandler(item.menuId);
               }}
@@ -226,7 +256,7 @@ const MenuInfo = () => {
             <ImgButton
               color={"red"}
               fontSize={"30px"}
-              marginLeft={"90px"}
+              marginLeft={"110px"}
               display={"none"}
               onClick={() => {
                 setMenuId(item.menuId);
@@ -252,6 +282,8 @@ const MenuInfo = () => {
             <MovePageBtn
               onClick={() => {
                 setPageNum(pageNum + 1);
+                setRightOrLeft(false);
+                setChangeCSS(false);
               }}
               marginRight={"80px"}
               right={"0px"}
@@ -263,6 +295,8 @@ const MenuInfo = () => {
           <MovePageBtn
             onClick={() => {
               setPageNum(pageNum + -1);
+              setRightOrLeft(true);
+              setChangeCSS(false);
             }}
             marginLeft={"80px"}
             left={"0px"}

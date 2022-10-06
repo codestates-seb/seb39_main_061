@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { authActions } from "../../store/auth";
 import { userAction } from "../../store/user";
@@ -13,7 +13,6 @@ import Modal from "../../components/Modal/Modal";
 import { useEffect } from "react";
 import { getProfile } from "../../api/services/user";
 import { login } from "../../api/services/auth";
-import { modalActions } from "../../store/modal";
 import { baseURL } from "../../api/axios";
 
 const Login = () => {
@@ -23,7 +22,6 @@ const Login = () => {
   const PWRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const key = 0;
   const [changeCSS, setChangeCSS] = useState(false);
   useEffect(() => {
     setChangeCSS(true);
@@ -116,24 +114,24 @@ const Login = () => {
         <div className={styles.login__form__oauth}>
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=https://quickbook-bucket.s3.ap-northeast-2.amazonaws.com/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=https://quick-book.ml/oauth2/redirect`}
             >
-              <img src={naverLogo} alt="React" />
+              <img src={naverLogo} alt="naverLogin" />
             </a>
           </div>
 
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=https://quickbook-bucket.s3.ap-northeast-2.amazonaws.com/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=https://quick-book.ml/redirect`}
             >
-              <img src={kakaoLogo} alt="React" />
+              <img src={kakaoLogo} alt="kakaoLogin" />
             </a>
           </div>
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=https://quickbook-bucket.s3.ap-northeast-2.amazonaws.com/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=https://quick-book.ml/oauth2/redirect`}
             >
-              <img src={googleLogo} alt="React" />
+              <img src={googleLogo} alt="googleLogin" />
             </a>
           </div>
         </div>

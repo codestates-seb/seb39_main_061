@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import Modal from "../../../components/Reservation/Modal/Modal.js";
 import styles from "./ReservationAdmin.module.css";
 import Sidebar from "../../../components/Sidebar/Sidebar.js";

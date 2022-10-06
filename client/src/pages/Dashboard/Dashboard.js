@@ -1,4 +1,4 @@
-// import { Link } from "react-router-dom";
+import React from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import WeekApexChart from "../../components/BarChart/WeekApexChart";
 import MonthApexChart from "../../components/BarChart/MonthApexChart";
@@ -7,15 +7,13 @@ import DashboardCalendar from "../../components/Calendar/Calendar";
 import Header from "../../components/Header/Header";
 import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { dashboardActions } from "../../store/dashboard";
-import { useNavigate } from "react-router-dom";
 import { getDashboard } from "./../../api/services/dashboard";
 import moment from "moment";
 
 const Dashboard = () => {
   const title = "대시보드";
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isBarChart, setIsBarChart] = useState(true);
 

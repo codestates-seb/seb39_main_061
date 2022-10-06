@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import food from "../../../Img/food.png";
 import logo from "../../../Img/Asset_2.png";
 import styles from "./ReservationUser.module.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   getUserResList,
   registerUserRes,
@@ -12,10 +12,12 @@ function ReservationUser() {
   const [num, setNum] = useState("");
   const phoneRef = useRef();
   const [res, setRes] = useState([]);
+  const { params } = useParams();
+  console.log("현재 파라미터", params);
 
   const axiosData = async () => {
     try {
-      getUserResList(1, 1).then((res) => {
+      getUserResList(7, 6).then((res) => {
         setRes(res.data);
       });
     } catch (err) {
@@ -43,15 +45,16 @@ function ReservationUser() {
     const count = e.target.count.value;
 
     if (phone.includes("*") === true || phone.length === 13) {
-      registerUserRes(1, 1, name, phone, count).then(() => axiosData());
-      alert(`${name}님의 예약이 등록되었습니다.`);
+      registerUserRes(7, 1, name, phone, count).then(() => axiosData());
+      // alert(`${name}님의 예약이 등록되었습니다.`);
+      console.log("예약");
     } else {
       alert(`연락처 11자리를 입력하세요 (-제외)`);
     }
   };
 
   return (
-    <>
+    <div className={styles.reservationUser}>
       {/* const imgStr = get().respoonse[0].img // a.png
       <img className={styles.food} src={`${imgStr}`} /> */}
       <img className={styles.food} src={food} alt="대표음식" />
@@ -107,7 +110,7 @@ function ReservationUser() {
                 required="required"
                 placeholder=" "
               />
-              <label for="" className={styles.label}>
+              <label htmlFor="" className={styles.label}>
                 이름
               </label>
             </div>
@@ -122,11 +125,11 @@ function ReservationUser() {
                 placeholder=" "
                 onChange={handlePhone}
               />
-              <label for="" className={styles.label}>
+              <label htmlFor="" className={styles.label}>
                 연락처 -제외
               </label>
             </div>
-            <div className={styles.div}>
+            <div className={styles.submit}>
               <input
                 className={styles.input}
                 type="number"
@@ -134,18 +137,20 @@ function ReservationUser() {
                 required="required"
                 placeholder=" "
               />
-              <label for="" className={styles.label}>
+              <label htmlFor="" className={styles.label}>
                 인원 수
               </label>
               <button className={styles.button_res} type="submit">
                 등록
               </button>
             </div>
-            <img className={styles.logo} src={logo} alt="로고" />
+            <div className={styles.logo}>
+              <img src={logo} alt="로고" />
+            </div>
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
