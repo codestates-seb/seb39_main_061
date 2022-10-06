@@ -109,7 +109,7 @@ function CreateQr() {
             dispatch(qrcodeActions.setQrcodeImg(res.qrCodeImg))
             dispatch(qrcodeActions.setTarget(res.target))
             dispatch(qrcodeActions.setDuedate(body.dueDate))
-            console.log(qrcodeImgSelector)
+            // console.log(qrcodeImgSelector)
           })
           .catch(err => {
             if (err.message === "FIELD ERROR") {
