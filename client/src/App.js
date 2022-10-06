@@ -44,7 +44,7 @@ function App() {
         {isLogin && (<Route path="/dashboard" element={<Dashboard />}></Route>)}
         {isLogin && <Route path="/profile" element={<Profile />}></Route>}
         {isLogin && (
-          <Route path="/create-code" element={<CreateCode />}></Route>
+          <Route path="/qrcode-management" element={<CreateCode />}></Route>
         )}
         {isLogin && <Route path="/management" element={<Management />}></Route>}
         {isLogin && (

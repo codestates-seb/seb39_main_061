@@ -9,6 +9,7 @@ import businessReducer from "./business";
 import modalReducer from "./modal";
 import menuReducer from "./menu";
 import dashboardReducer from "./dashboard";
+import qrcodeReducer from "./qrCode";
 
 const reducers = combineReducers({
   user: userReducer,
@@ -18,6 +19,7 @@ const reducers = combineReducers({
   modal: modalReducer,
   menu: menuReducer,
   dashboard: dashboardReducer,
+  qrcode: qrcodeReducer,
 });
 
 const persistConfig = {
