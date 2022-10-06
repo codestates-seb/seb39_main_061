@@ -5,6 +5,8 @@ const initialState = {
   qrCodeId: null,
   businessId: null,
   qrcodeImg: null,
+  target: null,
+  dueDate: null,
 };
 const qrcodeSlice = createSlice({
   name: "business",
@@ -18,6 +20,12 @@ const qrcodeSlice = createSlice({
     },
     setQrcodeImg(state, action) {
       state.qrcodeImg = action.payload;
+    },
+    setTarget(state, action) {
+      state.target = action.payload;
+    },
+    setDuedate(state, action) {
+      state.dueDate = action.payload;
     },
   },
   extraReducers: (builder) => {

@@ -32,12 +32,12 @@
 }
 .subTitle {
   color: #2b4865;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
   width: 100%;
   font-size: 20px;
 }
 .qr__input {
-  width: 50%;
+  width: 60%;
   height: 45px;
   padding-left: 10px;
   font-size: 1rem;

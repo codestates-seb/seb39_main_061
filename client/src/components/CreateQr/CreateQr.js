@@ -1,5 +1,5 @@
 import QRCode from "qrcode";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import styles from "./CreateQr.module.css";
@@ -19,7 +19,8 @@ function CreateQr() {
     qrType: "reservation",
   });
   const [resData, setResData] = useState({})
-  const [dueDate, setDueDate] = useState();
+  const [dueDateErr, setDueDateErr] = useState();
+  const [valueDate, onChange] = useState();
   const [errMessage, setErrMessage] = useState();
   const dispatch = useDispatch();
   const qrcodeIdSelector = useSelector(state => state.qrcode.qrCodeId);
@@ -63,18 +64,15 @@ function CreateQr() {
     setQr("");
   };
 
-  const dueDataHandler = (e) => {
-    if (body.dueDate < today) {
-      return console.log("오늘 이후의 날짜를 선택해주세요!")
-    } else {
-      setBody((prevState) => {
-        return {
-          ...prevState,
-          dueDate: new Date(e - new Date().getTimezoneOffset() * 60000),
-        };
-      })
-    }
-  }
+  // const dueDataHandler = (e) => {
+  //   if (valueDate <= today) {
+  //     return setDueDateErr("오늘 이후의 날짜를 선택해주세요!")
+  //   } else {
+  //     setBody((prevState) => {
+  //       return { ...prevState, target: e.target.value };
+  //     })
+  //   }
+  // }
 
   const saveQRCode = async () => {
     await postCreateQRCode(body)
@@ -111,8 +109,10 @@ function CreateQr() {
         console.log(formData.get('file'));
         updateCreateQRCode(formData, businessIdSelector, qrcodeIdSelector)
           .then((res) => {
-            // console.log(res.qrCodeImg)
+            console.log(res)
             dispatch(qrcodeActions.setQrcodeImg(res.qrCodeImg))
+            dispatch(qrcodeActions.setTarget(res.target))
+            dispatch(qrcodeActions.setDuedate(body.dueDate))
             console.log(qrcodeImgSelector)
           })
           .catch(err => {
@@ -121,10 +121,10 @@ function CreateQr() {
             }
           })
       }
+      
     );
-    console.log(body.dueDate)
   };
-
+  console.log(body.dueDate)
 
   return (
     <div className={styles.qr__container}>
@@ -141,13 +141,18 @@ function CreateQr() {
               return { ...prevState, target: e.target.value };
             })}
           />
-          <div className={styles.qr__alertMsg}>{errMessage}</div>
+          <div className={styles.qr__alertMsg}>{dueDateErr}</div>
         </div>
         <div className={styles.qr__row__container}>
           <div className={styles.qr__infoTxt}>만료 기간을 선택해주세요</div>
           <Calendar
             className={styles.qr__calendar}
-            onChange={(e) => dueDataHandler()}
+            onChange={(e) => setBody((prevState) => {
+              return {
+                ...prevState,
+                dueDate: new Date(e - new Date().getTimezoneOffset() * 60000),
+              };
+            })}
             value={body.dueDate}
           />
           <div>
