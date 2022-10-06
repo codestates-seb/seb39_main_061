@@ -35,11 +35,7 @@ const EmailValidation = () => {
   return (
     <section className={styles.EmailValidation}>
       <div className={styles.imageBox}>
-<<<<<<< HEAD
         <img alt="main-logo" src={mainLogo} />
-=======
-        <img src={mainLogo} />
->>>>>>> 64171d5243ed564510bc016419b5df708da78724
       </div>
       <div>
         {validation ? (
