@@ -1,13 +1,13 @@
-.pages{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 844px;
-    width: 390px;
-    flex-direction: column;
+.pages {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 844px;
+  width: 390px;
+  flex-direction: column;
 }
 
-.title{
+.title {
   margin-top: 1rem;
   margin-left: 0.7rem;
   font-weight: 500;
@@ -19,101 +19,86 @@
   overflow-y: scroll;
   height: 1350px;
   -ms-overflow-style: none;
-  
 }
-.tables::-webkit-scrollbar{
-  display:none;
+.tables::-webkit-scrollbar {
+  display: none;
 }
-
 
 .table {
-  
-  
-    width: 370px;
-    margin-left: 0.3rem;
-    text-align: center;
-    font-size: 0.9em;
-    border-collapse: separate;
-    border-spacing: 1px;
-    text-align: left;
-    line-height: 1.5;
-    border-collapse: separate;
-	  border-spacing: 0 10px;  
-    height: 1rem;  
-    margin-top: 0.5rem;
-     
+  width: 370px;
+  margin-left: 0.3rem;
+  text-align: center;
+  font-size: 0.9em;
+  border-collapse: separate;
+  border-spacing: 1px;
+  text-align: left;
+  line-height: 1.5;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  height: 1rem;
+  margin-top: 0.5rem;
 }
-
-
 
 TD {
   text-align: left;
   padding-top: 10px;
   padding-bottom: 10px;
   border-radius: 10px;
-  
 }
 
 .td {
-  padding-left: 0.5rem;  
+  padding-left: 0.5rem;
   vertical-align: top;
   text-align: left;
-  border-bottom: 2px solid #EDEDED;
-  border-top: 2px solid #EDEDED;
-  border-bottom: 2px solid #EDEDED;
-  border-left: 2px solid #EDEDED;
+  border-bottom: 2px solid #ededed;
+  border-top: 2px solid #ededed;
+  border-bottom: 2px solid #ededed;
+  border-left: 2px solid #ededed;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  border-top: 2px solid #EDEDED;
-  border-bottom: 2px solid #EDEDED;
-  border-right: 2px solid #EDEDED;
+  border-top: 2px solid #ededed;
+  border-bottom: 2px solid #ededed;
+  border-right: 2px solid #ededed;
 }
 
 .reviewid {
-margin-bottom: 20px
+  margin-bottom: 20px;
 }
 
 .upform {
-    
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .form {
-    display: flex;
-    width: 390px;
-    height: 70px;
-    
-    justify-content: flex-start;
-   
+  display: flex;
+  width: 390px;
+  height: 70px;
+
+  justify-content: flex-start;
 }
 
-
 .div {
-    
-    height: 20px;
-    margin-bottom: 1.5rem;
+  height: 20px;
+  margin-bottom: 1.5rem;
 }
 
 .input {
-    
   position: absolute;
-    justify-content: flex-start;
-    width: 286px;
-    height: 38px;
-    font-size: 1rem;
-    border: 1px solid #DADCE0;
-    border-radius: .5rem;
-    outline: none;
-    margin-left: 0.8rem;
-    margin-top: 0.9rem;
-    background: none;
-    z-index: 1;
-    display: flex;
-    
+  justify-content: flex-start;
+  width: 286px;
+  height: 38px;
+  font-size: 1rem;
+  border: 1px solid #dadce0;
+  border-radius: 0.5rem;
+  outline: none;
+  margin-left: 0.8rem;
+  margin-top: 0.9rem;
+  background: none;
+  z-index: 1;
+  display: flex;
 }
-
 
 /* .label {
     position: absolute;
@@ -127,36 +112,34 @@ margin-bottom: 20px
   display: flex;
 } */
 
+.button_res {
+  display: flex;
+  color: #fff;
+  background-color: #256d85;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 500;
+  align-items: center;
+  margin-top: 1rem;
+  margin-left: 20rem;
+  width: 56px;
+  height: 36px;
+  align-items: center;
+  padding-left: 0.9rem;
+  padding-bottom: 0.2rem;
+  border-color: #256d85;
+  border: 0;
+  outline: 0;
+  text-decoration: none;
+}
 
+.food {
+  width: 390px;
+}
 
-  .button_res{
-    display: flex;
-    color: #fff;
-    background-color: #256D85;
-    border-radius: 5px;
-    font-size: 13px;
-    font-weight: 500;
-    align-items: center;
-    margin-top: 1rem;
-    margin-left: 20rem;
-    width: 56px;
-    height: 36px;
-    align-items: center;
-    padding-left: 0.9rem;
-    padding-bottom: 0.2rem;
-    border-color: #256D85;
-    border: 0;
-    outline: 0;
-    text-decoration: none;
-  }   
-
-  .food {
-    width: 390px;
-  }
-  
-  .logo {
-    display: flex;
-    width: 85px;
-    margin-left: 9rem;
-    justify-content: flex-start;
-  }
+.logo {
+  display: flex;
+  width: 85px;
+  margin-left: 9rem;
+  justify-content: flex-start;
+}
