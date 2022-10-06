@@ -47,7 +47,7 @@ const MenuItemContainer = styled.div`
   animation: ${(props) => props.animation};
   @keyframes slide-left {
     from {
-      margin-left: 100%;
+      margin-left: 220%;
     }
 
     to {
@@ -57,7 +57,7 @@ const MenuItemContainer = styled.div`
 
   @keyframes slide-right {
     from {
-      margin-right: 100%;
+      margin-right: 220%;
     }
     to {
       transform: translateX(0);
