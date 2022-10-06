@@ -52,7 +52,10 @@ function App() {
           path="/business/:id/qr-code/:id"
           element={<ReservationUser />}
         ></Route>
-        <Route path="/review-user" element={<ReviewUser />}></Route>
+        <Route
+          path="/review/business/:id/qr-code/:id"
+          element={<ReviewUser />}
+        ></Route>
         {isLogin && <Route path="/userPage" element={<UserPage />}></Route>}
         {isLogin && (
           <Route path="store-management" element={<StoreManagement />}></Route>

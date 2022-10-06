@@ -2,15 +2,23 @@ import React, { useState, useEffect } from "react";
 import styles from "./ReviewUser.module.css";
 import food from "../../Img/food.png";
 import logo from "../../Img/Asset_2.png";
-import { getRevUserList } from "../../api/services/review-user";
 import { registerUserRev } from "../../api/services/review-user";
+import Map from "../../components/Map/Map";
+import { getBusinessInfoUser } from "../../api/services/store";
+import { useParams } from "react-router-dom";
+import { getUserResList } from "../../api/services/reservation-user";
 
 function ReviewUser() {
   const [review, setReview] = useState([]);
 
+  const [lat, setLat] = useState(0);
+  const [lng, setLng] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
   const axiosData = async () => {
     try {
-      getRevUserList(1).then((res) => {
+      getUserResList(7, 1).then((res) => {
+        console.log(res.data);
         setReview(res.data);
       });
     } catch (err) {
@@ -19,7 +27,22 @@ function ReviewUser() {
   };
 
   useEffect(() => {
+    getUserResList(7, 1).then((res) => {
+      console.log("리스트", res);
+    });
+    console.log(businessId);
     axiosData();
+    let path = window.location.pathname;
+    path = path.split("/");
+    const businessId = path[3];
+    getBusinessInfoUser(businessId).then((res) => {
+      console.log("매장정보", res.data.data);
+      if (res.data.data.lat !== 0 && res.data.data.lng !== 0) {
+        setLat(res.data.data.lon);
+        setLng(res.data.data.lat);
+        setIsLoading(false);
+      }
+    });
 
     // setInterval(() => {
     //     axiosData();
@@ -46,9 +69,11 @@ function ReviewUser() {
   };
 
   return (
-    <>
+    <div className={styles.review}>
       <img className={styles.food} src={food} alt="대표음식" />
       <div className={styles.title}>덕이네 불족발</div>
+      {!isLoading && <Map lat={lat} lng={lng} level={3} />}
+
       <div className={styles.pages}>
         <div className={styles.tables}>
           <table className={styles.table}>
@@ -95,7 +120,7 @@ function ReviewUser() {
           <img className={styles.logo} src={logo} alt="로고" />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

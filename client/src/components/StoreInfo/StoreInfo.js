@@ -350,7 +350,7 @@ const StoreInfo = () => {
             </div>
             <div className={styles.storeInfo__input__grid5}>
               <div>
-                <span>전화번호 () </span>
+                <span>전화번호 (-제외) </span>
               </div>
               <input
                 onInput={(e) => {
