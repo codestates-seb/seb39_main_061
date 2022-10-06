@@ -230,7 +230,7 @@ const SignUp = () => {
             <button>취소</button>
           </Link>
         </div>
-        {isModalOpen && <Modal num={2} />}
+        {isModalOpen && <Modal num={1} />}
       </form>
     </div>
   );
