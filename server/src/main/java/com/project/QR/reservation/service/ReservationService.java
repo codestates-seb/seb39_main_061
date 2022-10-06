@@ -185,8 +185,7 @@ public class ReservationService {
   public void enterReservation(long reservationId, long qrCodeId, long businessId, Long memberId) {
     businessService.existBusiness(businessId, memberId);
     Reservation findReservation = findVerifiedReservation(reservationId, qrCodeId);
-    // 테스트시 주석
-    // sms.send(findReservation.getName(), findReservation.getPhone(), "enter");
+    sms.send(findReservation.getName(), findReservation.getPhone(), "enter");
     findReservation.setCompleted(Check.Y);
     reservationRepository.save(findReservation);
   }
@@ -198,8 +197,7 @@ public class ReservationService {
   public void cancelReservation(long reservationId, long qrCodeId, long businessId, Long memberId) {
     businessService.existBusiness(businessId, memberId);
     Reservation findReservation = findVerifiedReservation(reservationId, qrCodeId);
-    // 테스트시 주석
-    // sms.send(findReservation.getName(), findReservation.getPhone(), "cancel");
+    sms.send(findReservation.getName(), findReservation.getPhone(), "cancel");
     findReservation.setDeleted(Check.Y);
     reservationRepository.save(findReservation);
   }
