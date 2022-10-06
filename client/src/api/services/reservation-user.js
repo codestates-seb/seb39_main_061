@@ -1,7 +1,8 @@
 import { userAxiosInstance } from "./instance";
+import axios from "axios";
 
 export const getUserResList = (businessId, qrCodeId) => {
-  return userAxiosInstance.get(
+  return axios.get(
     `/business/${businessId}/reservation/qr-code/${qrCodeId}?page=1&size=10`
   );
 };

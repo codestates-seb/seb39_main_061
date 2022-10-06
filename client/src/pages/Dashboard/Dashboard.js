@@ -4,6 +4,8 @@ import WeekApexChart from "../../components/BarChart/WeekApexChart";
 import MonthApexChart from "../../components/BarChart/MonthApexChart";
 import Piechart from "../../components/PieChart/PieChart";
 import DashboardCalendar from "../../components/Calendar/Calendar";
+import QRcodeManageDetail from "./../../components/QRmanageDetail/QRmanageDetail"
+
 import Header from "../../components/Header/Header";
 import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
@@ -75,7 +77,7 @@ const Dashboard = () => {
           </div>
           <div className={styles.component}>
             <h3 className={styles.h3}>Calendar</h3>
-            <div className={styles.componentEl}>
+            <div className={styles.componentEl__calendar}>
               <DashboardCalendar className={styles.barChart} />
             </div>
           </div>
@@ -84,7 +86,9 @@ const Dashboard = () => {
           <div className={styles.component}>
             {/* QR 코드 리스트는 QR코드 리스트 컴포넌트 연결(주영님 작업중) */}
             <h3 className={styles.h3}>QR 코드 목록</h3>
-            <div className={styles.componentEl}></div>
+            <div className={styles.componentEl__QR}>
+              <QRcodeManageDetail />
+            </div>
           </div>
           <div className={styles.component}>
             <h3 className={styles.h3}>시간 별 예약 현황</h3>

@@ -23,7 +23,7 @@ const Header = (title) => {
     console.log("로그아웃");
     navigate("/login");
 
-    setTimeout(() => {}, 2000);
+    setTimeout(() => { }, 2000);
   };
   const purge = async () => {
     await persistor.purge();
@@ -33,20 +33,7 @@ const Header = (title) => {
     <div className={styles.header_container}>
       <h2 className={styles.h2}>{title.title}</h2>
       <Link to="/profile">
-        {profileImg === null || profileImg === undefined ? (
-          <img
-            alt="나는 없는 이미지"
-            src={noneProfile}
-            className={styles.imgPreview}
-          />
-        ) : (
-          <img
-            src={baseURL + profileImg}
-            className={styles.imgPreview}
-            alt="프로필 이미지"
-          />
-        )}
-        {
+        <div className={styles.header_imgLogoutWrapper}>
           <button
             className={styles.componentsBtn}
             onClick={async () => {
@@ -57,7 +44,20 @@ const Header = (title) => {
           >
             LOG OUT
           </button>
-        }
+          {profileImg === null || profileImg === undefined ? (
+            <img
+              alt="나는 없는 이미지"
+              src={noneProfile}
+              className={styles.imgPreview}
+            />
+          ) : (
+            <img
+              src={baseURL + profileImg}
+              className={styles.imgPreview}
+              alt="프로필 이미지"
+            />
+          )}
+        </div>
       </Link>
     </div>
   );

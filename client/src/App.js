@@ -3,6 +3,7 @@ import Login from "./pages/Login/Login.js";
 import SignUp from "./pages/SignUp/SignUp";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import Profile from "./pages/Profile/Profile";
+import CreateCode from "./pages/CreateCode/CreateCode";
 // import ProfileEdit from "./pages/Profile/ProfileEdit";
 import Management from "./pages/Management/Management";
 import ManagementDetail from "./pages/ManagementDetail/ManagementDetail";
@@ -28,13 +29,16 @@ function App() {
     <div className="App">
       <Routes>
         {!isLogin && <Route path="/" element={<MainPage />}></Route>}
-        {!isLogin && <Route path="/signup" element={<SignUp />}></Route>}ㅗㅍ
+        {!isLogin && <Route path="/signup" element={<SignUp />}></Route>}
         {!isLogin && <Route path="/login" element={<Login />}></Route>}
         {!isLogin && (
           <Route path="/find-password" element={<FindPassword />}></Route>
         )}
         {isLogin && <Route path="/dashboard" element={<Dashboard />}></Route>}
         {isLogin && <Route path="/profile" element={<Profile />}></Route>}
+        {isLogin && (
+          <Route path="/qrcode-management" element={<CreateCode />}></Route>
+        )}
         {isLogin && <Route path="/management" element={<Management />}></Route>}
         {isLogin && (
           <Route
@@ -48,8 +52,14 @@ function App() {
             element={<ReservationAdmin />}
           ></Route>
         )}
-        <Route path="/reservation-user" element={<ReservationUser />}></Route>
-        <Route path="/review-user" element={<ReviewUser />}></Route>
+        <Route
+          path="/business/:id/qr-code/:id"
+          element={<ReservationUser />}
+        ></Route>
+        <Route
+          path="/review/business/:id/qr-code/:id"
+          element={<ReviewUser />}
+        ></Route>
         {isLogin && <Route path="/userPage" element={<UserPage />}></Route>}
         {isLogin && (
           <Route path="store-management" element={<StoreManagement />}></Route>

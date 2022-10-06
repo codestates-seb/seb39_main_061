@@ -4,7 +4,7 @@ import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { editMenu, getMenu, postMenu } from "../../api/services/menu";
 import { useSelector } from "react-redux";
-import { baseURL } from "../../api/axios";
+import { imgURL } from "../../api/axios";
 
 const RegisterMenuContainer = styled.div`
   width: 100%;
@@ -159,7 +159,7 @@ const RegisterMenu = ({
     if (menuList.length !== 0) {
       getMenu(businessId, menuId).then((res) => {
         console.log("메뉴조회", res.data.data);
-        setImageFile(`${baseURL}${res.data.data.img}`);
+        setImageFile(`${imgURL}${res.data.data.img}`);
         setImg(res.data.data.img);
         setName(res.data.data.name);
         setPrice(res.data.data.price);
