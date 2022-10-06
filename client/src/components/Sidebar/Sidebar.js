@@ -37,7 +37,7 @@ const Sidebar = () => {
             <button className={styles.componentsBtn}>대시보드</button>
           </div>
         </Link>
-        <Link to="/create-Code">
+        <Link to="/qrcode-management">
           <button className={styles.componentsBtn}>QR 코드 관리</button>
         </Link>
         <Link to="/reservation-admin">

@@ -9,6 +9,7 @@ import businessReducer from "./business";
 import modalReducer from "./modal";
 import menuReducer from "./menu";
 import dashboardReducer from "./dashboard";
+import qrcodeReducer from "./qrCode";
 import logger from "redux-logger";
 
 const reducers = combineReducers({
@@ -19,6 +20,7 @@ const reducers = combineReducers({
   modal: modalReducer,
   menu: menuReducer,
   dashboard: dashboardReducer,
+  qrcode: qrcodeReducer,
 });
 
 const persistConfig = {
