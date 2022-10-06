@@ -76,19 +76,14 @@ function CreateQr() {
   // }
 
   const saveQRCode = async () => {
-    await postCreateQRCode(body)
-      .then(res => {
-        console.log(res.data)
-        dispatch(qrcodeActions.setQrCodeId(res.data.qrCodeId))
-        setResData(res)
-      })
-    console.log(resData.data);
-    console.log(resData.message);
-    console.log("저장 성공 " + url);
-    await getBusinessId()
-      .then(res => dispatch(qrcodeActions.setBusinessId(res.businessId)))
+   const res = await postCreateQRCode(body)
+    console.log(res.data.qrCodeId)
+    // dispatch(qrcodeActions.setQrCodeId(res.data.qrCodeId))
+    const resTwo = await getBusinessId()
+    
+    // dispatch(qrcodeActions.setBusinessId(resTwo.businessId))
     QRCode.toDataURL(
-      `${window.location.origin}/business/${businessIdSelector}/qr-code/${qrcodeIdSelector}`,
+      `${window.location.origin}/business/${resTwo.businessId}/qr-code/${res.data.qrCodeId}`,
       {
         width: 320,
         height: 320,
@@ -108,7 +103,7 @@ function CreateQr() {
         formData.append("file", dataURLtoBlob(url), "qr.png");
         console.log(dataURLtoBlob(url));
         console.log(formData.get('file'));
-        updateCreateQRCode(formData, businessIdSelector, qrcodeIdSelector)
+        updateCreateQRCode(formData, resTwo.businessId, res.data.qrCodeId)
           .then((res) => {
             console.log(res)
             dispatch(qrcodeActions.setQrcodeImg(res.qrCodeImg))
@@ -121,13 +116,13 @@ function CreateQr() {
               return setErrMessage("QR 코드 명을 입력해주세요!")
             }
           })
-        setOpenModal(true)
-        setTimeout(() =>
-        window.location.reload(), 1500)
+        // setOpenModal(true)
+        // setTimeout(() =>
+        // window.location.reload(), 1500)
       }
     );
   };
-  
+
 
   return (
     <div className={styles.qr__container}>
