@@ -26,7 +26,7 @@ const Sidebar = () => {
   return (
     <div className={styles.sidebar_container}>
       <Link to="/dashboard">
-        <img src={logo} alt="logo" className={styles.logo} />
+        <img src={logo} className={styles.logo} />
       </Link>
       <Link to="/profile">
         <img src="" className={styles.profile} />

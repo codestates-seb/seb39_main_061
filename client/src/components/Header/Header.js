@@ -4,10 +4,10 @@ import React from "react";
 import { useEffect, useState } from "react";
 import noneProfile from "../../Img/Asset_5.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { authActions } from "../../store/auth";
 import { persistor } from "../../index";
 import { baseURL } from "../../api/axios";
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "../../store/auth";
 
 const Header = (title) => {
   const [profileImg, setProfileImg] = useState(null);

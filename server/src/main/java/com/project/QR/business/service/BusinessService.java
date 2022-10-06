@@ -83,7 +83,6 @@ public class BusinessService {
    * Business 정보 변경
    */
   public Business updateBusiness(Business business) {
-    System.out.println(business.getBusinessId()+ " " + business.getMember().getMemberId());
     Business findBusiness = findVerifiedBusiness(business.getBusinessId(), business.getMember().getMemberId());
     Business updatingBusiness = beanUtils.copyNonNullProperties(business, findBusiness);
     return businessRepository.save(updatingBusiness);
