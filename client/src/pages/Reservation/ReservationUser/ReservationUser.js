@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import food from "../../../Img/food.png";
 import logo from "../../../Img/Asset_2.png";
 import styles from "./ReservationUser.module.css";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import {
   getUserResList,
   registerUserRes,
@@ -12,10 +12,12 @@ function ReservationUser() {
   const [num, setNum] = useState("");
   const phoneRef = useRef();
   const [res, setRes] = useState([]);
+  const { params } = useParams();
+  console.log("현재 파라미터", params);
 
   const axiosData = async () => {
     try {
-      getUserResList(1, 1).then((res) => {
+      getUserResList(7, 6).then((res) => {
         setRes(res.data);
       });
     } catch (err) {
@@ -43,8 +45,9 @@ function ReservationUser() {
     const count = e.target.count.value;
 
     if (phone.includes("*") === true || phone.length === 13) {
-      registerUserRes(1, 1, name, phone, count).then(() => axiosData());
-      alert(`${name}님의 예약이 등록되었습니다.`);
+      registerUserRes(7, 1, name, phone, count).then(() => axiosData());
+      // alert(`${name}님의 예약이 등록되었습니다.`);
+      console.log("예약");
     } else {
       alert(`연락처 11자리를 입력하세요 (-제외)`);
     }
