@@ -47,7 +47,7 @@ const MenuItemContainer = styled.div`
   animation: ${(props) => props.animation};
   @keyframes slide-left {
     from {
-      margin-left: 100%;
+      margin-left: 220%;
     }
 
     to {
@@ -57,7 +57,7 @@ const MenuItemContainer = styled.div`
 
   @keyframes slide-right {
     from {
-      margin-right: 100%;
+      margin-right: 220%;
     }
     to {
       transform: translateX(0);
@@ -185,10 +185,8 @@ const MenuInfo = () => {
   useEffect(() => {
     getBusinessInfo().then((res) => {
       dispatch(businessActions.setBusinessId(res.data.data.businessId));
-      console.log("비즈니스 받아옴", res.data.data.businessId);
       getMenuList(res.data.data.businessId, pageNum).then((res) => {
         setTotalPage(res.data.pageInfo.totalPages);
-        console.log("메뉴 리스트 받아옴", res);
         dispatch(menuActions.setMenuList(res.data.data));
         setEmpthyEle(res.data.data.length !== 10);
       });
@@ -201,7 +199,6 @@ const MenuInfo = () => {
   const confirmModalToggle = () => {
     setIsConfirmModalOpen(!isConfirmModalOpen);
   };
-  console.log("총 페이지수는?", totalPage);
   const modalStyles = {
     overlay: {
       backgroundColor: "rgba(0,0,0,0.2)",
@@ -224,7 +221,6 @@ const MenuInfo = () => {
     setModalNum(6);
     setIsModalOpen(!isModalOpen);
   };
-  console.log("에딧 상태", isEdit);
 
   return (
     <MenuContainer>

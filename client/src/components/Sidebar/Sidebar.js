@@ -2,19 +2,13 @@ import { Link } from "react-router-dom";
 import styles from "./Sidebar.module.css";
 import logo from "../../Img/Asset_3.png";
 import { useSelector, useDispatch } from "react-redux";
-import { authActions } from "../../store/auth";
-import { useNavigate } from "react-router-dom";
-import { persistor } from "../../index";
 import React, { useEffect } from "react";
 import { getProfile } from "../../api/services/user";
 import { userAction } from "../../store/user";
-import { useCookies } from "react-cookie";
 
 const Sidebar = () => {
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [cookies, setCookie, removeCookie] = useCookies();
 
   useEffect(() => {
     if (localStorage.getItem("token") && isLogin === true) {

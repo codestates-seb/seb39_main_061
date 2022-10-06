@@ -9,6 +9,7 @@ import businessReducer from "./business";
 import modalReducer from "./modal";
 import menuReducer from "./menu";
 import dashboardReducer from "./dashboard";
+import logger from "redux-logger";
 
 const reducers = combineReducers({
   user: userReducer,
@@ -31,6 +32,7 @@ const persistedReducer = persistReducer(persistConfig, reducers);
 const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
+    //미들웨어 작성시 에러 주의
     getDefaultMiddleware({
       serializableCheck: {
         ignoredActions: [PERSIST, PURGE],

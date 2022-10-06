@@ -1,15 +1,24 @@
+.reservationUser {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
 .pages {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 844px;
-  width: 390px;
+  height: 100%;
+  width: 100%;
   flex-direction: column;
 }
 
 .food {
-  height: 107px;
-  width: 390px;
+  height: 100px;
+  width: 100%;
 }
 
 .title {
@@ -24,7 +33,7 @@
 
 .tables {
   overflow-y: scroll;
-  height: 1350px;
+  height: 100%;
   -ms-overflow-style: none;
 }
 .tables::-webkit-scrollbar {
@@ -75,9 +84,6 @@
   padding: 10px;
 }
 
-.tbody {
-}
-
 TD {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -100,7 +106,6 @@ TD {
   border-bottom-left-radius: 10px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
-
   text-align: center;
   border-spacing: 0px;
 }
@@ -123,8 +128,8 @@ TD {
 }
 
 .form {
-  display: fixed;
-  width: 400px;
+  position: fixed;
+  width: 100%;
   height: 12rem;
   border-radius: 1rem;
 }
