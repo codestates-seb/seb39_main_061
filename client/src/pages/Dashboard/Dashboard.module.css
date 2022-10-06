@@ -51,6 +51,23 @@
   height: auto;
   margin: 0 auto;
 }
+.componentEl__QR {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+  height: auto;
+  margin: 70px auto;
+}
+.componentEl__calendar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+  height: auto;
+  margin: 0 auto;
+  margin-top: 50px;
+}
 
 .barChart {
   width: 100%;

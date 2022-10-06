@@ -41,7 +41,7 @@ const Profile = () => {
         {isModal ? (
           <div className={styles.profile_container}>
             <div className={styles.contents_container}>
-              <h1>프로필 수정</h1>
+              {/* <h1>프로필 수정</h1> */}
               <div className={styles.imgWrapper}>
                 {userInfo.profileImg === null ||
                 userInfo.profileImg === undefined ? (
