@@ -4,7 +4,7 @@ import WeekApexChart from "../../components/BarChart/WeekApexChart";
 import MonthApexChart from "../../components/BarChart/MonthApexChart";
 import Piechart from "../../components/PieChart/PieChart";
 import DashboardCalendar from "../../components/Calendar/Calendar";
-import QRcodeManageDetail from "./../../components/QRmanageDetail/QRmanageDetail"
+import QRcodeManageDetail from "./../../components/QRmanageDetail/QRmanageDetail";
 
 import Header from "../../components/Header/Header";
 import { useState, useEffect } from "react";
@@ -34,21 +34,7 @@ const Dashboard = () => {
 
   let today = moment().format("YYYYMMDD");
 
-  useEffect(() => {
-    getDashboard(today)
-      .then((res) => {
-        console.log(res);
-        dispatch(dashboardActions.setMonth(res.month));
-        dispatch(dashboardActions.setWeek(res.week));
-        dispatch(dashboardActions.setTime(res.time));
-      })
-      .catch((err) => {
-        if (err.response.data.status === 401) {
-          alert("로그인 해주세요!");
-        }
-        // navigate("/login")
-      });
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className={styles.container}>

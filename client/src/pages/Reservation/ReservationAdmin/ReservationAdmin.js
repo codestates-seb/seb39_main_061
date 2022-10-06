@@ -13,30 +13,21 @@ import { BsFillPhoneVibrateFill } from "react-icons/bs";
 
 function ReservationAdmin() {
   const [businessId, setBusinessId] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
-  const openModal = () => {
-    setModalOpen(true);
-  };
-  const closeModal = () => {
-    setModalOpen(false);
-  };
+
+  const [storeName, setStoreName] = useState("");
+
   const [res, setRes] = useState([]);
-  const [modalInput, setModalInput] = useState("");
 
   useEffect(() => {
     axiosData();
     // eslint-disable-next-line
   }, [businessId]);
 
-  const onModal = (e) => {
-    e.preventDefault();
-    setModalInput(e.target.value.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3"));
-  };
-
   const axiosData = async () => {
     getBusInfo()
       .then((res) => {
         setBusinessId(res.data.data.businessId);
+        setStoreName(res.data.data.name);
       })
 
       .then(() => {
@@ -63,19 +54,13 @@ function ReservationAdmin() {
   }
 
   function deleteUser(reservationId, name, phone) {
-    if (modalInput === phone) {
-      deleteAdminRes(businessId, 1, reservationId)
-        .then((res) => {
-          //console.log(res.message);
-          return axiosData();
-        })
-        .catch((err) => {});
-      alert(`${name}님의 예약이 삭제되었습니다.`);
-      closeModal();
-      setModalInput("");
-    } else window.confirm("연락처가 일치하지 않습니다.");
-
-    setModalInput("");
+    deleteAdminRes(businessId, 1, reservationId)
+      .then((res) => {
+        //console.log(res.message);
+        return axiosData();
+      })
+      .catch((err) => {});
+    alert(`${name}님의 예약이 삭제되었습니다.`);
   }
 
   return (
@@ -84,7 +69,7 @@ function ReservationAdmin() {
 
       <div className={styles.pages}>
         <div className={styles.title}>예약 관리</div>
-        <div className={styles.subtitle}>매장 정보</div>
+        <div className={styles.subtitle}>{storeName}</div>
         <div className={styles.tables}>
           <table className={styles.table}>
             <thead className={styles.thead}>
@@ -121,42 +106,13 @@ function ReservationAdmin() {
                             }
                           ></BsFillPhoneVibrateFill>
                           <HiTrash
+                            onClick={() =>
+                              deleteUser(re.reservationId, re.name, re.phone)
+                            }
                             className={styles.trash}
                             size="25"
                             color="#256D85"
-                            onClick={openModal}
                           ></HiTrash>
-
-                          <Modal
-                            open={modalOpen}
-                            close={closeModal}
-                            header="예약 연락처를 입력하세요"
-                          >
-                            <main>
-                              <input
-                                key={re.id}
-                                type="tel"
-                                name="modal_input"
-                                required="required"
-                                value={modalInput}
-                                onChange={onModal}
-                                className={styles.input_modal}
-                                placeholder="연락처 입력 -제외"
-                              />
-                              <button
-                                onClick={() =>
-                                  deleteUser(
-                                    re.reservationId,
-                                    re.name,
-                                    re.phone
-                                  )
-                                }
-                                className={styles.button_confirm}
-                              >
-                                확인
-                              </button>
-                            </main>
-                          </Modal>
                         </td>
                       </tr>
                     );

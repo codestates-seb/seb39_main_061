@@ -18,7 +18,8 @@ import React from "react";
 import "./app.css";
 import ReservationAdmin from "./pages/Reservation/ReservationAdmin/ReservationAdmin.js";
 import ReservationUser from "./pages/Reservation/ReservationUser/ReservationUser.js";
-import ReviewUser from "./pages/ReviewUser/ReviewUser.js";
+import ReviewUser from "./pages/Review/ReviewUser/ReviewUser";
+import ReviewAdmin from "./pages/Review/ReviewAdmin/ReviewAdmin.js";
 
 function App() {
   const isLogin = useSelector((state) => state.auth.isAuthenticated);
@@ -36,9 +37,7 @@ function App() {
         )}
         {isLogin && <Route path="/dashboard" element={<Dashboard />}></Route>}
         {isLogin && <Route path="/profile" element={<Profile />}></Route>}
-        {isLogin && (
-          <Route path="/qrcode-management" element={<CreateCode />}></Route>
-        )}
+
         {isLogin && <Route path="/management" element={<Management />}></Route>}
         {isLogin && (
           <Route
@@ -57,9 +56,12 @@ function App() {
           element={<ReservationUser />}
         ></Route>
         <Route
-          path="/review/business/:id/qr-code/:id"
+          path="/business/:id/qr-code/:id/review"
           element={<ReviewUser />}
         ></Route>
+        {isLogin && (
+          <Route path="/review-admin" element={<ReviewAdmin />}></Route>
+        )}
         {isLogin && <Route path="/userPage" element={<UserPage />}></Route>}
         {isLogin && (
           <Route path="store-management" element={<StoreManagement />}></Route>
