@@ -2,7 +2,7 @@ import Sidebar from "../../components/Sidebar/Sidebar";
 import CreateQr from "../../components/CreateQr/CreateQr";
 import styles from "./CreateCode.module.css";
 import Header from "../../components/Header/Header";
-
+import React from "react";
 
 const CreateCode = () => {
   const title = "QR 코드 관리"

@@ -1,3 +1,4 @@
+import React from 'react';
 import styles from './QRmanageDetail.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import moment, { invalid } from "moment";
