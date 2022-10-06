@@ -122,7 +122,7 @@ const Login = () => {
 
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=https://quick-book.ml/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=https://quick-book.ml/oauth2/redirect`}
             >
               <img src={kakaoLogo} alt="kakaoLogin" />
             </a>
