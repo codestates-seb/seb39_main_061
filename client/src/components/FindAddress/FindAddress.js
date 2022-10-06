@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { mapActions } from "../../store/map";
 import styles from "./FindAddress.module.css";
@@ -9,8 +8,6 @@ const FindAddress = ({ toggle }) => {
   // 검색결과 배열에 담아줌
   const [Places, setPlaces] = useState([]);
   const [address, setAddress] = useState("");
-  const [lat, setLat] = useState(33.450701);
-  const [lng, setLng] = useState(126.570667);
 
   const addressHandler = (e) => {
     setAddress(e.target.value);
@@ -19,7 +16,6 @@ const FindAddress = ({ toggle }) => {
 
   useEffect(() => {
     var infowindow = new kakao.maps.InfoWindow({ zIndex: 1 });
-    var markers = [];
     const container = document.getElementById("myMap");
     const options = {
       center: new kakao.maps.LatLng(33.450701, 126.570667),

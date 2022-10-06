@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { baseURL } from "../../api/axios";
 import styles from "./EmailValidation.module.css";
@@ -35,7 +35,7 @@ const EmailValidation = () => {
   return (
     <section className={styles.EmailValidation}>
       <div className={styles.imageBox}>
-        <img src={mainLogo} />
+        <img alt="main-logo" src={mainLogo} />
       </div>
       <div>
         {validation ? (
