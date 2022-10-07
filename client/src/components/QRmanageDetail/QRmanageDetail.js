@@ -18,23 +18,16 @@ const QRmanageDetail = (qrCodeImg) => {
   return (
     <div className={styles.container}>
       <div className={styles.info}>
-        <ReactToPrint
-          trigger={() => <button>출력하기</button>}
-          content={() => componentRef}
-        />
-        <img
-          src={qrcodeImgSelector ? imgURL + qrcodeImgSelector : noneQrImg}
-          alt="나는 큐알코드야"
-          className={styles.qrImg}
-          ref={(el) => (componentRef = el)}
-        />
+        <img src={qrcodeImgSelector ? imgURL + qrcodeImgSelector : noneQrImg} alt="나는 큐알코드야" className={styles.qrImg} ref={(el) => (componentRef = el)} />
       </div>
       <div className={styles.info}>
         <div className={styles.texts}>
-          <div>QR 코드 명 : {targetSelector}</div>
-          <div>
-            만료 기간 : {dueDate === "Invalid date" ? "" : dueDate + " 까지"}
-          </div>
+          <div className={styles.qr__txt}>QR 코드 명 : {targetSelector}</div>
+          <div className={styles.qr__txt}>만료 기간 : {dueDate === "Invalid date" ? "" : dueDate + " 까지"}</div>
+        <ReactToPrint
+          trigger={() => <button className={styles.qr__btn}>출력하기</button>}
+          content={() => componentRef}
+        />
         </div>
       </div>
     </div>
