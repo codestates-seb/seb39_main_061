@@ -1,3 +1,4 @@
+import React from "react";
 import styles from './QRmanageDetail.module.css';
 import { useDispatch, useSelector } from "react-redux";
 import moment, { invalid } from "moment";
@@ -22,7 +23,7 @@ const QRmanageDetail = (qrCodeImg) => {
     <div className={styles.container}>
       <div className={styles.info}>
         <ReactToPrint
-          trigger={() => <Button>출력하기</Button>}
+          trigger={() => <button>출력하기</button>}
           content={() => componentRef}
         />
         <img src={qrcodeImgSelector ? imgURL + qrcodeImgSelector : noneQrImg} alt="나는 큐알코드야" className={styles.qrImg} ref={(el) => (componentRef = el)} />

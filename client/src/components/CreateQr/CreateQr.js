@@ -1,3 +1,4 @@
+import React from "react";
 import QRCode from "qrcode";
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
