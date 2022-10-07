@@ -63,7 +63,7 @@ function ReservationUser() {
           <div className={styles.address}>
             <div className={styles.title}>덕이네 불족발</div>
             <div className={styles.subtitle}>서울시 강동구 새파람길 34</div>
-            <Link to="/review-user" className={styles.link}>
+            <Link to={`/review/business/1/qr-code/1}`} className={styles.link}>
               리뷰쓰기
             </Link>
           </div>

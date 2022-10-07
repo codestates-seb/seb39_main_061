@@ -56,12 +56,15 @@ function App() {
           path="/business/:id/qr-code/:id"
           element={<ReservationUser />}
         ></Route>
-        <Route path="/review-user" element={<ReviewUser />}></Route>
+        <Route
+          path="/review/business/:id/qr-code/:id"
+          element={<ReviewUser />}
+        ></Route>
         {isLogin && <Route path="/userPage" element={<UserPage />}></Route>}
         {isLogin && (
           <Route path="store-management" element={<StoreManagement />}></Route>
         )}
-        <Route path="*" element={<MainPage />}></Route>
+        <Route path="*" element={<Login />}></Route>
         <Route path="/email-validation" element={<EmailValidation />}></Route>
         <Route path="/oauth2/redirect" element={<Register />}></Route>
       </Routes>

@@ -4,9 +4,8 @@ import CreateQr from "../../components/CreateQr/CreateQr";
 import styles from "./CreateCode.module.css";
 import Header from "../../components/Header/Header";
 
-
 const CreateCode = () => {
-  const title = "QR 코드 관리"
+  const title = "QR 코드 관리";
 
   return (
     <div className={styles.container}>

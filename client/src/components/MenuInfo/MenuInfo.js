@@ -26,7 +26,7 @@ const MenuContainer = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 0px 70px 0px 70px;
-  width: 95%;
+  width: 100%;
   height: 600px;
   position: relative;
 `;
