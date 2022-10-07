@@ -92,10 +92,9 @@
     height: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     flex-direction: column;
     position: relative;
-    margin-top: 0;
   }
   
   .div {
@@ -110,9 +109,8 @@
     height: 38px;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-radius: 0.5rem;
-    margin-right: 5rem;
+    margin-left: 10px;
     padding-left: 15px;
-    margin-top: 3.9rem;
   }
   
   /* .label {
@@ -128,24 +126,17 @@
   } */
   
   .button_res {
-    display: flex;
     color: #fff;
+    height: 37px;
+    width: 55px;
     background-color: #256d85;
     border-radius: 5px;
     font-size: 13px;
-    font-weight: 500;
-    align-items: center;
-    margin-top: 1rem;
-    margin-left: 20rem;
-    width: 56px;
-    height: 36px;
-    align-items: center;
-    padding-left: 0.9rem;
-    padding-bottom: 0.2rem;
-    border-color: #256d85;
-    border: 0;
-    outline: 0;
-    text-decoration: none;
+    border-radius: 0.5rem;
+    border-style: none;
+    margin-right: 10px;
+    margin-left: 1rem;
+    
   }
   
   .food {
