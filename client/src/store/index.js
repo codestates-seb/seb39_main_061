@@ -27,7 +27,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  blacklist: ["map", "business", "modal"],
+  blacklist: ["map", "modal"],
 };
 const persistedReducer = persistReducer(persistConfig, reducers);
 

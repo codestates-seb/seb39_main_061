@@ -75,7 +75,7 @@ function ReviewUser() {
     if (contents.length < 200) {
       registerUserRev(businessId, contents).then(() => axiosData());
 
-      alert(`예약이 등록되었습니다.`);
+      alert(`리뷰가 등록되었습니다.`);
     } else {
       alert(`200자 이내로 입력하세요`);
     }
