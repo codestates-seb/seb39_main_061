@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { qrcodeActions } from "../../store/qrCode";
 import logo from "../../Img/logo.png";
 import Modal from "../../components/Modal/Modal"
+
 function CreateQr() {
   const [url, setUrl] = useState("");
   const [qr, setQr] = useState("");
