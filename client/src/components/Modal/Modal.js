@@ -11,21 +11,22 @@ function Modal({
   num,
   setIsConfirmModalOpen,
   setIsModalOpen,
-  UserbusinessId,
+  businessId,
   qrCodeId,
-  resId,
-  resName,
+  reservationId,
   resCount,
 }) {
   console.log(menuId);
   const [isClickDelete, setIsClickDelete] = useState(false);
-  const businessId = useSelector((state) => state.business.businessId);
+  const [isResDelete, setResDelete] = useState(null);
+  const adminBusinessId = useSelector((state) => state.business.businessId);
   const menuId = useSelector((state) => state.menu.menuId);
   const phoneRef = useRef();
+  const nameRef = useRef();
   //
   const deleteMenuHandler = async () => {
-    console.log("비즈메뉴아이디", businessId, menuId);
-    deleteMenu(businessId, menuId).then((res) => {
+    console.log("비즈메뉴아이디", adminBusinessId, menuId);
+    deleteMenu(adminBusinessId, menuId).then((res) => {
       setIsClickDelete(true);
       setTimeout(() => {
         window.location.reload();
@@ -33,17 +34,23 @@ function Modal({
     });
   };
   const resDeleteHandler = () => {
-    const resPhone = phoneRef.current.value;
-    deleteUserRes(
-      UserbusinessId,
-      qrCodeId,
-      resId,
-      resName,
-      resPhone,
-      resCount
-    ).then((res) => {
-      console.log(res);
-    });
+    const phone = phoneRef.current.value;
+    const name = nameRef.current.value;
+    const count = resCount;
+
+    deleteUserRes(businessId, qrCodeId, reservationId, phone, name, count)
+      .then((res) => {
+        setResDelete(true);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      })
+      .catch((err) => {
+        setResDelete(false);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      });
   };
   return (
     <div className={"modalBackground"}>
@@ -78,6 +85,8 @@ function Modal({
             {num === 5 && <p></p>}
             {num === 6 && <p>메뉴등록이 완료 되었습니다</p>}
             {num === 6 && <p></p>}
+            {num === 14 && <p>메뉴등록이 완료 되었습니다</p>}
+            {num === 14 && <p></p>}
             {num === 8 && <p>수정사항이 저장 되었습니다.</p>}
             {num === 8 && <p></p>}
             {num === 11 && <p>QR 코드가 생성되었습니다!</p>}
@@ -90,6 +99,20 @@ function Modal({
             )}
             {num === 7 && isClickDelete === true && (
               <p className="modal__deleteSucessMSG"></p>
+            )}
+            {num === 13 && isResDelete === true && (
+              <p className="res__deleteSucessMSG__top">삭제 처리되었습니다</p>
+            )}
+            {num === 13 && isResDelete === true && (
+              <p className="res__deleteSucessMSG"></p>
+            )}
+            {num === 13 && isResDelete === false && (
+              <p className="res__deleteSucessMSG__top">
+                정보가 일치하지 않습니다
+              </p>
+            )}
+            {num === 13 && isResDelete === false && (
+              <p className="res__deleteSucessMSG">다시 시도해 주세요</p>
             )}
             {num === 7 && isClickDelete === false && (
               <button
@@ -111,13 +134,23 @@ function Modal({
                 취소
               </button>
             )}
-            {num === 13 && (
+            {num === 13 && isResDelete === null && (
               <div>
                 <p className="cancelTitle"> 예약 취소</p>
-                <label className="inputLabel" htmlFor="phoneInput">
-                  핸드폰 번호
-                </label>
-                <input id="phoneInput" ref={phoneRef} />
+
+                <div className="resNameWrap">
+                  <label className="inputNameLabel" htmlFor="nameInput">
+                    이름
+                  </label>
+                  <input id="nameInput" ref={nameRef} />
+                </div>
+                <div className="resPhoneWrap">
+                  <label className="inputPhoneLabel" htmlFor="phoneInput">
+                    핸드폰 번호
+                  </label>
+                  <input id="phoneInput" ref={phoneRef} />
+                </div>
+
                 <div>
                   <button
                     onClick={() => {

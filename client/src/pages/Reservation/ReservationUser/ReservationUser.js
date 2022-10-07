@@ -24,7 +24,6 @@ function ReservationUser() {
   const qrCodeId = path.substr(20, 1);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [reservationId, setReservationId] = useState(0);
-  const [resName, setResName] = useState("");
   const [resCount, setResCount] = useState("");
 
   const axiosData = async () => {
@@ -67,13 +66,25 @@ function ReservationUser() {
     const count = e.target.count.value;
 
     if (phone.includes("*") === true || phone.length === 13) {
-      registerUserRes(businessId, qrCodeId, name, phone, count).then(() =>
-        axiosData()
-      );
+      registerUserRes(businessId, qrCodeId, name, phone, count)
+        .catch((err) => {
+          console.log("에러", err.response.data.message);
+          if (err.response.data.message === "RESERVATION IS ALREADY EXISTS") {
+            alert("이미 예약된 사용자 입니다");
+          }
+          console.log("이유", err.response.data);
+          if (err.response.data.fieldErrors) {
+            alert(err.response.data.fieldErrors[0].reason);
+          }
+        })
+        .then((res) => {
+          axiosData().catch((err) => {
+            console.log(err);
+          });
+        });
+
       // alert(`${name}님의 예약이 등록되었습니다.`);
       console.log("예약");
-    } else {
-      alert(`연락처 11자리를 입력하세요 (-제외)`);
     }
   };
 
@@ -123,7 +134,6 @@ function ReservationUser() {
                       <tr
                         onClick={() => {
                           setReservationId(re.reservationId);
-                          setResName(re.name);
                           setResCount(re.count);
                           trClickHandler(re.reservationId);
                         }}
@@ -195,10 +205,9 @@ function ReservationUser() {
         <Modal
           setIsModalOpen={setIsModalOpen}
           num={13}
-          UserbusinessId={businessId}
-          qrCodeId={qrCodeId}
-          resId={reservationId}
-          resName={resName}
+          businessId={businessId}
+          qrCodeId={Number(qrCodeId)}
+          reservationId={reservationId}
           resCount={resCount}
         />
       )}

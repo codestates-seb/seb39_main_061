@@ -24,29 +24,22 @@ export const registerUserRes = (businessId, qrCodeId, name, phone, count) => {
 export const deleteUserRes = (
   businessId,
   qrCodeId,
-  resId,
-  resPhone,
-  resName,
-  resCount
+  reservationId,
+  phone,
+  name,
+  count
 ) => {
-  return axios
-    .patch(
-      `${baseURL}/business/${businessId}/reservation/qr-code/${qrCodeId}/cancel/${resId}`,
-      {
-        businessId,
-        qrCodeId,
-        resId,
-        resPhone,
-        resCount,
-        resName,
-      }
-    )
-    .then((res) => {
-      console.log(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  return axios.patch(
+    `${baseURL}/business/${businessId}/reservation/qr-code/${qrCodeId}/cancel/${reservationId}`,
+    {
+      businessId,
+      qrCodeId,
+      reservationId,
+      phone,
+      count,
+      name,
+    }
+  );
 };
 
 export const getUserStoreInfo = (businessId) => {
