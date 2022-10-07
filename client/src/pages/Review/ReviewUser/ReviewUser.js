@@ -14,20 +14,21 @@ import { useLocation } from "react-router-dom";
 function ReviewUser() {
   const [review, setReview] = useState([]);
   const [storeName, setStoreName] = useState("");
-  const [address, setAddress] = useState("");
+  const [openTime, setOpenTime] = useState("");
   const [lat, setLat] = useState(33.450701);
   const [lng, setLng] = useState(126.570667);
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
   const path = location.pathname;
-  const businessId = path.substr(10, 1);
-  const qrCodeId = path.substr(20, 1);
+  const businessId = path.substr(17, 1);
+  const qrCodeId = path.substr(27, 1);
 
   const axiosData = async () => {
     getUserStoreInfo(businessId)
       .then((res) => {
         setStoreName(res.data.data.name);
-        setAddress(res.data.data.address);
+        setOpenTime(res.data.data.openTime);
+        console.log(res.data.data);
       })
       .then(() => {
         getRevUserList(businessId, qrCodeId).then((res) => {
@@ -71,7 +72,7 @@ function ReviewUser() {
     const contents = e.target.contents.value;
 
     if (contents.length < 200) {
-      registerUserRev(1, contents).then(() => axiosData());
+      registerUserRev(businessId, contents).then(() => axiosData());
 
       alert(`예약이 등록되었습니다.`);
     } else {
@@ -83,7 +84,7 @@ function ReviewUser() {
     <div className={styles.review}>
       <img className={styles.food} src={food} alt="대표음식" />
       <div className={styles.title}>{storeName}</div>
-      <div className={styles.subtitle}>{address}</div>
+      <div className={styles.subtitle}>{openTime}</div>
       {!isLoading && <Map lat={lat} lng={lng} level={3} />}
       <div className={styles.pages}>
         <div className={styles.tables}>

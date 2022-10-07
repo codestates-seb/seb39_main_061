@@ -56,7 +56,7 @@ function App() {
           element={<ReservationUser />}
         ></Route>
         <Route
-          path="/business/:id/qr-code/:id/review"
+          path="/review/business/:id/qr-code/:id/"
           element={<ReviewUser />}
         ></Route>
         {isLogin && (

@@ -81,7 +81,10 @@ function ReservationUser() {
           <div className={styles.address}>
             <div className={styles.title}>{storeName}</div>
             <div className={styles.subtitle}>{address}</div>
-            <Link to={"review"} className={styles.link}>
+            <Link
+              to={`/review/business/${businessId}/qr-code/${qrCodeId}`}
+              className={styles.link}
+            >
               리뷰쓰기
             </Link>
           </div>
