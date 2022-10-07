@@ -13,7 +13,7 @@ import QRcodeManageDetail from "./../../components/QRmanageDetail/QRmanageDetail
 import { useDispatch, useSelector } from "react-redux";
 import { qrcodeActions } from "../../store/qrCode";
 import logo from "../../Img/logo.png";
-
+import Modal from "../../components/Modal/Modal"
 function CreateQr() {
   const [url, setUrl] = useState("");
   const [qr, setQr] = useState("");
@@ -27,6 +27,7 @@ function CreateQr() {
   const [dueDateErr, setDueDateErr] = useState();
   const [valueDate, onChange] = useState();
   const [errMessage, setErrMessage] = useState();
+  const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
   const qrcodeIdSelector = useSelector((state) => state.qrcode.qrCodeId);
   const businessIdSelector = useSelector((state) => state.qrcode.businessId);
@@ -80,6 +81,7 @@ function CreateQr() {
   // }
 
   const saveQRCode = async () => {
+<<<<<<< HEAD
     await postCreateQRCode(body).then((res) => {
       console.log(res.data);
       dispatch(qrcodeActions.setQrCodeId(res.data.qrCodeId));
@@ -91,8 +93,16 @@ function CreateQr() {
     await getBusinessId().then((res) =>
       dispatch(qrcodeActions.setBusinessId(res.businessId))
     );
+=======
+   const res = await postCreateQRCode(body)
+    console.log(res.data.qrCodeId)
+    // dispatch(qrcodeActions.setQrCodeId(res.data.qrCodeId))
+    const resTwo = await getBusinessId()
+    
+    // dispatch(qrcodeActions.setBusinessId(resTwo.businessId))
+>>>>>>> bd090842b0f945d5e16e914be80660d3e0262e6c
     QRCode.toDataURL(
-      `${window.location.origin}/business/${businessIdSelector}/qr-code/${qrcodeIdSelector}`,
+      `${window.location.origin}/business/${resTwo.businessId}/qr-code/${res.data.qrCodeId}`,
       {
         width: 320,
         height: 320,
@@ -111,6 +121,7 @@ function CreateQr() {
         );
         formData.append("file", dataURLtoBlob(url), "qr.png");
         console.log(dataURLtoBlob(url));
+<<<<<<< HEAD
         console.log(formData.get("file"));
         updateCreateQRCode(formData, businessIdSelector, qrcodeIdSelector)
           .then((res) => {
@@ -119,15 +130,33 @@ function CreateQr() {
             dispatch(qrcodeActions.setTarget(res.target));
             dispatch(qrcodeActions.setDuedate(body.dueDate));
             console.log(qrcodeImgSelector);
+=======
+        console.log(formData.get('file'));
+        updateCreateQRCode(formData, resTwo.businessId, res.data.qrCodeId)
+          .then((res) => {
+            console.log(res)
+            dispatch(qrcodeActions.setQrcodeImg(res.qrCodeImg))
+            dispatch(qrcodeActions.setTarget(res.target))
+            dispatch(qrcodeActions.setDuedate(body.dueDate))
+            // console.log(qrcodeImgSelector)
+>>>>>>> bd090842b0f945d5e16e914be80660d3e0262e6c
           })
           .catch((err) => {
             if (err.message === "FIELD ERROR") {
               return setErrMessage("QR 코드 명을 입력해주세요!");
             }
+<<<<<<< HEAD
           });
+=======
+          })
+        // setOpenModal(true)
+        // setTimeout(() =>
+        // window.location.reload(), 1500)
+>>>>>>> bd090842b0f945d5e16e914be80660d3e0262e6c
       }
     );
   };
+
 
   return (
     <div className={styles.qr__container}>
@@ -175,6 +204,7 @@ function CreateQr() {
       <h3 className={styles.subTitle}>QR Code 관리</h3>
       <div className={styles.qr__contents__container}>
         <QRcodeManageDetail />
+        {openModal && <Modal num={11} />}
       </div>
     </div>
   );

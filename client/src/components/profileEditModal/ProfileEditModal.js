@@ -4,6 +4,8 @@ import noneProfile from "../../Img/Asset_5.png";
 import imgPlusBtn from "../../Img/imgPlusBtn.png";
 import { postProfileEdit } from "../../api/services/profileEdit";
 import { getProfile } from "../../../src/api/services/user";
+import { imgURL } from "../../api/axios";
+
 
 const ProfileEdit = ({ setIsModal, isModal, setIsOkModalOpen }) => {
   const [password, setPassword] = useState("");
@@ -136,7 +138,7 @@ const ProfileEdit = ({ setIsModal, isModal, setIsOkModalOpen }) => {
     } else if (profile.profileImg) {
       return (
         <img
-          src={"http://localhost:8080" + profile.profileImg}
+          src={imgURL + profile.profileImg}
           alt="ProfileImg"
           className={styles.imgPreview}
         />
@@ -167,7 +169,7 @@ const ProfileEdit = ({ setIsModal, isModal, setIsOkModalOpen }) => {
         className={styles.contents_container}
         onSubmit={(e) => e.preventDefault()}
       >
-        <div>
+        <div className={styles.imgPosition}>
           <input
             type="file"
             accept="image/*"
@@ -177,14 +179,12 @@ const ProfileEdit = ({ setIsModal, isModal, setIsOkModalOpen }) => {
             style={{ display: "none" }}
           />
           <div className={styles.imgWrapper}>{profileImgRender()}</div>
-          <div>
-            <button
-              className={styles.imgPlusBtn}
-              onClick={() => inputRef.click()}
-            >
-              <img src={imgPlusBtn} className={styles.imgPlus} alt="button" />
-            </button>
-          </div>
+          <button
+            className={styles.imgPlusBtn}
+            onClick={() => inputRef.click()}
+          >
+            <img src={imgPlusBtn} className={styles.imgPlus} alt="button" />
+          </button>
         </div>
         <div className={styles.contents_info}>
           <div>
