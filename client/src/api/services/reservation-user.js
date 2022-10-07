@@ -21,6 +21,33 @@ export const registerUserRes = (businessId, qrCodeId, name, phone, count) => {
     },
   });
 };
+export const deleteUserRes = (
+  businessId,
+  qrCodeId,
+  resId,
+  resPhone,
+  resName,
+  resCount
+) => {
+  return axios
+    .patch(
+      `${baseURL}/business/${businessId}/reservation/qr-code/${qrCodeId}/cancel/${resId}`,
+      {
+        businessId,
+        qrCodeId,
+        resId,
+        resPhone,
+        resCount,
+        resName,
+      }
+    )
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
 
 export const getUserStoreInfo = (businessId) => {
   return userAxiosInstance.get(`/business/${businessId}`);

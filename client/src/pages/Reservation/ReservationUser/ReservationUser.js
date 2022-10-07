@@ -9,6 +9,7 @@ import {
   getUserStoreInfo,
   getUserFoodList,
 } from "../../../api/services/reservation-user";
+import Modal from "../../../components/Modal/Modal";
 
 function ReservationUser() {
   const [storeName, setStoreName] = useState("");
@@ -21,8 +22,13 @@ function ReservationUser() {
   const path = location.pathname;
   const businessId = path.substr(10, 1);
   const qrCodeId = path.substr(20, 1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [reservationId, setReservationId] = useState(0);
+  const [resName, setResName] = useState("");
+  const [resCount, setResCount] = useState("");
 
   const axiosData = async () => {
+    console.log("비즈니스 아이디는?", businessId, "qr은?", qrCodeId);
     getUserStoreInfo(businessId)
       .then((res) => {
         setStoreName(res.data.data.name);
@@ -71,6 +77,11 @@ function ReservationUser() {
     }
   };
 
+  const trClickHandler = (resId) => {
+    setIsModalOpen(true);
+    console.log("click", resId);
+  };
+
   return (
     <div className={styles.reservationUser}>
       {/* const imgStr = get().respoonse[0].img // a.png
@@ -109,7 +120,16 @@ function ReservationUser() {
                   })
                   .map((re) => {
                     return (
-                      <tr className={styles.tr} key={re.reservationId}>
+                      <tr
+                        onClick={() => {
+                          setReservationId(re.reservationId);
+                          setResName(re.name);
+                          setResCount(re.count);
+                          trClickHandler(re.reservationId);
+                        }}
+                        className={styles.tr}
+                        key={re.reservationId}
+                      >
                         <td className={styles.td1}>{re.reservationId}</td>
                         <td className={styles.td}>{re.name}</td>
                         <td className={styles.td}>{re.phone}</td>
@@ -171,6 +191,17 @@ function ReservationUser() {
           </form>
         </div>
       </div>
+      {isModalOpen && (
+        <Modal
+          setIsModalOpen={setIsModalOpen}
+          num={13}
+          UserbusinessId={businessId}
+          qrCodeId={qrCodeId}
+          resId={reservationId}
+          resName={resName}
+          resCount={resCount}
+        />
+      )}
     </div>
   );
 }

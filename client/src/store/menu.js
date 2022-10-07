@@ -3,6 +3,7 @@ import { PURGE } from "redux-persist";
 
 const initialState = {
   menuList: [],
+  menuId: 0,
 };
 const menuSlice = createSlice({
   name: "menu",
@@ -10,6 +11,9 @@ const menuSlice = createSlice({
   reducers: {
     setMenuList(state, action) {
       state.menuList = action.payload;
+    },
+    setMenuId(state, action) {
+      state.menuId = action.payload;
     },
   },
   extraReducers: (builder) => {

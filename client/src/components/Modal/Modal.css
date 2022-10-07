@@ -17,6 +17,7 @@
   left: 0;
   bottom: 0;
   right: 0;
+
   background: rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
@@ -337,9 +338,6 @@
 
 @media all and (max-width: 900px) {
   .modalBackground {
-    width: 100vw;
-    height: 100vh;
-    background: white;
     position: fixed;
     display: flex;
     justify-content: center;
@@ -355,6 +353,45 @@
     flex-direction: column;
     padding: 25px;
   }
+}
+#phoneInput {
+  border: none;
+  border-radius: 10px;
+  margin-top: 25px;
+  height: 35px;
+  box-shadow: 1px 1px 5px rgba(119, 119, 119, 0.5);
+  padding-left: 15px;
+  margin-bottom: 20px;
+}
+.inputLabel {
+  position: absolute;
+  font-size: 14px;
+  color: #2b4865;
+}
+.cancelTitle {
+  color: #2b4865;
+}
+.res__submitBtn {
+  background-color: #256d85;
+  border-radius: 10px;
+  width: 55px;
+  height: 35px;
+  margin-right: 10px;
+  border: none;
+  color: white;
+
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.res__cancelBtn {
+  background-color: #256d85;
+  border-radius: 10px;
+  width: 55px;
+  height: 35px;
+  margin-left: 10px;
+  border: none;
+  color: white;
+
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 /* 
 svg {
@@ -419,4 +456,4 @@ p .error {
   100% {
     stroke-dashoffset: 900;
   }
-} */
+} */ ;

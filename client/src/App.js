@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router-dom";
+/* eslint-disable */
 import Login from "./pages/Login/Login.js";
 import SignUp from "./pages/SignUp/SignUp";
 import Dashboard from "./pages/Dashboard/Dashboard";

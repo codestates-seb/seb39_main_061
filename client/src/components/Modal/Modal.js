@@ -3,13 +3,25 @@ import "./Modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { deleteMenu } from "../../api/services/menu";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
+import { deleteUserRes } from "../../api/services/reservation-user";
 
-function Modal({ num, setIsConfirmModalOpen, menuId }) {
+function Modal({
+  num,
+  setIsConfirmModalOpen,
+  setIsModalOpen,
+  UserbusinessId,
+  qrCodeId,
+  resId,
+  resName,
+  resCount,
+}) {
   console.log(menuId);
   const [isClickDelete, setIsClickDelete] = useState(false);
   const businessId = useSelector((state) => state.business.businessId);
+  const menuId = useSelector((state) => state.menu.menuId);
+  const phoneRef = useRef();
   //
   const deleteMenuHandler = async () => {
     console.log("비즈메뉴아이디", businessId, menuId);
@@ -20,8 +32,21 @@ function Modal({ num, setIsConfirmModalOpen, menuId }) {
       }, 1000);
     });
   };
+  const resDeleteHandler = () => {
+    const resPhone = phoneRef.current.value;
+    deleteUserRes(
+      UserbusinessId,
+      qrCodeId,
+      resId,
+      resName,
+      resPhone,
+      resCount
+    ).then((res) => {
+      console.log(res);
+    });
+  };
   return (
-    <div className="modalBackground">
+    <div className={"modalBackground"}>
       <div className="modalContainer">
         <div className="body">
           {num === 7 && (
@@ -29,7 +54,7 @@ function Modal({ num, setIsConfirmModalOpen, menuId }) {
               <FontAwesomeIcon icon={faCircleXmark} />
             </div>
           )}
-          {num !== 7 && (
+          {num !== 7 && num !== 13 && (
             <div className="success-checkmark">
               <div className="check-icon">
                 <span className="icon-line line-tip"></span>
@@ -41,12 +66,8 @@ function Modal({ num, setIsConfirmModalOpen, menuId }) {
           )}
 
           <div className="success-text">
-            {num === 11 && <p>QR 코드가 생성되었습니다!</p>}
-            {num === 11 && <p></p>}
             {num === 9 && <p>재발급 메일이 발송되었습니다</p>}
             {num === 9 && <p>메일을 확인해주세요</p>}
-            {num === 11 && <p>QR코드가 생성되었습니다</p>}
-            {num === 11 && <p></p>}
             {num === 0 && <p>환영합니다</p>}
             {num === 0 && <p>잠시후 대시보드로 이동합니다</p>}
             {num === 1 && <p>인증 메일이 발송되었습니다</p>}
@@ -59,6 +80,8 @@ function Modal({ num, setIsConfirmModalOpen, menuId }) {
             {num === 6 && <p></p>}
             {num === 8 && <p>수정사항이 저장 되었습니다.</p>}
             {num === 8 && <p></p>}
+            {num === 11 && <p>QR 코드가 생성되었습니다!</p>}
+            {num === 11 && <p></p>}
             {num === 7 && isClickDelete === false && (
               <p className="modal__deleteMSG">삭제 하시겠습니까?</p>
             )}
@@ -87,6 +110,34 @@ function Modal({ num, setIsConfirmModalOpen, menuId }) {
               >
                 취소
               </button>
+            )}
+            {num === 13 && (
+              <div>
+                <p className="cancelTitle"> 예약 취소</p>
+                <label className="inputLabel" htmlFor="phoneInput">
+                  핸드폰 번호
+                </label>
+                <input id="phoneInput" ref={phoneRef} />
+                <div>
+                  <button
+                    onClick={() => {
+                      resDeleteHandler();
+                    }}
+                    className="res__submitBtn"
+                  >
+                    확인
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsModalOpen(false);
+                      console.log("모달 닫기");
+                    }}
+                    className="res__cancelBtn"
+                  >
+                    취소
+                  </button>
+                </div>
+              </div>
             )}
           </div>
         </div>
