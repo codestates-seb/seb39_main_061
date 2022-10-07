@@ -7,5 +7,6 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=qr_service_app
       - MYSQL_DATABASE=qr
+      - TZ=Asia/Seoul
     ports:
       - "3306:3306"

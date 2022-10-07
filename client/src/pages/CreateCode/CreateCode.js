@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import Sidebar from "../../components/Sidebar/Sidebar";
 import CreateQr from "../../components/CreateQr/CreateQr";
 import styles from "./CreateCode.module.css";

@@ -40,17 +40,25 @@
   </p>
 </div>
 
-<!--
+<br/>
+
+## DevOps Skills
 <div>
-  사용예정
   <p>
-    <img src="https://img.shields.io/badge/GitHub Actions-2088FF?style=for-the-badge&logo=GitHub Actions&logoColor=white"/>
     <img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=for-the-badge&logo=Amazon AWS&logoColor=white"/>
     <img src="https://img.shields.io/badge/Amazon EC2-FF9900?style=for-the-badge&logo=Amazon EC2&logoColor=white"/>
     <img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Amazon RDS-527FFF?style=for-the-badge&logo=Amazon RDS&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Amazon ElastiCache-005571?style=for-the-badge"/>
   </p>
 </div>
--->
+
+<br />
+
+## DevOps Architecure
+
+![image](https://user-images.githubusercontent.com/26485439/194463263-757a3056-f1a5-4b7b-84a6-b8c9770e3c41.png)
+
 
 
 <br/>
