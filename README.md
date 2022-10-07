@@ -53,6 +53,13 @@
   </p>
 </div>
 
+<br />
+
+## DevOps Architecure
+
+![image](https://user-images.githubusercontent.com/26485439/194463263-757a3056-f1a5-4b7b-84a6-b8c9770e3c41.png)
+
+
 
 <br/>
 
