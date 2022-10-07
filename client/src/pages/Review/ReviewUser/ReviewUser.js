@@ -124,11 +124,11 @@ function ReviewUser() {
                 placeholder="  200자 이내로 입력이 가능합니다."
               />
               {/* <label for="" className={styles.label}>200자 이내로 입력이 가능합니다.</label> */}
+              <button className={styles.button_res} type="submit">
+                등록
+              </button>
             </div>
 
-            <button className={styles.button_res} type="submit">
-              등록
-            </button>
             <div className={styles.logo}>
               <img src={logo} alt="로고" />
             </div>
