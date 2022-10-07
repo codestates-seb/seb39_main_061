@@ -37,7 +37,7 @@ const MonthApexChart = () => {
   // 월간 취소자 통계
   const monthCancel = () => {
     const yMonth = monthData.filter(month => month.deleted === "Y")
-    const yMonthSort = yMonth.sort((a,b) => {return b - a})
+    const yMonthSort = yMonth.reverse();
     const arr = []
     for (let i = 0; i < 12; i++) {
       if (yMonthSort[i] === undefined) {
@@ -48,7 +48,7 @@ const MonthApexChart = () => {
     }
     return arr
   }
-  console.log(monthCancel())
+  // console.log(monthCancel())
 
   // 그래프 X 축 월단위 출력
   const beforeMonth = () => {

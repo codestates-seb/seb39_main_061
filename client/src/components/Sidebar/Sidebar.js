@@ -65,7 +65,7 @@ const Sidebar = () => {
         <Link to="/store-management">
           <button className={styles.componentsBtn}>매장 관리</button>
         </Link>
-        <Link to="/">
+        <Link to="/review-admin">
           <button className={styles.componentsBtn}>리뷰 관리</button>
         </Link>
         {/* {isLogin && (

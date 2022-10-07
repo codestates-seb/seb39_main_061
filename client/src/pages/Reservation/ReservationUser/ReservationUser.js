@@ -2,27 +2,43 @@ import React, { useState, useEffect, useRef } from "react";
 import food from "../../../Img/food.png";
 import logo from "../../../Img/Asset_2.png";
 import styles from "./ReservationUser.module.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import {
   getUserResList,
   registerUserRes,
+  getUserStoreInfo,
+  getUserFoodList,
 } from "../../../api/services/reservation-user";
 
 function ReservationUser() {
+  const [storeName, setStoreName] = useState("");
+  // const [food, setFood] = useState("");
+  const [address, setAddress] = useState("");
   const [num, setNum] = useState("");
   const phoneRef = useRef();
   const [res, setRes] = useState([]);
-  const { params } = useParams();
-  console.log("현재 파라미터", params);
+  const location = useLocation();
+  const path = location.pathname;
+  const businessId = path.substr(10, 1);
+  const qrCodeId = path.substr(20, 1);
 
   const axiosData = async () => {
-    try {
-      getUserResList(7, 6).then((res) => {
-        setRes(res.data);
+    getUserStoreInfo(businessId)
+      .then((res) => {
+        setStoreName(res.data.data.name);
+        setAddress(res.data.data.address);
+      })
+      // .then(() => {
+      //   getUserFoodList(businessId).then((res) => {
+      //     setFood(res.data.data.img);
+      //     console.log(food);
+      //   });
+      // })
+      .then(() => {
+        getUserResList(businessId, qrCodeId).then((res) => {
+          setRes(res.data);
+        });
       });
-    } catch (err) {
-      console.log("Error >>", err);
-    }
   };
 
   useEffect(() => {
@@ -45,7 +61,9 @@ function ReservationUser() {
     const count = e.target.count.value;
 
     if (phone.includes("*") === true || phone.length === 13) {
-      registerUserRes(7, 1, name, phone, count).then(() => axiosData());
+      registerUserRes(businessId, qrCodeId, name, phone, count).then(() =>
+        axiosData()
+      );
       // alert(`${name}님의 예약이 등록되었습니다.`);
       console.log("예약");
     } else {
@@ -61,9 +79,12 @@ function ReservationUser() {
       <div className={styles.pages}>
         <div className={styles.userhaed}>
           <div className={styles.address}>
-            <div className={styles.title}>덕이네 불족발</div>
-            <div className={styles.subtitle}>서울시 강동구 새파람길 34</div>
-            <Link to="/review-user" className={styles.link}>
+            <div className={styles.title}>{storeName}</div>
+            <div className={styles.subtitle}>{address}</div>
+            <Link
+              to={`/review/business/${businessId}/qr-code/${qrCodeId}`}
+              className={styles.link}
+            >
               리뷰쓰기
             </Link>
           </div>

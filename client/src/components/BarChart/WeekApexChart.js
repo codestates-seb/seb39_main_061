@@ -38,9 +38,7 @@ const WeekApexChart = () => {
   // 주간 취소자 통계
   const weekCancel = () => {
     const yWeek = weekData.filter((day) => day.deleted === "Y");
-    const YweekSort = yWeek.sort((a, b) => {
-      return b - a;
-    });
+    const YweekSort = yWeek.reverse();
     // console.log("Y:", YweekSort)
     const arr = [];
     for (let i = 0; i < 7; i++) {
