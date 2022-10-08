@@ -159,9 +159,12 @@ const ProfileEdit = ({ setIsModal, isModal, setIsOkModalOpen }) => {
   const newNameHandler = (e) => {
     setNewName(e.target.value);
   };
-  const PhoneHandler = (e) => {
-    setPhone(e.target.value);
-  };
+  // const PhoneHandler = (e) => {
+  //   const regex = /^[0-9\b -]{0,13}$/;
+  //   if (regex.test(e.target.value)) {
+  //     setPhone(e.target.value);
+  //   }
+  // };
 
   return (
     <div className={styles.profile_container}>
@@ -203,7 +206,7 @@ const ProfileEdit = ({ setIsModal, isModal, setIsOkModalOpen }) => {
                 className={styles.input}
                 type={"tel"}
                 value={phone === null ? "" : phone}
-                onChange={PhoneHandler}
+                onChange={handlePhone}
                 placeholder={profile.phone}
               />
             </div>

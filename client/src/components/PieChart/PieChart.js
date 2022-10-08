@@ -7,15 +7,13 @@ const data = {
   series:
   {
     month:
-      ["20221006", "20221007"],
+      ["20221007", "20221008"],
   }
 }
 
 const ApexChart = () => {
   const timeData = useSelector(state => state.dashboard.date)
   const [time, setTime] = useState([]);
-  console.log(typeof timeData)
-  console.log(typeof data.series.month[0])
 
   const six = [0, 0, 5, 4, 1, 7, 3]
   const seven = [0, 0, 4, 8, 2, 9, 2]
