@@ -18,7 +18,7 @@ const QRmanageDetail = (qrCodeImg) => {
   return (
     <div className={styles.container}>
       <div className={styles.info}>
-        <img src={qrcodeImgSelector ? imgURL + qrcodeImgSelector : noneQrImg} alt="나는 큐알코드야" className={styles.qrImg} ref={(el) => (componentRef = el)} />
+        <img src={qrcodeImgSelector ? imgURL + qrcodeImgSelector : noneQrImg} alt="QR코드" className={styles.qrImg} ref={(el) => (componentRef = el)} />
       </div>
       <div className={styles.info}>
         <div className={styles.texts}>

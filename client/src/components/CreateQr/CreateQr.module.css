@@ -9,16 +9,15 @@
   align-items: center;
   justify-content: center;
   margin-left: 270px;
-  width: 90%;
+  width: 80%;
   height: 42.5%;
   margin: 30px;
 }
 .qr__contents__container{
   display: flex;
-  
   justify-content: center;
   align-content: stretch;
-  width: 100%;
+  width: 90%;
 
 }
 .qr__row__container {
@@ -32,8 +31,8 @@
 }
 .subTitle {
   color: #2b4865;
-  margin-bottom: 50px;
-  width: 100%;
+  margin-bottom: 20px;
+  width: 80%;
   font-size: 20px;
 }
 .qr__input {

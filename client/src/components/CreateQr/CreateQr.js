@@ -122,9 +122,9 @@ function CreateQr() {
               return setErrMessage("QR 코드 명을 입력해주세요!");
             }
           });
-        // setOpenModal(true)
-        // setTimeout(() =>
-        // window.location.reload(), 1500)
+        setOpenModal(true)
+        setTimeout(() =>
+        window.location.reload(), 1500)
       }
     );
   };

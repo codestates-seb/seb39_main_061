@@ -3,10 +3,41 @@ import Chart from "react-apexcharts";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+const data = {
+  series:
+  {
+    month:
+      ["20221007", "20221008", "20221009", "20221010", "20221011", "20221012"],
+  }
+}
+
 const ApexChart = () => {
-  const timeData = useSelector(state => state.dashboard.time)
-  console.log(timeData)
+  const timeData = useSelector(state => state.dashboard.date)
   const [time, setTime] = useState([]);
+
+  const six = [0, 0, 5, 4, 1, 7, 3]
+  const seven = [0, 0, 4, 8, 2, 9, 2]
+  const eight = [0, 0, 4, 8, 2, 9, 2]
+  const nine = [0, 0, 4, 8, 2, 9, 2]
+  const ten = [0, 0, 4, 8, 2, 9, 2]
+  const eleven = [0, 0, 4, 8, 2, 9, 2]
+  
+  const datehandler = () => {
+    if (data.series.month[0] === timeData) {
+      return six
+    } else if (data.series.month[1] === timeData) {
+      return seven
+    } else if (data.series.month[2] === timeData) {
+      return eight
+    } else if (data.series.month[3] === timeData) {
+      return nine
+    } else if (data.series.month[4] === timeData) {
+      return ten
+    } else if (data.series.month[5] === timeData) {
+      return eleven
+    }
+  }
+  console.log(datehandler())
 
   // useEffect(() => {
   //   const nTime = timeData.filter(day => day.deleted === "N")
@@ -63,10 +94,10 @@ const ApexChart = () => {
   //   setTimeout(timeHandler, 500)
   // }, [timeData])
   // console.log(time)
-  
+
   const donutData = {
     // series: time,
-    series: [0, 0, 3, 6, 10, 2, 13, 1],
+    series: [0, 0, 5, 4, 1, 7, 3],
     options: {
       chart: {
         type: 'donut',
@@ -110,7 +141,7 @@ const ApexChart = () => {
   return (
     <div>
       <Chart options={donutData.options}
-        series={donutData.series}
+        series={datehandler()}
         type="donut" width="95%" />
     </div>
   );

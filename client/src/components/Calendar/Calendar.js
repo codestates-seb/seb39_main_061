@@ -34,6 +34,7 @@ const DashboardCalendar = () => {
   const [getTime, setGetTime] = useState([]);
 
   let clickDate = moment(value).format("YYYYMMDD")
+  dispatch(dashboardActions.setDate(clickDate))
   let today = moment().format("YYYYMMDD")
 
   const dateValue = () => {
@@ -44,7 +45,7 @@ const DashboardCalendar = () => {
   useEffect(() => {
     getDashboard(dateValue())
     .then(getTimeData => setGetTime(getTimeData.time))
-    dispatch(dashboardActions.setTime(getTime))
+    // dispatch(dashboardActions.setTime(getTime))
   }, [onchange])
 
   return (
