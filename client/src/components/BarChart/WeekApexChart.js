@@ -17,40 +17,40 @@ const data = {
 }
 
 const WeekApexChart = () => {
-  // const weekData = useSelector((state) => state.dashboard.week);
+  const weekData = useSelector((state) => state.dashboard.week);
 
-  // // 주간 예약자 통계
-  // const weekBook = () => {
-  //   const nWeek = weekData.filter((day) => day.deleted === "N");
-  //   const nWeekSort = nWeek.reverse();
-  //   const arr = [];
-  //   for (let i = 0; i < 7; i++) {
-  //     if (nWeekSort[i] === undefined) {
-  //       arr.unshift(0);
-  //     } else {
-  //       arr.unshift(nWeekSort[i].count);
-  //     }
-  //   }
-  //   return arr;
-  // };
-  // // console.log(weekBook())
+  // 주간 예약자 통계
+  const weekBook = () => {
+    const nWeek = weekData.filter((day) => day.deleted === "N");
+    const nWeekSort = nWeek.reverse();
+    const arr = [];
+    for (let i = 0; i < 7; i++) {
+      if (nWeekSort[i] === undefined) {
+        arr.unshift(0);
+      } else {
+        arr.unshift(nWeekSort[i].count);
+      }
+    }
+    return arr;
+  };
+  // console.log(weekBook())
 
-  // // 주간 취소자 통계
-  // const weekCancel = () => {
-  //   const yWeek = weekData.filter((day) => day.deleted === "Y");
-  //   const YweekSort = yWeek.reverse();
-  //   // console.log("Y:", YweekSort)
-  //   const arr = [];
-  //   for (let i = 0; i < 7; i++) {
-  //     if (YweekSort[i] === undefined) {
-  //       arr.unshift(0);
-  //     } else {
-  //       arr.unshift(YweekSort[i].count);
-  //     }
-  //   }
-  //   return arr;
-  // };
-  // // console.log(weekCancel())
+  // 주간 취소자 통계
+  const weekCancel = () => {
+    const yWeek = weekData.filter((day) => day.deleted === "Y");
+    const YweekSort = yWeek.reverse();
+    // console.log("Y:", YweekSort)
+    const arr = [];
+    for (let i = 0; i < 7; i++) {
+      if (YweekSort[i] === undefined) {
+        arr.unshift(0);
+      } else {
+        arr.unshift(YweekSort[i].count);
+      }
+    }
+    return arr;
+  };
+  // console.log(weekCancel())
 
   // 그래프 X 축 일자 출력
   const beforeWeek = () => {
@@ -67,13 +67,13 @@ const WeekApexChart = () => {
   const series = [
     {
       name: "주간 예약자 수",
-      // data: weekBook(),
-      data: data.series.week,
+      data: weekBook(),
+      // data: data.series.week,
     },
     {
       name: "주간 예약 취소자 수",
-      // data: weekCancel(),
-      data: data.series.cancelData,
+      data: weekCancel(),
+      // data: data.series.cancelData,
     },
   ];
   const options = {

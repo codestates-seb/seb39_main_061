@@ -129,6 +129,11 @@ function CreateQr() {
     );
   };
 
+  useEffect(() => {
+    // 첫 렌더링 때, getQrcode axios 요청에서 qrcodeImg 있으면 "이미 qr코드가 존재합니다"
+    // 없으면 qrcode 생성 로직
+  }, [])
+
   return (
     <div className={styles.qr__container}>
       <h3 className={styles.subTitle}>QR Code 생성</h3>

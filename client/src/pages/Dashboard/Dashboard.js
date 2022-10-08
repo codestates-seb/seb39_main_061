@@ -40,7 +40,7 @@ const Dashboard = () => {
         console.log(res);
         dispatch(dashboardActions.setMonth(res.month));
         dispatch(dashboardActions.setWeek(res.week));
-        // dispatch(dashboardActions.setTime(res.time));
+        dispatch(dashboardActions.setTime(res.time));
       })
       .catch((err) => {
         if (err.response.data.status === 401) {

@@ -3,101 +3,103 @@ import Chart from "react-apexcharts";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-const data = {
-  series:
-  {
-    month:
-      ["20221007", "20221008", "20221009", "20221010", "20221011", "20221012"],
-  }
-}
+// 더미데이터 테스트
+// const data = {
+//   series:
+//   {
+//     month:
+//       ["20221007", "20221008", "20221009", "20221010", "20221011", "20221012"],
+//   }
+// }
+// const six = [0, 0, 5, 4, 1, 7, 3]
+// const seven = [0, 0, 4, 8, 2, 9, 2]
+// const eight = [0, 0, 4, 8, 2, 9, 2]
+// const nine = [0, 0, 4, 8, 2, 9, 2]
+// const ten = [0, 0, 4, 8, 2, 9, 2]
+// const eleven = [0, 0, 4, 8, 2, 9, 2]
+// const datehandler = () => {
+//   if (data.series.month[0] === timeData) {
+//     return six
+//   } else if (data.series.month[1] === timeData) {
+//     return seven
+//   } else if (data.series.month[2] === timeData) {
+//     return eight
+//   } else if (data.series.month[3] === timeData) {
+//     return nine
+//   } else if (data.series.month[4] === timeData) {
+//     return ten
+//   } else if (data.series.month[5] === timeData) {
+//     return eleven
+//   }
+// }
+// console.log(datehandler())
 
 const ApexChart = () => {
-  const timeData = useSelector(state => state.dashboard.date)
+  const timeData = useSelector(state => state.dashboard.time)
   const [time, setTime] = useState([]);
-
-  const six = [0, 0, 5, 4, 1, 7, 3]
-  const seven = [0, 0, 4, 8, 2, 9, 2]
-  const eight = [0, 0, 4, 8, 2, 9, 2]
-  const nine = [0, 0, 4, 8, 2, 9, 2]
-  const ten = [0, 0, 4, 8, 2, 9, 2]
-  const eleven = [0, 0, 4, 8, 2, 9, 2]
-  
-  const datehandler = () => {
-    if (data.series.month[0] === timeData) {
-      return six
-    } else if (data.series.month[1] === timeData) {
-      return seven
-    } else if (data.series.month[2] === timeData) {
-      return eight
-    } else if (data.series.month[3] === timeData) {
-      return nine
-    } else if (data.series.month[4] === timeData) {
-      return ten
-    } else if (data.series.month[5] === timeData) {
-      return eleven
-    }
-  }
-  console.log(datehandler())
-
-  // useEffect(() => {
-  //   const nTime = timeData.filter(day => day.deleted === "N")
-  //   console.log(nTime)
-  //   const timeHandler = () => {
-  //     let hours = [];
-  //     for (let i = 0; i <= 7; i++) {
-  //       let date = nTime[i].date
-  //       let count = nTime[i].count
-  //       if (date > 21) {
-  //         hours.unshift(count)
-  //       } else {
-  //         hours.unshift(0)
-  //       }
-  //       if (date <= 21 && date > 18) {
-  //         hours.unshift(count)
-  //       } else {
-  //         hours.unshift(0)
-  //       }
-  //       if (date <= 18 && date > 15) {
-  //         hours.unshift(count)
-  //       } else {
-  //         hours.unshift(0)
-  //       }
-  //       if (date <= 15 && date > 12) {
-  //         hours.unshift(count)
-  //       } else {
-  //         hours.unshift(0)
-  //       }
-  //       if (date <= 12 && date > 9) {
-  //         hours.unshift(count)
-  //       } else {
-  //         hours.unshift(0)
-  //       }
-  //       if (date <= 9 && date > 6) {
-  //         hours.unshift(count)
-  //       } else {
-  //         hours.unshift(0)
-  //       }
-  //       if (date <= 6 && date > 3) {
-  //         hours.unshift(count)
-  //       } else {
-  //         hours.unshift(0)
-  //       }
-  //       if (date < 3) {
-  //         hours.unshift(count)
-  //       } else {
-  //         hours.unshift(0)
-  //       }
-  //       return setTime(hours)
-  //     }
-  //   }
-  //   console.log(timeHandler())
-  //   setTimeout(timeHandler, 500)
-  // }, [timeData])
+  console.log("달력에서 클릭한 날짜 데이터:", timeData)
   // console.log(time)
 
+  useEffect(() => {
+    const nTime = timeData.filter(day => day.deleted === "N")
+    // ntime = 
+    // 0:{ deleted: 'N', date: '17', count: 5 }
+    // 1:{ deleted: 'N', date: '18', count: 5 }
+    const timeHandler = () => {
+      let hours = [];
+      for (let i = 0; i <= 7; i++) {
+        let dated = nTime[i].date
+        let count = nTime[i].count
+        if (dated >= 21) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        if (dated < 21 && dated >= 18) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        if (dated < 18 && dated >= 15) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        if (dated < 15 && dated >= 12) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        if (dated < 12 && dated >= 9) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        if (dated < 9 && dated >= 6) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        if (dated < 6 && dated >= 3) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        if (dated < 3) {
+          hours.unshift(count)
+        } else {
+          hours.unshift(0)
+        }
+        return setTime(hours)
+      }
+    }
+    console.log(timeHandler())
+    setTimeout(timeHandler, 500)
+  }, [])
+  console.log(time)
+
   const donutData = {
-    // series: time,
-    series: [0, 0, 5, 4, 1, 7, 3],
+    series: time,
     options: {
       chart: {
         type: 'donut',
@@ -141,7 +143,8 @@ const ApexChart = () => {
   return (
     <div>
       <Chart options={donutData.options}
-        series={datehandler()}
+        series={donutData.series}
+        // series={datehandler()}
         type="donut" width="95%" />
     </div>
   );
