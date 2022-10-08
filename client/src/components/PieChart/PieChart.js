@@ -7,7 +7,7 @@ const data = {
   series:
   {
     month:
-      ["20221007", "20221008"],
+      ["20221007", "20221008", "20221009", "20221010", "20221011", "20221012"],
   }
 }
 
@@ -17,12 +17,24 @@ const ApexChart = () => {
 
   const six = [0, 0, 5, 4, 1, 7, 3]
   const seven = [0, 0, 4, 8, 2, 9, 2]
+  const eight = [0, 0, 4, 8, 2, 9, 2]
+  const nine = [0, 0, 4, 8, 2, 9, 2]
+  const ten = [0, 0, 4, 8, 2, 9, 2]
+  const eleven = [0, 0, 4, 8, 2, 9, 2]
   
   const datehandler = () => {
     if (data.series.month[0] === timeData) {
       return six
     } else if (data.series.month[1] === timeData) {
       return seven
+    } else if (data.series.month[2] === timeData) {
+      return eight
+    } else if (data.series.month[3] === timeData) {
+      return nine
+    } else if (data.series.month[4] === timeData) {
+      return ten
+    } else if (data.series.month[5] === timeData) {
+      return eleven
     }
   }
   console.log(datehandler())
