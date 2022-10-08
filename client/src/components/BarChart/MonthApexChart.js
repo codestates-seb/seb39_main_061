@@ -6,13 +6,13 @@ import { useSelector } from "react-redux";
 
 
 // 더미데이터
-// const data = {
-//   series:
-//   {
-//     month: [123, 143, 90, 101, 87, 120, 95],
-//     cancelData: [5, 7, 3, 6, 7, 8, 5]
-//   }
-// }
+const data = {
+  series:
+  {
+    month: [123, 143, 90, 101, 87, 120, 95],
+    cancelData: [5, 7, 3, 6, 7, 8, 5]
+  }
+}
 
 const MonthApexChart = () => {
   const monthData = useSelector(state => state.dashboard.month)
@@ -63,11 +63,13 @@ const MonthApexChart = () => {
   const series = [
     {
       name: "월간 예약자 수",
-      data: monthBook()
+      // data: monthBook()
+      data: data.series.month,
     },
     {
       name: "월간 예약 취소자 수",
-      data: monthCancel()
+      // data: monthCancel()
+      data: data.series.cancelData,
     }
   ];
   const options = {

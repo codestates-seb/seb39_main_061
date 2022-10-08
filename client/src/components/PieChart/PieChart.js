@@ -3,10 +3,31 @@ import Chart from "react-apexcharts";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+const data = {
+  series:
+  {
+    month:
+      ["20221006", "20221007"],
+  }
+}
+
 const ApexChart = () => {
-  const timeData = useSelector(state => state.dashboard.time)
-  console.log(timeData)
+  const timeData = useSelector(state => state.dashboard.date)
   const [time, setTime] = useState([]);
+  console.log(typeof timeData)
+  console.log(typeof data.series.month[0])
+
+  const six = [0, 0, 5, 4, 1, 7, 3]
+  const seven = [0, 0, 4, 8, 2, 9, 2]
+  
+  const datehandler = () => {
+    if (data.series.month[0] === timeData) {
+      return six
+    } else if (data.series.month[1] === timeData) {
+      return seven
+    }
+  }
+  console.log(datehandler())
 
   // useEffect(() => {
   //   const nTime = timeData.filter(day => day.deleted === "N")
@@ -63,10 +84,10 @@ const ApexChart = () => {
   //   setTimeout(timeHandler, 500)
   // }, [timeData])
   // console.log(time)
-  
+
   const donutData = {
     // series: time,
-    series: [0, 0, 3, 6, 10, 2, 13, 1],
+    series: [0, 0, 5, 4, 1, 7, 3],
     options: {
       chart: {
         type: 'donut',
@@ -110,7 +131,7 @@ const ApexChart = () => {
   return (
     <div>
       <Chart options={donutData.options}
-        series={donutData.series}
+        series={datehandler()}
         type="donut" width="95%" />
     </div>
   );
