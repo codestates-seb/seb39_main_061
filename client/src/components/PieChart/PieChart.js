@@ -93,7 +93,7 @@ const ApexChart = () => {
         return setTime(hours)
       }
     }
-    console.log(timeHandler())
+    // console.log(timeHandler())
     setTimeout(timeHandler, 500)
   }, [])
   console.log(time)

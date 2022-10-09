@@ -8,13 +8,13 @@ import { useSelector, useDispatch } from "react-redux";
 // import barCharts, { barChartsAction } from "../../store/barCharts";
 
 // 더미데이터
-const data = {
-  series:
-  {
-    week: [23, 30, 60, 37, 50, 20, 50],
-    cancelData: [5, 10, 3, 6, 7, 8, 5]
-  }
-}
+// const data = {
+//   series:
+//   {
+//     week: [23, 30, 60, 37, 50, 20, 50],
+//     cancelData: [5, 10, 3, 6, 7, 8, 5]
+//   }
+// }
 
 const WeekApexChart = () => {
   const weekData = useSelector((state) => state.dashboard.week);

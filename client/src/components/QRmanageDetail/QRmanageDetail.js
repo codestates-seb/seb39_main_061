@@ -8,16 +8,19 @@ import ReactToPrint from "react-to-print";
 import { useRef } from "react";
 import { useState, useEffect } from "react";
 import { getBusinessId, getQRcodeImg } from "../../api/services/createQrcode"
+import { qrcodeActions } from "../../store/qrCode";
 
 const QRmanageDetail = () => {
-  const [BusinessIdId, setGetBusinessIdId] = useState();
-  const [getQrCodeImg, setGetQrCodeImg] = useState();
-  const [qrTarget, setQrTarget] = useState();
-  const [qrDueDate, setQrDueDate] = useState();
-  // const qrcodeImgSelector = useSelector((state) => state.qrcode.qrcodeImg);
-  const targetSelector = useSelector((state) => state.qrcode.target);
+  // const [BusinessIdState, setBusinessIdState] = useState([]);
+  // const [getQrCodeImg, setGetQrCodeImg] = useState();
+  // const [qrTarget, setQrTarget] = useState();
+  // const [qrDueDate, setQrDueDate] = useState();
   const dueDateSelector = useSelector((state) => state.qrcode.dueDate);
+  const businessIdSelector = useSelector((state) => state.qrcode.businessId);
+  const qrcodeImgSelector = useSelector((state) => state.qrcode.qrcodeImg);
+  const targetSelector = useSelector((state) => state.qrcode.target);
   let componentRef = useRef();
+  const dispatch = useDispatch();
 
   let dueDate = moment(dueDateSelector).format("YYYY년 MM월 DD일");
 
@@ -28,22 +31,24 @@ const QRmanageDetail = () => {
   // 없으면 none 이미지 렌더링
   useEffect(() => {
     getBusinessId()
-      .then(res => setGetBusinessIdId(res.businessId))
-    getQRcodeImg(BusinessIdId)
+      .then(res => dispatch(qrcodeActions.setBusinessId(res.businessId)))
+      .catch((err) => console.log(err))
+    getQRcodeImg(businessIdSelector)
       .then(res => {
-        setGetQrCodeImg(res[0].qrCodeId)
-        setQrTarget(res[0].target)
+        dispatch(qrcodeActions.setQrcodeImg(res[0].qrCodeImg))
+        dispatch(qrcodeActions.setTarget(res[0].target))
       })
+      .catch((err) => console.log(err))
   }, [])
 
   return (
     <div className={styles.container}>
       <div className={styles.info}>
-        <img src={getQrCodeImg ? imgURL + getQrCodeImg : noneQrImg} alt="QR코드" className={styles.qrImg} ref={(el) => (componentRef = el)} />
+        <img src={qrcodeImgSelector ? imgURL + qrcodeImgSelector : noneQrImg} alt="QR코드" className={styles.qrImg} ref={(el) => (componentRef = el)} />
       </div>
       <div className={styles.info}>
         <div className={styles.texts}>
-          <div className={styles.qr__txt}>QR 코드 명 : {qrTarget}</div>
+          <div className={styles.qr__txt}>QR 코드 명 : {targetSelector}</div>
           <div className={styles.qr__txt}>만료 기간 : {dueDate === "Invalid date" ? "" : dueDate + " 까지"}</div>
           <ReactToPrint
             trigger={() => <button className={styles.qr__btn}>출력하기</button>}
