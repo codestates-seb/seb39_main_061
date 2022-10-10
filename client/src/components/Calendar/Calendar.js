@@ -8,7 +8,6 @@ import { dashboardActions } from "../../store/dashboard";
 import { useEffect } from 'react';
 import { getDashboard } from "./../../api/services/dashboard"
 import { getBusinessId, getQRcodeInfo } from "../../api/services/createQrcode"
-import { qrcodeActions } from "../../store/qrCode";
 
 
 // 더미데이터
@@ -34,8 +33,8 @@ const DashboardCalendar = () => {
   const dispatch = useDispatch();
   const [value, onChange] = useState(new Date());
   const [getTime, setGetTime] = useState([]);
-  const [businessIdget, setBusinessIdget] = useState([]);
-  const [qrcodeIdget, setQrcodeIdget] = useState([]);
+  const [businessIdget, setBusinessIdget] = useState(0);
+  const [qrcodeIdget, setQrcodeIdget] = useState(0);
   
 
   let clickDate = moment(value).format("YYYYMMDD")
@@ -51,7 +50,7 @@ const DashboardCalendar = () => {
     .then(res => setBusinessIdget(res.businessId))
     getQRcodeInfo(businessIdget)
     // .then(res => console.log(res))
-    .then(res => setQrcodeIdget(res[0].qrCodeId))
+    .then(res => setQrcodeIdget(res[1].qrCodeId))
     getDashboard(businessIdget, qrcodeIdget, dateValue())
     .then(res => console.log(res))
     // .then(getTimeData => setGetTime(getTimeData.time))

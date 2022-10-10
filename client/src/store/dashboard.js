@@ -6,6 +6,8 @@ const initialState = {
     week: [{ deleted: 'N', date: '2022-09-26', count: 0 }],
     time: [{ deleted: 'N', date: '2022-09-26', count: 0 }],
     clickDate: null,
+    businessId: null,
+    qrCodeId: null,
 };
 
 const dashboardSlice = createSlice({
@@ -23,6 +25,12 @@ const dashboardSlice = createSlice({
     },
     setClickDate(state, action) {
       state.clickDate = action.payload
+    },
+    setBusinessId(state, action) {
+      state.businessId = action.payload
+    },
+    setQrCodeId(state, action) {
+      state.qrCodeId = action.payload
     },
   },
 

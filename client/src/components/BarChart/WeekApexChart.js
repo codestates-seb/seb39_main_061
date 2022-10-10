@@ -62,9 +62,7 @@ const WeekApexChart = () => {
     const today = moment(new Date()).format("MM/DD");
     let rendering = [today];
     for (let i = 1; i < 7; i++) {
-      rendering.unshift(
-        moment(new Date()).subtract([i], "days").format("MM/DD")
-      );
+      rendering.unshift(moment(new Date()).subtract([i], "days").format("MM/DD"));
     }
     return rendering;
   };

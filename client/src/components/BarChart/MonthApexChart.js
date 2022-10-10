@@ -16,7 +16,7 @@ import { useSelector } from "react-redux";
 
 const MonthApexChart = () => {
   const monthData = useSelector(state => state.dashboard.month)
-  // console.log(monthData)
+  console.log(monthData)
 
   // 월간 예약자 통계
   const monthBook = () => {
@@ -24,7 +24,6 @@ const MonthApexChart = () => {
     if (monthData !== null) {
       const nMonth = monthData.filter(month => month.deleted === "N")
       const nMonthSort = nMonth.reverse()
-      const arr = []
       for (let i = 0; i < 12; i++) {
         if (nMonthSort[i] === undefined) {
           arr.unshift(0)

@@ -9,20 +9,25 @@ import QRcodeManageDetail from "./../../components/QRmanageDetail/QRmanageDetail
 import Header from "../../components/Header/Header";
 import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { dashboardActions } from "../../store/dashboard";
 import { getDashboard } from "./../../api/services/dashboard";
+import { getBusinessId, getQRcodeInfo } from "../../api/services/createQrcode"
 import moment from "moment";
 
 const Dashboard = () => {
   const title = "대시보드";
   const dispatch = useDispatch();
   const [isBarChart, setIsBarChart] = useState(true);
+  // const [businessIdget, setBusinessIdget] = useState(0);
+  // const [qrcodeIdget, setQrcodeIdget] = useState(0);
+  const businessIdSelector = useSelector(state => state.dashboard.businessId);
+  const qrCodeIdSelector = useSelector(state => state.dashboard.qrCodeId); 
 
-  console.log("파라미터는?", window.location.pathname);
-  if (window.location.pathname === "/oauth2") {
-    window.history.pushState("", "페이지타이틀", `/dashboard`);
-  }
+  // console.log("파라미터는?", window.location.pathname);
+  // if (window.location.pathname === "/oauth2") {
+  //   window.history.pushState("", "페이지타이틀", `/dashboard`);
+  // }
 
   const weekBtnHandler = () => {
     setIsBarChart(true);
@@ -35,7 +40,12 @@ const Dashboard = () => {
   let today = moment().format("YYYYMMDD");
 
   useEffect(() => {
-    getDashboard(today)
+    getBusinessId()
+    .then(res => dispatch(dashboardActions.setBusinessId(res.businessId)))
+    getQRcodeInfo(businessIdSelector)
+    // .then(res => console.log(res[1].qrCodeId))
+    .then(res => dispatch(dashboardActions.setQrCodeId(res[1].qrCodeId)))
+    getDashboard(businessIdSelector, qrCodeIdSelector, today)
       .then((res) => {
         console.log(res);
         dispatch(dashboardActions.setMonth(res.month));
@@ -43,7 +53,7 @@ const Dashboard = () => {
         dispatch(dashboardActions.setTime(res.time));
       })
       .catch((err) => {
-        if (err.response.data.status === 401) {
+        if (err.response.data === 401) {
           alert("로그인 해주세요!");
         }
         // navigate("/login")
