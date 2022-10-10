@@ -8,6 +8,8 @@ import { persistor } from "../../index";
 import { baseURL } from "../../api/axios";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../../store/auth";
+import { imgURL } from "../../api/axios"
+
 
 const Header = (title) => {
   const [profileImg, setProfileImg] = useState(null);
@@ -52,9 +54,9 @@ const Header = (title) => {
             />
           ) : (
             <img
-              src={baseURL + profileImg}
+              src={profileImg.includes('http') ? `${profileImg}` : `${imgURL}${profileImg}`}
               className={styles.imgPreview}
-              alt="프로필 이미지"
+              alt="나는 프로필"
             />
           )}
         </div>

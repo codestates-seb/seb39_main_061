@@ -8,7 +8,7 @@ import {
   postCreateQRCode,
   updateCreateQRCode,
   getBusinessId,
-  getQRcodeImg,
+  getQRcodeInfo,
 } from "./../../api/services/createQrcode";
 import QRcodeManageDetail from "./../../components/QRmanageDetail/QRmanageDetail";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,9 +28,10 @@ function CreateQr() {
   const [qrCodeCheck, setQrCodeCheck] = useState();
   const [errMessage, setErrMessage] = useState();
   const [openModal, setOpenModal] = useState(false);
+  const [qrImage, setQrImage] = useState(false);
   const dispatch = useDispatch();
   const businessIdSelector = useSelector((state) => state.qrcode.businessId);
-  const qrcodeImgSelector = useSelector((state) => state.qrcode.qrcodeImg);
+  // const qrcodeImgSelector = useSelector((state) => state.qrcode.qrcodeImg);
   const today = new Date();
   // console.log(today);
 
@@ -110,7 +111,8 @@ function CreateQr() {
         updateCreateQRCode(formData, resTwo.businessId, res.data.qrCodeId)
           .then((res) => {
             console.log(res);
-            dispatch(qrcodeActions.setQrcodeImg(res.qrCodeImg));
+            setQrImage(res.qrCodeImg)
+            // dispatch(qrcodeActions.setQrcodeImg(res.qrCodeImg));
             dispatch(qrcodeActions.setTarget(res.target));
             dispatch(qrcodeActions.setDuedate(body.dueDate));
             // console.log(qrcodeImgSelector)
@@ -122,7 +124,7 @@ function CreateQr() {
           });
         setOpenModal(true)
         setTimeout(() =>
-        window.location.reload(), 1500)
+          window.location.reload(), 1500)
       }
     );
   };
@@ -130,7 +132,7 @@ function CreateQr() {
   useEffect(() => {
     getBusinessId()
       .then(res => dispatch(qrcodeActions.setBusinessId(res.businessId)))
-    getQRcodeImg(businessIdSelector)
+      getQRcodeInfo(businessIdSelector)
       .then(res => {
         dispatch(qrcodeActions.setQrcodeImg(res[0].qrCodeImg))
       })
@@ -176,7 +178,7 @@ function CreateQr() {
             value={body.dueDate}
           />
           <div>
-            <button onClick={qrcodeImgSelector? qrCodeExist : saveQRCode} className={styles.qr__btn}>
+            <button onClick={qrImage ? qrCodeExist : saveQRCode} className={styles.qr__btn}>
               생 성
             </button>
             <button onClick={CancelQRCode} className={styles.qr__btn}>

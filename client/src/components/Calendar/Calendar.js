@@ -7,6 +7,8 @@ import { useDispatch } from 'react-redux';
 import { dashboardActions } from "../../store/dashboard";
 import { useEffect } from 'react';
 import { getDashboard } from "./../../api/services/dashboard"
+import { getBusinessId, getQRcodeInfo } from "../../api/services/createQrcode"
+import { qrcodeActions } from "../../store/qrCode";
 
 
 // 더미데이터
@@ -32,6 +34,9 @@ const DashboardCalendar = () => {
   const dispatch = useDispatch();
   const [value, onChange] = useState(new Date());
   const [getTime, setGetTime] = useState([]);
+  const [businessIdget, setBusinessIdget] = useState([]);
+  const [qrcodeIdget, setQrcodeIdget] = useState([]);
+  
 
   let clickDate = moment(value).format("YYYYMMDD")
   let today = moment().format("YYYYMMDD")
@@ -41,10 +46,20 @@ const DashboardCalendar = () => {
   }
   
   useEffect(() => {
-    getDashboard(dateValue())
-    .then(getTimeData => setGetTime(getTimeData.time))
-    dispatch(dashboardActions.setTime(getTime))
-  }, [onchange])
+    getBusinessId()
+    // .then(res => console.log(res))
+    .then(res => setBusinessIdget(res.businessId))
+    getQRcodeInfo(businessIdget)
+    // .then(res => console.log(res))
+    .then(res => setQrcodeIdget(res[0].qrCodeId))
+    getDashboard(businessIdget, qrcodeIdget, dateValue())
+    .then(res => console.log(res))
+    // .then(getTimeData => setGetTime(getTimeData.time))
+    // .then(getTimeData => console.log(getTimeData))
+    // dispatch(dashboardActions.setTime(getTime))
+    // dispatch(dashboardActions.setClickDate(clickDate))
+    
+  }, [value])
 
   return (
     <div className={styles.calendar_container}>

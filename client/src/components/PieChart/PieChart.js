@@ -36,7 +36,9 @@ import { useEffect, useState } from "react";
 
 const ApexChart = () => {
   const timeData = useSelector(state => state.dashboard.time)
+  const clickData = useSelector(state => state.dashboard.clickDate)
   const [time, setTime] = useState([]);
+  console.log("달력에서 클릭한 날짜:", clickData)
   console.log("달력에서 클릭한 날짜 데이터:", timeData)
   // console.log(time)
 
@@ -94,7 +96,7 @@ const ApexChart = () => {
       }
     }
     // console.log(timeHandler())
-    setTimeout(timeHandler, 500)
+    // setTimeout(timeHandler, 30000)
   }, [])
   console.log(time)
 
