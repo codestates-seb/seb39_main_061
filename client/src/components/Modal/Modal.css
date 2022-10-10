@@ -17,6 +17,7 @@
   left: 0;
   bottom: 0;
   right: 0;
+
   background: rgba(0, 0, 0, 0.3);
   z-index: 1;
 }
@@ -195,6 +196,14 @@
   font-size: 20px;
   animation: opacity 1s;
 }
+.res__deleteSucessMSG {
+  margin-top: 20px;
+  font-size: 20px;
+  animation: opacity 1s;
+}
+.res__deleteSucessMSG__top {
+  margin-top: 70px;
+}
 
 .check-icon::before {
   top: 3px;
@@ -337,9 +346,6 @@
 
 @media all and (max-width: 900px) {
   .modalBackground {
-    width: 100vw;
-    height: 100vh;
-    background: white;
     position: fixed;
     display: flex;
     justify-content: center;
@@ -347,14 +353,63 @@
   }
   .modalContainer {
     width: 300px;
-    height: 200px;
+    height: 300px;
     border-radius: 12px;
     background-color: white;
     box-shadow: white 0px 0px 0px;
     display: flex;
     flex-direction: column;
     padding: 25px;
+    margin-left: 5px;
   }
+}
+#phoneInput,
+#nameInput {
+  border: none;
+  border-radius: 10px;
+  height: 35px;
+  box-shadow: 1px 1px 5px rgba(119, 119, 119, 0.5);
+  padding-left: 15px;
+}
+.resNameWrap,
+.resPhoneWrap {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.inputNameLabel,
+.inputPhoneLabel {
+  font-size: 15px;
+  color: #2b4865;
+  margin-bottom: 10px;
+}
+.cancelTitle {
+  color: #2b4865;
+}
+.res__submitBtn {
+  background-color: #256d85;
+  border-radius: 10px;
+  width: 55px;
+  height: 35px;
+  margin-right: 10px;
+  border: none;
+  color: white;
+
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.res__cancelBtn {
+  background-color: #256d85;
+  border-radius: 10px;
+  width: 55px;
+  height: 35px;
+  margin-left: 10px;
+  border: none;
+  color: white;
+
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 /* 
 svg {
@@ -419,4 +474,4 @@ p .error {
   100% {
     stroke-dashoffset: 900;
   }
-} */
+} */ ;

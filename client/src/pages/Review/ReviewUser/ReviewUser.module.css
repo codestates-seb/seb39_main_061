@@ -1,27 +1,33 @@
 .review {
-  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 412px;
+  height: 844px;
 }
 
 .pages {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 844px;
-  width: 390px;
+  height: 100%;
+  width: 100%;
   flex-direction: column;
 }
 
 .title {
-  margin-top: 1rem;
-  margin-left: 0.7rem;
-  font-weight: 500;
+  margin-top: 1.2rem;
   font-size: 20px;
-  margin-bottom: 1rem;
+  font-weight: 500;
 }
-
+.subtitle {
+  margin-top: 0.3rem;
+  font-size: 4px;
+}
 .tables {
   overflow-y: scroll;
-  height: 1350px;
+  height: 100%;
   -ms-overflow-style: none;
 }
 .tables::-webkit-scrollbar {
@@ -29,8 +35,8 @@
 }
 
 .table {
-  width: 370px;
-  margin-left: 0.3rem;
+  width: 390px;
+
   text-align: center;
   font-size: 0.9em;
   border-collapse: separate;
@@ -70,80 +76,82 @@ TD {
 }
 
 .upform {
+  display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 250px;
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+  z-index: 1;
 }
 
 .form {
+  width: 100%;
+  border-radius: 1rem;
+  height: 100%;
   display: flex;
-  width: 390px;
-  height: 70px;
-
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  position: relative;
 }
 
 .div {
-  height: 20px;
+  position: relative;
+  height: 24px;
   margin-bottom: 1.5rem;
+  margin-left: 13px;
 }
 
 .input {
-  position: absolute;
-  justify-content: flex-start;
-  width: 286px;
+  width: 290px;
   height: 38px;
-  font-size: 1rem;
-  border: 1px solid #dadce0;
+  border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 0.5rem;
-  outline: none;
-  margin-left: 0.8rem;
-  margin-top: 0.9rem;
-  background: none;
-  z-index: 1;
-  display: flex;
+  margin-left: 10px;
+  padding-left: 15px;
 }
 
 /* .label {
-    position: absolute;
-  left: 0.75rem;
-  top: 1.25rem;
-  padding: 0 .25rem;
-  background-color: #fff;
-  color: #80868B;
-  font-size: 1rem;
-  transition: .3s;
-  display: flex;
-} */
+      position: absolute;
+    left: 0.75rem;
+    top: 1.25rem;
+    padding: 0 .25rem;
+    background-color: #fff;
+    color: #80868B;
+    font-size: 1rem;
+    transition: .3s;
+    display: flex;
+  } */
 
 .button_res {
-  display: flex;
   color: #fff;
+  height: 37px;
+  width: 55px;
   background-color: #256d85;
   border-radius: 5px;
   font-size: 13px;
-  font-weight: 500;
-  align-items: center;
-  margin-top: 1rem;
-  margin-left: 20rem;
-  width: 56px;
-  height: 36px;
-  align-items: center;
-  padding-left: 0.9rem;
-  padding-bottom: 0.2rem;
-  border-color: #256d85;
-  border: 0;
-  outline: 0;
-  text-decoration: none;
+  border-radius: 0.5rem;
+  border-style: none;
+  margin-right: 10px;
+  margin-left: 1rem;
 }
 
 .food {
-  width: 390px;
+  width: 100%;
 }
 
 .logo {
+  position: relative;
   display: flex;
-  width: 85px;
-  margin-left: 9rem;
-  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: auto;
+  justify-content: center;
+  margin-top: 15px;
+}
+.logo img {
+  width: 100px;
+  margin-top: 2rem;
 }

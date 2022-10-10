@@ -7,6 +7,7 @@ import { getProfile } from "../../../src/api/services/user";
 import Header from "../../components/Header/Header";
 import { useNavigate } from "react-router-dom";
 import OkModal from "../../components/Modal/Modal";
+import { imgURL } from "../../api/axios"
 
 const Profile = () => {
   const [userInfo, setUserInfo] = useState({});
@@ -33,6 +34,8 @@ const Profile = () => {
       });
   }, []);
 
+  console.log(imgURL)
+
   return (
     <div className={styles.container}>
       <Sidebar />
@@ -44,29 +47,29 @@ const Profile = () => {
               {/* <h1>프로필 수정</h1> */}
               <div className={styles.imgWrapper}>
                 {userInfo.profileImg === null ||
-                userInfo.profileImg === undefined ? (
-                  <img alt="나는 없는 이미지" src={noneProfile} />
+                  userInfo.profileImg === undefined ? (
+                  <img alt="None Img" src={noneProfile} />
                 ) : (
                   <img
-                    src={"http://localhost:8080" + userInfo.profileImg}
+                    src={userInfo.profileImg.includes('http')? `${userInfo.profileImg}` : `${imgURL}${userInfo.profileImg}`}
                     className={styles.imgPreview}
                     alt="나는 프로필"
                   />
                 )}
               </div>
               <div className={styles.contents_info}>
-                <div>
-                  <div className={styles.contents_text}>
-                    관리자 명: {userInfo.name}
-                  </div>
-                  <div className={styles.contents_text}>
-                    이메일: {userInfo.email}
-                  </div>
-                  <div className={styles.contents_text}>
-                    전화번호: {userInfo.phone}
-                  </div>
-                </div>
-                <div>
+                <span className={styles.contents_text}>
+                  관리자 명: {userInfo.name}
+                </span>
+                <br></br>
+                <span className={styles.contents_text}>
+                  이메일: {userInfo.email}
+                </span>
+                <br></br>
+                <span className={styles.contents_text}>
+                  전화번호: {userInfo.phone}
+                </span>
+                <div className={styles.contents_btn}>
                   <button onClick={openModal} className={styles.btn}>
                     수 정
                   </button>

@@ -2,27 +2,48 @@ import React, { useState, useEffect, useRef } from "react";
 import food from "../../../Img/food.png";
 import logo from "../../../Img/Asset_2.png";
 import styles from "./ReservationUser.module.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useLocation } from "react-router-dom";
 import {
   getUserResList,
   registerUserRes,
+  getUserStoreInfo,
+  getUserFoodList,
 } from "../../../api/services/reservation-user";
+import Modal from "../../../components/Modal/Modal";
 
 function ReservationUser() {
+  const [storeName, setStoreName] = useState("");
+  // const [food, setFood] = useState("");
+  const [address, setAddress] = useState("");
   const [num, setNum] = useState("");
   const phoneRef = useRef();
   const [res, setRes] = useState([]);
-  const { params } = useParams();
-  console.log("현재 파라미터", params);
+  const location = useLocation();
+  const path = location.pathname;
+  const businessId = path.substr(10, 1);
+  const qrCodeId = path.substr(20, 1);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [reservationId, setReservationId] = useState(0);
+  const [resCount, setResCount] = useState("");
 
   const axiosData = async () => {
-    try {
-      getUserResList(7, 6).then((res) => {
-        setRes(res.data);
+    console.log("비즈니스 아이디는?", businessId, "qr은?", qrCodeId);
+    getUserStoreInfo(businessId)
+      .then((res) => {
+        setStoreName(res.data.data.name);
+        setAddress(res.data.data.address);
+      })
+      // .then(() => {
+      //   getUserFoodList(businessId).then((res) => {
+      //     setFood(res.data.data.img);
+      //     console.log(food);
+      //   });
+      // })
+      .then(() => {
+        getUserResList(businessId, qrCodeId).then((res) => {
+          setRes(res.data);
+        });
       });
-    } catch (err) {
-      console.log("Error >>", err);
-    }
   };
 
   useEffect(() => {
@@ -45,12 +66,31 @@ function ReservationUser() {
     const count = e.target.count.value;
 
     if (phone.includes("*") === true || phone.length === 13) {
-      registerUserRes(7, 1, name, phone, count).then(() => axiosData());
+      registerUserRes(businessId, qrCodeId, name, phone, count)
+        .catch((err) => {
+          console.log("에러", err.response.data.message);
+          if (err.response.data.message === "RESERVATION IS ALREADY EXISTS") {
+            alert("이미 예약된 사용자 입니다");
+          }
+          console.log("이유", err.response.data);
+          if (err.response.data.fieldErrors) {
+            alert(err.response.data.fieldErrors[0].reason);
+          }
+        })
+        .then((res) => {
+          axiosData().catch((err) => {
+            console.log(err);
+          });
+        });
+
       // alert(`${name}님의 예약이 등록되었습니다.`);
       console.log("예약");
-    } else {
-      alert(`연락처 11자리를 입력하세요 (-제외)`);
     }
+  };
+
+  const trClickHandler = (resId) => {
+    setIsModalOpen(true);
+    console.log("click", resId);
   };
 
   return (
@@ -61,9 +101,12 @@ function ReservationUser() {
       <div className={styles.pages}>
         <div className={styles.userhaed}>
           <div className={styles.address}>
-            <div className={styles.title}>덕이네 불족발</div>
-            <div className={styles.subtitle}>서울시 강동구 새파람길 34</div>
-            <Link to="/review-user" className={styles.link}>
+            <div className={styles.title}>{storeName}</div>
+            <div className={styles.subtitle}>{address}</div>
+            <Link
+              to={`/review/business/${businessId}/qr-code/${qrCodeId}`}
+              className={styles.link}
+            >
               리뷰쓰기
             </Link>
           </div>
@@ -88,7 +131,15 @@ function ReservationUser() {
                   })
                   .map((re) => {
                     return (
-                      <tr className={styles.tr} key={re.reservationId}>
+                      <tr
+                        onClick={() => {
+                          setReservationId(re.reservationId);
+                          setResCount(re.count);
+                          trClickHandler(re.reservationId);
+                        }}
+                        className={styles.tr}
+                        key={re.reservationId}
+                      >
                         <td className={styles.td1}>{re.reservationId}</td>
                         <td className={styles.td}>{re.name}</td>
                         <td className={styles.td}>{re.phone}</td>
@@ -150,6 +201,16 @@ function ReservationUser() {
           </form>
         </div>
       </div>
+      {isModalOpen && (
+        <Modal
+          setIsModalOpen={setIsModalOpen}
+          num={13}
+          businessId={businessId}
+          qrCodeId={Number(qrCodeId)}
+          reservationId={reservationId}
+          resCount={resCount}
+        />
+      )}
     </div>
   );
 }

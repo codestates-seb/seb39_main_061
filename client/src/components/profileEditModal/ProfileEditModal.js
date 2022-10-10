@@ -4,6 +4,8 @@ import noneProfile from "../../Img/Asset_5.png";
 import imgPlusBtn from "../../Img/imgPlusBtn.png";
 import { postProfileEdit } from "../../api/services/profileEdit";
 import { getProfile } from "../../../src/api/services/user";
+import { imgURL } from "../../api/axios";
+
 
 const ProfileEdit = ({ setIsModal, isModal, setIsOkModalOpen }) => {
   const [password, setPassword] = useState("");
@@ -136,7 +138,7 @@ const ProfileEdit = ({ setIsModal, isModal, setIsOkModalOpen }) => {
     } else if (profile.profileImg) {
       return (
         <img
-          src={"http://localhost:8080" + profile.profileImg}
+          src={imgURL + profile.profileImg}
           alt="ProfileImg"
           className={styles.imgPreview}
         />
@@ -157,9 +159,12 @@ const ProfileEdit = ({ setIsModal, isModal, setIsOkModalOpen }) => {
   const newNameHandler = (e) => {
     setNewName(e.target.value);
   };
-  const PhoneHandler = (e) => {
-    setPhone(e.target.value);
-  };
+  // const PhoneHandler = (e) => {
+  //   const regex = /^[0-9\b -]{0,13}$/;
+  //   if (regex.test(e.target.value)) {
+  //     setPhone(e.target.value);
+  //   }
+  // };
 
   return (
     <div className={styles.profile_container}>
@@ -167,7 +172,7 @@ const ProfileEdit = ({ setIsModal, isModal, setIsOkModalOpen }) => {
         className={styles.contents_container}
         onSubmit={(e) => e.preventDefault()}
       >
-        <div>
+        <div className={styles.imgPosition}>
           <input
             type="file"
             accept="image/*"
@@ -177,14 +182,12 @@ const ProfileEdit = ({ setIsModal, isModal, setIsOkModalOpen }) => {
             style={{ display: "none" }}
           />
           <div className={styles.imgWrapper}>{profileImgRender()}</div>
-          <div>
-            <button
-              className={styles.imgPlusBtn}
-              onClick={() => inputRef.click()}
-            >
-              <img src={imgPlusBtn} className={styles.imgPlus} alt="button" />
-            </button>
-          </div>
+          <button
+            className={styles.imgPlusBtn}
+            onClick={() => inputRef.click()}
+          >
+            <img src={imgPlusBtn} className={styles.imgPlus} alt="button" />
+          </button>
         </div>
         <div className={styles.contents_info}>
           <div>
@@ -203,7 +206,7 @@ const ProfileEdit = ({ setIsModal, isModal, setIsOkModalOpen }) => {
                 className={styles.input}
                 type={"tel"}
                 value={phone === null ? "" : phone}
-                onChange={PhoneHandler}
+                onChange={handlePhone}
                 placeholder={profile.phone}
               />
             </div>

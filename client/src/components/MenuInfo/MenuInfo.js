@@ -26,7 +26,7 @@ const MenuContainer = styled.div`
   align-items: center;
   flex-direction: column;
   padding: 0px 70px 0px 70px;
-  width: 95%;
+  width: 100%;
   height: 600px;
   position: relative;
 `;
@@ -174,10 +174,10 @@ const MenuInfo = () => {
   const menuList = useSelector((state) => state.menu.menuList);
   const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
-  const [menuId, setMenuId] = useState(0);
   const [modalNum, setModalNum] = useState(6);
   const [changeCSS, setChangeCSS] = useState(true);
   const [rightOrLeft, setRightOrLeft] = useState(false);
+  const menuId = useSelector((state) => state.menu.menuId);
 
   useEffect(() => {
     setChangeCSS(true);
@@ -192,9 +192,10 @@ const MenuInfo = () => {
         setEmpthyEle(res.data.data.length !== 10);
       });
     });
-  }, [pageNum, menuId]);
+  }, [pageNum]);
 
   const menuModalToggle = () => {
+    setIsEdit(false);
     setIsModalOpen(!isModalOpen);
   };
   const confirmModalToggle = () => {
@@ -214,13 +215,6 @@ const MenuInfo = () => {
       padding: "0",
       borderRadius: "20px",
     },
-  };
-  const editModalHandler = (menuId) => {
-    console.log("메뉴아이디는?", menuId);
-    setMenuId(menuId);
-    setIsEdit(true);
-    setModalNum(6);
-    setIsModalOpen(!isModalOpen);
   };
 
   return (
@@ -248,7 +242,10 @@ const MenuInfo = () => {
               display={"none"}
               marginLeft={"55px"}
               onClick={() => {
-                editModalHandler(item.menuId);
+                setIsEdit(true);
+                dispatch(menuActions.setMenuId(item.menuId));
+                setModalNum(6);
+                setIsModalOpen(!isModalOpen);
               }}
             >
               <FontAwesomeIcon icon={faPenToSquare} />
@@ -259,7 +256,7 @@ const MenuInfo = () => {
               marginLeft={"110px"}
               display={"none"}
               onClick={() => {
-                setMenuId(item.menuId);
+                dispatch(menuActions.setMenuId(item.menuId));
                 setModalNum(7);
                 confirmModalToggle(true);
               }}
@@ -273,7 +270,14 @@ const MenuInfo = () => {
         {empthyEle && (
           <MenuItem>
             <ImgBox>
-              <PlusButton onClick={menuModalToggle}>+</PlusButton>
+              <PlusButton
+                onClick={() => {
+                  setIsEdit(false);
+                  menuModalToggle();
+                }}
+              >
+                +
+              </PlusButton>
             </ImgBox>
           </MenuItem>
         )}
@@ -310,7 +314,6 @@ const MenuInfo = () => {
         ariaHideApp={false}
         onRequestClose={() => {
           menuModalToggle();
-          setIsEdit(false);
         }}
         style={modalStyles}
       >
@@ -320,14 +323,12 @@ const MenuInfo = () => {
           setPageNum={setPageNum}
           setModalNum={setModalNum}
           isEdit={isEdit === true ? true : false}
-          menuId={menuId}
         />
       </Modal>
       {isConfirmModalOpen && (
         <ConfirmModal
           setIsConfirmModalOpen={setIsConfirmModalOpen}
           num={modalNum}
-          menuId={menuId}
         />
       )}
     </MenuContainer>

@@ -3,8 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import styled from "styled-components";
 import { editMenu, getMenu, postMenu } from "../../api/services/menu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { imgURL } from "../../api/axios";
+import { getBusinessInfo } from "../../api/services/store";
+import { businessActions } from "../../store/business";
 
 const RegisterMenuContainer = styled.div`
   width: 100%;
@@ -135,7 +137,6 @@ const ValidationMSG = styled.div`
 `;
 
 const RegisterMenu = ({
-  menuId,
   isEdit,
   confirmModalToggle,
   menuModalToggle,
@@ -151,26 +152,26 @@ const RegisterMenu = ({
   const [message, setMessage] = useState("");
   const menuList = useSelector((state) => state.menu.menuList);
   const [changeCSS, setChangeCSS] = useState(false);
+  const menuId = useSelector((state) => state.menu.menuId);
+
   useEffect(() => {
     setChangeCSS(true);
   }, [changeCSS]);
 
   useEffect(() => {
-    if (menuList.length !== 0) {
+    if (menuList.length !== 0 && isEdit === true) {
       getMenu(businessId, menuId).then((res) => {
-        console.log("메뉴조회", res.data.data);
+        console.log(res);
         setImageFile(`${imgURL}${res.data.data.img}`);
         setImg(res.data.data.img);
         setName(res.data.data.name);
         setPrice(res.data.data.price);
-        console.log("셋이미지", img);
       });
     }
   }, []);
 
   //
   const saveImageFile = (event) => {
-    console.log(event.target.files[0], "폼에 넣는 이미지");
     setImageFile(URL.createObjectURL(event.target.files[0]));
     setImg(event.target.files[0]);
   };

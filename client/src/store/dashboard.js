@@ -4,7 +4,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     month: [{ deleted: 'N', date: '2022-09', count: 3 }],
     week: [{ deleted: 'N', date: '2022-09-26', count: 1 }],
-    time: [],
+    time: [{ deleted: 'N', date: '2022-09-26', count: 1 }],
+    clickDate: null,
 };
 
 const dashboardSlice = createSlice({
@@ -19,6 +20,9 @@ const dashboardSlice = createSlice({
     },
     setTime(state, action) {
       state.time = action.payload
+    },
+    setClickDate(state, action) {
+      state.clickDate = action.payload
     },
   },
 
