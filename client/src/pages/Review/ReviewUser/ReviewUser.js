@@ -86,7 +86,7 @@ function ReviewUser() {
       <img className={styles.food} src={food} alt="대표음식" />
       <div className={styles.title}>{storeName}</div>
       <div className={styles.subtitle}>{openTime}</div>
-      {!isLoading && <Map lat={lat} lng={lng} level={3} />}
+      {/* {!isLoading && <Map lat={lat} lng={lng} level={3} />} */}
       <div className={styles.pages}>
         <div className={styles.tables}>
           <table className={styles.table}>
