@@ -43,58 +43,58 @@ const ApexChart = () => {
   // console.log(time)
 
   useEffect(() => {
-    const nTime = timeData.filter(day => day.deleted === "N")
+    // const nTime = timeData.filter(day => day.deleted === "N")
     // ntime = 
     // 0:{ deleted: 'N', date: '17', count: 5 }
     // 1:{ deleted: 'N', date: '18', count: 5 }
-    const timeHandler = () => {
-      let hours = [];
-      for (let i = 0; i <= 7; i++) {
-        let dated = nTime[i].date
-        let count = nTime[i].count
-        if (dated >= 21) {
-          hours.unshift(count)
-        } else {
-          hours.unshift(0)
-        }
-        if (dated < 21 && dated >= 18) {
-          hours.unshift(count)
-        } else {
-          hours.unshift(0)
-        }
-        if (dated < 18 && dated >= 15) {
-          hours.unshift(count)
-        } else {
-          hours.unshift(0)
-        }
-        if (dated < 15 && dated >= 12) {
-          hours.unshift(count)
-        } else {
-          hours.unshift(0)
-        }
-        if (dated < 12 && dated >= 9) {
-          hours.unshift(count)
-        } else {
-          hours.unshift(0)
-        }
-        if (dated < 9 && dated >= 6) {
-          hours.unshift(count)
-        } else {
-          hours.unshift(0)
-        }
-        if (dated < 6 && dated >= 3) {
-          hours.unshift(count)
-        } else {
-          hours.unshift(0)
-        }
-        if (dated < 3) {
-          hours.unshift(count)
-        } else {
-          hours.unshift(0)
-        }
-        return setTime(hours)
-      }
-    }
+    // const timeHandler = () => {
+    //   let hours = [];
+    //   for (let i = 0; i <= 7; i++) {
+    //     let dated = nTime[i].date
+    //     let count = nTime[i].count
+    //     if (dated >= 21) {
+    //       hours.unshift(count)
+    //     } else {
+    //       hours.unshift(0)
+    //     }
+    //     if (dated < 21 && dated >= 18) {
+    //       hours.unshift(count)
+    //     } else {
+    //       hours.unshift(0)
+    //     }
+    //     if (dated < 18 && dated >= 15) {
+    //       hours.unshift(count)
+    //     } else {
+    //       hours.unshift(0)
+    //     }
+    //     if (dated < 15 && dated >= 12) {
+    //       hours.unshift(count)
+    //     } else {
+    //       hours.unshift(0)
+    //     }
+    //     if (dated < 12 && dated >= 9) {
+    //       hours.unshift(count)
+    //     } else {
+    //       hours.unshift(0)
+    //     }
+    //     if (dated < 9 && dated >= 6) {
+    //       hours.unshift(count)
+    //     } else {
+    //       hours.unshift(0)
+    //     }
+    //     if (dated < 6 && dated >= 3) {
+    //       hours.unshift(count)
+    //     } else {
+    //       hours.unshift(0)
+    //     }
+    //     if (dated < 3) {
+    //       hours.unshift(count)
+    //     } else {
+    //       hours.unshift(0)
+    //     }
+    //     return setTime(hours)
+    //   }
+    // }
     // console.log(timeHandler())
     // setTimeout(timeHandler, 30000)
   }, [])

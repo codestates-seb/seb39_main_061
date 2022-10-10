@@ -36,7 +36,6 @@ const QRmanageDetail = () => {
       .catch((err) => console.log(err))
       getQRcodeInfo(businessIdSelector)
       .then(res => {
-        console.log(res)
         setGetQrCodeImg(res[0].qrCodeImg)
         setQrTarget(res[0].target)
         // dispatch(qrcodeActions.setQrcodeImg(res[0].qrCodeImg))

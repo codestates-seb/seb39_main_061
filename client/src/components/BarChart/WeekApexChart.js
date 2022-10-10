@@ -21,14 +21,17 @@ const WeekApexChart = () => {
 
   // 주간 예약자 통계
   const weekBook = () => {
-    const nWeek = weekData.filter((day) => day.deleted === "N");
-    const nWeekSort = nWeek.reverse();
+    console.log(weekData)
     const arr = [];
-    for (let i = 0; i < 7; i++) {
-      if (nWeekSort[i] === undefined) {
-        arr.unshift(0);
-      } else {
-        arr.unshift(nWeekSort[i].count);
+    if (weekData !== null) {
+      const nWeek = weekData.filter((day) => day.deleted === "N");
+      const nWeekSort = nWeek.reverse();
+      for (let i = 0; i < 7; i++) {
+        if (nWeekSort[i] === undefined) {
+          arr.unshift(0);
+        } else {
+          arr.unshift(nWeekSort[i].count);
+        }
       }
     }
     return arr;
@@ -37,15 +40,17 @@ const WeekApexChart = () => {
 
   // 주간 취소자 통계
   const weekCancel = () => {
-    const yWeek = weekData.filter((day) => day.deleted === "Y");
-    const YweekSort = yWeek.reverse();
-    // console.log("Y:", YweekSort)
     const arr = [];
-    for (let i = 0; i < 7; i++) {
-      if (YweekSort[i] === undefined) {
-        arr.unshift(0);
-      } else {
-        arr.unshift(YweekSort[i].count);
+    if (weekData !== null) {
+      const yWeek = weekData.filter((day) => day.deleted === "Y");
+      const YweekSort = yWeek.reverse();
+      // console.log("Y:", YweekSort)
+      for (let i = 0; i < 7; i++) {
+        if (YweekSort[i] === undefined) {
+          arr.unshift(0);
+        } else {
+          arr.unshift(YweekSort[i].count);
+        }
       }
     }
     return arr;
