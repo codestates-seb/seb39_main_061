@@ -77,7 +77,7 @@ function ReservationAdmin() {
             <div className={styles.tables}>
               <table className={styles.table}>
                 <thead className={styles.thead}>
-                  <tr>
+                  <tr className={styles.firstTR}>
                     <th className={styles.th}>번호</th>
                     <th className={styles.th}>이름</th>
                     <th className={styles.th}>연락처</th>
