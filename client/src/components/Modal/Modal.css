@@ -36,6 +36,21 @@
 
   animation: openModal 0.4s ease-in-out;
 }
+.menuContainer {
+  position: absolute;
+  top: calc(50vh - 300px);
+  left: calc(50vw - 177px);
+  width: 350px;
+  height: 650px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+
+  animation: openModal 0.4s ease-in-out;
+}
+
 @keyframes openModal {
   0% {
     transform: scale(0);
@@ -474,4 +489,4 @@ p .error {
   100% {
     stroke-dashoffset: 900;
   }
-} */ ;
+} */
