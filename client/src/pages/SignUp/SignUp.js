@@ -10,7 +10,7 @@ import { emailCheck, signUpReq } from "../../api/services/auth";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { modalActions } from "../../store/modal";
-import { baseURL } from "../../api/axios";
+import { baseURL, clientURL } from "../../api/axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -202,14 +202,14 @@ const SignUp = () => {
         <div className={styles.signUp__form__oauth}>
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=https://quick-book.ml/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=${clientURL}/oauth2/redirect`}
             >
               <img src={naverLogo} alt="React" />
             </a>
           </div>
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=https://quick-book.ml/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=${clientURL}/oauth2/redirect`}
             >
               <img src={kakaoLogo} alt="React" />
             </a>
@@ -217,7 +217,7 @@ const SignUp = () => {
 
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=https://quick-book.ml/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=${clientURL}/oauth2/redirect`}
             >
               <img src={googleLogo} alt="React" />
             </a>
