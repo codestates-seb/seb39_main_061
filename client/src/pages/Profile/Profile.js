@@ -47,29 +47,29 @@ const Profile = () => {
               {/* <h1>프로필 수정</h1> */}
               <div className={styles.imgWrapper}>
                 {userInfo.profileImg === null ||
-                  userInfo.profileImg === undefined ? (
-                  <img alt="None Img" src={noneProfile} />
+                userInfo.profileImg === undefined ? (
+                  <img alt="나는 없는 이미지" src={noneProfile} />
                 ) : (
                   <img
-                    src={userInfo.profileImg.includes('http')? `${userInfo.profileImg}` : `${imgURL}${userInfo.profileImg}`}
+                    src={`${imgURL}${userInfo.profileImg}`}
                     className={styles.imgPreview}
                     alt="나는 프로필"
                   />
                 )}
               </div>
               <div className={styles.contents_info}>
-                <span className={styles.contents_text}>
-                  관리자 명: {userInfo.name}
-                </span>
-                <br></br>
-                <span className={styles.contents_text}>
-                  이메일: {userInfo.email}
-                </span>
-                <br></br>
-                <span className={styles.contents_text}>
-                  전화번호: {userInfo.phone}
-                </span>
-                <div className={styles.contents_btn}>
+                <div>
+                  <div className={styles.contents_text}>
+                    관리자 명: {userInfo.name}
+                  </div>
+                  <div className={styles.contents_text}>
+                    이메일: {userInfo.email}
+                  </div>
+                  <div className={styles.contents_text}>
+                    전화번호: {userInfo.phone}
+                  </div>
+                </div>
+                <div>
                   <button onClick={openModal} className={styles.btn}>
                     수 정
                   </button>
