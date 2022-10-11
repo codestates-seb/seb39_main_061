@@ -3,9 +3,9 @@ import { getAuthorizationHeader } from "../axios";
 import { baseURL } from "../axios";
 
 
-export const postCreateQRCode = (body) => {
+export const postCreateQRCode = (businessId, body) => {
   return axios
-    .post(`${baseURL}/api/v1/business/1/type/reservation/qr-code`,
+    .post(`${baseURL}/api/v1/business/${businessId}/type/reservation/qr-code`,
       body,
       {
         headers: {
@@ -40,9 +40,6 @@ export const getBusinessId = () => {
           Authorization: getAuthorizationHeader(),
         },
       })
-    .then((res) => {
-      return res.data.data;
-    })
 };
 
 export const getQRcodeInfo = (businessId) => {
@@ -53,9 +50,11 @@ export const getQRcodeInfo = (businessId) => {
           Authorization: getAuthorizationHeader(),
         },
       })
-    .then((res) => {
-      return res.data.data;
-    })
+    // .then((res) => {
+    //   console.log("QR코드 요청", res)
+    //   return res.data.data;
+    // })
+    // .catch(err => console.log(err))
 };
 
 export const deleteQRcodeImg = (businessId, qrcodeId) => {
