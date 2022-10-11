@@ -588,6 +588,7 @@ input::-webkit-inner-spin-button {
     margin-top: 142px;
     width: 95%;
     height: 400px;
+    z-index: 1;
   }
 
   .StoreInfo {

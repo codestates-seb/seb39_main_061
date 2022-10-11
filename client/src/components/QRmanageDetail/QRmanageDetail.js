@@ -33,14 +33,14 @@ const QRmanageDetail = () => {
     console.log("businessId: ", resBusinessId.businessId)
     const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
     console.log(resQrcodeId)
-    if (resQrcodeId.length !== 0) {
-      dispatch(qrcodeActions.setQrCodeId(resQrcodeId[0].qrCodeId))
-      setGetQrCodeImg(resQrcodeId[0].qrCodeImg)
-      setQrTarget(resQrcodeId[0].target)
-      // dispatch(qrcodeActions.setQrcodeImg(resQrcodeId[0].qrCodeImg))
-      // dispatch(qrcodeActions.setTarget(resQrcodeId[0].target))
-      console.log("qrcodeId: ", resQrcodeId[0].qrCodeId)
-    }
+    // if (resQrcodeId.length !== 0) {
+    //   dispatch(qrcodeActions.setQrCodeId(resQrcodeId[0].qrCodeId))
+    //   setGetQrCodeImg(resQrcodeId[0].qrCodeImg)
+    //   setQrTarget(resQrcodeId[0].target)
+    //   // dispatch(qrcodeActions.setQrcodeImg(resQrcodeId[0].qrCodeImg))
+    //   // dispatch(qrcodeActions.setTarget(resQrcodeId[0].target))
+    //   console.log("qrcodeId: ", resQrcodeId[0].qrCodeId)
+    // }
   };
 
   useEffect(() => {

@@ -80,10 +80,11 @@ function CreateQr() {
   // }
 
   const saveQRCode = async () => {
-    const res = await postCreateQRCode(body);
-    console.log(res.data.qrCodeId);
-    dispatch(qrcodeActions.setQrCodeId(res.data.qrCodeId))
     const resTwo = await getBusinessId();
+    console.log(resTwo);
+    const res = await postCreateQRCode(resTwo.businessId, body);
+    console.log(res.data.qrCodeId);
+    dispatch(qrcodeActions.setQrCodeId(res.data.qrCodeId));
 
     QRCode.toDataURL(
       `${window.location.origin}/business/${resTwo.businessId}/qr-code/${res.data.qrCodeId}`,
@@ -125,28 +126,27 @@ function CreateQr() {
   };
 
   const firstQrcodeExist = async () => {
-    const resBusinessId = await getBusinessId()
-    dispatch(qrcodeActions.setBusinessId(resBusinessId.businessId))
-    const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
-    console.log(resQrcodeId)
-    setFirstQrcode(resQrcodeId)
-  }
+    const resBusinessId = await getBusinessId();
+    dispatch(qrcodeActions.setBusinessId(resBusinessId.businessId));
+    const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId);
+    console.log(resQrcodeId);
+    setFirstQrcode(resQrcodeId);
+  };
 
   const firstDataRendering = async () => {
-    const resBusinessId = await getBusinessId()
-    dispatch(qrcodeActions.setBusinessId(resBusinessId.businessId))
-    const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
-    console.log(resQrcodeId)
+    const resBusinessId = await getBusinessId();
+    dispatch(qrcodeActions.setBusinessId(resBusinessId.businessId));
+    const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId);
+    console.log("큐알 아이디", resQrcodeId);
     if (resQrcodeId.length !== 0) {
-      dispatch(qrcodeActions.setQrcodeImg(resQrcodeId[0].qrCodeImg))
-      setQrImage(resQrcodeId[0].qrCodeImg)
+      dispatch(qrcodeActions.setQrcodeImg(resQrcodeId[0].qrCodeImg));
+      setQrImage(resQrcodeId[0].qrCodeImg);
     }
-  }
-
+  };
 
   useEffect(() => {
-      firstDataRendering();
-  }, [])
+    firstDataRendering();
+  }, []);
 
   const qrCodeExist = () => {
     return setQrCodeCheck("QR 코드가 존재합니다");

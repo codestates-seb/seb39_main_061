@@ -19,7 +19,7 @@ const SignUp = () => {
   const PWRef = useRef();
   const confirmPWRef = useRef();
   const OwenerNameRef = useRef();
-  const phoneNumRef = useRef();
+  const [phone, setPhone] = useState();
   const businessNameRef = useRef();
   const [validationMSG, setValidationMSG] = useState("");
   const isModalOpen = useSelector((state) => state.modal.isModalOpen);
@@ -29,6 +29,14 @@ const SignUp = () => {
     setChangeCSS(true);
   }, [changeCSS]);
 
+  const phoneHanlder = (e) => {
+    setPhone(
+      e.target.value
+        .replace(/[^0-9]/g, "")
+        .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`)
+    );
+  };
+
   const SignUpHandler = async (event) => {
     event.preventDefault();
 
@@ -37,7 +45,7 @@ const SignUp = () => {
     const confirmPassword = confirmPWRef.current.value;
     const name = OwenerNameRef.current.value;
     const businessName = businessNameRef.current.value;
-    const phone = phoneNumRef.current.value;
+
     setIsLoading(true);
     setChangeCSS(false);
 
@@ -194,8 +202,12 @@ const SignUp = () => {
             />
           </div>
           <div className={styles.signUp__form__input__phone}>
-            <span>전화번호</span>
-            <input ref={phoneNumRef} placeholder="010-xxxx-xxxx (휴대폰번호)" />
+            <span>전화번호 (-제외)</span>
+            <input
+              value={phone}
+              onChange={phoneHanlder}
+              placeholder="010-xxxx-xxxx (휴대폰번호)"
+            />
           </div>
         </div>
 

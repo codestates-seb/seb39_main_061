@@ -97,7 +97,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <div className={styles.component}>
-                <h3 className={styles.h3}>Calendar</h3>
+                <h3 className={styles.h3}>캘린더</h3>
                 <div className={styles.componentEl__calendar}>
                   <DashboardCalendar className={styles.barChart} />
                 </div>

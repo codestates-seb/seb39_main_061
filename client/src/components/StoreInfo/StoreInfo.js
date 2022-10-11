@@ -181,6 +181,7 @@ const StoreInfo = () => {
     overlay: {
       backgroundColor: "rgba(0,0,0,0.2)",
       marginLeft: "270px",
+      zIndex: "3",
     },
     content: {
       marginLeft: "690px",
@@ -349,7 +350,7 @@ const StoreInfo = () => {
             </div>
             <div className={styles.storeInfo__input__grid5}>
               <div>
-                <span>전화번호 (-제외) </span>
+                <span>매장 전화번호(-제외) </span>
               </div>
               <input
                 onInput={(e) => {
