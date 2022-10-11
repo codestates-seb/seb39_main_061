@@ -18,8 +18,8 @@ const QRmanageDetail = () => {
   const qrcodeIdSelector = useSelector((state) => state.qrcode.qrCodeId);
   const qrcodeImgSelector = useSelector((state) => state.qrcode.qrcodeImg);
   const targetSelector = useSelector((state) => state.qrcode.target);
-  const dueDateSelector = useSelector((state) => state.qrcode.dueDate);
   let componentRef = useRef();
+  const dispatch = useDispatch();
 
   // let dueDate = moment(dueDateSelector).format("YYYY년 MM월 DD일");
 
@@ -28,19 +28,23 @@ const QRmanageDetail = () => {
     dispatch(qrcodeActions.setBusinessId(resBusinessId.businessId))
     console.log("businessId: ", resBusinessId.businessId)
     const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
-    dispatch(qrcodeActions.setQrCodeId(resQrcodeId[0].qrCodeId))
-    dispatch(qrcodeActions.setQrcodeImg(resQrcodeId[0].qrCodeImg))
-    dispatch(qrcodeActions.setTarget(resQrcodeId[0].target))
-    console.log("qrcodeId: ", resQrcodeId[0].qrCodeId)
+    console.log(resQrcodeId)
+    if (resQrcodeId.length !== 0) {
+      dispatch(qrcodeActions.setQrCodeId(resQrcodeId[0].qrCodeId))
+      dispatch(qrcodeActions.setQrcodeImg(resQrcodeId[0].qrCodeImg))
+      dispatch(qrcodeActions.setTarget(resQrcodeId[0].target))
+      console.log("qrcodeId: ", resQrcodeId[0].qrCodeId)
+    }
   };
 
   useEffect(() => {
     firstDataRendering()
   }, [])
 
-  const deleteQRcode = async() => {
+  const deleteQRcode = async () => {
     const resBusinessId = await getBusinessId()
     const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
+    console.log(resQrcodeId)
     deleteQRcodeImg(resBusinessId.businessId, resQrcodeId[0].qrCodeId)
     window.location.reload()
   }
@@ -48,7 +52,7 @@ const QRmanageDetail = () => {
   return (
     <div className={styles.container}>
       <div className={styles.info}>
-        <img src={qrcodeImgSelector ? imgURL + qrcodeImgSelector : noneQrImg} alt="나는 큐알코드야" className={styles.qrImg} ref={(el) => (componentRef = el)} />
+        <img src={qrcodeImgSelector ? imgURL + qrcodeImgSelector : noneQrImg} alt="QR코드" className={styles.qrImg} ref={(el) => (componentRef = el)} />
       </div>
       <div className={styles.info}>
         <div className={styles.texts}>

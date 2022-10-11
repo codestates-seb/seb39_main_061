@@ -14,10 +14,12 @@ import { dashboardActions } from "../../store/dashboard";
 import { getDashboard } from "./../../api/services/dashboard";
 import { getBusinessId, getQRcodeInfo } from "../../api/services/createQrcode"
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
   const title = "대시보드";
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isBarChart, setIsBarChart] = useState(true);
   const [loading, setLoading] = useState(true);
   // const [businessIdget, setBusinessIdget] = useState(0);
@@ -46,13 +48,16 @@ const Dashboard = () => {
     console.log(resBusinessId.businessId)
     const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
     console.log(resQrcodeId)
-    const resDashboardData = await getDashboard(resBusinessId.businessId, resQrcodeId[0].qrCodeId, today)
-    console.log(resDashboardData)
-    dispatch(dashboardActions.setMonth(resDashboardData.month));
-    dispatch(dashboardActions.setWeek(resDashboardData.week));
-    dispatch(dashboardActions.setTime(resDashboardData.time));
-    setLoading(false)
+    if(resQrcodeId.length !== 0) {
+      const resDashboardData = await getDashboard(resBusinessId.businessId, resQrcodeId[0].qrCodeId, today)
+      console.log(resDashboardData)
+      dispatch(dashboardActions.setMonth(resDashboardData.month));
+      dispatch(dashboardActions.setWeek(resDashboardData.week));
+      dispatch(dashboardActions.setTime(resDashboardData.time));
+      setLoading(false)
+    }
   };
+
 
   useEffect(() => {
     firstDataRendering()
