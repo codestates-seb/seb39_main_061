@@ -29,16 +29,16 @@ function ReservationUser() {
   const [reservationId, setReservationId] = useState(0);
   const [resCount, setResCount] = useState("");
   const [holiday, setHoliday] = useState("");
+  const [openTime, setOpenTime] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const axiosData = async () => {
-    console.log("비즈니스 아이디는?", businessId, "qr은?", qrCodeId);
     getUserStoreInfo(businessId)
       .then((res) => {
-        console.log(res);
         setStoreName(res.data.data.name);
         setAddress(res.data.data.address);
         setHoliday(res.data.data.holiday);
+        setOpenTime(res.data.data.openTime);
       })
       // .then(() => {
       //   getUserFoodList(businessId).then((res) => {
@@ -53,17 +53,12 @@ function ReservationUser() {
       });
   };
 
-  console.log("휴무일", holiday);
   useEffect(() => {
     axiosData();
-    getUserFoodList(businessId).then((res) => {
-      console.log(res);
-    });
 
     setInterval(() => {
       axiosData();
     }, 60000);
-    // eslint-disable-next-line
   }, []);
 
   const handlePhone = (e) => {
@@ -131,11 +126,13 @@ function ReservationUser() {
           <div className={styles.userhaed}>
             <div className={styles.address}>
               <div className={styles.title}>{storeName}</div>
-              {holiday && (
-                <div className={styles.holiday}>
-                  {holiday.length !== 0 ? `영업시간: ${holiday}` : ""}
-                </div>
-              )}
+
+              <div className={styles.holiday}>
+                {openTime.length !== 0 ? `영업시간: ${openTime}` : ""}
+              </div>
+              <div className={styles.holiday}>
+                {holiday.length !== 0 ? `휴무일: ${holiday}` : ""}
+              </div>
 
               <div className={styles.subtitle}>
                 <button onClick={toggle} className={styles.link}>

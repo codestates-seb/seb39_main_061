@@ -181,6 +181,7 @@ const StoreInfo = () => {
     overlay: {
       backgroundColor: "rgba(0,0,0,0.2)",
       marginLeft: "270px",
+      zIndex: "3",
     },
     content: {
       marginLeft: "690px",

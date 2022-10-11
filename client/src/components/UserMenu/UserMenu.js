@@ -190,7 +190,6 @@ const UserMenu = ({ toggle, businessId }) => {
 
   useEffect(() => {
     getUserFoodList(businessId, pageNum).then((res) => {
-      console.log(res);
       setMenuList(res.data.data);
       setTotalPage(res.data.pageInfo.totalPages);
     });
