@@ -84,7 +84,7 @@
   margin-bottom: 10px;
 }
 .phone > span:first-child {
-  margin-right: 41px;
+  margin-right: 34px;
 }
 
 .tables {
@@ -336,6 +336,27 @@ TD {
 
 .submit label {
   padding-left: 16px;
+}
+
+@media all and (min-width: 375px) {
+  .phone > span:first-child {
+    margin-right: 41px;
+  }
+}
+@media all and (min-width: 390px) {
+  .phone > span:first-child {
+    margin-right: 48px;
+  }
+}
+@media all and (min-width: 412px) {
+  .phone > span:first-child {
+    margin-right: 60px;
+  }
+}
+@media all and (min-width: 417px) {
+  .phone > span:first-child {
+    margin-right: 63px;
+  }
 }
 
 @media all and (min-height: 667px) {
