@@ -48,6 +48,6 @@ export const getUserStoreInfo = (businessId) => {
 
 export const getUserFoodList = (businessId, pageNum) => {
   return axios.get(
-    `${baseURL}/business/${businessId}/menu?page=${pageNum}&size=8`
+    `${baseURL}/business/${businessId}/menu?page=${pageNum}&size=6`
   );
 };
