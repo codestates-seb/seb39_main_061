@@ -85,14 +85,14 @@ const Dashboard = () => {
         <div className={styles.flex_container}>
           <div className={styles.component}>
             {/* QR 코드 리스트는 QR코드 리스트 컴포넌트 연결(주영님 작업중) */}
-            <h3 className={styles.h3}>QR 코드</h3>
+            <h3 className={styles.h3}>QR 코드 목록</h3>
             <div className={styles.componentEl__QR}>
               <QRcodeManageDetail />
             </div>
           </div>
           <div className={styles.component}>
             <h3 className={styles.h3}>시간 별 예약 현황</h3>
-            <div className={styles.componentEl__piechart}>
+            <div className={styles.componentEl}>
               <Piechart />
             </div>
           </div>

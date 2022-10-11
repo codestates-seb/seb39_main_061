@@ -5,9 +5,9 @@
 }
 
 .calendar {
-  width: 80%;
+  width: 90%;
   max-width: 600px;
-  height: auto;
+  height: 330px;
 }
 
 .clickDate {

@@ -67,7 +67,7 @@
   
   .table {
       
-      width: 85%;
+      width: 1166px;
       text-align: center;
       font-size: 0.9em;
       border-collapse: separate;
@@ -101,13 +101,12 @@
   .th {
     
       text-align: center;
-      width: 300px;
+      width: 150px;
     padding: 10px;
     font-weight: bold;
     vertical-align: top;
     height: 40px;
    padding-bottom: 30px;
-  
    
   }
   .tbody {

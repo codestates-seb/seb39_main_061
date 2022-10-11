@@ -23,7 +23,7 @@ const Header = (title) => {
     console.log("로그아웃");
     navigate("/login");
 
-    setTimeout(() => {}, 2000);
+    setTimeout(() => { }, 2000);
   };
   const purge = async () => {
     await persistor.purge();

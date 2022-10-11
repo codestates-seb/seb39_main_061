@@ -18,7 +18,7 @@
     width: 100%;
 }
 .qrImg {
- width: 80%;
+ width: 100%;
  max-width: 350px;
 }
 .texts {
@@ -26,7 +26,7 @@
   flex-direction: column;
   justify-content: space-between;
   height: 30%;
-  margin-left:20px;
+  margin-left: 10px;
 }
 .qr__btn {
   width: 70%;

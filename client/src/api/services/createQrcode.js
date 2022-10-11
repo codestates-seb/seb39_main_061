@@ -44,17 +44,3 @@ export const getBusinessId = () => {
       return res.data.data;
     })
 };
-
-export const getQRcodeImg = (businessId) => {
-  return axios
-    .get(`${baseURL}/api/v1/business/${businessId}/type/reservation/qr-code?page=1&size=10`,
-      {
-        headers: {
-          Authorization: getAuthorizationHeader(),
-        },
-      })
-    .then((res) => {
-      return res.data.data;
-    })
-};
-
