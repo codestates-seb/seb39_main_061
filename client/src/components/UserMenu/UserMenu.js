@@ -55,7 +55,7 @@ const MenuItemContainer = styled.div`
   width: 98%;
   display: grid;
   place-items: center;
-  grid-template-rows: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   animation: ${(props) => props.animation};
   @keyframes slide-left {
@@ -224,7 +224,7 @@ const UserMenu = ({ toggle, businessId }) => {
           </MenuItem>
         ))}
         {pageNum > totalPage ||
-          (menuList.length === 8 && (
+          (menuList.length === 6 && (
             <MovePageBtn
               onClick={() => {
                 setPageNum(pageNum + 1);
