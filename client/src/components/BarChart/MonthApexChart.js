@@ -64,10 +64,12 @@ const MonthApexChart = () => {
     {
       name: "월간 예약자 수",
       data: monthBook()
+      // data: data.series.month,
     },
     {
       name: "월간 예약 취소자 수",
       data: monthCancel()
+      // data: data.series.cancelData,
     }
   ];
   const options = {
