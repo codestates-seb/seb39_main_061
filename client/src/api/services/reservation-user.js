@@ -43,7 +43,7 @@ export const deleteUserRes = (
 };
 
 export const getUserStoreInfo = (businessId) => {
-  return userAxiosInstance.get(`/business/${businessId}`);
+  return axios.get(`${baseURL}/business/${businessId}`);
 };
 
 export const getUserFoodList = (businessId, pageNum) => {
