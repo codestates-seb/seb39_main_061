@@ -57,6 +57,7 @@
   font-weight: 500;
   margin-bottom: 8px;
   font-size: 30px;
+  color: #2b4865;
 }
 
 .subtitle {
@@ -85,6 +86,9 @@
 }
 .phone > span:first-child {
   margin-right: 34px;
+}
+.phone > span:last-child {
+  color: #2b4865;
 }
 
 .tables {
@@ -340,7 +344,7 @@ TD {
 
 @media all and (min-width: 375px) {
   .phone > span:first-child {
-    margin-right: 41px;
+    margin-right: 44px;
   }
 }
 @media all and (min-width: 390px) {
