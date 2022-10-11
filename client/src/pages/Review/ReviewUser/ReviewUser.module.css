@@ -32,7 +32,7 @@
 
 .title {
   margin-top: 1rem;
-  font-size: 25px;
+  font-size: 30px;
   font-weight: 500;
   display: flex;
   justify-content: center;
@@ -52,7 +52,7 @@
 .subtitle {
   display: flex;
   margin-top: 0.3rem;
-  font-size: 4px;
+  font-size: 12px;
   justify-content: center;
 }
 
@@ -61,7 +61,7 @@
   align-items: center;
 }
 .secondTitle > div {
-  margin-left: 157px;
+  margin-left: 135px;
 }
 .tables {
   overflow-y: scroll;
