@@ -35,6 +35,7 @@ function ReservationUser() {
     console.log("비즈니스 아이디는?", businessId, "qr은?", qrCodeId);
     getUserStoreInfo(businessId)
       .then((res) => {
+        console.log(res);
         setStoreName(res.data.data.name);
         setAddress(res.data.data.address);
         setHoliday(res.data.data.holiday);
@@ -52,6 +53,7 @@ function ReservationUser() {
       });
   };
 
+  console.log("휴무일", holiday);
   useEffect(() => {
     axiosData();
     getUserFoodList(businessId).then((res) => {
@@ -129,7 +131,12 @@ function ReservationUser() {
           <div className={styles.userhaed}>
             <div className={styles.address}>
               <div className={styles.title}>{storeName}</div>
-              <div className={styles.holiday}>영업시간: {holiday}</div>
+              {holiday && (
+                <div className={styles.holiday}>
+                  {holiday.length !== 0 ? `영업시간: ${holiday}` : ""}
+                </div>
+              )}
+
               <div className={styles.subtitle}>
                 <button onClick={toggle} className={styles.link}>
                   메뉴보기
