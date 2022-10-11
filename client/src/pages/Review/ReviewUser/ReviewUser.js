@@ -20,9 +20,9 @@ function ReviewUser() {
   const [lng, setLng] = useState(126.570667);
   const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
-  const path = location.pathname;
-  const businessId = path.substr(17, 1);
-  const qrCodeId = path.substr(27, 1);
+  const path = location.pathname.split("/");
+  const businessId = path[3];
+  const qrCodeId = path[5];
   const [holiday, setHoliday] = useState("");
 
   const axiosData = async () => {

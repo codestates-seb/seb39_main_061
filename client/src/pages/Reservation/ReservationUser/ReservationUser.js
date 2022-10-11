@@ -7,11 +7,10 @@ import {
   getUserResList,
   registerUserRes,
   getUserStoreInfo,
-  getUserFoodList,
 } from "../../../api/services/reservation-user";
 import Modal from "../../../components/Modal/Modal";
 import MenuModal from "react-modal";
-import MenuInfo from "../../../components/MenuInfo/MenuInfo";
+
 import UserMenu from "../../../components/UserMenu/UserMenu";
 
 function ReservationUser() {
@@ -22,14 +21,15 @@ function ReservationUser() {
   const phoneRef = useRef();
   const [res, setRes] = useState([]);
   const location = useLocation();
-  const path = location.pathname;
-  const businessId = path.substr(10, 1);
-  const qrCodeId = path.substr(20, 1);
+  const path = location.pathname.split("/");
+  const businessId = path[2];
+  const qrCodeId = path[4];
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [reservationId, setReservationId] = useState(0);
   const [resCount, setResCount] = useState("");
-  const [holiday, setHoliday] = useState("");
-  const [openTime, setOpenTime] = useState("");
+  const [holiday, setHoliday] = useState();
+  const [openTime, setOpenTime] = useState();
+  const [errMSG, setErrMSG] = useState("");
   const [isOpen, setIsOpen] = useState(false);
 
   const axiosData = async () => {
@@ -62,7 +62,11 @@ function ReservationUser() {
   }, []);
 
   const handlePhone = (e) => {
-    setNum(e.target.value.replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3"));
+    setNum(
+      e.target.value
+        .replace(/[^0-9]/g, "")
+        .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`)
+    );
   };
 
   const onSubmitHandler = (e) => {
@@ -76,11 +80,11 @@ function ReservationUser() {
         .catch((err) => {
           console.log("에러", err.response.data.message);
           if (err.response.data.message === "RESERVATION IS ALREADY EXISTS") {
-            alert("이미 예약된 사용자 입니다");
+            setErrMSG("이미 예약된 사용자 입니다");
           }
           console.log("이유", err.response.data);
           if (err.response.data.fieldErrors) {
-            alert(err.response.data.fieldErrors[0].reason);
+            setErrMSG(err.response.data.fieldErrors[0].reason);
           }
         })
         .then((res) => {
@@ -129,11 +133,12 @@ function ReservationUser() {
               <div className={styles.title}>{storeName}</div>
 
               <div className={styles.holiday}>
-                {openTime.length !== 0 ? `영업시간: ${openTime}` : ""}
+                {openTime ? `영업시간: ${openTime}` : ""}
               </div>
               <div className={styles.holiday}>
-                {holiday.length !== 0 ? `휴무일: ${holiday}` : ""}
+                {holiday ? `휴무일: ${holiday}` : ""}
               </div>
+              <div className={styles.errMSG}>{errMSG}</div>
 
               <div className={styles.subtitle}>
                 <button onClick={toggle} className={styles.link}>

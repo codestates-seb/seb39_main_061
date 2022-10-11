@@ -21,7 +21,7 @@ function Modal({
   const [isResDelete, setResDelete] = useState(null);
   const adminBusinessId = useSelector((state) => state.business.businessId);
   const menuId = useSelector((state) => state.menu.menuId);
-  const phoneRef = useRef();
+  const [phone, setPhone] = useState();
   const nameRef = useRef();
   //
   const deleteMenuHandler = async () => {
@@ -33,8 +33,15 @@ function Modal({
       }, 1000);
     });
   };
+  const phoneHandler = (e) => {
+    setPhone(
+      e.target.value
+        .replace(/[^0-9]/g, "")
+        .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`)
+    );
+  };
+
   const resDeleteHandler = () => {
-    const phone = phoneRef.current.value;
     const name = nameRef.current.value;
     const count = resCount;
 
@@ -103,7 +110,7 @@ function Modal({
               <p className="modal__deleteSucessMSG"></p>
             )}
             {num === 13 && isResDelete === true && (
-              <p className="res__deleteSucessMSG__top">삭제 처리되었습니다</p>
+              <p className="res__deleteSucessMSG__top">대기 취소되었습니다</p>
             )}
             {num === 13 && isResDelete === true && (
               <p className="res__deleteSucessMSG"></p>
@@ -148,9 +155,14 @@ function Modal({
                 </div>
                 <div className="resPhoneWrap">
                   <label className="inputPhoneLabel" htmlFor="phoneInput">
-                    핸드폰 번호
+                    연락처 (-제외)
                   </label>
-                  <input id="phoneInput" ref={phoneRef} />
+                  <input
+                    maxLength={13}
+                    id="phoneInput"
+                    value={phone}
+                    onChange={phoneHandler}
+                  />
                 </div>
 
                 <div>
