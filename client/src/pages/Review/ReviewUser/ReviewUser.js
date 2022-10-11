@@ -15,6 +15,7 @@ function ReviewUser() {
   const [review, setReview] = useState([]);
   const [storeName, setStoreName] = useState("");
   const [openTime, setOpenTime] = useState("");
+  const [holiday, setHoliday] = useState("");
   const [lat, setLat] = useState(33.450701);
   const [lng, setLng] = useState(126.570667);
   const [isLoading, setIsLoading] = useState(true);
@@ -28,6 +29,7 @@ function ReviewUser() {
       .then((res) => {
         setStoreName(res.data.data.name);
         setOpenTime(res.data.data.openTime);
+
         console.log(businessId);
         console.log(qrCodeId);
       })
@@ -50,6 +52,8 @@ function ReviewUser() {
     console.log("비즈니스", businessId);
     getBusinessInfoUser(businessId).then((res) => {
       console.log("매장정보", res.data.data);
+      setOpenTime(res.data.data.openTime);
+      setHoliday(res.data.data.holiday);
       setIsLoading(false);
       if (res.data.data.lat !== 0 && res.data.data.lng !== 0) {
         setLat(res.data.data.lon);
@@ -75,7 +79,7 @@ function ReviewUser() {
     if (contents.length < 200) {
       registerUserRev(businessId, contents).then(() => axiosData());
 
-      alert(`리뷰가 등록되었습니다.`);
+      // alert(`리뷰가 등록되었습니다.`);
     } else {
       alert(`200자 이내로 입력하세요`);
     }
@@ -85,7 +89,8 @@ function ReviewUser() {
     <div className={styles.review}>
       <img className={styles.food} src={food} alt="대표음식" />
       <div className={styles.title}>{storeName}</div>
-      <div className={styles.subtitle}>{openTime}</div>
+      <div className={styles.subtitle}>영업시간:{openTime}</div>
+      <div className={styles.subtitle}>휴무일:{holiday}</div>
       {!isLoading && <Map lat={lat} lng={lng} level={3} />}
       <div className={styles.pages}>
         <div className={styles.tables}>
