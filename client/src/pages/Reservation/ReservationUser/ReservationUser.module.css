@@ -245,6 +245,28 @@ TD {
   border: 1.5px solid #256d85;
 }
 
+.errMSG {
+  font-size: 14px;
+  color: rgb(244, 101, 101);
+  animation: gelatine 1s ease-out;
+}
+
+@keyframes gelatine {
+  from,
+  to {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(0.9, 1.1);
+  }
+  50% {
+    transform: scale(1.1, 0.9);
+  }
+  75% {
+    transform: scale(0.95, 1.05);
+  }
+}
+
 .button_res {
   color: #fff;
   height: 37px;
@@ -314,11 +336,21 @@ TD {
   .th {
     width: 110px;
   }
+  .errMSG {
+    font-size: 14px;
+    color: rgb(244, 101, 101);
+    animation: gelatine 0.5s ease-out;
+  }
 }
 
 @media all and (min-width: 600px) {
   .reservationContainer {
     width: 414px;
     height: 860px;
+  }
+  .errMSG {
+    font-size: 14px;
+    color: rgb(244, 101, 101);
+    animation: gelatine 0.5s ease-out;
   }
 }
