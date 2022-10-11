@@ -1,10 +1,70 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Chart from "react-apexcharts";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 const ApexChart = () => {
   const timeData = useSelector(state => state.dashboard.time)
+<<<<<<< HEAD
+  const clickData = useSelector(state => state.dashboard.clickDate)
+  const [time, setTime] = useState([]);
+  console.log("달력에서 클릭한 날짜:", clickData)
+  console.log("달력에서 클릭한 날짜 데이터:", timeData)
+  // console.log(time)
+
+  // ntime = 
+  // 0:{ deleted: 'N', date: '17', count: 5 }
+  // 1:{ deleted: 'N', date: '18', count: 5 }
+  const nTime = timeData.filter(day => day.deleted === "N")
+
+  const timeHandler = useCallback(async () => {
+    console.log(nTime)
+    let hours = [0,0,0,0,0,0,0,0];
+    console.log(nTime)
+    if (nTime.length !== 0) {
+      console.log(nTime[0])
+      for (let i = 0; i < nTime.length; i++) {
+        let dated = nTime[i].date // 시간
+        let count = nTime[i].count // 예약자 수
+        if (dated >= 21) {
+          hours[7] = count
+        } 
+        if (dated < 21 && dated >= 18) {
+          hours[6] = count
+        } 
+        if (dated < 18 && dated >= 15) {
+          hours[5] = count
+        } 
+        if (dated < 15 && dated >= 12) {
+          hours[4] = count
+        } 
+        if (dated < 12 && dated >= 9) {
+          hours[3] = count
+        } 
+        if (dated < 9 && dated >= 6) {
+          hours[2] = count
+        } 
+        if (dated < 6 && dated >= 3) {
+          hours[1] = count
+        } 
+        if (dated < 3) {
+          hours[0] = count
+        }
+      }
+      console.log(hours)
+      setTime(hours)
+    } else {
+      setTime(hours)
+    }
+    // console.log(hours)
+  }, [nTime])
+
+  useEffect(() => {
+    timeHandler()
+    // setTimeout(timeHandler, 3000)
+  }, [timeData])
+
+=======
   console.log(timeData)
   const [time, setTime] = useState([]);
 
@@ -64,6 +124,7 @@ const ApexChart = () => {
   // }, [timeData])
   // console.log(time)
   
+>>>>>>> 145c87271e82f01f09dfbf385c17bc4c4710b77b
   const donutData = {
     // series: time,
     series: [0, 0, 3, 6, 10, 2, 13, 1],
@@ -109,9 +170,14 @@ const ApexChart = () => {
 
   return (
     <div>
-      <Chart options={donutData.options}
+      {time && <Chart options={donutData.options}
         series={donutData.series}
+<<<<<<< HEAD
+        // series={datehandler()}
+        type="donut" width="95%" />}
+=======
         type="donut" width="95%" />
+>>>>>>> 145c87271e82f01f09dfbf385c17bc4c4710b77b
     </div>
   );
 }

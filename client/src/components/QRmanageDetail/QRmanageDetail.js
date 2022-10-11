@@ -6,14 +6,44 @@ import noneQrImg from "../../Img/noneQRImg.png";
 import { imgURL } from "../../api/axios";
 import ReactToPrint from "react-to-print";
 import { useRef } from "react";
+import { useState, useEffect } from "react";
+import { getBusinessId, getQRcodeInfo, deleteQRcodeImg } from "../../api/services/createQrcode"
+import { qrcodeActions } from "../../store/qrCode";
 
-const QRmanageDetail = (qrCodeImg) => {
+const QRmanageDetail = () => {
+  // const [getQrCodeImg, setGetQrCodeImg] = useState();
+  // const [qrTarget, setQrTarget] = useState();
+  // const dueDateSelector = useSelector((state) => state.qrcode.dueDate);
+  const businessIdSelector = useSelector((state) => state.qrcode.businessId);
+  const qrcodeIdSelector = useSelector((state) => state.qrcode.qrCodeId);
   const qrcodeImgSelector = useSelector((state) => state.qrcode.qrcodeImg);
   const targetSelector = useSelector((state) => state.qrcode.target);
   const dueDateSelector = useSelector((state) => state.qrcode.dueDate);
   let componentRef = useRef();
 
-  let dueDate = moment(dueDateSelector).format("YYYY년 MM월 DD일");
+  // let dueDate = moment(dueDateSelector).format("YYYY년 MM월 DD일");
+
+  const firstDataRendering = async () => {
+    const resBusinessId = await getBusinessId()
+    dispatch(qrcodeActions.setBusinessId(resBusinessId.businessId))
+    console.log("businessId: ", resBusinessId.businessId)
+    const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
+    dispatch(qrcodeActions.setQrCodeId(resQrcodeId[0].qrCodeId))
+    dispatch(qrcodeActions.setQrcodeImg(resQrcodeId[0].qrCodeImg))
+    dispatch(qrcodeActions.setTarget(resQrcodeId[0].target))
+    console.log("qrcodeId: ", resQrcodeId[0].qrCodeId)
+  };
+
+  useEffect(() => {
+    firstDataRendering()
+  }, [])
+
+  const deleteQRcode = async() => {
+    const resBusinessId = await getBusinessId()
+    const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
+    deleteQRcodeImg(resBusinessId.businessId, resQrcodeId[0].qrCodeId)
+    window.location.reload()
+  }
 
   return (
     <div className={styles.container}>
@@ -22,12 +52,13 @@ const QRmanageDetail = (qrCodeImg) => {
       </div>
       <div className={styles.info}>
         <div className={styles.texts}>
-          <div className={styles.qr__txt}>QR 코드 명 : {targetSelector}</div>
-          <div className={styles.qr__txt}>만료 기간 : {dueDate === "Invalid date" ? "" : dueDate + " 까지"}</div>
-        <ReactToPrint
-          trigger={() => <button className={styles.qr__btn}>출력하기</button>}
-          content={() => componentRef}
-        />
+          <div className={styles.qr__txt}>QR 코드 명 : {targetSelector === "target" ? "" : targetSelector}</div>
+          {/* <div className={styles.qr__txt}>만료 기간 : {dueDate === "Invalid date" ? "" : dueDate + " 까지"}</div> */}
+          <ReactToPrint
+            trigger={() => <button className={styles.qr__btn}>출력하기</button>}
+            content={() => componentRef}
+          />
+          <button className={styles.qr__btn} onClick={deleteQRcode}>삭제하기</button>
         </div>
       </div>
     </div>

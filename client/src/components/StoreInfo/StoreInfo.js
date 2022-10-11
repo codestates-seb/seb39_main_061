@@ -48,7 +48,6 @@ const StoreInfo = () => {
     }
     if (num === 2 && canEdit) {
       dispatch(businessActions.setStartOrEnd(2));
-
       setEndPickerOpen(!endPickerOpen);
     }
   };

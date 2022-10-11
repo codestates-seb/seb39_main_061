@@ -8,6 +8,7 @@ import {
   postCreateQRCode,
   updateCreateQRCode,
   getBusinessId,
+  getQRcodeInfo,
 } from "./../../api/services/createQrcode";
 import QRcodeManageDetail from "./../../components/QRmanageDetail/QRmanageDetail";
 import { useDispatch, useSelector } from "react-redux";
@@ -29,10 +30,8 @@ function CreateQr() {
   const [valueDate, onChange] = useState();
   const [errMessage, setErrMessage] = useState();
   const [openModal, setOpenModal] = useState(false);
+  const [qrImage, setQrImage] = useState(false);
   const dispatch = useDispatch();
-  const qrcodeIdSelector = useSelector((state) => state.qrcode.qrCodeId);
-  const businessIdSelector = useSelector((state) => state.qrcode.businessId);
-  const qrcodeImgSelector = useSelector((state) => state.qrcode.qrcodeImg);
   const today = new Date();
   // console.log(today);
 
@@ -87,7 +86,6 @@ function CreateQr() {
     // dispatch(qrcodeActions.setQrCodeId(res.data.qrCodeId))
     const resTwo = await getBusinessId();
 
-    // dispatch(qrcodeActions.setBusinessId(resTwo.businessId))
     QRCode.toDataURL(
       `${window.location.origin}/business/${resTwo.businessId}/qr-code/${res.data.qrCodeId}`,
       {
@@ -112,22 +110,39 @@ function CreateQr() {
         updateCreateQRCode(formData, resTwo.businessId, res.data.qrCodeId)
           .then((res) => {
             console.log(res);
-            dispatch(qrcodeActions.setQrcodeImg(res.qrCodeImg));
+            setQrImage(res.qrCodeImg)
             dispatch(qrcodeActions.setTarget(res.target));
             dispatch(qrcodeActions.setDuedate(body.dueDate));
-            // console.log(qrcodeImgSelector)
           })
           .catch((err) => {
             if (err.message === "FIELD ERROR") {
               return setErrMessage("QR 코드 명을 입력해주세요!");
             }
           });
-        // setOpenModal(true)
-        // setTimeout(() =>
-        // window.location.reload(), 1500)
+        setOpenModal(true)
+        setTimeout(() =>
+          window.location.reload(), 1500)
       }
     );
   };
+
+  const firstDataRendering = async () => {
+    const resBusinessId = await getBusinessId()
+    dispatch(qrcodeActions.setBusinessId(resBusinessId.businessId))
+    const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
+    console.log(resQrcodeId)
+    dispatch(qrcodeActions.setQrcodeImg(resQrcodeId[0].qrCodeImg))
+    setQrImage(resQrcodeId[0].qrCodeImg)
+  };
+
+  useEffect(() => {
+    firstDataRendering();
+  }, [])
+
+  const qrCodeExist = () => {
+    return setQrCodeCheck("QR 코드가 존재합니다")
+
+  }
 
   return (
     <div className={styles.qr__container}>
@@ -163,7 +178,7 @@ function CreateQr() {
             value={body.dueDate}
           />
           <div>
-            <button onClick={saveQRCode} className={styles.qr__btn}>
+            <button onClick={qrImage ? qrCodeExist : saveQRCode} className={styles.qr__btn}>
               생 성
             </button>
             <button onClick={CancelQRCode} className={styles.qr__btn}>

@@ -16,18 +16,20 @@ import { useSelector } from "react-redux";
 
 const MonthApexChart = () => {
   const monthData = useSelector(state => state.dashboard.month)
-  // console.log(monthData)
+  console.log(monthData)
 
   // 월간 예약자 통계
   const monthBook = () => {
-    const nMonth = monthData.filter(month => month.deleted === "N")
-    const nMonthSort = nMonth.reverse()
-    const arr = []
-    for (let i = 0; i < 12; i++) {
-      if (nMonthSort[i] === undefined) {
-        arr.unshift(0)
-      } else {
-        arr.unshift(nMonthSort[i].count)
+    const arr = [];
+    if (monthData !== null) {
+      const nMonth = monthData.filter(month => month.deleted === "N")
+      const nMonthSort = nMonth.reverse()
+      for (let i = 0; i < 12; i++) {
+        if (nMonthSort[i] === undefined) {
+          arr.unshift(0)
+        } else {
+          arr.unshift(nMonthSort[i].count)
+        }
       }
     }
     return arr
@@ -36,14 +38,17 @@ const MonthApexChart = () => {
 
   // 월간 취소자 통계
   const monthCancel = () => {
-    const yMonth = monthData.filter(month => month.deleted === "Y")
-    const yMonthSort = yMonth.reverse();
-    const arr = []
-    for (let i = 0; i < 12; i++) {
-      if (yMonthSort[i] === undefined) {
-        arr.unshift(0)
-      } else {
-        arr.unshift(yMonthSort[i].count)
+    const arr = [];
+    if (monthData !== null) {
+      const yMonth = monthData.filter(month => month.deleted === "Y")
+      const yMonthSort = yMonth.reverse();
+      const arr = []
+      for (let i = 0; i < 12; i++) {
+        if (yMonthSort[i] === undefined) {
+          arr.unshift(0)
+        } else {
+          arr.unshift(yMonthSort[i].count)
+        }
       }
     }
     return arr
