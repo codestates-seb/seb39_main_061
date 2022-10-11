@@ -51,7 +51,8 @@ const Profile = () => {
                   <img alt="나는 없는 이미지" src={noneProfile} />
                 ) : (
                   <img
-                    src={`${imgURL}${userInfo.profileImg}`}
+                    // src={`${imgURL}${userInfo.profileImg}`}
+                    src={userInfo.profileImg.includes('http') ? `${userInfo.profileImg}` : `${imgURL}${userInfo.profileImg}`}
                     className={styles.imgPreview}
                     alt="나는 프로필"
                   />
