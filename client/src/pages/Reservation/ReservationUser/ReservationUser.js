@@ -102,15 +102,16 @@ function ReservationUser() {
   const customStyles = {
     overlay: {
       backgroundColor: "rgba(0,0,0,0.2)",
-      marginLeft: "0px",
+
       zIndex: "1",
     },
     content: {
       margin: "auto",
-      width: "360px",
+      width: "340px",
       height: "600px",
       padding: "0",
-      left: "25px",
+      left: "0px",
+      right: "0px",
       borderRadius: "20px",
     },
   };
