@@ -36,7 +36,6 @@
     height: 100vh;
     margin-left: 150px;
     
-    
   }
     
     /* .title {
@@ -68,7 +67,7 @@
     
     .table {
        
-        width: 85%;
+        width: 1166px;
         text-align: center;
         font-size: 0.9em;
         border-collapse: separate;
@@ -91,6 +90,7 @@
     
     .th {
       
+        text-align: center;
         width: 150px;
       padding: 10px;
       font-weight: bold;
@@ -133,7 +133,6 @@
     
       .td1 {
       text-align: center;
-      
       border-spacing: 0px;
       height: 36px;
       vertical-align: top;

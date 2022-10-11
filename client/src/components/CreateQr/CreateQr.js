@@ -8,7 +8,6 @@ import {
   postCreateQRCode,
   updateCreateQRCode,
   getBusinessId,
-  getQRcodeImg,
 } from "./../../api/services/createQrcode";
 import QRcodeManageDetail from "./../../components/QRmanageDetail/QRmanageDetail";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,10 +24,13 @@ function CreateQr() {
     dueDate: new Date(),
     qrType: "reservation",
   });
-  const [qrCodeCheck, setQrCodeCheck] = useState();
+  const [resData, setResData] = useState({});
+  const [dueDateErr, setDueDateErr] = useState();
+  const [valueDate, onChange] = useState();
   const [errMessage, setErrMessage] = useState();
   const [openModal, setOpenModal] = useState(false);
   const dispatch = useDispatch();
+  const qrcodeIdSelector = useSelector((state) => state.qrcode.qrCodeId);
   const businessIdSelector = useSelector((state) => state.qrcode.businessId);
   const qrcodeImgSelector = useSelector((state) => state.qrcode.qrcodeImg);
   const today = new Date();
@@ -82,7 +84,7 @@ function CreateQr() {
   const saveQRCode = async () => {
     const res = await postCreateQRCode(body);
     console.log(res.data.qrCodeId);
-    dispatch(qrcodeActions.setQrCodeId(res.data.qrCodeId))
+    // dispatch(qrcodeActions.setQrCodeId(res.data.qrCodeId))
     const resTwo = await getBusinessId();
 
     // dispatch(qrcodeActions.setBusinessId(resTwo.businessId))
@@ -120,27 +122,12 @@ function CreateQr() {
               return setErrMessage("QR 코드 명을 입력해주세요!");
             }
           });
-        setOpenModal(true)
-        setTimeout(() =>
-        window.location.reload(), 1500)
+        // setOpenModal(true)
+        // setTimeout(() =>
+        // window.location.reload(), 1500)
       }
     );
   };
-
-  useEffect(() => {
-    getBusinessId()
-      .then(res => dispatch(qrcodeActions.setBusinessId(res.businessId)))
-    getQRcodeImg(businessIdSelector)
-      .then(res => {
-        dispatch(qrcodeActions.setQrcodeImg(res[0].qrCodeImg))
-      })
-      .catch((err) => console.log(err))
-  }, [])
-
-  const qrCodeExist = () => {
-    return setQrCodeCheck("QR 코드가 존재합니다")
-
-  }
 
   return (
     <div className={styles.qr__container}>
@@ -159,7 +146,7 @@ function CreateQr() {
               })
             }
           />
-          <div className={styles.qr__alertMsg}>{qrCodeCheck}</div>
+          <div className={styles.qr__alertMsg}>{dueDateErr}</div>
         </div>
         <div className={styles.qr__row__container}>
           <div className={styles.qr__infoTxt}>만료 기간을 선택해주세요</div>
@@ -176,7 +163,7 @@ function CreateQr() {
             value={body.dueDate}
           />
           <div>
-            <button onClick={qrcodeImgSelector? qrCodeExist : saveQRCode} className={styles.qr__btn}>
+            <button onClick={saveQRCode} className={styles.qr__btn}>
               생 성
             </button>
             <button onClick={CancelQRCode} className={styles.qr__btn}>

@@ -39,7 +39,8 @@ const DashboardCalendar = () => {
   const dateValue = () => {
     return value === null? today : clickDate
   }
-  
+  console.log(dateValue())
+
   useEffect(() => {
     getDashboard(dateValue())
     .then(getTimeData => setGetTime(getTimeData.time))
