@@ -10,7 +10,7 @@ import { oauthReq } from "../../api/services/auth";
 
 const Register = () => {
   const businessNameRef = useRef();
-  const phoneNumRef = useRef();
+  const [phone, setPhone] = useState();
   const nameRef = useRef();
 
   const location = useLocation();
@@ -51,10 +51,17 @@ const Register = () => {
     checkValidation();
   }, []);
 
+  const phonehandler = (e) => {
+    setPhone(
+      e.target.value
+        .replace(/[^0-9]/g, "")
+        .replace(/^(\d{2,3})(\d{3,4})(\d{4})$/, `$1-$2-$3`)
+    );
+  };
+
   //인증 false -> 추가 기입 전송 -> 로그인,유저데이터 받아오기
   const handlerSubmit = async () => {
     const businessName = businessNameRef.current.value;
-    const phone = phoneNumRef.current.value;
     const name = nameRef.current.value;
     setPage("register");
     setChangeCSS(false);
@@ -122,8 +129,13 @@ const Register = () => {
               />
             </div>
             <div className={styles.register__form__input__phone}>
-              <span>휴대폰 번호</span>
-              <input ref={phoneNumRef} placeholder="예: 010-xxxx-xxxx" />
+              <span>휴대폰 번호 (-제외)</span>
+              <input
+                value={phone}
+                maxLength={13}
+                onChange={phonehandler}
+                placeholder="예: 010xxxxxxxx"
+              />
             </div>
             <div className={styles.register__form__input__name}>
               <span>이름</span>
