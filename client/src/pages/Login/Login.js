@@ -114,7 +114,8 @@ const Login = () => {
         <div className={styles.login__form__oauth}>
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=${clientURL}/oauth2/redirect`}
+            // disbabled
+            // href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=${clientURL}/oauth2/redirect`}
             >
               <img src={naverLogo} alt="naverLogin" />
             </a>

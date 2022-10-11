@@ -202,7 +202,7 @@ const SignUp = () => {
         <div className={styles.signUp__form__oauth}>
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=${clientURL}/oauth2/redirect`}
+            // href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=${clientURL}/oauth2/redirect`}
             >
               <img src={naverLogo} alt="React" />
             </a>

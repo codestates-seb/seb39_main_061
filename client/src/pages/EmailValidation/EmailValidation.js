@@ -10,7 +10,6 @@ const EmailValidation = () => {
   const [validation, setValidation] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.search);
   let email = String(location.search.split("&", 1));
   email = email.slice(7);
 
