@@ -3,10 +3,11 @@ import 'react-calendar/dist/Calendar.css';
 import React, { useState } from 'react';
 import moment from 'moment';
 import styles from "./Calendar.module.css";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { dashboardActions } from "../../store/dashboard";
 import { useEffect } from 'react';
 import { getDashboard } from "./../../api/services/dashboard"
+import { getBusinessId, getQRcodeInfo } from "../../api/services/createQrcode"
 
 
 // 더미데이터
@@ -31,21 +32,30 @@ import { getDashboard } from "./../../api/services/dashboard"
 const DashboardCalendar = () => {
   const dispatch = useDispatch();
   const [value, onChange] = useState(new Date());
-  const [getTime, setGetTime] = useState([]);
+  // const [getTime, setGetTime] = useState([]);
+  // const [businessIdget, setBusinessIdget] = useState(0);
+  // const [qrcodeIdget, setQrcodeIdget] = useState(0);
+  const businessIdSelector = useSelector(state => state.dashboard.businessId);
+  const qrCodeIdSelector = useSelector(state => state.dashboard.qrCodeId);
+
 
   let clickDate = moment(value).format("YYYYMMDD")
   let today = moment().format("YYYYMMDD")
 
   const dateValue = () => {
-    return value === null? today : clickDate
+    return value !== null ? clickDate : today
   }
-  console.log(dateValue())
 
   useEffect(() => {
-    getDashboard(dateValue())
-    .then(getTimeData => setGetTime(getTimeData.time))
-    dispatch(dashboardActions.setTime(getTime))
-  }, [onchange])
+    getBusinessId()
+      // .then(res => console.log(res))
+      .then(res => { dispatch(dashboardActions.setBusinessId(res.businessId)) })
+    getQRcodeInfo(businessIdSelector)
+      .then(res => dispatch(dashboardActions.setQrCodeId(res[0].qrCodeId)))
+    getDashboard(businessIdSelector, qrCodeIdSelector, dateValue())
+      .then(res => { dispatch(dashboardActions.setTime(res.time)) })
+    dispatch(dashboardActions.setClickDate(clickDate))
+  }, [value])
 
   return (
     <div className={styles.calendar_container}>

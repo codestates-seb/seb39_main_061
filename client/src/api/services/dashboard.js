@@ -2,9 +2,9 @@ import axios from "axios";
 import { getAuthorizationHeader } from "../axios";
 import { baseURL } from "../axios";
 
-export const getDashboard = (today) => {
+export const getDashboard = (businessId, qrcodeId, today) => {
   return axios
-    .get(`${baseURL}/api/v1/business/1/reservation/qr-code/1/statistics?date=${today}`, {
+    .get(`${baseURL}/api/v1/business/${businessId}/reservation/qr-code/${qrcodeId}/statistics?date=${today}`, {
       headers: {
         Authorization: getAuthorizationHeader(),
       },

@@ -46,6 +46,8 @@ export const getUserStoreInfo = (businessId) => {
   return userAxiosInstance.get(`/business/${businessId}`);
 };
 
-export const getUserFoodList = (businessId) => {
-  return axios.get(`${baseURL}/business/${businessId}/menu?page=1&size=10`);
+export const getUserFoodList = (businessId, pageNum) => {
+  return axios.get(
+    `${baseURL}/business/${businessId}/menu?page=${pageNum}&size=8`
+  );
 };

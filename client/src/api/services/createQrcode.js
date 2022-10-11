@@ -44,3 +44,30 @@ export const getBusinessId = () => {
       return res.data.data;
     })
 };
+
+export const getQRcodeInfo = (businessId) => {
+  return axios
+    .get(`${baseURL}/api/v1/business/${businessId}/type/reservation/qr-code?page=1&size=10`,
+      {
+        headers: {
+          Authorization: getAuthorizationHeader(),
+        },
+      })
+    .then((res) => {
+      return res.data.data;
+    })
+};
+
+export const deleteQRcodeImg = (businessId, qrcodeId) => {
+  return axios
+    .delete(`${baseURL}/api/v1/business/${businessId}/type/reservation/qr-code/${qrcodeId}`,
+      {
+        headers: {
+          Authorization: getAuthorizationHeader(),
+        },
+      })
+    .then((res) => {
+      return res.data.data;
+    })
+};
+
