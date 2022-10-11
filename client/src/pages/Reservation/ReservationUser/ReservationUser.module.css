@@ -9,13 +9,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
 }
 
 .reservationContainer {
-  width: 414px;
-  height: 915px;
+  width: 100%;
+  height: 100vh;
   position: relative;
   box-shadow: 1px 1px 5px rgba(119, 119, 119, 0.5);
   border-radius: 25px;
@@ -63,7 +63,7 @@
 
   font-size: 4px;
   justify-content: space-between;
-  width: 100%;
+  width: 90%;
   align-items: center;
 }
 .subtitle > div:first-child {
@@ -77,13 +77,14 @@
 .tables {
   overflow-y: scroll;
   height: 100%;
+
   -ms-overflow-style: none;
 }
 .tables::-webkit-scrollbar {
   display: none;
 }
 .table {
-  width: 390px;
+  width: 360px;
 
   text-align: center;
   font-size: 0.9em;
@@ -99,7 +100,7 @@
 
 .th {
   text-align: center;
-  width: 150px;
+  width: 140px;
   padding-top: 10px;
   padding-bottom: 10px;
   font-weight: bold;
@@ -170,7 +171,7 @@ TD {
   justify-content: center;
   align-items: center;
   height: 30%;
-  width: 412px;
+  width: 360px;
   position: fixed;
 
   bottom: 10px;
@@ -192,7 +193,7 @@ TD {
   position: relative;
   height: 24px;
   margin-bottom: 1.5rem;
-  margin-left: 12px;
+  width: 100%;
 }
 .submit {
   display: flex;
@@ -200,15 +201,16 @@ TD {
   height: 24px;
   margin-bottom: 1.5rem;
   width: 100%;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .input {
-  width: 290px;
+  width: 270px;
   height: 38px;
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 0.5rem;
   margin-left: 10px;
+  padding-left: 20px;
 }
 
 .label {
@@ -300,23 +302,23 @@ TD {
 .submit label {
   padding-left: 16px;
 }
-@media all and (max-width: 900px) {
-  .upform {
-    bottom: 0px;
+@media all and (max-height: 740px) {
+  .tables {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+  }
+  .table {
+    width: 95%;
+  }
+  .th {
+    width: 110px;
   }
 }
 
-.reactModal {
-  margin: auto;
-  width: 360px;
-  height: 600px;
-  padding: 0;
-  left: 25px;
-  border-radius: 20px;
-}
-
-.Overlay {
-  background-color: rgba(0, 0, 0, 0.2);
-  margin-left: 0px;
-  z-index: 1;
+@media all and (min-width: 600px) {
+  .reservationContainer {
+    width: 414px;
+    height: 860px;
+  }
 }
