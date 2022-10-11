@@ -445,85 +445,90 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toc" class="toc2">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_authcontroller">1. AuthController</a>
-<ul class="sectlevel3">
-<li><a href="#_이메일_중복검사">1.1. 이메일 중복검사</a></li>
-<li><a href="#_회원가입">1.2. 회원가입</a></li>
-<li><a href="#_로그인">1.3. 로그인</a></li>
-<li><a href="#_토큰_재발급">1.4. 토큰 재발급</a></li>
-<li><a href="#_이메일_인증">1.5. 이메일 인증</a></li>
-<li><a href="#_oauth2_추가_정보_입력">1.6. OAuth2 추가 정보 입력</a></li>
-<li><a href="#_비밀번호_재발급">1.7. 비밀번호 재발급</a></li>
+<li><a href="#overview">1. Overview</a>
+<ul class="sectlevel2">
+<li><a href="#overview-http-status-codes">1.1. HTTP status codes</a></li>
 </ul>
 </li>
-<li><a href="#_membercontroller">2. MemberController</a>
+<li><a href="#_authcontroller">2. AuthController</a>
 <ul class="sectlevel3">
-<li><a href="#_회원_정보_조회">2.1. 회원 정보 조회</a></li>
-<li><a href="#_회원_정보_변경">2.2. 회원 정보 변경</a></li>
-<li><a href="#_로그아웃">2.3. 로그아웃</a></li>
+<li><a href="#_이메일_중복검사">2.1. 이메일 중복검사</a></li>
+<li><a href="#_회원가입">2.2. 회원가입</a></li>
+<li><a href="#_로그인">2.3. 로그인</a></li>
+<li><a href="#_토큰_재발급">2.4. 토큰 재발급</a></li>
+<li><a href="#_이메일_인증">2.5. 이메일 인증</a></li>
+<li><a href="#_oauth2_추가_정보_입력">2.6. OAuth2 추가 정보 입력</a></li>
+<li><a href="#_비밀번호_재발급">2.7. 비밀번호 재발급</a></li>
 </ul>
 </li>
-<li><a href="#_qrcodereservationcontroller_업주_예약_관련">3. QrCodeReservationController (업주 / 예약 관련)</a>
+<li><a href="#_membercontroller">3. MemberController</a>
 <ul class="sectlevel3">
-<li><a href="#_qr_코드_등록">3.1. QR 코드 등록</a></li>
-<li><a href="#_qr_코드_변경">3.2. QR 코드 변경</a></li>
-<li><a href="#_qr_코드_조회">3.3. QR 코드 조회</a></li>
-<li><a href="#_qr_코드_리스트_조회">3.4. QR 코드 리스트 조회</a></li>
-<li><a href="#_qr_코드_삭제">3.5. QR 코드 삭제</a></li>
+<li><a href="#_회원_정보_조회">3.1. 회원 정보 조회</a></li>
+<li><a href="#_회원_정보_변경">3.2. 회원 정보 변경</a></li>
+<li><a href="#_로그아웃">3.3. 로그아웃</a></li>
 </ul>
 </li>
-<li><a href="#_reservationadmincontroller_업주_예약관련">4. ReservationAdminController (업주 / 예약관련)</a>
+<li><a href="#_qrcodereservationcontroller_업주_예약_관련">4. QrCodeReservationController (업주 / 예약 관련)</a>
 <ul class="sectlevel3">
-<li><a href="#_예약_리스트_조회">4.1. 예약 리스트 조회</a></li>
-<li><a href="#_에약_입장">4.2. 에약 입장</a></li>
-<li><a href="#_에약_삭제">4.3. 에약 삭제</a></li>
-<li><a href="#_통계_데이터_조회">4.4. 통계 데이터 조회</a></li>
+<li><a href="#_qr_코드_등록">4.1. QR 코드 등록</a></li>
+<li><a href="#_qr_코드_변경">4.2. QR 코드 변경</a></li>
+<li><a href="#_qr_코드_조회">4.3. QR 코드 조회</a></li>
+<li><a href="#_qr_코드_리스트_조회">4.4. QR 코드 리스트 조회</a></li>
+<li><a href="#_qr_코드_삭제">4.5. QR 코드 삭제</a></li>
 </ul>
 </li>
-<li><a href="#_reservationusercontroller_사용자">5. ReservationUserController (사용자)</a>
+<li><a href="#_reservationadmincontroller_업주_예약관련">5. ReservationAdminController (업주 / 예약관련)</a>
 <ul class="sectlevel3">
-<li><a href="#_예약_등록">5.1. 예약 등록</a></li>
-<li><a href="#_예약_리스트_조회_2">5.2. 예약 리스트 조회</a></li>
-<li><a href="#_예약_정보_변경">5.3. 예약 정보 변경</a></li>
-<li><a href="#_예약_삭제">5.4. 예약 삭제</a></li>
+<li><a href="#_예약_리스트_조회">5.1. 예약 리스트 조회</a></li>
+<li><a href="#_에약_입장">5.2. 에약 입장</a></li>
+<li><a href="#_에약_삭제">5.3. 에약 삭제</a></li>
+<li><a href="#_통계_데이터_조회">5.4. 통계 데이터 조회</a></li>
 </ul>
 </li>
-<li><a href="#_menuadmincontroller_업주">6. MenuAdminController (업주)</a>
+<li><a href="#_reservationusercontroller_사용자">6. ReservationUserController (사용자)</a>
 <ul class="sectlevel3">
-<li><a href="#_메뉴_등록">6.1. 메뉴 등록</a></li>
-<li><a href="#_메뉴_변경">6.2. 메뉴 변경</a></li>
-<li><a href="#_메뉴_리스트_조회">6.3. 메뉴 리스트 조회</a></li>
-<li><a href="#_메뉴_조회">6.4. 메뉴 조회</a></li>
-<li><a href="#_메뉴_삭제">6.5. 메뉴 삭제</a></li>
+<li><a href="#_예약_등록">6.1. 예약 등록</a></li>
+<li><a href="#_예약_리스트_조회_2">6.2. 예약 리스트 조회</a></li>
+<li><a href="#_예약_정보_변경">6.3. 예약 정보 변경</a></li>
+<li><a href="#_예약_삭제">6.4. 예약 삭제</a></li>
 </ul>
 </li>
-<li><a href="#_menuusercontroller_사용자">7. MenuUserController (사용자)</a>
+<li><a href="#_menuadmincontroller_업주">7. MenuAdminController (업주)</a>
 <ul class="sectlevel3">
-<li><a href="#_메뉴_리스트_조회_2">7.1. 메뉴 리스트 조회</a></li>
+<li><a href="#_메뉴_등록">7.1. 메뉴 등록</a></li>
+<li><a href="#_메뉴_변경">7.2. 메뉴 변경</a></li>
+<li><a href="#_메뉴_리스트_조회">7.3. 메뉴 리스트 조회</a></li>
+<li><a href="#_메뉴_조회">7.4. 메뉴 조회</a></li>
+<li><a href="#_메뉴_삭제">7.5. 메뉴 삭제</a></li>
 </ul>
 </li>
-<li><a href="#_reviewamincontroller_업주">8. ReviewAminController (업주)</a>
+<li><a href="#_menuusercontroller_사용자">8. MenuUserController (사용자)</a>
 <ul class="sectlevel3">
-<li><a href="#_리뷰_리스트_조회">8.1. 리뷰 리스트 조회</a></li>
-<li><a href="#_리뷰_조회">8.2. 리뷰 조회</a></li>
+<li><a href="#_메뉴_리스트_조회_2">8.1. 메뉴 리스트 조회</a></li>
 </ul>
 </li>
-<li><a href="#_reviewusercontroller_사용자용">9. ReviewUserController (사용자용)</a>
+<li><a href="#_reviewamincontroller_업주">9. ReviewAminController (업주)</a>
 <ul class="sectlevel3">
-<li><a href="#_리뷰_등록">9.1. 리뷰 등록</a></li>
-<li><a href="#_리뷰_리스트_조회_2">9.2. 리뷰 리스트 조회</a></li>
-<li><a href="#_리뷰_조회_2">9.3. 리뷰 조회</a></li>
+<li><a href="#_리뷰_리스트_조회">9.1. 리뷰 리스트 조회</a></li>
+<li><a href="#_리뷰_조회">9.2. 리뷰 조회</a></li>
 </ul>
 </li>
-<li><a href="#_businessadmincontroller_업주용">10. BusinessAdminController (업주용)</a>
+<li><a href="#_reviewusercontroller_사용자용">10. ReviewUserController (사용자용)</a>
 <ul class="sectlevel3">
-<li><a href="#_매장_정보_변경">10.1. 매장 정보 변경</a></li>
-<li><a href="#_매장_정보_조회">10.2. 매장 정보 조회</a></li>
+<li><a href="#_리뷰_등록">10.1. 리뷰 등록</a></li>
+<li><a href="#_리뷰_리스트_조회_2">10.2. 리뷰 리스트 조회</a></li>
+<li><a href="#_리뷰_조회_2">10.3. 리뷰 조회</a></li>
 </ul>
 </li>
-<li><a href="#_businessusercontroller_사용자">11. BusinessUserController (사용자)</a>
+<li><a href="#_businessadmincontroller_업주용">11. BusinessAdminController (업주용)</a>
 <ul class="sectlevel3">
-<li><a href="#_매장_정보_조회_2">11.1. 매장 정보 조회</a></li>
+<li><a href="#_매장_정보_변경">11.1. 매장 정보 변경</a></li>
+<li><a href="#_매장_정보_조회">11.2. 매장 정보 조회</a></li>
+</ul>
+</li>
+<li><a href="#_businessusercontroller_사용자">12. BusinessUserController (사용자)</a>
+<ul class="sectlevel3">
+<li><a href="#_매장_정보_조회_2">12.1. 매장 정보 조회</a></li>
 </ul>
 </li>
 </ul>
@@ -535,17 +540,63 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div class="paragraph">
 <p>v1.0.0, 2022.09.23</p>
 </div>
-<hr>
-<div class="paragraph">
-<p>Unresolved directive in index.adoc - include::overview.adoc[]</p>
+</div>
+</div>
+<div class="sect1">
+<h2 id="overview">1. Overview</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="overview-http-status-codes">1.1. HTTP status codes</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">상태 코드</th>
+<th class="tableblock halign-left valign-top">설명</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>200 OK</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">성공</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>400 Bad Request</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">잘못된 요청</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>401 Unauthorized</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">비인증 상태</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>403 Forbidden</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">권한 거부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>404 Not Found</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">존재하지 않는 요청 리소스</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>409 Conflict</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">이미 존재하여 충돌</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>500 Internal Server Error</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">서버 에러</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_authcontroller">1. AuthController</h2>
+<h2 id="_authcontroller">2. AuthController</h2>
 <div class="sectionbody">
 <div class="sect3">
-<h4 id="_이메일_중복검사">1.1. 이메일 중복검사</h4>
+<h4 id="_이메일_중복검사">2.1. 이메일 중복검사</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -661,7 +712,7 @@ Content-Length: 70
 </table>
 </div>
 <div class="sect3">
-<h4 id="_회원가입">1.2. 회원가입</h4>
+<h4 id="_회원가입">2.2. 회원가입</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -801,7 +852,7 @@ Content-Length: 26
 </table>
 </div>
 <div class="sect3">
-<h4 id="_로그인">1.3. 로그인</h4>
+<h4 id="_로그인">2.3. 로그인</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -932,7 +983,7 @@ Content-Length: 330
 </table>
 </div>
 <div class="sect3">
-<h4 id="_토큰_재발급">1.4. 토큰 재발급</h4>
+<h4 id="_토큰_재발급">2.4. 토큰 재발급</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -1057,13 +1108,13 @@ Content-Length: 330
 </table>
 </div>
 <div class="sect3">
-<h4 id="_이메일_인증">1.5. 이메일 인증</h4>
+<h4 id="_이메일_인증">2.5. 이메일 인증</h4>
 <div class="paragraph">
 <p>rl-request</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/auth/validation?email=hgd@gmail.com&amp;code=daf1717a-b782-4837-99d7-3677ecb0e248' -i -X GET \
+<pre class="prettyprint highlight"><code data-lang="bash">$ curl 'http://localhost:8080/auth/validation?email=hgd@gmail.com&amp;code=82699ff9-2677-4468-8e66-58c8d2d968f2' -i -X GET \
     -H 'Content-Type: application/json' \
     -H 'Accept: application/json'</code></pre>
 </div>
@@ -1071,7 +1122,7 @@ Content-Length: 330
 <div class="listingblock">
 <div class="title">http-request</div>
 <div class="content">
-<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /auth/validation?email=hgd@gmail.com&amp;code=daf1717a-b782-4837-99d7-3677ecb0e248 HTTP/1.1
+<pre class="prettyprint highlight nowrap"><code data-lang="http">GET /auth/validation?email=hgd@gmail.com&amp;code=82699ff9-2677-4468-8e66-58c8d2d968f2 HTTP/1.1
 Content-Type: application/json
 Accept: application/json
 Host: localhost:8080</code></pre>
@@ -1150,7 +1201,7 @@ Content-Length: 26
 </table>
 </div>
 <div class="sect3">
-<h4 id="_oauth2_추가_정보_입력">1.6. OAuth2 추가 정보 입력</h4>
+<h4 id="_oauth2_추가_정보_입력">2.6. OAuth2 추가 정보 입력</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -1294,7 +1345,7 @@ Content-Length: 330
 </table>
 </div>
 <div class="sect3">
-<h4 id="_비밀번호_재발급">1.7. 비밀번호 재발급</h4>
+<h4 id="_비밀번호_재발급">2.7. 비밀번호 재발급</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -1396,10 +1447,10 @@ Content-Length: 26
 </div>
 </div>
 <div class="sect1">
-<h2 id="_membercontroller">2. MemberController</h2>
+<h2 id="_membercontroller">3. MemberController</h2>
 <div class="sectionbody">
 <div class="sect3">
-<h4 id="_회원_정보_조회">2.1. 회원 정보 조회</h4>
+<h4 id="_회원_정보_조회">3.1. 회원 정보 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -1525,7 +1576,7 @@ Content-Length: 159
 </table>
 </div>
 <div class="sect3">
-<h4 id="_회원_정보_변경">2.2. 회원 정보 변경</h4>
+<h4 id="_회원_정보_변경">3.2. 회원 정보 변경</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -1714,7 +1765,7 @@ Content-Length: 179
 </table>
 </div>
 <div class="sect3">
-<h4 id="_로그아웃">2.3. 로그아웃</h4>
+<h4 id="_로그아웃">3.3. 로그아웃</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -1799,10 +1850,10 @@ Content-Length: 22
 </div>
 </div>
 <div class="sect1">
-<h2 id="_qrcodereservationcontroller_업주_예약_관련">3. QrCodeReservationController (업주 / 예약 관련)</h2>
+<h2 id="_qrcodereservationcontroller_업주_예약_관련">4. QrCodeReservationController (업주 / 예약 관련)</h2>
 <div class="sectionbody">
 <div class="sect3">
-<h4 id="_qr_코드_등록">3.1. QR 코드 등록</h4>
+<h4 id="_qr_코드_등록">4.1. QR 코드 등록</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -1982,7 +2033,7 @@ Content-Length: 151
 </table>
 </div>
 <div class="sect3">
-<h4 id="_qr_코드_변경">3.2. QR 코드 변경</h4>
+<h4 id="_qr_코드_변경">4.2. QR 코드 변경</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -2194,7 +2245,7 @@ Content-Length: 171
 </table>
 </div>
 <div class="sect3">
-<h4 id="_qr_코드_조회">3.3. QR 코드 조회</h4>
+<h4 id="_qr_코드_조회">4.3. QR 코드 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -2337,7 +2388,7 @@ Content-Length: 151
 </table>
 </div>
 <div class="sect3">
-<h4 id="_qr_코드_리스트_조회">3.4. QR 코드 리스트 조회</h4>
+<h4 id="_qr_코드_리스트_조회">4.4. QR 코드 리스트 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -2526,7 +2577,7 @@ Content-Length: 476
 </table>
 </div>
 <div class="sect3">
-<h4 id="_qr_코드_삭제">3.5. QR 코드 삭제</h4>
+<h4 id="_qr_코드_삭제">4.5. QR 코드 삭제</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -2604,10 +2655,10 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_reservationadmincontroller_업주_예약관련">4. ReservationAdminController (업주 / 예약관련)</h2>
+<h2 id="_reservationadmincontroller_업주_예약관련">5. ReservationAdminController (업주 / 예약관련)</h2>
 <div class="sectionbody">
 <div class="sect3">
-<h4 id="_예약_리스트_조회">4.1. 예약 리스트 조회</h4>
+<h4 id="_예약_리스트_조회">5.1. 예약 리스트 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -2710,21 +2761,21 @@ Host: localhost:8080</code></pre>
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-10-05T15:55:38.2435435",
+    "createdAt" : "2022-10-11T21:07:24.067198",
     "completed" : "Y",
     "count" : 3
   }, {
     "reservationId" : 1,
     "name" : "이*신",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-10-05T15:55:38.2435435",
+    "createdAt" : "2022-10-11T21:07:24.067198",
     "completed" : "Y",
     "count" : 2
   }, {
     "reservationId" : 1,
     "name" : "세*대왕",
     "phone" : "000-****-5678",
-    "createdAt" : "2022-10-05T15:55:38.2435435",
+    "createdAt" : "2022-10-11T21:07:24.067198",
     "completed" : "Y",
     "count" : 1
   } ],
@@ -2745,21 +2796,21 @@ Host: localhost:8080</code></pre>
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-10-05T15:55:38.2435435",
+    "createdAt" : "2022-10-11T21:07:24.067198",
     "completed" : "Y",
     "count" : 3
   }, {
     "reservationId" : 1,
     "name" : "이*신",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-10-05T15:55:38.2435435",
+    "createdAt" : "2022-10-11T21:07:24.067198",
     "completed" : "Y",
     "count" : 2
   }, {
     "reservationId" : 1,
     "name" : "세*대왕",
     "phone" : "000-****-5678",
-    "createdAt" : "2022-10-05T15:55:38.2435435",
+    "createdAt" : "2022-10-11T21:07:24.067198",
     "completed" : "Y",
     "count" : 1
   } ],
@@ -2851,7 +2902,7 @@ Host: localhost:8080</code></pre>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_에약_입장">4.2. 에약 입장</h4>
+<h4 id="_에약_입장">5.2. 에약 입장</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -2945,7 +2996,7 @@ Content-Length: 29
 </div>
 </div>
 <div class="sect3">
-<h4 id="_에약_삭제">4.3. 에약 삭제</h4>
+<h4 id="_에약_삭제">5.3. 에약 삭제</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -3039,7 +3090,7 @@ Content-Length: 29
 </div>
 </div>
 <div class="sect3">
-<h4 id="_통계_데이터_조회">4.4. 통계 데이터 조회</h4>
+<h4 id="_통계_데이터_조회">5.4. 통계 데이터 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -3278,10 +3329,10 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_reservationusercontroller_사용자">5. ReservationUserController (사용자)</h2>
+<h2 id="_reservationusercontroller_사용자">6. ReservationUserController (사용자)</h2>
 <div class="sectionbody">
 <div class="sect3">
-<h4 id="_예약_등록">5.1. 예약 등록</h4>
+<h4 id="_예약_등록">6.1. 예약 등록</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -3387,14 +3438,14 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 201 Created
 Content-Type: application/json
-Content-Length: 223
+Content-Length: 222
 
 {
   "data" : {
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-10-05T15:55:39.3537614",
+    "createdAt" : "2022-10-11T21:07:25.671243",
     "completed" : "Y",
     "count" : 4
   },
@@ -3410,7 +3461,7 @@ Content-Length: 223
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-10-05T15:55:39.3537614",
+    "createdAt" : "2022-10-11T21:07:25.671243",
     "completed" : "Y",
     "count" : 4
   },
@@ -3477,7 +3528,7 @@ Content-Length: 223
 </table>
 </div>
 <div class="sect3">
-<h4 id="_예약_리스트_조회_2">5.2. 예약 리스트 조회</h4>
+<h4 id="_예약_리스트_조회_2">6.2. 예약 리스트 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -3553,21 +3604,21 @@ Content-Length: 675
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-10-05T15:55:39.4307608",
+    "createdAt" : "2022-10-11T21:07:25.7502417",
     "completed" : "Y",
     "count" : 3
   }, {
     "reservationId" : 1,
     "name" : "이*신",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-10-05T15:55:39.4307608",
+    "createdAt" : "2022-10-11T21:07:25.7502417",
     "completed" : "Y",
     "count" : 2
   }, {
     "reservationId" : 1,
     "name" : "세*대왕",
     "phone" : "000-****-5678",
-    "createdAt" : "2022-10-05T15:55:39.4307608",
+    "createdAt" : "2022-10-11T21:07:25.7502417",
     "completed" : "Y",
     "count" : 1
   } ],
@@ -3659,7 +3710,7 @@ Content-Length: 675
 </table>
 </div>
 <div class="sect3">
-<h4 id="_예약_정보_변경">5.3. 예약 정보 변경</h4>
+<h4 id="_예약_정보_변경">6.3. 예약 정보 변경</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -3778,14 +3829,14 @@ Host: localhost:8080
 <div class="content">
 <pre class="prettyprint highlight nowrap"><code data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json
-Content-Length: 222
+Content-Length: 223
 
 {
   "data" : {
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-10-05T15:55:39.398771",
+    "createdAt" : "2022-10-11T21:07:25.7142382",
     "completed" : "Y",
     "count" : 1
   },
@@ -3801,7 +3852,7 @@ Content-Length: 222
     "reservationId" : 1,
     "name" : "홍*동",
     "phone" : "000-****-0000",
-    "createdAt" : "2022-10-05T15:55:39.398771",
+    "createdAt" : "2022-10-11T21:07:25.7142382",
     "completed" : "Y",
     "count" : 1
   },
@@ -3868,7 +3919,7 @@ Content-Length: 222
 </table>
 </div>
 <div class="sect3">
-<h4 id="_예약_삭제">5.4. 예약 삭제</h4>
+<h4 id="_예약_삭제">6.4. 예약 삭제</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -3992,10 +4043,10 @@ Host: localhost:8080
 </div>
 </div>
 <div class="sect1">
-<h2 id="_menuadmincontroller_업주">6. MenuAdminController (업주)</h2>
+<h2 id="_menuadmincontroller_업주">7. MenuAdminController (업주)</h2>
 <div class="sectionbody">
 <div class="sect3">
-<h4 id="_메뉴_등록">6.1. 메뉴 등록</h4>
+<h4 id="_메뉴_등록">7.1. 메뉴 등록</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -4198,7 +4249,7 @@ Content-Length: 136
 </table>
 </div>
 <div class="sect3">
-<h4 id="_메뉴_변경">6.2. 메뉴 변경</h4>
+<h4 id="_메뉴_변경">7.2. 메뉴 변경</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -4405,7 +4456,7 @@ Content-Length: 139
 </table>
 </div>
 <div class="sect3">
-<h4 id="_메뉴_리스트_조회">6.3. 메뉴 리스트 조회</h4>
+<h4 id="_메뉴_리스트_조회">7.3. 메뉴 리스트 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -4617,7 +4668,7 @@ Content-Length: 416
 </table>
 </div>
 <div class="sect3">
-<h4 id="_메뉴_조회">6.4. 메뉴 조회</h4>
+<h4 id="_메뉴_조회">7.4. 메뉴 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -4760,7 +4811,7 @@ Content-Length: 135
 </table>
 </div>
 <div class="sect3">
-<h4 id="_메뉴_삭제">6.5. 메뉴 삭제</h4>
+<h4 id="_메뉴_삭제">7.5. 메뉴 삭제</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -4838,10 +4889,10 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_menuusercontroller_사용자">7. MenuUserController (사용자)</h2>
+<h2 id="_menuusercontroller_사용자">8. MenuUserController (사용자)</h2>
 <div class="sectionbody">
 <div class="sect3">
-<h4 id="_메뉴_리스트_조회_2">7.1. 메뉴 리스트 조회</h4>
+<h4 id="_메뉴_리스트_조회_2">8.1. 메뉴 리스트 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -5034,10 +5085,10 @@ Content-Length: 416
 </div>
 </div>
 <div class="sect1">
-<h2 id="_reviewamincontroller_업주">8. ReviewAminController (업주)</h2>
+<h2 id="_reviewamincontroller_업주">9. ReviewAminController (업주)</h2>
 <div class="sectionbody">
 <div class="sect3">
-<h4 id="_리뷰_리스트_조회">8.1. 리뷰 리스트 조회</h4>
+<h4 id="_리뷰_리스트_조회">9.1. 리뷰 리스트 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -5238,7 +5289,7 @@ Content-Length: 352
 </table>
 </div>
 <div class="sect3">
-<h4 id="_리뷰_조회">8.2. 리뷰 조회</h4>
+<h4 id="_리뷰_조회">9.2. 리뷰 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -5376,10 +5427,10 @@ Content-Length: 115
 </div>
 </div>
 <div class="sect1">
-<h2 id="_reviewusercontroller_사용자용">9. ReviewUserController (사용자용)</h2>
+<h2 id="_reviewusercontroller_사용자용">10. ReviewUserController (사용자용)</h2>
 <div class="sectionbody">
 <div class="sect3">
-<h4 id="_리뷰_등록">9.1. 리뷰 등록</h4>
+<h4 id="_리뷰_등록">10.1. 리뷰 등록</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -5539,7 +5590,7 @@ Content-Length: 115
 </table>
 </div>
 <div class="sect3">
-<h4 id="_리뷰_리스트_조회_2">9.2. 리뷰 리스트 조회</h4>
+<h4 id="_리뷰_리스트_조회_2">10.2. 리뷰 리스트 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -5719,7 +5770,7 @@ Content-Length: 352
 </table>
 </div>
 <div class="sect3">
-<h4 id="_리뷰_조회_2">9.3. 리뷰 조회</h4>
+<h4 id="_리뷰_조회_2">10.3. 리뷰 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -5836,10 +5887,10 @@ Content-Length: 115
 </div>
 </div>
 <div class="sect1">
-<h2 id="_businessadmincontroller_업주용">10. BusinessAdminController (업주용)</h2>
+<h2 id="_businessadmincontroller_업주용">11. BusinessAdminController (업주용)</h2>
 <div class="sectionbody">
 <div class="sect3">
-<h4 id="_매장_정보_변경">10.1. 매장 정보 변경</h4>
+<h4 id="_매장_정보_변경">11.1. 매장 정보 변경</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -6113,7 +6164,7 @@ Content-Length: 305
 </table>
 </div>
 <div class="sect3">
-<h4 id="_매장_정보_조회">10.2. 매장 정보 조회</h4>
+<h4 id="_매장_정보_조회">11.2. 매장 정보 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -6270,10 +6321,10 @@ Content-Length: 305
 </div>
 </div>
 <div class="sect1">
-<h2 id="_businessusercontroller_사용자">11. BusinessUserController (사용자)</h2>
+<h2 id="_businessusercontroller_사용자">12. BusinessUserController (사용자)</h2>
 <div class="sectionbody">
 <div class="sect3">
-<h4 id="_매장_정보_조회_2">11.1. 매장 정보 조회</h4>
+<h4 id="_매장_정보_조회_2">12.1. 매장 정보 조회</h4>
 <div class="listingblock">
 <div class="title">curl-request</div>
 <div class="content">
@@ -6431,7 +6482,7 @@ Content-Length: 305
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2022-10-04 17:43:20 +0900
+Last updated 2022-10-11 21:01:34 +0900
 </div>
 </div>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.min.css">
