@@ -31,14 +31,17 @@ function ReservationUser() {
   const [openTime, setOpenTime] = useState();
   const [errMSG, setErrMSG] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+  const [businessPhone, setBusinessPhone] = useState();
 
   const axiosData = async () => {
     getUserStoreInfo(businessId)
       .then((res) => {
+        console.log(res);
         setStoreName(res.data.data.name);
         setAddress(res.data.data.address);
         setHoliday(res.data.data.holiday);
         setOpenTime(res.data.data.openTime);
+        setBusinessPhone(res.data.data.phone);
       })
       // .then(() => {
       //   getUserFoodList(businessId).then((res) => {
@@ -92,7 +95,7 @@ function ReservationUser() {
             console.log(err);
           });
         });
-
+      setErrMSG("");
       e.target.name.value = "";
       setNum("");
       e.target.count.value = "";
@@ -132,11 +135,12 @@ function ReservationUser() {
             <div className={styles.address}>
               <div className={styles.title}>{storeName}</div>
 
-              <div className={styles.holiday}>
-                {openTime ? `영업시간: ${openTime}` : ""}
+              <div className={styles.phone}>
+                <span>{openTime && `영업시간: ${openTime}`}</span>
+                <span> {businessPhone}</span>
               </div>
               <div className={styles.holiday}>
-                {holiday ? `휴무일: ${holiday}` : ""}
+                <span> {holiday && `휴무일: ${holiday}`}</span>
               </div>
               <div className={styles.errMSG}>{errMSG}</div>
 
@@ -216,6 +220,7 @@ function ReservationUser() {
                   ref={phoneRef}
                   placeholder=" "
                   onChange={handlePhone}
+                  maxLength={13}
                 />
                 <label htmlFor="" className={styles.label}>
                   연락처 -제외
