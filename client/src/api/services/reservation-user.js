@@ -21,6 +21,26 @@ export const registerUserRes = (businessId, qrCodeId, name, phone, count) => {
     },
   });
 };
+export const deleteUserRes = (
+  businessId,
+  qrCodeId,
+  reservationId,
+  phone,
+  name,
+  count
+) => {
+  return axios.patch(
+    `${baseURL}/business/${businessId}/reservation/qr-code/${qrCodeId}/cancel/${reservationId}`,
+    {
+      businessId,
+      qrCodeId,
+      reservationId,
+      phone,
+      count,
+      name,
+    }
+  );
+};
 
 export const getUserStoreInfo = (businessId) => {
   return userAxiosInstance.get(`/business/${businessId}`);

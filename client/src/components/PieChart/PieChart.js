@@ -3,39 +3,9 @@ import Chart from "react-apexcharts";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
-// 더미데이터 테스트
-// const data = {
-//   series:
-//   {
-//     month:
-//       ["20221007", "20221008", "20221009", "20221010", "20221011", "20221012"],
-//   }
-// }
-// const six = [0, 0, 5, 4, 1, 7, 3]
-// const seven = [0, 0, 4, 8, 2, 9, 2]
-// const eight = [0, 0, 4, 8, 2, 9, 2]
-// const nine = [0, 0, 4, 8, 2, 9, 2]
-// const ten = [0, 0, 4, 8, 2, 9, 2]
-// const eleven = [0, 0, 4, 8, 2, 9, 2]
-// const datehandler = () => {
-//   if (data.series.month[0] === timeData) {
-//     return six
-//   } else if (data.series.month[1] === timeData) {
-//     return seven
-//   } else if (data.series.month[2] === timeData) {
-//     return eight
-//   } else if (data.series.month[3] === timeData) {
-//     return nine
-//   } else if (data.series.month[4] === timeData) {
-//     return ten
-//   } else if (data.series.month[5] === timeData) {
-//     return eleven
-//   }
-// }
-// console.log(datehandler())
-
 const ApexChart = () => {
   const timeData = useSelector(state => state.dashboard.time)
+<<<<<<< HEAD
   const clickData = useSelector(state => state.dashboard.clickDate)
   const [time, setTime] = useState([]);
   console.log("달력에서 클릭한 날짜:", clickData)
@@ -94,8 +64,70 @@ const ApexChart = () => {
     // setTimeout(timeHandler, 3000)
   }, [timeData])
 
+=======
+  console.log(timeData)
+  const [time, setTime] = useState([]);
+
+  // useEffect(() => {
+  //   const nTime = timeData.filter(day => day.deleted === "N")
+  //   console.log(nTime)
+  //   const timeHandler = () => {
+  //     let hours = [];
+  //     for (let i = 0; i <= 7; i++) {
+  //       let date = nTime[i].date
+  //       let count = nTime[i].count
+  //       if (date > 21) {
+  //         hours.unshift(count)
+  //       } else {
+  //         hours.unshift(0)
+  //       }
+  //       if (date <= 21 && date > 18) {
+  //         hours.unshift(count)
+  //       } else {
+  //         hours.unshift(0)
+  //       }
+  //       if (date <= 18 && date > 15) {
+  //         hours.unshift(count)
+  //       } else {
+  //         hours.unshift(0)
+  //       }
+  //       if (date <= 15 && date > 12) {
+  //         hours.unshift(count)
+  //       } else {
+  //         hours.unshift(0)
+  //       }
+  //       if (date <= 12 && date > 9) {
+  //         hours.unshift(count)
+  //       } else {
+  //         hours.unshift(0)
+  //       }
+  //       if (date <= 9 && date > 6) {
+  //         hours.unshift(count)
+  //       } else {
+  //         hours.unshift(0)
+  //       }
+  //       if (date <= 6 && date > 3) {
+  //         hours.unshift(count)
+  //       } else {
+  //         hours.unshift(0)
+  //       }
+  //       if (date < 3) {
+  //         hours.unshift(count)
+  //       } else {
+  //         hours.unshift(0)
+  //       }
+  //       return setTime(hours)
+  //     }
+  //   }
+  //   console.log(timeHandler())
+  //   setTimeout(timeHandler, 500)
+  // }, [timeData])
+  // console.log(time)
+  
+>>>>>>> 145c87271e82f01f09dfbf385c17bc4c4710b77b
   const donutData = {
-    series: time,
+    // series: time,
+    series: [0, 0, 3, 6, 10, 2, 13, 1],
     options: {
       chart: {
         type: 'donut',
@@ -140,8 +172,12 @@ const ApexChart = () => {
     <div>
       {time && <Chart options={donutData.options}
         series={donutData.series}
+<<<<<<< HEAD
         // series={datehandler()}
         type="donut" width="95%" />}
+=======
+        type="donut" width="95%" />
+>>>>>>> 145c87271e82f01f09dfbf385c17bc4c4710b77b
     </div>
   );
 }

@@ -14,7 +14,7 @@
   display: flex;
   /* width: 70%; */
   height: 42.5%;
-  margin:40px 0 0 0;
+  margin: 60px;
 }
 
 .main_container {
@@ -55,11 +55,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* align-items: center; */
   width: 90%;
   height: auto;
-  margin: 0 auto;
-  margin-top: 70px;
+  margin: 70px auto;
 }
 .componentEl__calendar {
   display: flex;
@@ -69,15 +67,6 @@
   height: auto;
   margin: 0 auto;
   margin-top: 50px;
-}
-
-.componentEl__piechart {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 90%;
-  height: auto;
-  margin: 0 auto;
 }
 
 .barChart {

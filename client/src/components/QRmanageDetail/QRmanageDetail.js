@@ -18,8 +18,8 @@ const QRmanageDetail = () => {
   const qrcodeIdSelector = useSelector((state) => state.qrcode.qrCodeId);
   const qrcodeImgSelector = useSelector((state) => state.qrcode.qrcodeImg);
   const targetSelector = useSelector((state) => state.qrcode.target);
+  const dueDateSelector = useSelector((state) => state.qrcode.dueDate);
   let componentRef = useRef();
-  const dispatch = useDispatch();
 
   // let dueDate = moment(dueDateSelector).format("YYYY년 MM월 DD일");
 
@@ -48,7 +48,7 @@ const QRmanageDetail = () => {
   return (
     <div className={styles.container}>
       <div className={styles.info}>
-        <img src={qrcodeImgSelector ? imgURL + qrcodeImgSelector : noneQrImg} alt="QR코드" className={styles.qrImg} ref={(el) => (componentRef = el)} />
+        <img src={qrcodeImgSelector ? imgURL + qrcodeImgSelector : noneQrImg} alt="나는 큐알코드야" className={styles.qrImg} ref={(el) => (componentRef = el)} />
       </div>
       <div className={styles.info}>
         <div className={styles.texts}>

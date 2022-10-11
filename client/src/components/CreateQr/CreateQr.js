@@ -25,7 +25,9 @@ function CreateQr() {
     dueDate: new Date(),
     qrType: "reservation",
   });
-  const [qrCodeCheck, setQrCodeCheck] = useState();
+  const [resData, setResData] = useState({});
+  const [dueDateErr, setDueDateErr] = useState();
+  const [valueDate, onChange] = useState();
   const [errMessage, setErrMessage] = useState();
   const [openModal, setOpenModal] = useState(false);
   const [qrImage, setQrImage] = useState(false);
@@ -81,7 +83,7 @@ function CreateQr() {
   const saveQRCode = async () => {
     const res = await postCreateQRCode(body);
     console.log(res.data.qrCodeId);
-    dispatch(qrcodeActions.setQrCodeId(res.data.qrCodeId))
+    // dispatch(qrcodeActions.setQrCodeId(res.data.qrCodeId))
     const resTwo = await getBusinessId();
 
     QRCode.toDataURL(
@@ -159,7 +161,7 @@ function CreateQr() {
               })
             }
           />
-          <div className={styles.qr__alertMsg}>{qrCodeCheck}</div>
+          <div className={styles.qr__alertMsg}>{dueDateErr}</div>
         </div>
         <div className={styles.qr__row__container}>
           <div className={styles.qr__infoTxt}>만료 기간을 선택해주세요</div>

@@ -18,15 +18,20 @@
   width: 100%;
 }
 .qrImg {
- width: 80%;
+ width: 100%;
  max-width: 350px;
 }
 .texts {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+<<<<<<< HEAD
   height: 60%;
   margin-left:20px;
+=======
+  height: 30%;
+  margin-left: 10px;
+>>>>>>> 145c87271e82f01f09dfbf385c17bc4c4710b77b
 }
 .qr__btn {
   width: 90%;

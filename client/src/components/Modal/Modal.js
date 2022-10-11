@@ -3,25 +3,57 @@ import "./Modal.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { deleteMenu } from "../../api/services/menu";
 import { faCircleXmark } from "@fortawesome/free-regular-svg-icons";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useSelector } from "react-redux";
+import { deleteUserRes } from "../../api/services/reservation-user";
 
-function Modal({ num, setIsConfirmModalOpen, menuId }) {
+function Modal({
+  num,
+  setIsConfirmModalOpen,
+  setIsModalOpen,
+  businessId,
+  qrCodeId,
+  reservationId,
+  resCount,
+}) {
   console.log(menuId);
   const [isClickDelete, setIsClickDelete] = useState(false);
-  const businessId = useSelector((state) => state.business.businessId);
+  const [isResDelete, setResDelete] = useState(null);
+  const adminBusinessId = useSelector((state) => state.business.businessId);
+  const menuId = useSelector((state) => state.menu.menuId);
+  const phoneRef = useRef();
+  const nameRef = useRef();
   //
   const deleteMenuHandler = async () => {
-    console.log("비즈메뉴아이디", businessId, menuId);
-    deleteMenu(businessId, menuId).then((res) => {
+    console.log("비즈메뉴아이디", adminBusinessId, menuId);
+    deleteMenu(adminBusinessId, menuId).then((res) => {
       setIsClickDelete(true);
       setTimeout(() => {
         window.location.reload();
       }, 1000);
     });
   };
+  const resDeleteHandler = () => {
+    const phone = phoneRef.current.value;
+    const name = nameRef.current.value;
+    const count = resCount;
+
+    deleteUserRes(businessId, qrCodeId, reservationId, phone, name, count)
+      .then((res) => {
+        setResDelete(true);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      })
+      .catch((err) => {
+        setResDelete(false);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1500);
+      });
+  };
   return (
-    <div className="modalBackground">
+    <div className={"modalBackground"}>
       <div className="modalContainer">
         <div className="body">
           {num === 7 && (
@@ -29,7 +61,7 @@ function Modal({ num, setIsConfirmModalOpen, menuId }) {
               <FontAwesomeIcon icon={faCircleXmark} />
             </div>
           )}
-          {num !== 7 && (
+          {num !== 7 && num !== 13 && (
             <div className="success-checkmark">
               <div className="check-icon">
                 <span className="icon-line line-tip"></span>
@@ -41,8 +73,6 @@ function Modal({ num, setIsConfirmModalOpen, menuId }) {
           )}
 
           <div className="success-text">
-            {num === 11 && <p>QR 코드가 생성되었습니다!</p>}
-            {num === 11 && <p></p>}
             {num === 9 && <p>재발급 메일이 발송되었습니다</p>}
             {num === 9 && <p>메일을 확인해주세요</p>}
             {num === 0 && <p>환영합니다</p>}
@@ -55,8 +85,12 @@ function Modal({ num, setIsConfirmModalOpen, menuId }) {
             {num === 5 && <p></p>}
             {num === 6 && <p>메뉴등록이 완료 되었습니다</p>}
             {num === 6 && <p></p>}
+            {num === 14 && <p>메뉴등록이 완료 되었습니다</p>}
+            {num === 14 && <p></p>}
             {num === 8 && <p>수정사항이 저장 되었습니다.</p>}
             {num === 8 && <p></p>}
+            {num === 11 && <p>QR 코드가 생성되었습니다!</p>}
+            {num === 11 && <p></p>}
             {num === 7 && isClickDelete === false && (
               <p className="modal__deleteMSG">삭제 하시겠습니까?</p>
             )}
@@ -65,6 +99,20 @@ function Modal({ num, setIsConfirmModalOpen, menuId }) {
             )}
             {num === 7 && isClickDelete === true && (
               <p className="modal__deleteSucessMSG"></p>
+            )}
+            {num === 13 && isResDelete === true && (
+              <p className="res__deleteSucessMSG__top">삭제 처리되었습니다</p>
+            )}
+            {num === 13 && isResDelete === true && (
+              <p className="res__deleteSucessMSG"></p>
+            )}
+            {num === 13 && isResDelete === false && (
+              <p className="res__deleteSucessMSG__top">
+                정보가 일치하지 않습니다
+              </p>
+            )}
+            {num === 13 && isResDelete === false && (
+              <p className="res__deleteSucessMSG">다시 시도해 주세요</p>
             )}
             {num === 7 && isClickDelete === false && (
               <button
@@ -85,6 +133,44 @@ function Modal({ num, setIsConfirmModalOpen, menuId }) {
               >
                 취소
               </button>
+            )}
+            {num === 13 && isResDelete === null && (
+              <div>
+                <p className="cancelTitle"> 예약 취소</p>
+
+                <div className="resNameWrap">
+                  <label className="inputNameLabel" htmlFor="nameInput">
+                    이름
+                  </label>
+                  <input id="nameInput" ref={nameRef} />
+                </div>
+                <div className="resPhoneWrap">
+                  <label className="inputPhoneLabel" htmlFor="phoneInput">
+                    핸드폰 번호
+                  </label>
+                  <input id="phoneInput" ref={phoneRef} />
+                </div>
+
+                <div>
+                  <button
+                    onClick={() => {
+                      resDeleteHandler();
+                    }}
+                    className="res__submitBtn"
+                  >
+                    확인
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsModalOpen(false);
+                      console.log("모달 닫기");
+                    }}
+                    className="res__cancelBtn"
+                  >
+                    취소
+                  </button>
+                </div>
+              </div>
             )}
           </div>
         </div>
