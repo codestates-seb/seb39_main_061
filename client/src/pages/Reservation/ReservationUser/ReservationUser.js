@@ -92,8 +92,9 @@ function ReservationUser() {
           });
         });
 
-      // alert(`${name}님의 예약이 등록되었습니다.`);
-      // console.log("예약");
+      e.target.name.value = "";
+      setNum("");
+      e.target.count.value = "";
     }
   };
 
