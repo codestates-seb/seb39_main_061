@@ -3,7 +3,7 @@ import 'react-calendar/dist/Calendar.css';
 import React, { useState } from 'react';
 import moment from 'moment';
 import styles from "./Calendar.module.css";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { dashboardActions } from "../../store/dashboard";
 import { useEffect } from 'react';
 import { getDashboard } from "./../../api/services/dashboard"
@@ -32,32 +32,29 @@ import { getBusinessId, getQRcodeInfo } from "../../api/services/createQrcode"
 const DashboardCalendar = () => {
   const dispatch = useDispatch();
   const [value, onChange] = useState(new Date());
-  const [getTime, setGetTime] = useState([]);
-  const [businessIdget, setBusinessIdget] = useState(0);
-  const [qrcodeIdget, setQrcodeIdget] = useState(0);
-  
+  // const [getTime, setGetTime] = useState([]);
+  // const [businessIdget, setBusinessIdget] = useState(0);
+  // const [qrcodeIdget, setQrcodeIdget] = useState(0);
+  const businessIdSelector = useSelector(state => state.dashboard.businessId);
+  const qrCodeIdSelector = useSelector(state => state.dashboard.qrCodeId);
+
 
   let clickDate = moment(value).format("YYYYMMDD")
   let today = moment().format("YYYYMMDD")
 
   const dateValue = () => {
-    return value === null? today : clickDate
+    return value !== null ? clickDate : today
   }
-  
+
   useEffect(() => {
     getBusinessId()
-    // .then(res => console.log(res))
-    .then(res => setBusinessIdget(res.businessId))
-    getQRcodeInfo(businessIdget)
-    // .then(res => console.log(res))
-    .then(res => setQrcodeIdget(res[1].qrCodeId))
-    getDashboard(businessIdget, qrcodeIdget, dateValue())
-    .then(res => console.log(res))
-    // .then(getTimeData => setGetTime(getTimeData.time))
-    // .then(getTimeData => console.log(getTimeData))
-    // dispatch(dashboardActions.setTime(getTime))
-    // dispatch(dashboardActions.setClickDate(clickDate))
-    
+      // .then(res => console.log(res))
+      .then(res => { dispatch(dashboardActions.setBusinessId(res.businessId)) })
+    getQRcodeInfo(businessIdSelector)
+      .then(res => dispatch(dashboardActions.setQrCodeId(res[0].qrCodeId)))
+    getDashboard(businessIdSelector, qrCodeIdSelector, dateValue())
+      .then(res => { dispatch(dashboardActions.setTime(res.time)) })
+    dispatch(dashboardActions.setClickDate(clickDate))
   }, [value])
 
   return (

@@ -21,7 +21,7 @@ const WeekApexChart = () => {
 
   // 주간 예약자 통계
   const weekBook = () => {
-    console.log(weekData)
+    // console.log(weekData)
     const arr = [];
     if (weekData !== null) {
       const nWeek = weekData.filter((day) => day.deleted === "N");

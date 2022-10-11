@@ -68,7 +68,8 @@ function App() {
         {isLogin && (
           <Route path="store-management" element={<StoreManagement />}></Route>
         )}
-        <Route path="*" element={<Login />}></Route>
+        <Route path="*" element={<MainPage />}></Route>
+        <Route path="/login" element={<Login />}></Route>
         <Route path="/email-validation" element={<EmailValidation />}></Route>
         <Route path="/oauth2/redirect" element={<Register />}></Route>
       </Routes>

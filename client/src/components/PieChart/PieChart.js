@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Chart from "react-apexcharts";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -38,67 +38,61 @@ const ApexChart = () => {
   const timeData = useSelector(state => state.dashboard.time)
   const clickData = useSelector(state => state.dashboard.clickDate)
   const [time, setTime] = useState([]);
-  // console.log("달력에서 클릭한 날짜:", clickData)
-  // console.log("달력에서 클릭한 날짜 데이터:", timeData)
+  console.log("달력에서 클릭한 날짜:", clickData)
+  console.log("달력에서 클릭한 날짜 데이터:", timeData)
   // console.log(time)
 
+  // ntime = 
+  // 0:{ deleted: 'N', date: '17', count: 5 }
+  // 1:{ deleted: 'N', date: '18', count: 5 }
+  const nTime = timeData.filter(day => day.deleted === "N")
+
+  const timeHandler = useCallback(async () => {
+    console.log(nTime)
+    let hours = [0,0,0,0,0,0,0,0];
+    console.log(nTime)
+    if (nTime.length !== 0) {
+      console.log(nTime[0])
+      for (let i = 0; i < nTime.length; i++) {
+        let dated = nTime[i].date // 시간
+        let count = nTime[i].count // 예약자 수
+        if (dated >= 21) {
+          hours[7] = count
+        } 
+        if (dated < 21 && dated >= 18) {
+          hours[6] = count
+        } 
+        if (dated < 18 && dated >= 15) {
+          hours[5] = count
+        } 
+        if (dated < 15 && dated >= 12) {
+          hours[4] = count
+        } 
+        if (dated < 12 && dated >= 9) {
+          hours[3] = count
+        } 
+        if (dated < 9 && dated >= 6) {
+          hours[2] = count
+        } 
+        if (dated < 6 && dated >= 3) {
+          hours[1] = count
+        } 
+        if (dated < 3) {
+          hours[0] = count
+        }
+      }
+      console.log(hours)
+      setTime(hours)
+    } else {
+      setTime(hours)
+    }
+    // console.log(hours)
+  }, [nTime])
+
   useEffect(() => {
-    // const nTime = timeData.filter(day => day.deleted === "N")
-    // ntime = 
-    // 0:{ deleted: 'N', date: '17', count: 5 }
-    // 1:{ deleted: 'N', date: '18', count: 5 }
-    // const timeHandler = () => {
-    //   let hours = [];
-    //   for (let i = 0; i <= 7; i++) {
-    //     let dated = nTime[i].date
-    //     let count = nTime[i].count
-    //     if (dated >= 21) {
-    //       hours.unshift(count)
-    //     } else {
-    //       hours.unshift(0)
-    //     }
-    //     if (dated < 21 && dated >= 18) {
-    //       hours.unshift(count)
-    //     } else {
-    //       hours.unshift(0)
-    //     }
-    //     if (dated < 18 && dated >= 15) {
-    //       hours.unshift(count)
-    //     } else {
-    //       hours.unshift(0)
-    //     }
-    //     if (dated < 15 && dated >= 12) {
-    //       hours.unshift(count)
-    //     } else {
-    //       hours.unshift(0)
-    //     }
-    //     if (dated < 12 && dated >= 9) {
-    //       hours.unshift(count)
-    //     } else {
-    //       hours.unshift(0)
-    //     }
-    //     if (dated < 9 && dated >= 6) {
-    //       hours.unshift(count)
-    //     } else {
-    //       hours.unshift(0)
-    //     }
-    //     if (dated < 6 && dated >= 3) {
-    //       hours.unshift(count)
-    //     } else {
-    //       hours.unshift(0)
-    //     }
-    //     if (dated < 3) {
-    //       hours.unshift(count)
-    //     } else {
-    //       hours.unshift(0)
-    //     }
-    //     return setTime(hours)
-    //   }
-    // }
-    // console.log(timeHandler())
-    // setTimeout(timeHandler, 30000)
-  }, [])
-  // console.log(time)
+    timeHandler()
+    // setTimeout(timeHandler, 3000)
+  }, [timeData])
 
   const donutData = {
     series: time,
@@ -144,10 +138,10 @@ const ApexChart = () => {
 
   return (
     <div>
-      <Chart options={donutData.options}
+      {time && <Chart options={donutData.options}
         series={donutData.series}
         // series={datehandler()}
-        type="donut" width="95%" />
+        type="donut" width="95%" />}
     </div>
   );
 }

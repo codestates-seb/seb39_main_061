@@ -30,8 +30,6 @@ function CreateQr() {
   const [openModal, setOpenModal] = useState(false);
   const [qrImage, setQrImage] = useState(false);
   const dispatch = useDispatch();
-  const businessIdSelector = useSelector((state) => state.qrcode.businessId);
-  // const qrcodeImgSelector = useSelector((state) => state.qrcode.qrcodeImg);
   const today = new Date();
   // console.log(today);
 
@@ -86,7 +84,6 @@ function CreateQr() {
     dispatch(qrcodeActions.setQrCodeId(res.data.qrCodeId))
     const resTwo = await getBusinessId();
 
-    // dispatch(qrcodeActions.setBusinessId(resTwo.businessId))
     QRCode.toDataURL(
       `${window.location.origin}/business/${resTwo.businessId}/qr-code/${res.data.qrCodeId}`,
       {
@@ -112,10 +109,8 @@ function CreateQr() {
           .then((res) => {
             console.log(res);
             setQrImage(res.qrCodeImg)
-            // dispatch(qrcodeActions.setQrcodeImg(res.qrCodeImg));
             dispatch(qrcodeActions.setTarget(res.target));
             dispatch(qrcodeActions.setDuedate(body.dueDate));
-            // console.log(qrcodeImgSelector)
           })
           .catch((err) => {
             if (err.message === "FIELD ERROR") {
@@ -129,14 +124,17 @@ function CreateQr() {
     );
   };
 
+  const firstDataRendering = async () => {
+    const resBusinessId = await getBusinessId()
+    dispatch(qrcodeActions.setBusinessId(resBusinessId.businessId))
+    const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
+    console.log(resQrcodeId)
+    dispatch(qrcodeActions.setQrcodeImg(resQrcodeId[0].qrCodeImg))
+    setQrImage(resQrcodeId[0].qrCodeImg)
+  };
+
   useEffect(() => {
-    getBusinessId()
-      .then(res => dispatch(qrcodeActions.setBusinessId(res.businessId)))
-      getQRcodeInfo(businessIdSelector)
-      .then(res => {
-        dispatch(qrcodeActions.setQrcodeImg(res[0].qrCodeImg))
-      })
-      .catch((err) => console.log(err))
+    firstDataRendering();
   }, [])
 
   const qrCodeExist = () => {
