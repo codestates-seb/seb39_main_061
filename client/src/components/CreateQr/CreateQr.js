@@ -25,12 +25,11 @@ function CreateQr() {
     dueDate: new Date(),
     qrType: "reservation",
   });
-  const [resData, setResData] = useState({});
-  const [dueDateErr, setDueDateErr] = useState();
-  const [valueDate, onChange] = useState();
+  const [qrCodeCheck, setQrCodeCheck] = useState();
   const [errMessage, setErrMessage] = useState();
   const [openModal, setOpenModal] = useState(false);
   const [qrImage, setQrImage] = useState(false);
+  const [firstQrcode, setFirstQrcode] = useState([]);
   const dispatch = useDispatch();
   const today = new Date();
   // console.log(today);
@@ -83,7 +82,7 @@ function CreateQr() {
   const saveQRCode = async () => {
     const res = await postCreateQRCode(body);
     console.log(res.data.qrCodeId);
-    // dispatch(qrcodeActions.setQrCodeId(res.data.qrCodeId))
+    dispatch(qrcodeActions.setQrCodeId(res.data.qrCodeId));
     const resTwo = await getBusinessId();
 
     QRCode.toDataURL(
@@ -110,7 +109,7 @@ function CreateQr() {
         updateCreateQRCode(formData, resTwo.businessId, res.data.qrCodeId)
           .then((res) => {
             console.log(res);
-            setQrImage(res.qrCodeImg)
+            setQrImage(res.qrCodeImg);
             dispatch(qrcodeActions.setTarget(res.target));
             dispatch(qrcodeActions.setDuedate(body.dueDate));
           })
@@ -119,30 +118,40 @@ function CreateQr() {
               return setErrMessage("QR 코드 명을 입력해주세요!");
             }
           });
-        setOpenModal(true)
-        setTimeout(() =>
-          window.location.reload(), 1500)
+        setOpenModal(true);
+        setTimeout(() => window.location.reload(), 1500);
       }
     );
   };
 
+  const firstQrcodeExist = async () => {
+    const resBusinessId = await getBusinessId();
+    dispatch(qrcodeActions.setBusinessId(resBusinessId.businessId));
+    const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId);
+    console.log(resQrcodeId);
+    setFirstQrcode(resQrcodeId);
+  };
+
   const firstDataRendering = async () => {
-    const resBusinessId = await getBusinessId()
-    dispatch(qrcodeActions.setBusinessId(resBusinessId.businessId))
-    const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
-    console.log(resQrcodeId)
-    dispatch(qrcodeActions.setQrcodeImg(resQrcodeId[0].qrCodeImg))
-    setQrImage(resQrcodeId[0].qrCodeImg)
+    const resBusinessId = await getBusinessId();
+    dispatch(qrcodeActions.setBusinessId(resBusinessId.businessId));
+    const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId);
+    console.log(resQrcodeId);
+    dispatch(qrcodeActions.setQrcodeImg(resQrcodeId[0].qrCodeImg));
+    setQrImage(resQrcodeId[0].qrCodeImg);
   };
 
   useEffect(() => {
-    firstDataRendering();
-  }, [])
+    firstQrcodeExist();
+    console.log(firstQrcode);
+    if (firstQrcode !== []) {
+      firstDataRendering();
+    }
+  }, []);
 
   const qrCodeExist = () => {
-    return setQrCodeCheck("QR 코드가 존재합니다")
-
-  }
+    return setQrCodeCheck("QR 코드가 존재합니다");
+  };
 
   return (
     <div className={styles.qr__container}>
@@ -161,7 +170,7 @@ function CreateQr() {
               })
             }
           />
-          <div className={styles.qr__alertMsg}>{dueDateErr}</div>
+          <div className={styles.qr__alertMsg}>{qrCodeCheck}</div>
         </div>
         <div className={styles.qr__row__container}>
           <div className={styles.qr__infoTxt}>만료 기간을 선택해주세요</div>
@@ -178,7 +187,10 @@ function CreateQr() {
             value={body.dueDate}
           />
           <div>
-            <button onClick={qrImage ? qrCodeExist : saveQRCode} className={styles.qr__btn}>
+            <button
+              onClick={qrImage ? qrCodeExist : saveQRCode}
+              className={styles.qr__btn}
+            >
               생 성
             </button>
             <button onClick={CancelQRCode} className={styles.qr__btn}>

@@ -18,20 +18,15 @@
   width: 100%;
 }
 .qrImg {
- width: 100%;
- max-width: 350px;
+  width: 100%;
+  max-width: 350px;
 }
 .texts {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-<<<<<<< HEAD
   height: 60%;
-  margin-left:20px;
-=======
-  height: 30%;
-  margin-left: 10px;
->>>>>>> 145c87271e82f01f09dfbf385c17bc4c4710b77b
+  margin-left: 20px;
 }
 .qr__btn {
   width: 90%;
@@ -40,9 +35,9 @@
   outline: 0;
   border-radius: 7px;
   color: white;
-  background-color: #256D86;
+  background-color: #256d86;
   font-size: 1rem;
-  box-shadow: 1px 1px 0 rgb(0,0,0,0.5);
+  box-shadow: 1px 1px 0 rgb(0, 0, 0, 0.5);
   /* margin-top: 10px; */
 }
 .qr__txt {
