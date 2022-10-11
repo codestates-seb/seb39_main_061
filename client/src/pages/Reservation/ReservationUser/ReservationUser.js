@@ -149,7 +149,7 @@ function ReservationUser() {
           <div className={styles.tables}>
             <table className={styles.table}>
               <thead className={styles.thead}>
-                <tr>
+                <tr className={styles.tr}>
                   <th className={styles.th1}>번호</th>
                   <th className={styles.th}>이름</th>
                   <th className={styles.th}>연락처</th>

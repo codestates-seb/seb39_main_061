@@ -132,7 +132,8 @@ function ReviewUser() {
                   name="contents"
                   required="required"
                   onChange={handleInput}
-                  placeholder="  200자 이내로 입력이 가능합니다."
+                  maxLength={50}
+                  placeholder="  50자 이내로 입력이 가능합니다."
                 />
                 {/* <label for="" className={styles.label}>200자 이내로 입력이 가능합니다.</label> */}
                 <button className={styles.button_res} type="submit">
