@@ -2,13 +2,13 @@ import { createSlice } from "@reduxjs/toolkit";
 // import { asyncChartAxios } from "../library/axios";
 
 const initialState = {
-  month: [{ deleted: "N", date: "2022-09", count: 0 }],
-  week: [{ deleted: "N", date: "2022-09-26", count: 0 }],
-  time: [],
-  clickDate: null,
-  businessId: null,
-  qrCodeId: null,
-  clickTimeData: [],
+    month: [{ deleted: 'N', date: '2022-09', count: 0 }],
+    week: [{ deleted: 'N', date: '2022-09-26', count: 0 }],
+    time: [],
+    clickDate: null,
+    businessId: null,
+    qrCodeId: null,
+    clickTimeData: [],
 };
 
 const dashboardSlice = createSlice({

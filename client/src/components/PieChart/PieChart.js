@@ -3,9 +3,40 @@ import Chart from "react-apexcharts";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+// 더미데이터 테스트
+// const data = {
+//   series:
+//   {
+//     month:
+//       ["20221007", "20221008", "20221009", "20221010", "20221011", "20221012"],
+//   }
+// }
+// const six = [0, 0, 5, 4, 1, 7, 3]
+// const seven = [0, 0, 4, 8, 2, 9, 2]
+// const eight = [0, 0, 4, 8, 2, 9, 2]
+// const nine = [0, 0, 4, 8, 2, 9, 2]
+// const ten = [0, 0, 4, 8, 2, 9, 2]
+// const eleven = [0, 0, 4, 8, 2, 9, 2]
+// const datehandler = () => {
+//   if (data.series.month[0] === timeData) {
+//     return six
+//   } else if (data.series.month[1] === timeData) {
+//     return seven
+//   } else if (data.series.month[2] === timeData) {
+//     return eight
+//   } else if (data.series.month[3] === timeData) {
+//     return nine
+//   } else if (data.series.month[4] === timeData) {
+//     return ten
+//   } else if (data.series.month[5] === timeData) {
+//     return eleven
+//   }
+// }
+// console.log(datehandler())
+
 const ApexChart = () => {
-  const timeData = useSelector((state) => state.dashboard.time);
-  const clickData = useSelector((state) => state.dashboard.clickDate);
+  const timeData = useSelector(state => state.dashboard.time)
+  const clickData = useSelector(state => state.dashboard.clickDate)
   const [time, setTime] = useState([]);
   console.log("달력에서 클릭한 날짜:", clickData);
   console.log("달력에서 클릭한 날짜 데이터:", timeData);
@@ -64,8 +95,7 @@ const ApexChart = () => {
   }, [timeData]);
 
   const donutData = {
-    // series: time,
-    series: [0, 0, 3, 6, 10, 2, 13, 1],
+    series: time,
     options: {
       chart: {
         type: "donut",

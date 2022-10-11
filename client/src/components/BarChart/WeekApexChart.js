@@ -71,10 +71,12 @@ const WeekApexChart = () => {
     {
       name: "주간 예약자 수",
       data: weekBook(),
+      // data: data.series.week,
     },
     {
       name: "주간 예약 취소자 수",
       data: weekCancel(),
+      // data: data.series.cancelData,
     },
   ];
   const options = {
