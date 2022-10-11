@@ -44,7 +44,7 @@ const Header = (title) => {
               await setTimeout(() => purge(), 200);
             }}
           >
-            LOG OUT
+            로그아웃
           </button>
           {profileImg === null || profileImg === undefined ? (
             <img

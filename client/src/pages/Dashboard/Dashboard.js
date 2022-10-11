@@ -14,12 +14,17 @@ import { dashboardActions } from "../../store/dashboard";
 import { getDashboard } from "./../../api/services/dashboard";
 import { getBusinessId, getQRcodeInfo } from "../../api/services/createQrcode"
 import moment from "moment";
+import { useNavigate } from "react-router-dom";
+import Modal from "../../components/Modal/Modal";
+
 
 const Dashboard = () => {
   const title = "대시보드";
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [isBarChart, setIsBarChart] = useState(true);
   const [loading, setLoading] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
   // const [businessIdget, setBusinessIdget] = useState(0);
   // const [qrcodeIdget, setQrcodeIdget] = useState(0);
   const businessIdSelector = useSelector(state => state.dashboard.businessId);
@@ -46,13 +51,20 @@ const Dashboard = () => {
     console.log(resBusinessId.businessId)
     const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
     console.log(resQrcodeId)
-    const resDashboardData = await getDashboard(resBusinessId.businessId, resQrcodeId[0].qrCodeId, today)
-    console.log(resDashboardData)
-    dispatch(dashboardActions.setMonth(resDashboardData.month));
-    dispatch(dashboardActions.setWeek(resDashboardData.week));
-    dispatch(dashboardActions.setTime(resDashboardData.time));
-    setLoading(false)
+    if (resQrcodeId.length !== 0) {
+      const resDashboardData = await getDashboard(resBusinessId.businessId, resQrcodeId[0].qrCodeId, today)
+      console.log(resDashboardData)
+      dispatch(dashboardActions.setMonth(resDashboardData.month));
+      dispatch(dashboardActions.setWeek(resDashboardData.week));
+      dispatch(dashboardActions.setTime(resDashboardData.time));
+      setLoading(false)
+    } else {
+      setOpenModal(true)
+      setTimeout(() =>
+        navigate("/qrcode-management"), 1500)
+    }
   };
+
 
   useEffect(() => {
     firstDataRendering()
@@ -62,9 +74,9 @@ const Dashboard = () => {
     <div className={styles.container}>
       <Sidebar />
       <div className={styles.main_container}>
-        <Header title={title} />
+        <Header title={title} className={styles.header} />
         {loading === false &&
-          <div>
+          <div className={styles.contentsWrap}>
             <div className={styles.flex_container}>
               <div className={styles.componentSector}>
                 <div className={styles.component}>
@@ -106,7 +118,9 @@ const Dashboard = () => {
                 </div>
               </div>
             </div>
-          </div>}
+          </div>
+        }
+        {openModal && <Modal num={10} />}
       </div>
     </div>
   );
