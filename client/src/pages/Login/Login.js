@@ -13,7 +13,7 @@ import Modal from "../../components/Modal/Modal";
 import { useEffect } from "react";
 import { getProfile } from "../../api/services/user";
 import { login } from "../../api/services/auth";
-import { baseURL } from "../../api/axios";
+import { baseURL, clientURL } from "../../api/axios";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -114,7 +114,8 @@ const Login = () => {
         <div className={styles.login__form__oauth}>
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=https://quick-book.ml/oauth2/redirect`}
+            // disbabled
+            // href={`${baseURL}/login/oauth2/authorize/naver?redirect_uri=${clientURL}/oauth2/redirect`}
             >
               <img src={naverLogo} alt="naverLogin" />
             </a>
@@ -122,14 +123,14 @@ const Login = () => {
 
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=https://quick-book.ml/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/kakao?redirect_uri=${clientURL}/oauth2/redirect`}
             >
               <img src={kakaoLogo} alt="kakaoLogin" />
             </a>
           </div>
           <div>
             <a
-              href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=https://quick-book.ml/oauth2/redirect`}
+              href={`${baseURL}/login/oauth2/authorize/google?redirect_uri=${clientURL}/oauth2/redirect`}
             >
               <img src={googleLogo} alt="googleLogin" />
             </a>

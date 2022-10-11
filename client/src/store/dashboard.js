@@ -16,28 +16,27 @@ const dashboardSlice = createSlice({
   initialState: initialState,
   reducers: {
     setMonth(state, action) {
-      state.month = action.payload
+      state.month = action.payload;
     },
     setWeek(state, action) {
-      state.week = action.payload
+      state.week = action.payload;
     },
     setTime(state, action) {
-      state.time = action.payload
+      state.time = action.payload;
     },
     setClickDate(state, action) {
-      state.clickDate = action.payload
+      state.clickDate = action.payload;
     },
     setBusinessId(state, action) {
-      state.businessId = action.payload
+      state.businessId = action.payload;
     },
     setQrCodeId(state, action) {
-      state.qrCodeId = action.payload
+      state.qrCodeId = action.payload;
     },
     setClickTimeData(state, action) {
-      state.clickTimeData = action.payload
+      state.clickTimeData = action.payload;
     },
   },
-
 });
 
 export const dashboardActions = dashboardSlice.actions;

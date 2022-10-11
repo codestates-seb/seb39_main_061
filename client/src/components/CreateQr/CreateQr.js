@@ -109,7 +109,7 @@ function CreateQr() {
         updateCreateQRCode(formData, resTwo.businessId, res.data.qrCodeId)
           .then((res) => {
             console.log(res);
-            setQrImage(res.qrCodeImg)
+            setQrImage(res.qrCodeImg);
             dispatch(qrcodeActions.setTarget(res.target));
             dispatch(qrcodeActions.setDuedate(body.dueDate));
           })
@@ -118,9 +118,8 @@ function CreateQr() {
               return setErrMessage("QR 코드 명을 입력해주세요!");
             }
           });
-        setOpenModal(true)
-        setTimeout(() =>
-          window.location.reload(), 1500)
+        setOpenModal(true);
+        setTimeout(() => window.location.reload(), 1500);
       }
     );
   };
@@ -150,9 +149,8 @@ function CreateQr() {
   }, [])
 
   const qrCodeExist = () => {
-    return setQrCodeCheck("QR 코드가 존재합니다")
-
-  }
+    return setQrCodeCheck("QR 코드가 존재합니다");
+  };
 
   return (
     <div className={styles.qr__container}>
@@ -188,7 +186,10 @@ function CreateQr() {
             value={body.dueDate}
           />
           <div>
-            <button onClick={qrImage ? qrCodeExist : saveQRCode} className={styles.qr__btn}>
+            <button
+              onClick={qrImage ? qrCodeExist : saveQRCode}
+              className={styles.qr__btn}
+            >
               생 성
             </button>
             <button onClick={CancelQRCode} className={styles.qr__btn}>

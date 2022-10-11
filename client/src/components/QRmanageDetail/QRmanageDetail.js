@@ -7,7 +7,11 @@ import { imgURL } from "../../api/axios";
 import ReactToPrint from "react-to-print";
 import { useRef } from "react";
 import { useState, useEffect } from "react";
-import { getBusinessId, getQRcodeInfo, deleteQRcodeImg } from "../../api/services/createQrcode"
+import {
+  getBusinessId,
+  getQRcodeInfo,
+  deleteQRcodeImg,
+} from "../../api/services/createQrcode";
 import { qrcodeActions } from "../../store/qrCode";
 
 const QRmanageDetail = () => {
@@ -40,8 +44,8 @@ const QRmanageDetail = () => {
   };
 
   useEffect(() => {
-    firstDataRendering()
-  }, [])
+    firstDataRendering();
+  }, []);
 
   const deleteQRcode = async () => {
     const resBusinessId = await getBusinessId()
@@ -64,7 +68,9 @@ const QRmanageDetail = () => {
             trigger={() => <button className={styles.qr__btn}>출력하기</button>}
             content={() => componentRef}
           />
-          <button className={styles.qr__btn} onClick={deleteQRcode}>삭제하기</button>
+          <button className={styles.qr__btn} onClick={deleteQRcode}>
+            삭제하기
+          </button>
         </div>
       </div>
     </div>
