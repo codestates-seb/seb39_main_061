@@ -36,7 +36,7 @@ public class AWSS3FileService implements StorageService{
     fileName.replace(0, fileName.lastIndexOf("."), UUID.randomUUID().toString());
     fileName = new StringBuffer().append(path).append("/").append(fileName);
 
-    if(fileExtension.equalsIgnoreCase(".jpg") || fileExtension.equalsIgnoreCase(".png")) {
+    if(fileExtension.equalsIgnoreCase(".jpg") || fileExtension.equalsIgnoreCase(".png") || fileExtension.equalsIgnoreCase(".jpeg")) {
       ObjectMetadata objectMetadata = new ObjectMetadata();
       objectMetadata.setContentType(multipartFile.getContentType());
       try(InputStream inputStream = multipartFile.getInputStream()) {
