@@ -184,7 +184,7 @@ public class QrCodeReservationControllerTest {
             fieldWithPath("target").description("관리 대상").optional(),
             fieldWithPath("qrType").description("QR 코드 타입"),
             fieldWithPath("dueDate").description("QR 코드 만료 기간").optional(),
-            fieldWithPath("businessId").description("지역").ignored()
+            fieldWithPath("businessId").description("매장 식별자").ignored()
           )),
           responseFields(
             List.of(

@@ -9,7 +9,6 @@ import {
   getUserStoreInfo,
   getUserFoodList,
 } from "../../../api/services/reservation-user";
-import Modal from "../../../components/Modal/Modal";
 
 function ReservationUser() {
   const [storeName, setStoreName] = useState("");
@@ -22,12 +21,8 @@ function ReservationUser() {
   const path = location.pathname;
   const businessId = path.substr(10, 1);
   const qrCodeId = path.substr(20, 1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [reservationId, setReservationId] = useState(0);
-  const [resCount, setResCount] = useState("");
 
   const axiosData = async () => {
-    console.log("비즈니스 아이디는?", businessId, "qr은?", qrCodeId);
     getUserStoreInfo(businessId)
       .then((res) => {
         setStoreName(res.data.data.name);
@@ -66,31 +61,14 @@ function ReservationUser() {
     const count = e.target.count.value;
 
     if (phone.includes("*") === true || phone.length === 13) {
-      registerUserRes(businessId, qrCodeId, name, phone, count)
-        .catch((err) => {
-          console.log("에러", err.response.data.message);
-          if (err.response.data.message === "RESERVATION IS ALREADY EXISTS") {
-            alert("이미 예약된 사용자 입니다");
-          }
-          console.log("이유", err.response.data);
-          if (err.response.data.fieldErrors) {
-            alert(err.response.data.fieldErrors[0].reason);
-          }
-        })
-        .then((res) => {
-          axiosData().catch((err) => {
-            console.log(err);
-          });
-        });
-
+      registerUserRes(businessId, qrCodeId, name, phone, count).then(() =>
+        axiosData()
+      );
       // alert(`${name}님의 예약이 등록되었습니다.`);
       console.log("예약");
+    } else {
+      alert(`연락처 11자리를 입력하세요 (-제외)`);
     }
-  };
-
-  const trClickHandler = (resId) => {
-    setIsModalOpen(true);
-    console.log("click", resId);
   };
 
   return (
@@ -131,15 +109,7 @@ function ReservationUser() {
                   })
                   .map((re) => {
                     return (
-                      <tr
-                        onClick={() => {
-                          setReservationId(re.reservationId);
-                          setResCount(re.count);
-                          trClickHandler(re.reservationId);
-                        }}
-                        className={styles.tr}
-                        key={re.reservationId}
-                      >
+                      <tr className={styles.tr} key={re.reservationId}>
                         <td className={styles.td1}>{re.reservationId}</td>
                         <td className={styles.td}>{re.name}</td>
                         <td className={styles.td}>{re.phone}</td>
@@ -201,16 +171,6 @@ function ReservationUser() {
           </form>
         </div>
       </div>
-      {isModalOpen && (
-        <Modal
-          setIsModalOpen={setIsModalOpen}
-          num={13}
-          businessId={businessId}
-          qrCodeId={Number(qrCodeId)}
-          reservationId={reservationId}
-          resCount={resCount}
-        />
-      )}
     </div>
   );
 }
