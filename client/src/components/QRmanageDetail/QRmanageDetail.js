@@ -65,7 +65,9 @@ const QRmanageDetail = () => {
             trigger={() => <button className={styles.qr__btn}>출력하기</button>}
             content={() => componentRef}
           />
-          <button className={styles.qr__btn} onClick={deleteQRcode}>
+          <button className={styles.qr__btn}
+          // onClick={deleteQRcode}
+          >
             삭제하기
           </button>
         </div>
