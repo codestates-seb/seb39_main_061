@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import styles from "./Dashboard.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { dashboardActions } from "../../store/dashboard";
+import { qrcodeActions } from "../../store/qrCode";
 import { getDashboard } from "./../../api/services/dashboard";
 import { getBusinessId, getQRcodeInfo } from "../../api/services/createQrcode"
 import moment from "moment";
@@ -47,12 +48,11 @@ const Dashboard = () => {
   let today = moment().format("YYYYMMDD");
 
   const firstDataRendering = async () => {
-    const resBusinessId = await getBusinessId()
-    console.log(resBusinessId.businessId)
-    const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
+
+    const resQrcodeId = await getQRcodeInfo(businessIdSelector)
     console.log(resQrcodeId)
     if (resQrcodeId.length !== 0) {
-      const resDashboardData = await getDashboard(resBusinessId.businessId, resQrcodeId[0].qrCodeId, today)
+      const resDashboardData = await getDashboard(businessIdSelector, resQrcodeId[0].qrCodeId, today)
       console.log(resDashboardData)
       dispatch(dashboardActions.setMonth(resDashboardData.month));
       dispatch(dashboardActions.setWeek(resDashboardData.week));
@@ -67,7 +67,11 @@ const Dashboard = () => {
 
 
   useEffect(() => {
-    firstDataRendering()
+    getBusinessId()
+      .then(res => {
+        dispatch(qrcodeActions.setBusinessId(res.businessId))
+        firstDataRendering();
+      })
   }, [])
 
   return (
