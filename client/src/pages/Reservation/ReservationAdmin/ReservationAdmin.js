@@ -25,8 +25,11 @@ function ReservationAdmin() {
 
   useEffect(() => {
     getInfo();
+    setInterval(() => {
+      getInfo();
+    }, 30000);
     // eslint-disable-next-line
-  }, [businessId]);
+  }, []);
 
   const getInfo = async () => {
     // 비즈니스 ID 가져오기
@@ -67,7 +70,7 @@ function ReservationAdmin() {
     deleteAdminRes(businessId, qrCodeId, reservationId)
       .then((res) => {
         //console.log(res.message);
-        return axiosData();
+        return getInfo();
       })
       .catch((err) => {});
     alert(`${name}님의 예약이 삭제되었습니다.`);
