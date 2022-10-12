@@ -42,7 +42,7 @@ const MonthApexChart = () => {
     if (monthData !== null) {
       const yMonth = monthData.filter(month => month.deleted === "Y")
       const yMonthSort = yMonth.reverse();
-      const arr = []
+      console.log("취소된 월 데이터 ",yMonthSort)
       for (let i = 0; i < 12; i++) {
         if (yMonthSort[i] === undefined) {
           arr.unshift(0)
