@@ -17,41 +17,38 @@ import { qrcodeActions } from "../../store/qrCode";
 const QRmanageDetail = () => {
   const [getQrCodeImg, setGetQrCodeImg] = useState();
   const [qrTarget, setQrTarget] = useState();
-  // const dueDateSelector = useSelector((state) => state.qrcode.dueDate);
   const businessIdSelector = useSelector((state) => state.qrcode.businessId);
-  const qrcodeIdSelector = useSelector((state) => state.qrcode.qrCodeId);
-  const qrcodeImgSelector = useSelector((state) => state.qrcode.qrcodeImg);
-  const targetSelector = useSelector((state) => state.qrcode.target);
+  // const qrcodeIdSelector = useSelector((state) => state.qrcode.qrCodeId);
+  // const qrcodeImgSelector = useSelector((state) => state.qrcode.qrcodeImg);
+  // const targetSelector = useSelector((state) => state.qrcode.target);
   let componentRef = useRef();
   const dispatch = useDispatch();
 
   // let dueDate = moment(dueDateSelector).format("YYYY년 MM월 DD일");
 
   const firstDataRendering = async () => {
-    const resBusinessId = await getBusinessId()
-    dispatch(qrcodeActions.setBusinessId(resBusinessId.businessId))
-    console.log("businessId: ", resBusinessId.businessId)
-    const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
+    const resQrcodeId = await getQRcodeInfo(businessIdSelector)
     console.log(resQrcodeId)
-    // if (resQrcodeId.length !== 0) {
-    //   dispatch(qrcodeActions.setQrCodeId(resQrcodeId[0].qrCodeId))
-    //   setGetQrCodeImg(resQrcodeId[0].qrCodeImg)
-    //   setQrTarget(resQrcodeId[0].target)
-    //   // dispatch(qrcodeActions.setQrcodeImg(resQrcodeId[0].qrCodeImg))
-    //   // dispatch(qrcodeActions.setTarget(resQrcodeId[0].target))
-    //   console.log("qrcodeId: ", resQrcodeId[0].qrCodeId)
-    // }
+    if (resQrcodeId.length !== 0) {
+      dispatch(qrcodeActions.setQrCodeId(resQrcodeId[0].qrCodeId))
+      setGetQrCodeImg(resQrcodeId[0].qrCodeImg)
+      setQrTarget(resQrcodeId[0].target)
+
+      console.log("qrcodeId: ", resQrcodeId[0].qrCodeId)
+    }
   };
 
   useEffect(() => {
-    firstDataRendering();
+    getBusinessId()
+      .then(res => {
+        dispatch(qrcodeActions.setBusinessId(res.businessId))
+        firstDataRendering();
+      })
   }, []);
 
   const deleteQRcode = async () => {
-    const resBusinessId = await getBusinessId()
-    const resQrcodeId = await getQRcodeInfo(resBusinessId.businessId)
-    console.log(resQrcodeId)
-    deleteQRcodeImg(resBusinessId.businessId, resQrcodeId[0].qrCodeId)
+    const resQrcodeId = await getQRcodeInfo(businessIdSelector)
+    deleteQRcodeImg(businessIdSelector, resQrcodeId[0].qrCodeId)
     window.location.reload()
   }
 
