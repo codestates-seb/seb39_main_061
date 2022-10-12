@@ -11,52 +11,60 @@ import { getBusInfo } from "../../../api/services/reservation-admin.js";
 import { HiTrash } from "react-icons/hi";
 import { BsFillPhoneVibrateFill } from "react-icons/bs";
 import Header from "../../../components/Header/Header.js";
+import qrCode from "../../../store/qrCode.js";
+import { getQRcodeInfo } from "../../../api/services/createQrcode.js";
 function ReservationAdmin() {
   const title = "예약관리";
 
   const [businessId, setBusinessId] = useState("");
 
   const [storeName, setStoreName] = useState("");
+  const [qrCodeId, setQrCodeId] = useState();
 
   const [res, setRes] = useState([]);
 
   useEffect(() => {
-    axiosData();
+    getInfo();
     // eslint-disable-next-line
   }, [businessId]);
 
-  const axiosData = async () => {
-    getBusInfo()
-      .then((res) => {
-        setBusinessId(res.data.data.businessId);
-        setStoreName(res.data.data.name);
-      })
-
-      .then(() => {
-        if (typeof businessId === "number") {
-          getAdminResList(businessId, 1).then((res) => {
-            return setRes(res.data);
-          });
-        }
-      })
-
-      .catch((err) => {
-        console.log("Error >>", err);
-      });
+  const getInfo = async () => {
+    // 비즈니스 ID 가져오기
+    const business = await getBusInfo();
+    setBusinessId(business.data.data.businessId);
+    setStoreName(business.data.data.name);
+    // QR코드 ID 가져오기
+    const qr = await getQRcodeInfo(business.data.data.businessId);
+    setQrCodeId(qr[0].qrCodeId);
+    // 예약자 명단가져오기
+    const adminResList = await getAdminResList(
+      business.data.data.businessId,
+      qr[0].qrCodeId
+    );
+    // 예약자 리스트 데이터
+    setRes(adminResList.data);
   };
 
-  function notification(reservationId, name) {
-    getResNotification(businessId, 1, reservationId)
+  const axiosData = async () => {
+    getBusInfo().then((res) => {
+      console.log(res);
+      setBusinessId(res.data.data.businessId);
+      setStoreName(res.data.data.name);
+    });
+  };
+
+  function notification(reservationId, name, qrcodeId) {
+    getResNotification(businessId, qrCodeId, reservationId)
       .then((res) => {
-        console.log(reservationId);
-        return axiosData();
+        console.log("알림 성공", reservationId);
+        return getInfo();
       })
       .catch((err) => {});
     alert(`${name}님께 알림을 보냅니다.`);
   }
 
   function deleteUser(reservationId, name, phone) {
-    deleteAdminRes(businessId, 1, reservationId)
+    deleteAdminRes(businessId, qrCodeId, reservationId)
       .then((res) => {
         //console.log(res.message);
         return axiosData();

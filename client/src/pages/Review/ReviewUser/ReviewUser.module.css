@@ -36,6 +36,7 @@
   font-weight: 500;
   display: flex;
   justify-content: center;
+  color: #2b4865;
 }
 .link {
   text-decoration: none;
@@ -61,7 +62,7 @@
   align-items: center;
 }
 .secondTitle > div {
-  margin-left: 135px;
+  margin-left: 125px;
 }
 .tables {
   overflow-y: scroll;
@@ -195,6 +196,22 @@ TD {
 .logo img {
   width: 100px;
   margin-top: 2rem;
+}
+
+@media all and (min-width: 375px) {
+  .secondTitle > div {
+    margin-left: 132px;
+  }
+}
+@media all and (min-width: 390px) {
+  .secondTitle > div {
+    margin-left: 140px;
+  }
+}
+@media all and (min-width: 412px) {
+  .secondTitle > div {
+    margin-left: 150px;
+  }
 }
 @media all and (min-height: 667px) {
   .pages {

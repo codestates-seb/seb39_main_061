@@ -57,6 +57,7 @@
   font-weight: 500;
   margin-bottom: 8px;
   font-size: 30px;
+  color: #2b4865;
 }
 
 .subtitle {
@@ -84,7 +85,10 @@
   margin-bottom: 10px;
 }
 .phone > span:first-child {
-  margin-right: 60px;
+  margin-right: 34px;
+}
+.phone > span:last-child {
+  color: #2b4865;
 }
 
 .tables {
@@ -336,6 +340,27 @@ TD {
 
 .submit label {
   padding-left: 16px;
+}
+
+@media all and (min-width: 375px) {
+  .phone > span:first-child {
+    margin-right: 44px;
+  }
+}
+@media all and (min-width: 390px) {
+  .phone > span:first-child {
+    margin-right: 48px;
+  }
+}
+@media all and (min-width: 412px) {
+  .phone > span:first-child {
+    margin-right: 60px;
+  }
+}
+@media all and (min-width: 417px) {
+  .phone > span:first-child {
+    margin-right: 63px;
+  }
 }
 
 @media all and (min-height: 667px) {
