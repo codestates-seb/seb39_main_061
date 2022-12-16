@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { modalActions } from "../../store/modal";
 
-import FormInput from "../../components/SignFormInput/SignFormInput";
+import FormInput from "../../components/FormInput/FormInput";
 import OauthIcons from "../../components/OauthIcons/OauthIcons";
 
 import { inputs } from "../../constant";
@@ -139,6 +139,10 @@ const Form = styled.form`
   background-color: white;
   border-radius: 15px;
   padding: 30px 70px;
+
+  @media (max-width: 768px) {
+    height: 100vh;
+  }
 `;
 
 const Title = styled.h1`
