@@ -13,30 +13,17 @@ export const login = (email, password) => {
     });
 };
 
-export const signUpReq = (
-  email,
-  password,
-  name,
-  businessName,
-  phone,
-  sectorId
-) => {
-  return axios
-    .post(`${baseURL}/auth/signup`, {
-      email,
-      password,
-      name,
-      businessName,
-      phone,
-      role: "reservation",
-      sectorId,
-    })
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      return err.response.data;
-    });
+export const signUpReq = async (userValue) => {
+  const { email, password, name, businessName, phone } = userValue;
+  const res = await axios.post(`${baseURL}/auth/signup`, {
+    email,
+    password,
+    name,
+    businessName,
+    phone,
+    role: "reservation",
+  });
+  return res.data;
 };
 
 export const oauthReq = (businessName, phone, name) => {

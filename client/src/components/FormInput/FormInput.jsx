@@ -51,7 +51,7 @@ const Input = styled.input`
   width: 65%;
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
-  padding: 15px;
+  padding: 15px 0px;
   margin-right: 5px;
   font-size: 14px;
 `;

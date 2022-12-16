@@ -23,7 +23,6 @@ const Profile = () => {
   useEffect(() => {
     getProfile()
       .then((userData) => {
-        console.log(userData);
         setUserInfo(userData);
       })
       .catch((err) => {
@@ -33,8 +32,6 @@ const Profile = () => {
         navigate("/login");
       });
   }, []);
-
-  console.log(imgURL);
 
   return (
     <div className={styles.container}>

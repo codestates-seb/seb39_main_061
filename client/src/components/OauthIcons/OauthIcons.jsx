@@ -14,7 +14,7 @@ const OauthIcons = () => {
   return (
     <Container>
       <div>
-        <a>
+        <a href="#!">
           <Icon src={naverLogo} alt="naver logo" />
         </a>
       </div>

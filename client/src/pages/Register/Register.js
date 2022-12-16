@@ -20,6 +20,7 @@ const Register = () => {
   const [modalOpen, setIsModalOpen] = useState(false);
   const [page, setPage] = useState("register");
   const [changeCSS, setChangeCSS] = useState(false);
+
   useEffect(() => {
     setChangeCSS(true);
   }, [changeCSS]);
@@ -31,13 +32,10 @@ const Register = () => {
 
   window.history.pushState("", pageTitle, `/oauth2`);
 
-  // 인증 됐으면 바로 로그인 -> 유저데이터 받아오기 -> 대시보드
   const checkValidation = async () => {
     if (oauthValidation === true) {
       setPage("login");
       localStorage.setItem("token", token);
-      // const userData = await getProfile();
-      // dispatch(userAction.setUser(userData));
       setIsModalOpen(true);
       setTimeout(() => {
         navigate("/dashboard");
@@ -59,7 +57,6 @@ const Register = () => {
     );
   };
 
-  //인증 false -> 추가 기입 전송 -> 로그인,유저데이터 받아오기
   const handlerSubmit = async () => {
     const businessName = businessNameRef.current.value;
     const name = nameRef.current.value;
@@ -70,6 +67,7 @@ const Register = () => {
       setValidationMSG("상호명을 입력해주세요");
       return;
     }
+
     let phoneCheck = /^[0-9]{2,3}-[0-9]{3,4}-[0-9]{4}/;
     let kor_check = /([^가-힣ㄱ-ㅎㅏ-ㅣ\x20])/i;
     if (kor_check.test(businessName)) {
@@ -93,7 +91,6 @@ const Register = () => {
     const res = await oauthReq(businessName, phone, name);
     if (res.status === 200) {
       setValidationMSG("");
-      console.log("추가전송");
       localStorage.setItem("token", res.data.data.accessToken);
       setIsModalOpen(true);
       setTimeout(() => {
@@ -105,12 +102,10 @@ const Register = () => {
   return (
     <div className={styles.register}>
       {page === "login" && <Login />}
-      {/* <p>{location.search}</p> */}
       {page === "register" && (
         <div className={styles.register__form}>
           <div className={styles.register__form__title}>
             <h1>회원가입</h1>
-            {/* <img src={mainLogo} alt="react" /> */}
           </div>
           <div className={styles.register__form__validation}>
             {changeCSS === false ? (
