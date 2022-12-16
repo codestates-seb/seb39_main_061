@@ -74,12 +74,7 @@
   width: 100px;
   padding-bottom: 5px;
 }
-.signUp__form__input__email,
-.signUp__form__input__password,
-.signUp__form__input__passwordCheck,
-.signUp__form__input__name,
-.signUp__form__input__bussnissName,
-.signUp__form__input__phone {
+.signUp__form__input__email {
   width: 300px;
   display: flex;
   justify-content: space-between;

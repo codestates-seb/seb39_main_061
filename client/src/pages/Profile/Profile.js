@@ -7,7 +7,7 @@ import { getProfile } from "../../../src/api/services/user";
 import Header from "../../components/Header/Header";
 import { useNavigate } from "react-router-dom";
 import OkModal from "../../components/Modal/Modal";
-import { imgURL } from "../../api/axios"
+import { imgURL } from "../../api/axios";
 
 const Profile = () => {
   const [userInfo, setUserInfo] = useState({});
@@ -34,7 +34,7 @@ const Profile = () => {
       });
   }, []);
 
-  console.log(imgURL)
+  console.log(imgURL);
 
   return (
     <div className={styles.container}>
@@ -52,7 +52,11 @@ const Profile = () => {
                 ) : (
                   <img
                     // src={`${imgURL}${userInfo.profileImg}`}
-                    src={userInfo.profileImg.includes('http') ? `${userInfo.profileImg}` : `${imgURL}${userInfo.profileImg}`}
+                    src={
+                      userInfo.profileImg.includes("http")
+                        ? `${userInfo.profileImg}`
+                        : `${imgURL}${userInfo.profileImg}`
+                    }
                     className={styles.imgPreview}
                     alt="나는 프로필"
                   />
