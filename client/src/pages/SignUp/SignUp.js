@@ -131,7 +131,7 @@ const Container = styled.main`
 `;
 const Form = styled.form`
   display: flex;
-  width: 450px;
+  width: 500px;
   height: 700px;
   justify-content: space-around;
   algin-items: center;
